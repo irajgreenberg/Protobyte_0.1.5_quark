@@ -1,0 +1,86 @@
+<html>
+
+<head>
+<title>OSC Library - Test page for OSCX_SFManControl</title>
+</head>
+<script LANGUAGE="JavaScript">
+<!--
+
+function Loaded()
+{
+UpdateButton_OnClick();
+}
+
+function UpdateButton_OnClick()
+{
+	NumDevs.innerText = OSCX_SFManControl.NumDevs;
+	OSCX_TestForm.SoundFontList.innerText = "";
+
+	OSCX_SFManControl.Open(0);
+	for (i=0; i<128; i++)
+	{
+		if (OSCX_SFManControl.BoolIsMIDIBankUsed(i))
+		{
+			OSCX_TestForm.SoundFontList.insertAdjacentText("BeforeEnd", i + " " + OSCX_SFManControl.LoadedBankDescriptor(i) + "\n");
+		}
+	}
+	OSCX_SFManControl.Close();
+
+}
+
+function LoadBank_OnClick()
+{
+	OSCX_SFManControl.Open(0);
+	OSCX_SFManControl.LoadBank(OSCX_TestForm.DestBank.value, OSCX_TestForm.Filename.value);
+	OSCX_SFManControl.Close();
+
+	UpdateButton_OnClick();
+}
+
+-->
+    </script>
+
+
+<body onload="Loaded()">
+
+<h1>The OSC SoundFont Manager ActiveX Control</h1>
+
+<p>This is a webpage that tests the OSCX_SFMan ActiveX Control from the OSC Library at <a
+href="http://www.hammersound.com">HammerSound</a>.</p>
+
+<p>
+<object ID="OSCX_SFManControl" CLASSID="CLSID:1A200132-280C-11D3-9727-8F1BC2D89209">
+</object>
+</p>
+
+<form name="OSCX_TestForm">
+  <table border="1" cellpadding="4">
+    <tr>
+      <td valign="top" align="left">Number of installed SoundFont Devices :</td>
+      <td valign="top" align="left" colspan="2"><a ID="NumDevs">-</a></td>
+    </tr>
+    <tr>
+      <td valign="top" align="left">SoundFont Listing for Device 0</td>
+      <td valign="top" align="left" colspan="2"><textarea ID="SoundFontList" rows="9" cols="41">
+		</textarea> </td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" rowspan="2"><input type="button" value="Load Bank"
+      name="LoadBankButton" onclick="LoadBank_OnClick()"></td>
+      <td valign="top" align="left">Filename:&nbsp; </td>
+      <td valign="top" align="left"><input type="file" name="Filename" size="20"></td>
+    </tr>
+    <tr>
+      <td valign="top" align="left">Destination Bank: </td>
+      <td valign="top" align="left"><input type="text" name="DestBank" size="20" value="10"></td>
+    </tr>
+  </table>
+  <p>&nbsp;<input type="button" value="Update" name="UpdateButton"
+  onclick="UpdateButton_OnClick()"></p>
+</form>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: OSCTutorial - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "D:\WINDOWS\TEMP\RSPA182.TMP" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /I "./../../include" /I "./../../../include" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/OSCTutorial.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\Variable\Kode\OSC\samples\OSCTutorial\OSCTutorial.cpp"
+]
+Creating command line "cl.exe @D:\WINDOWS\TEMP\RSPA182.TMP" 
+Creating temporary file "D:\WINDOWS\TEMP\RSPA183.TMP" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib ./../../lib/osc_ds.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/OSCTutorial.pdb" /debug /machine:I386 /out:"Debug/OSCTutorial.exe" /pdbtype:sept 
+.\Debug\OSCTutorial.obj
+]
+Creating command line "link.exe @D:\WINDOWS\TEMP\RSPA183.TMP"
+<h3>Output Window</h3>
+Compiling...
+OSCTutorial.cpp
+e:\variable\kode\osc\samples\osctutorial\osctutorial.cpp(144) : warning C4786: 'std::reverse_iterator<std::basic_string<char,std::char_traits<char>,std::allocator<char> > const *,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,std::basic_string<char,std::char_traits<char>,std::allocator<char> > const &,std::basic_string<char,std::char_traits<char>,std::allocator<char> > const *,int>' : identifier was truncated to '255' characters in the debug information
+e:\variable\kode\osc\samples\osctutorial\osctutorial.cpp(144) : warning C4786: 'std::reverse_iterator<std::basic_string<char,std::char_traits<char>,std::allocator<char> > *,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,std::basic_string<char,std::char_traits<char>,std::allocator<char> > &,std::basic_string<char,std::char_traits<char>,std::allocator<char> > *,int>' : identifier was truncated to '255' characters in the debug information
+d:\program files\microsoft visual studio\vc98\include\vector(39) : warning C4786: 'std::vector<std::basic_string<char,std::char_traits<char>,std::allocator<char> >,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char> > > >::vector<std::basic_string<char,std::char_traits<char>,std::allocator<char> >,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char> > > >' : identifier was truncated to '255' characters in the debug information
+d:\program files\microsoft visual studio\vc98\include\vector(60) : warning C4786: 'std::vector<std::basic_string<char,std::char_traits<char>,std::allocator<char> >,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char> > > >::~vector<std::basic_string<char,std::char_traits<char>,std::allocator<char> >,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char> > > >' : identifier was truncated to '255' characters in the debug information
+Linking...
+
+
+
+<h3>Results</h3>
+OSCTutorial.exe - 0 error(s), 4 warning(s)
+</pre>
+</body>
+</html>

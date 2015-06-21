@@ -1,0 +1,301 @@
+<html><head><TITLE>OSC_SFManager</TITLE></head>
+<body>
+In file OSC_SFManager.h:<H2><A HREF ="#DOC.DOCU" > <IMG BORDER=0 SRC=down.gif></A> class OSC_SFManager</H2> <br>  <br><BLOCKQUOTE>
+This class is a wrapper class for the SoundFont
+Management System
+</BLOCKQUOTE>
+<hr>
+
+<DL>
+<DL>
+<DT><h3>Public Methods</h3><DD><DT><A HREF="#DOC.6.3"> <IMG BORDER=0 SRC=icon1.gif></A>  <B>OSC_SFManager</B>() </B>
+ <DD><I></I>
+<DT><A HREF="#DOC.6.4"> <IMG BORDER=0 SRC=icon1.gif></A> virtual  <B>~OSC_SFManager</B>() </B>
+ <DD><I></I>
+<DT><A HREF="#DOC.6.5"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>Init</B>() </B>
+ <DD><I> Initialize the SoundFont Manager. Must be called before any of the other functions.</I>
+<DT><A HREF="#DOC.6.6"> <IMG BORDER=0 SRC=icon1.gif></A> bool  <B>SFManError</B>() </B>
+ <DD><I> Returns true if the last SFMS API call returned an error.</I>
+<DT><A HREF="#DOC.6.7"> <IMG BORDER=0 SRC=icon1.gif></A> std::string  <B>GetLastSFManErrorText</B>() </B>
+ <DD><I> Returns a textual description of the last SFMS error</I>
+<DT><A HREF="#DOC.6.8"> <IMG BORDER=0 SRC=icon1.gif></A> int  <B>GetNumDevs</B>() </B>
+ <DD><I> Returns the number of SoundFont compatible devices installed in the system </I>
+<DT><A HREF="#DOC.6.9"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>GetListOfDevices</B>(OSC_StringArray &list, bool includeDeviceNumber = false) </B>
+ <DD><I> Get a list of SoundFont compatible devices</I>
+<DT><A HREF="#DOC.6.10"> <IMG BORDER=0 SRC=icon1.gif></A> bool  <B>IsDeviceFree</B>(int deviceno) </B>
+ <DD><I> Returns true if the specified device is free (and can be opened)</I>
+<DT><A HREF="#DOC.6.11"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>Open</B>(int deviceno) </B>
+ <DD><I> Open the specified device. This must be done before calling any of the functions below.</I>
+<DT><A HREF="#DOC.6.12"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>Close</B>() </B>
+ <DD><I> Close the specified device. This should be done when you're done using the device, letting other applications access the device again.</I>
+<DT><A HREF="#DOC.6.13"> <IMG BORDER=0 SRC=icon1.gif></A> int  <B>GetCurrentOpenDevice</B>() </B>
+ <DD><I> Get the device number for the current open device</I>
+<DT><A HREF="#DOC.6.14"> <IMG BORDER=0 SRC=icon1.gif></A> bool  <B>IsDeviceOpen</B>() </B>
+ <DD><I> Has a device been opened (is this object an open device)</I>
+<DT><A HREF="#DOC.6.15"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>LoadBank</B>(int bankno, const std::string &path) </B>
+ <DD><I> Load a SoundFont (from disk) into a bank (in memory accessible by the SoundFont device)</I>
+<DT><A HREF="#DOC.6.16"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>ClearLoadedBank</B>(int bankno) </B>
+ <DD><I> Clear a loaded bank (remove SoundFont from memory)</I>
+<DT><A HREF="#DOC.6.17"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>ClearAllLoadedBanks</B>(bool alsoBank0 = false) </B>
+ <DD><I> Clear all loaded banks (frees all the memory) except the synthesizer bank (GM/GS)</I>
+<DT><A HREF="#DOC.6.1"> <IMG BORDER=0 SRC=icon1.gif></A> int  <B>IsMIDIBankUsed</B>(int bankno) </B>
+ <DD><I>This function is used to check if a particular bank is in use</I>
+<DT><A HREF="#DOC.6.2"> <IMG BORDER=0 SRC=icon1.gif></A> bool  <B>BoolIsMIDIBankUsed</B>(int bankno) </B>
+ <DD><I>A simplified version of IsMIDIBank used(</I>
+<DT><A HREF="#DOC.6.18"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>LoadPreset</B>(int sourceBankno, int sourcePreset, int destBankno, int destPreset, const std::string &path) </B>
+ <DD><I> Load a preset in a SoundFont on disk into a preset in a bank</I>
+<DT><A HREF="#DOC.6.19"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>ClearLoadedPreset</B>(int bankno, int preset) </B>
+ <DD><I> Clear a loaded preset</I>
+<DT><A HREF="#DOC.6.20"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>LoadWaveform</B>(int destBankno, int destPreset, const std::string &path) </B>
+ <DD><I> Load a waveform on disk into a preset in a bank</I>
+<DT><A HREF="#DOC.6.21"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>ClearLoadedWaveform</B>(int bankno, int preset) </B>
+ <DD><I> Clear a loaded waveform</I>
+<DT><A HREF="#DOC.6.22"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>GetLoadedBankDescriptor</B>(int bankno, std::string &desc) </B>
+ <DD><I> Get the name of the SoundFont in specified bank (as specified inside the SoundFont file by the author)</I>
+<DT><A HREF="#DOC.6.23"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>GetLoadedBankPathname</B>(int bankno, std::string &path) </B>
+ <DD><I> Get the path to the SoundFont in the specified bank</I>
+<DT><A HREF="#DOC.6.24"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>GetLoadedPresetDescriptor</B>(int bankno, int presetno, std::string &desc) </B>
+ <DD><I> Get the name of the specified preset of the SoundFont in the specified bank</I>
+<DT><A HREF="#DOC.6.25"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>GetDevCaps</B>(int deviceno, PSFCAPSOBJECT pCaps) </B>
+ <DD><I> Get the capabilities of the specified device (you don't have to open the device first)</I>
+<DT><A HREF="#DOC.6.26"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>GetDevCaps</B>(PSFCAPSOBJECT pCaps) </B>
+ <DD><I> Get the capabilities of the current open device (see SFMS sdk doc for details)</I>
+<DT><A HREF="#DOC.6.27"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>GetDevName</B>(int deviceno, std:: string &name) </B>
+ <DD><I> Get the name of the speified device (you don't have to open the device first)</I>
+<DT><A HREF="#DOC.6.28"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>GetDevName</B>(std::string &name) </B>
+ <DD><I> Get the name of the current open device</I>
+<DT><A HREF="#DOC.6.29"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>GetDevNo</B>(const std::string &name, int &deviceno) </B>
+ <DD><I> Get the device number of the specified device (name)</I>
+<DT><A HREF="#DOC.6.30"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>QueryStaticSampleMemorySize</B>(int &maxmem, int & availmem) </B>
+ <DD><I> Get the maximum amount of memory and the available memory for the current open device</I>
+<DT><A HREF="#DOC.6.31"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>GetAllSynthEmulations</B>(OSC_StringArray &list) </B>
+ <DD><I> Get a list of supported synthesizer emulations</I>
+<DT><A HREF="#DOC.6.32"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>GetSynthEmulation</B>(int &index, std::string &name) </B>
+ <DD><I> Get the name and index of the current synthesizer emulation</I>
+<DT><A HREF="#DOC.6.33"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>SelectSynthEmulation</B>(int index) </B>
+ <DD><I> Select the new current synthesizer emulation</I>
+<DT><A HREF="#DOC.6.34"> <IMG BORDER=0 SRC=icon1.gif></A> int  <B>GetNumSynthEmulations</B>() </B>
+ <DD><I> </I>
+<DT><A HREF="#DOC.6.35"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>GetSynthEmulationDescription</B>(int index, std::string &name) </B>
+ <DD><I></I>
+</DL></DL>
+<A NAME="DOC.DOCU">
+<hr>
+ <h2> Documentation </h2>
+<BLOCKQUOTE>
+This class is a wrapper class for the SoundFont
+Management System. The SoundFont Management System 
+(SFMS) from Creative Labs is a device independent API
+for SoundFont compatible devices. The API lets the
+programmer load and clear SoundFonts, and retrieve
+information about loaded SoundFonts and about
+the SoundFont compatible device(s).
+
+To use this class, you will need to download and install
+Creative Labs' SoundFont Management System SDK
+from http://developer.soundblaster.com/ (Developer Tools).
+
+To fully understand all the functions in this class,
+it is recommended to read Creative Labs' description
+of the SoundFont Management System included in the above
+mentioned SDK.
+
+For a good example of using this class in a real world program,
+take a look at the source code for SF2LOAD.
+
+
+</BLOCKQUOTE>
+<DL>
+
+<A NAME="OSC_SFManager">
+<A NAME ="DOC.6.3">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B>  OSC_SFManager()</B></TT>
+<DL></DL><P>
+<A NAME="~OSC_SFManager">
+<A NAME ="DOC.6.4">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> virtual  ~OSC_SFManager()</B></TT>
+<DL></DL><P>
+<A NAME="Init">
+<A NAME ="DOC.6.5">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  Init()</B></TT>
+<DD> Initialize the SoundFont Manager. Must be called before any of the other functions.
+<DL></DL><P>
+<A NAME="SFManError">
+<A NAME ="DOC.6.6">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> bool  SFManError()</B></TT>
+<DD> Returns true if the last SFMS API call returned an error.
+<DL></DL><P>
+<A NAME="GetLastSFManErrorText">
+<A NAME ="DOC.6.7">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> std::string  GetLastSFManErrorText()</B></TT>
+<DD> Returns a textual description of the last SFMS error
+<DL></DL><P>
+<A NAME="GetNumDevs">
+<A NAME ="DOC.6.8">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> int  GetNumDevs()</B></TT>
+<DD> Returns the number of SoundFont compatible devices installed in the system 
+<DL></DL><P>
+<A NAME="GetListOfDevices">
+<A NAME ="DOC.6.9">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  GetListOfDevices(OSC_StringArray &list, bool includeDeviceNumber = false)</B></TT>
+<DD> Get a list of SoundFont compatible devices
+<DL></DL><P>
+<A NAME="IsDeviceFree">
+<A NAME ="DOC.6.10">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> bool  IsDeviceFree(int deviceno)</B></TT>
+<DD> Returns true if the specified device is free (and can be opened)
+<DL></DL><P>
+<A NAME="Open">
+<A NAME ="DOC.6.11">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  Open(int deviceno)</B></TT>
+<DD> Open the specified device. This must be done before calling any of the functions below.
+<DL></DL><P>
+<A NAME="Close">
+<A NAME ="DOC.6.12">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  Close()</B></TT>
+<DD> Close the specified device. This should be done when you're done using the device, letting other applications access the device again.
+<DL></DL><P>
+<A NAME="GetCurrentOpenDevice">
+<A NAME ="DOC.6.13">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> int  GetCurrentOpenDevice()</B></TT>
+<DD> Get the device number for the current open device
+<DL></DL><P>
+<A NAME="IsDeviceOpen">
+<A NAME ="DOC.6.14">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> bool  IsDeviceOpen()</B></TT>
+<DD> Has a device been opened (is this object an open device)
+<DL></DL><P>
+<A NAME="LoadBank">
+<A NAME ="DOC.6.15">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  LoadBank(int bankno, const std::string &path)</B></TT>
+<DD> Load a SoundFont (from disk) into a bank (in memory accessible by the SoundFont device)
+<DL></DL><P>
+<A NAME="ClearLoadedBank">
+<A NAME ="DOC.6.16">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  ClearLoadedBank(int bankno)</B></TT>
+<DD> Clear a loaded bank (remove SoundFont from memory)
+<DL></DL><P>
+<A NAME="ClearAllLoadedBanks">
+<A NAME ="DOC.6.17">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  ClearAllLoadedBanks(bool alsoBank0 = false)</B></TT>
+<DD> Clear all loaded banks (frees all the memory) except the synthesizer bank (GM/GS)
+<DL></DL><P>
+<A NAME="IsMIDIBankUsed">
+<A NAME ="DOC.6.1">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> int  IsMIDIBankUsed(int bankno)</B></TT>
+<DD>This function is used to check if a particular bank is in use.
+If the bank is in use, the function will 
+return the number of the bank that owns the specified bank.
+If the bank is not in use, the function will return -1.
+<DL></DL><P>
+<A NAME="BoolIsMIDIBankUsed">
+<A NAME ="DOC.6.2">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> bool  BoolIsMIDIBankUsed(int bankno)</B></TT>
+<DD>A simplified version of IsMIDIBank used(...) that
+returns true if the specified bank is in use
+and it is 'owned' by itself. In other words, if
+a SoundFont has been loaded specifically into this bank, 
+and the bank is not owned by another bank.
+<DL></DL><P>
+<A NAME="LoadPreset">
+<A NAME ="DOC.6.18">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  LoadPreset(int sourceBankno, int sourcePreset, int destBankno, int destPreset, const std::string &path)</B></TT>
+<DD> Load a preset in a SoundFont on disk into a preset in a bank
+<DL></DL><P>
+<A NAME="ClearLoadedPreset">
+<A NAME ="DOC.6.19">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  ClearLoadedPreset(int bankno, int preset)</B></TT>
+<DD> Clear a loaded preset
+<DL></DL><P>
+<A NAME="LoadWaveform">
+<A NAME ="DOC.6.20">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  LoadWaveform(int destBankno, int destPreset, const std::string &path)</B></TT>
+<DD> Load a waveform on disk into a preset in a bank
+<DL></DL><P>
+<A NAME="ClearLoadedWaveform">
+<A NAME ="DOC.6.21">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  ClearLoadedWaveform(int bankno, int preset)</B></TT>
+<DD> Clear a loaded waveform
+<DL></DL><P>
+<A NAME="GetLoadedBankDescriptor">
+<A NAME ="DOC.6.22">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  GetLoadedBankDescriptor(int bankno, std::string &desc)</B></TT>
+<DD> Get the name of the SoundFont in specified bank (as specified inside the SoundFont file by the author)
+<DL></DL><P>
+<A NAME="GetLoadedBankPathname">
+<A NAME ="DOC.6.23">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  GetLoadedBankPathname(int bankno, std::string &path)</B></TT>
+<DD> Get the path to the SoundFont in the specified bank
+<DL></DL><P>
+<A NAME="GetLoadedPresetDescriptor">
+<A NAME ="DOC.6.24">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  GetLoadedPresetDescriptor(int bankno, int presetno, std::string &desc)</B></TT>
+<DD> Get the name of the specified preset of the SoundFont in the specified bank
+<DL></DL><P>
+<A NAME="GetDevCaps">
+<A NAME ="DOC.6.25">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  GetDevCaps(int deviceno, PSFCAPSOBJECT pCaps)</B></TT>
+<DD> Get the capabilities of the specified device (you don't have to open the device first)
+<DL></DL><P>
+<A NAME="GetDevCaps">
+<A NAME ="DOC.6.26">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  GetDevCaps(PSFCAPSOBJECT pCaps)</B></TT>
+<DD> Get the capabilities of the current open device (see SFMS sdk doc for details)
+<DL></DL><P>
+<A NAME="GetDevName">
+<A NAME ="DOC.6.27">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  GetDevName(int deviceno, std:: string &name)</B></TT>
+<DD> Get the name of the speified device (you don't have to open the device first)
+<DL></DL><P>
+<A NAME="GetDevName">
+<A NAME ="DOC.6.28">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  GetDevName(std::string &name)</B></TT>
+<DD> Get the name of the current open device
+<DL></DL><P>
+<A NAME="GetDevNo">
+<A NAME ="DOC.6.29">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  GetDevNo(const std::string &name, int &deviceno)</B></TT>
+<DD> Get the device number of the specified device (name)
+<DL></DL><P>
+<A NAME="QueryStaticSampleMemorySize">
+<A NAME ="DOC.6.30">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  QueryStaticSampleMemorySize(int &maxmem, int & availmem)</B></TT>
+<DD> Get the maximum amount of memory and the available memory for the current open device
+<DL></DL><P>
+<A NAME="GetAllSynthEmulations">
+<A NAME ="DOC.6.31">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  GetAllSynthEmulations(OSC_StringArray &list)</B></TT>
+<DD> Get a list of supported synthesizer emulations
+<DL></DL><P>
+<A NAME="GetSynthEmulation">
+<A NAME ="DOC.6.32">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  GetSynthEmulation(int &index, std::string &name)</B></TT>
+<DD> Get the name and index of the current synthesizer emulation
+<DL></DL><P>
+<A NAME="SelectSynthEmulation">
+<A NAME ="DOC.6.33">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  SelectSynthEmulation(int index)</B></TT>
+<DD> Select the new current synthesizer emulation
+<DL></DL><P>
+<A NAME="GetNumSynthEmulations">
+<A NAME ="DOC.6.34">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> int  GetNumSynthEmulations()</B></TT>
+<DD> 
+<DL></DL><P>
+<A NAME="GetSynthEmulationDescription">
+<A NAME ="DOC.6.35">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  GetSynthEmulationDescription(int index, std::string &name)</B></TT>
+<DL></DL><P></DL>
+<hr>
+ <DL><DT><B>This class has no child classes.</B></DL>
+<DL></DL><P><I><A HREF="aindex.html"> alphabetic index</A></I>  <I><A HREF="HIER.html"> hierarchy of classes</A></I><P><hr>
+<HR>
+</body>
+</html>
+
+
+
+
+
+<P Align=right><I>generated by <A HREF="http://www.zib.de/Visual/software/doc++/index.html">doc++</A></I>
+</BODY>

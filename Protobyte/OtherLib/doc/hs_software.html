@@ -1,0 +1,310 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+<title>HammerSound - Software</title>
+
+<meta name="Microsoft Border" content="none"></head>
+
+<body stylesrc="style.html" bgcolor="#000000" text="#C0C0C0" link="#C0C0C0" vlink="#C0C0C0" alink="#C0C0C0">
+
+<p align="center"><img src="images/top_title_software.jpg" alt="Software at HammerSound" WIDTH="330" HEIGHT="70"></p>
+
+<ul>
+  <li><font face="Arial"><a href="hs_sw_sfx.html">SFExplorer</a> </font></li>
+  <li><a href="#SF2LOAD"><font face="Arial">SF2Load</font></a></li>
+</ul>
+
+<p><a name="SF2LOAD"><big><big><strong><font face="Arial">SF2LOAD</font></strong></big></big></a></p>
+
+<p><font face="Arial"><strong>SF2LOAD v2.1 </strong><small>(April 23. 1999)</small></font>
+
+<ul>
+  <li><a href="hs_software.html#Introduction"><font face="Arial"><small>Introduction</small></font></a></li>
+  <li><a href="hs_software.html#User's Guide"><font face="Arial"><small>User's guide</small></font></a></li>
+  <li><a href="hs_software.html#What's New ?"><font face="Arial"><small>What's new ?</small></font></a></li>
+  <li><a href="hs_software.html#Downloading and Installation"><font face="Arial"><small>Downloading
+    and installation</small></font></a></li>
+  <li><a href="hs_software.html#Known Limitations and Bugs"><font face="Arial"><small>Known
+    limitations and bugs</small></font></a></li>
+  <li><a href="hs_software.html#Planned extensions"><font face="Arial"><small>Planned
+    extensions</small></font></a></li>
+  <li><a href="hs_software.html#Feedback"><font face="Arial"><small>Feedback</small></font></a></li>
+  <li><a href="hs_software.html#License"><font face="Arial"><small>License</small></font></a></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p><a name="Introduction"><strong><small><font face="Arial">Introduction</font></small></strong></a></p>
+
+<p><font size="2" face="Arial">SF2LOAD is a small program that controls the SoundBlaster
+Live!/AWE32/SB32/AWE64 soundcard. It's main purpose is to load SoundFonts into the memory
+of the soundcard. There is of course nothing remarkable about that, you can achieve the
+same thing using the SoundFont - AudioHQ [SBLive] or AWE Control Panel [AWE] program
+included with your soundcard. The reason I made this program was that I got tired of
+manually loading a different set of SoundFonts for every song I made - it's a lot of
+clicking when you use the SoundFont - AudioHQ [SBLive] or AWE Control Panel [AWE], which
+are standard windows programs. SF2LOAD on the other hand is a command-line dos program
+which require no user interaction, and thus can be used in a dos batch file. I use SF2LOAD
+to automagically create a batch file containing all the SoundFonts the song uses, and I
+then run this bat file whenever I want to work with or listen to the song. SF2LOAD is also
+ideal for preparing distribution of songs that use SoundFonts.</font></p>
+
+<p>&nbsp;</p>
+
+<p><a name="User's Guide"><font size="2" face="Arial"><strong>User's Guide</strong></font></a></p>
+
+<p><font size="2" face="Arial">SF2LOAD is run from the command-line, and the syntax is </font></p>
+
+<pre>SF2LOAD  [&lt;option&gt;] [&lt;bank number&gt; &lt;soundfont filename&gt;]</pre>
+
+<p>Available Options:</p>
+
+<pre>-h                Help
+-d &lt;filename&gt;     Create a bat-file for loading all soundfonts currently
+                  in memory. Use full pathnames.
+-dist &lt;filename&gt;  Create a bat-file for loading all soundfonts currently
+                  in memory. Use filenames only (suitable for distribution)
+-distm &lt;filename&gt; Create a bat-file (filename.bat) for loading all soundfonts
+                  in memory. Use filenames only and include a line to
+                  play the MIDI file (filename.mid) using mediaplayer
+-c &lt;bankno&gt;       Clear the specified soundbank (remove it from memory)
+-C                Clear all soundbanks currently in memory
+-n &lt;deviceno&gt;     Set AWE device number (for users with multiple cards)
+-l                List all soundfonts currently in memory
+-L                List all soundfonts currently in memory (with filenames)
+-p &lt;bankno&gt;       List all (melodic) presets in bank
+-i                Print information about the AWE card
+-v                Enable verbose mode
+-nt               Do not print the program title
+-t                Print the program title</pre>
+
+<p><small><font face="Arial"><strong>Examples</strong></font></small></p>
+
+<p><font size="2" face="Arial">To load the soundfont vox.sf2 into bank 3, type</font></p>
+
+<pre>SF2LOAD 3 vox.sf2</pre>
+
+<p><font face="Arial"><font size="2">To load the soundfont</font><font size="1"> </font><small>n:\music\sbk\drums\Sub
+Techno Drums.sf2</small><font size="2"> into bank 1, type</font></font></p>
+
+<pre>sf2load 1 &quot;n:\music\sbk\drums\Sub Techno Drums.sf2&quot;</pre>
+
+<p><small><font face="Arial">To create a batch file to remember the soundfonts used in a
+song, type</font></small></p>
+
+<pre>sf2load -d songname.bat</pre>
+
+<p><small><font face="Arial">The batch file created might look like this:</font></small></p>
+
+<pre>@ECHO OFF
+REM This bat file was created at Tue May 12 15:26:13 1998 by SF2LOAD v1.3
+REM SF2LOAD is (c) 1998 Thomas Hammer thammer@pvv.org
+REM http://www.pvv.org/~thammer/HammerSound
+
+sf2load -t
+
+ECHO Clearing all User Banks
+sf2load -nt -C
+
+ECHO 
+ECHO Loading SoundFonts
+sf2load -nt 1 &quot;N:\music\sbk\4opfm.sf2&quot;
+sf2load -nt 2 &quot;N:\music\sbk\sizzle.sf2&quot;
+sf2load -nt 5 &quot;N:\music\sbk\dv01.sf2&quot;
+ECHO </pre>
+
+<pre><small><font face="Arial">When you want to continue working on the song, or just listen to it. Run this batch file to load the neccessary SoundFonts</font></small></pre>
+
+<p><small><font face="Arial">To distribute your new masterpiece (masterpiece.mid), do the
+following:</font></small> 
+
+<ol>
+  <li><small><font face="Arial">Make sure all the soundfonts your song uses are loaded into
+    the soundcard memory (use sf2load or the AWE Control Panel)</font></small></li>
+  <li><small><font face="Arial">Create a new directory</font></small></li>
+  <li><small><font face="Arial">Copy your midi file (masterpiece.mid) to this directory</font></small></li>
+  <li><small><font face="Arial">Type SF2LOAD -L to list all the soundfonts your song uses, and
+    copy all those soundfonts to this directory</font></small></li>
+  <li><small><font face="Arial">Type SF2LOAD -distrm masterpiece. A batch file called
+    masterpiece.bat has been created.</font></small></li>
+  <li><small><font face="Arial">(Optional) Create a small text file (masterpiece.txt)
+    describing the song, yourself and your contact-info.</font></small></li>
+  <li><small><font face="Arial">(Optional) Copy sf2load.exe to this directory to distribute it
+    with your song (the url for the HammerSound site, where SF2LOAD can be found, is included
+    in the batch file, so the people who haven't got SF2LOAD yet will be able to download it
+    from there)</font></small></li>
+  <li><small><font face="Arial">Compress (zip) all the files in the directory
+    (masterpiece.bat, masterpiece.mid and all the soundfonts, optionally sf2load.exe and
+    masterpiece.txt)</font></small></li>
+  <li><small><font face="Arial">Send the compressed file to all your friends, and to <a href="http://www.telebyte.nl/sound/">Jordan van Bergen's site</a></font></small>.</li>
+</ol>
+
+<p><small><font face="Arial">The batch file created, named masterpiece.bat, might look
+like this:</font></small></p>
+
+<pre>@ECHO OFF
+REM This bat file was created at Tue May 12 15:29:51 1998 by SF2LOAD v1.3
+REM SF2LOAD is (c) 1998 Thomas Hammer thammer@pvv.org
+REM http://www.pvv.org/~thammer/HammerSound
+
+sf2load -t
+
+ECHO Clearing all User Banks
+sf2load -nt -C
+
+ECHO 
+ECHO Loading SoundFonts
+sf2load -nt 1 &quot;4opfm.sf2&quot;
+sf2load -nt 2 &quot;sizzle.sf2&quot;
+sf2load -nt 5 &quot;dv01.sf2&quot;
+ECHO 
+ECHO Starting MediaPlayer for playing MIDI file masterpiece.mid
+start mplayer.exe masterpiece.mid
+ECHO </pre>
+
+<p>&nbsp;</p>
+
+<p><a name="Downloading and Installation"><font size="2" face="Arial"><strong>Downloading
+and Installation</strong></font></a></p>
+
+<p><font face="Arial" size="2">First, read the <a href="hs_software.html#License">license
+agreement</a> below. If you agree, just click this link to download (sf2lv21.zip, 82kB). <strong><a href="http://www.pvv.org/cgi/thammer/soundlink_download2.pl/http://www.pvv.org/~thammer/localfiles/software/sf2lv21.zip">DOWNLOAD</a>
+</strong></font></p>
+
+<p><font size="2" face="Arial">Unzip the compressed file and place the file SF2LOAD.EXE in
+a directory in your search-path (you can put it in the <a href="c:\windows">c:\windows</a>
+directory if you like),</font></p>
+
+<p><small><font face="Arial">You also need the SoundFont Management System from Creative
+Labs, available <a href="http://www.pvv.org/cgi/thammer/soundlink_download2.pl/http://www.pvv.org/~thammer/localfiles/software/sfman.zip">here</a>.
+Please install this before starting to use SF2LOAD.</font></small></p>
+
+<p>&nbsp;</p>
+
+<p><a name="What's New ?"><font size="2" face="Arial"><strong>What's New ?</strong></font></a></p>
+
+<table border="0" cellspacing="0" cellpadding="4">
+  <tr>
+    <td width="0%" valign="top" align="left">v2.1</td>
+    <td width="0%" valign="top" align="left">19990423</td>
+    <td valign="top" align="left">Added an <small><font face="Arial">option to list preset
+    names in a bank, as well as improved error-checking and a few bugfixes.</font></small></td>
+  </tr>
+  <tr>
+    <td width="0%" valign="top" align="left">v2.0b</td>
+    <td width="0%" valign="top" align="left">19990117</td>
+    <td valign="top" align="left"><small><font face="Arial">This version uses the 'SoundFont
+    Management System', and is compatible with all SoundFont devices,<strong> including
+    SBLive!</strong>, AWE64, AWE32 and SB32. The command-line interface is identical to v1.3.</font></small></td>
+  </tr>
+  <tr>
+    <td width="0%" valign="top" align="left">v1.3</td>
+    <td width="0%" valign="top" align="left">19980516</td>
+    <td valign="top" align="left">A lot of bugs fixed &amp; new options added: creating batch
+    file suitable for distribution, soundcard information, listing of soundfonts, clearing
+    soundbanks, support for multiple cards (somewhat limited yet when it comes to bat-file
+    creation, I might improve it if there is sufficient demand)</td>
+  </tr>
+  <tr>
+    <td width="0%" valign="top" align="left">v1.2b</td>
+    <td width="0%" valign="top" align="left">19980308</td>
+    <td valign="top" align="left">Automatic creation of batch files, experimental beta version</td>
+  </tr>
+  <tr>
+    <td width="0%" valign="top" align="left">v1.1</td>
+    <td width="0%" valign="top" align="left">19971117</td>
+    <td valign="top" align="left">Loads SoundFonts into AWE memory</td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<p><a name="Known Limitations and Bugs"><font size="2" face="Arial"><strong>Known
+Limitations and Bugs</strong></font></a></p>
+
+<p><font size="2" face="Arial">SF2LOAD will not work if any other program is currently
+accessing the soundcard. This includes some sequencers (but Vienna is ok). I don't know
+how to overcome this limitation. If anyone can give me a tip, please do so.</font></p>
+
+<p>&nbsp;</p>
+
+<p><a name="Planned extensions"><font size="2" face="Arial"><strong>Planned extensions</strong></font>
+</a>
+
+<ul>
+  <li><font size="2" face="Arial">For distribution: Create a batch file that checks to see if
+    SF2LOAD (is that possible?) is installed. If it's not, the batch file prints the URL
+    (internett address) where people might get SF2LOAD. Then the list of which soundfont goes
+    into which bank is displayed, so the user can use the AWE Control Panel to load the banks</font></li>
+  <li><font size="2" face="Arial">For distribution: Automatically copy all the soundfonts
+    needed, together with midifile and batch file (and optionally a text-file) into a new
+    directory and compress it.=&gt; one-step zip-file creation for distribution.</font></li>
+  <li><font size="2" face="Arial">Just for fun: Sending MIDI commands directly to the card.
+    For 'Multimedia batch files'. ;-)</font></li>
+  <li><font size="2" face="Arial">Setting effects type and mix, trebble and bass. I've had
+    great trouble setting this using the windows AWE manager API, although I'm sure I've done
+    this some years ago. Maybe a bug in Creative's driver? </font></li>
+  <li><font size="2" face="Arial">Setting synth type and path. Same here, tried it with no
+    success. The soundcard loads the emulation soundfont but the driver does not use the
+    loaded soundfont.</font></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p><font face="Arial" size="2"><a name="Feedback"><strong>Feedback</strong></a></font></p>
+
+<p><font size="2" face="Arial">Feedback, such as bug-reports, questions or praise ;-), can
+be sent to <a href="mailto:thammer@pvv.org">thammer@pvv.org</a>. Please include the word
+SF2LOAD in the subject of the mail.</font></p>
+
+<p>&nbsp;</p>
+
+<p><font face="Arial"><strong><small>SF2LOAD v1.3</small> </strong><small>(May 16. 1998)</small></font>
+</p>
+
+<p><font size="2" face="Arial">For those of you wanting to use the old version using the
+aweman.dll, only compatible with AWE32/AWE64/SB32, here it is.</font></p>
+
+<p><font size="2" face="Arial">First, read the <a href="hs_software.html#License">license
+agreement</a> below. If you agree, just click this link to download (sf2ldv13.zip, 82kB). </font><font color="#FFFFFF" face="Arial" size="2"><strong><a href="http://www.pvv.org/cgi/thammer/soundlink_download.pl/http://www.pvv.org/~thammer/localfiles/software/sf2ldv13.zip">DOWNLOAD</a>
+</strong></font></p>
+
+<p>&nbsp;</p>
+
+<p><a name="License"><font size="2" face="Arial"><strong>License</strong></font></a></p>
+
+<p><font size="2" face="Arial">SF2LOAD (the software) is copyright (c) 1997, 1998, 1999
+Thomas Hammer (the author)</font></p>
+
+<p><font size="2" face="Arial">SF2LOAD is freeware for non commercial purposes. If the
+software is to be used for any commercial purpose, an agreement has to be made with the
+author in advance.</font></p>
+
+<p><font size="2" face="Arial">The author hereby grant permission to use, copy and
+distribute the software for any non commercial purpose, provided that existing copyright
+notices are retained in all copies and that this notice is included verbatim in any
+distribution. The software can not be sold (separately, together with other software, as a
+bundle) without written permission from the author (Thomas Hammer). </font></p>
+
+<p><font size="2" face="Arial">IN NO EVENT SHALL THE AUTHOR BE LIABLE TO ANY PARTY FOR
+DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OF
+THIS SOFTWARE, ITS DOCUMENTATION, OR ANY DERIVATIVES THEREOF, EVEN IF THE AUTHOR HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. </font></p>
+
+<p><font size="2" face="Arial">THE AUTHOR SPECIFICALLY DISCLAIMS ANY WARRANTIES,
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE, AND NON-INFRINGEMENT. THIS SOFTWARE IS PROVIDED ON AN &quot;AS
+IS&quot; BASIS, AND THE AUTHOR HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES,
+ENHANCEMENTS, OR MODIFICATIONS. </font></p>
+<!--webbot bot="Include" U-Include="include_bottom.html" TAG="BODY" startspan -->
+
+<p align="center"><img src="http://www.pvv.org/cgi/thammer/al" align="right" width="1" height="1"></p>
+
+<p align="center"><font size="1" face="Arial">[ <a href="index.html" target="_top">HammerSound</a>
+| <a href="hs_sounds.html">Sounds</a> | <a href="hs_sound_design.html">SoundDesign</a> | <a href="hs_software.html">Software</a> | <a href="hs_info_faq.html">Info/Faq</a> | <a href="http://www.pvv.org/cgi/thammer/BBS/bbs_forum.cgi?forum=hsgeneral">MessageBoard</a> |
+<a href="hs_links.html">Links</a> | <a href="hs_feedback.html">Feedback</a> | <a href="hs_about.html">About</a>&nbsp; ]</font></p>
+<!--webbot bot="Include" endspan i-checksum="5144" -->
+
+</body>
+</html>

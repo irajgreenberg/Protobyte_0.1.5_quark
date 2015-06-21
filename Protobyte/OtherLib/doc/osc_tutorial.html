@@ -1,0 +1,479 @@
+<html>
+
+<head>
+<title>OSC - Tutorial</title>
+</head>
+
+<body stylesrc="http://crash/HammerSound/style.html" bgcolor="#000000" text="#C0C0C0" link="#C0C0C0" vlink="#C0C0C0" alink="#C0C0C0">
+
+<h1 align="center"><font face="Arial">OSC - Tutorial</font></h1>
+
+<p><small><font face="Arial">This tutorial uses Microsoft VisualC++ v6.0. The complete
+source code for the finished project can be found in the 'OSC\samples\OSCTutorial\'
+directory.</font></small> 
+
+<ul>
+  <li><a href="#Step 1 - Creating the project"><small><font face="Arial">Step 1 - Creating the
+    project</font></small></a></li>
+  <li><small><font face="Arial"><a href="#Step 2 - Selecting MIDI Output Device">Step 2 -
+    Selecting MIDI Output Device</a></font></small></li>
+  <li><small><font face="Arial"><a href="#Step 3 - MIDI Input">Step 3 - MIDI Input</a></font></small></li>
+  <li><small><font face="Arial"><a href="#Step 4 - Selecting bank and preset">Step 4 -
+    Selecting bank and preset for a SoundFont device</a></font></small></li>
+</ul>
+
+<h2><font face="Arial"><a name="Step 1 - Creating the project">Step 1 - Creating the
+project</a></font></h2>
+
+<p><small><font face="Arial">Start VisualC++</font></small></p>
+
+<p><small><font face="Arial">Create a new project by selecting 'File | New | Projects |
+Win32 Console Application'. Name the new application 'OSCTutorial'. Press [OK]. Select (*)
+An empty project and press [Finish].</font></small></p>
+
+<p><small><font face="Arial">Add the path of the OSC include files to the projects by
+selecting 'Project | Settings | C++ | Preprocessor' and typing the path in the field named
+'Additional include directories', for instance './../../include'.</font></small></p>
+
+<p><small><font face="Arial">Add the OSC library (.lib) to the project by selecting
+'Project | Settings | Link | General' and adding the full path to the osc_ds.lib file to
+the end of the field named 'Object/library modules', for instance './../../lib/osc_ds.lib'.
+(The _ds part in the filename stands for Debug SingleThreaded and is the run-time library
+used by this project (as shown in 'Project | Settings | C++ | Code Generation | Use
+run-time library'). Read the file OSC/lib/readme.txt for details. ).</font></small></p>
+
+<p><small><font face="Arial">In FileView, right click on the project and select 'Add Files
+to Project...'. Type in the filename 'OSCTutorial.cpp', press [OK], then [Yes].</font></small></p>
+
+<p><small><font face="Arial">Open the new file from the FileView in the 'Source Files'
+section. Answer [Yes] when VisualC++ asks if you want to create a new file.</font></small></p>
+
+<p><small><font face="Arial">Type in the following text:</font></small></p>
+
+<table border="1">
+  <tr>
+    <td><pre>#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt;
+
+#include &lt;OSC_MIDIOutput.h&gt;
+
+void main()
+{
+    printf(&quot;--- The OSC Tutorial ---\n\n&quot;);
+
+    OSC_MIDIOutput midiout;
+    OSC_MIDIMessage msg;
+
+    midiout.Open(0);</pre>
+    <pre>    msg.SetMessageType(OSC_MIDI_MESSAGE_NOTE_ON);
+    msg.SetChannel(0);
+    msg.SetNoteNumber(60);
+    msg.SetNoteVelocity(127);
+    midiout.SendMIDIMessage(msg);</pre>
+    <pre>    Sleep(1000);
+    msg.SetMessageType(OSC_MIDI_MESSAGE_NOTE_OFF);
+    midiout.SendMIDIMessage(msg);</pre>
+    <pre>    printf(&quot;Hit a key to exit\n&quot;);
+    getch();</pre>
+    <pre>    midiout.Close();
+};</pre>
+    </td>
+  </tr>
+</table>
+
+<p><small><font face="Arial">Compile the program and run it.</font></small></p>
+
+<p><small><font face="Arial">The program will play a MIDI piano note for 1 second on the
+MIDI device 0 (provided MIDI device 0 is a GM device and it is available).</font></small></p>
+
+<p>&nbsp;</p>
+
+<h2><font face="Arial"><a name="Step 2 - Selecting MIDI Output Device">Step 2 - Selecting
+MIDI Output Device</a></font></h2>
+
+<p><small><font face="Arial">We want to let the user select which MIDI output device to
+use. Replace midiout.Open(0) with the following: </font></small></p>
+
+<table border="1">
+  <tr>
+    <td><pre>    printf(&quot;Select MIDI Output Device:\n&quot;);
+
+    OSC_StringArray devicelist;
+    midiout.GetListOfDevices(devicelist, true);
+
+    for (int i=0; i&lt;devicelist.size(); i++)
+        printf(&quot; %s\n&quot;, devicelist[i].c_str());
+
+    int midioutdevice;
+    scanf(&quot;%d&quot;, &amp;midioutdevice);
+
+    midiout.Open(midioutdevice);
+</pre>
+    </td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<h2><font face="Arial"><a name="Step 3 - MIDI Input">Step 3 - MIDI Input</a></h2>
+
+<p><small><font face="Arial">We'd like the user to be able to play the MIDI notes himself
+using his MIDI keyboard. </font></small></p>
+
+<p><small><font face="Arial">We create our own MIDIInput class, inheriting from
+OSC_MIDIInput, and overriding the MIDIInput(...) function. The source now looks like this:</font></small></p>
+
+<table border="1">
+  <tr>
+    <td><pre>#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt;
+
+#include &lt;OSC_MIDIOutput.h&gt;
+#include &lt;OSC_MIDIInput.h&gt;
+
+class TutorialMIDIInput : public OSC_MIDIInput
+{
+private:
+    OSC_MIDIOutput *m_midiout;
+public:
+    void SetMIDIOutput(OSC_MIDIOutput *out)
+    {
+        m_midiout = out;
+    };
+    virtual void MidiInput(OSC_MIDIMessage message)
+    {
+        m_midiout-&gt;SendMIDIMessage(message);
+    };
+};
+
+void main()
+{
+    printf(&quot;--- The OSC Tutorial ---\n\n&quot;);
+
+    OSC_MIDIOutput midiout;
+    OSC_MIDIMessage msg;
+
+    printf(&quot;Select MIDI Output Device:\n&quot;);
+
+    OSC_StringArray devicelist;
+    midiout.GetListOfDevices(devicelist, true);
+
+    for (int i=0; i&lt;devicelist.size(); i++)
+        printf(&quot;   %s\n&quot;, devicelist[i].c_str());
+
+    int midioutdevice;
+    scanf(&quot;%d&quot;, &amp;midioutdevice);
+
+    midiout.Open(midioutdevice);
+
+    TutorialMIDIInput midiin;
+
+    printf(&quot;Select MIDI Input Device:\n&quot;);
+
+    midiin.GetListOfDevices(devicelist, true);
+
+    for (i=0; i&lt;devicelist.size(); i++)
+        printf(&quot;   %s\n&quot;, devicelist[i].c_str());
+
+    int midiindevice;
+    scanf(&quot;%d&quot;, &amp;midiindevice);
+
+    midiin.SetMIDIOutput(&amp;midiout);
+    midiin.Open(midiindevice);
+    midiin.Start();
+
+    printf(&quot;Listening to MIDI Device %d, playing on MIDI Device %d\n&quot;, 
+        midiindevice, midioutdevice);
+
+    printf(&quot;Hit a key to exit\n&quot;);
+    getch();
+
+    midiin.Stop();
+    midiin.Close();
+    midiout.Close();
+
+};</pre>
+    </td>
+  </tr>
+</table>
+
+<h2><font face="Arial"><br>
+<a name="Step 4 - Selecting bank and preset">Step 4 - Selecting bank and preset</a> for a
+SoundFont device</font></h2>
+
+<p><small><font face="Arial">We now add the ability to select which bank and which preset
+to use. The following code will only work on systems with SoundFont compatible devices
+installed. You will also have to download and install Creative Labs' SoundFont Management
+System. Visit the <a href="osc.html#Download">download page</a> for a link.</font></small></p>
+
+<p><small><font face="Arial">Add the path to the sfman.h file (included in the SoundFont
+Management System) to the projects include files ('Project | Settings | C++ |
+Preprocessor'&nbsp; - 'Additional include directories'), or just copy it (sfman.h) to the
+OSC\include folder.</font></small></p>
+
+<p><small><font face="Arial">Include the OSCSFManager class: #include
+&lt;OSC_SFManager.h&gt;</font></small></p>
+
+<p><small><font face="Arial">List the available SoundFont devices, similar to what we've
+done for midi in and out:</font></small></p>
+
+<table border="1">
+  <tr>
+    <td><pre>    // SoundFonts
+    
+    OSC_SFManager sfman;
+    sfman.Init();
+    
+    printf(&quot;Select SoundFont device (should match the MIDI Output Device):\n&quot;);
+    
+    sfman.GetListOfDevices(devicelist, true);
+
+    for (i=0; i&lt;devicelist.size(); i++)
+        printf(&quot; %s\n&quot;, devicelist[i].c_str());
+
+    int soundfontdevice;
+    scanf(&quot;%d&quot;, &amp;soundfontdevice);
+
+    sfman.Open(soundfontdevice);
+</pre>
+    </td>
+  </tr>
+</table>
+
+<p><small><font face="Arial">List all the banks loaded by that device:</font></small></p>
+
+<table border="1">
+  <tr>
+    <td><pre>    // Banks
+
+    printf(&quot;Select Bank:\n&quot;);
+
+    for (i=0; i&lt;128; i++)
+        if (sfman.BoolIsMIDIBankUsed(i))
+        {
+            std::string name;
+            if ( (sfman.GetLoadedBankDescriptor(i, name)) != OSC_ERR_OK)
+                break;
+            else
+                printf(&quot;[%d] %s\n&quot;, i, name.c_str());
+        }
+
+    int bank;
+    scanf(&quot;%d&quot;, &amp;bank);
+</pre>
+    </td>
+  </tr>
+</table>
+
+<p><font face="Arial"><small>List all the presets in that bank:</small></font></p>
+
+<table border="1">
+  <tr>
+    <td><pre>    // Presets
+
+    printf(&quot;Select Preset:\n&quot;);
+
+    for (i=0; i&lt;128; i++)
+    {
+        std::string presetname;
+        sfman.GetLoadedPresetDescriptor(bank, i, presetname);
+        if (!presetname.empty())
+        {
+            printf(&quot;[%d] %s\n&quot;, i, presetname.c_str());
+        };
+    }
+
+    int preset;
+    scanf(&quot;%d&quot;, &amp;preset);</pre>
+    </td>
+  </tr>
+</table>
+
+<p><small><font face="Arial">Send bank change and program change to the MIDI output
+device:</font></small></p>
+
+<table border="1">
+  <tr>
+    <td><pre>    // Set MIDI bank &amp; preset
+
+    // CC0 bank
+    msg.Clear();
+    msg.SetMessageType(OSC_MIDI_MESSAGE_CONTROL_CHANGE);
+    msg.SetChannel(0);
+    msg.SetControllerNumber(OSC_MIDI_MESSAGE_CONTROL_BANK_SELECT);
+    msg.SetControllerValue(bank);
+    midiout.SendMIDIMessage(msg);
+    // PgChg program
+    msg.Clear();
+    msg.SetMessageType(OSC_MIDI_MESSAGE_PROGRAM_CHANGE);
+    msg.SetChannel(0);
+    msg.SetProgram(preset);
+    midiout.SendMIDIMessage(msg);
+</pre>
+    </td>
+  </tr>
+</table>
+
+<p><small><font face="Arial">Well, that's pretty much it. We now have a program that lets
+the user select a MIDI input and output device, select a soundfont (bank) and select a
+preset. The program receives MIDI input and echoes the input to the output, using the
+selected bank and preset.</font></small></p>
+
+<p><small><font face="Arial">The complete source code looks like this:</font></small></p>
+
+<table border="1">
+  <tr>
+    <td><pre>#include &lt;stdio.h&gt;
+#include &lt;conio.h&gt;
+
+#include &lt;string&gt;
+
+#include &lt;OSC_MIDIOutput.h&gt;
+#include &lt;OSC_MIDIInput.h&gt;
+#include &lt;OSC_SFManager.h&gt;
+
+class TutorialMIDIInput : public OSC_MIDIInput
+{
+private:
+    OSC_MIDIOutput *m_midiout;
+public:
+    void SetMIDIOutput(OSC_MIDIOutput *out)
+    {
+        m_midiout = out;
+    };
+    virtual void MidiInput(OSC_MIDIMessage message)
+    {
+        m_midiout-&gt;SendMIDIMessage(message);
+    };
+};
+
+void main()
+{
+    printf(&quot;--- The OSC Tutorial ---\n\n&quot;);
+
+    OSC_MIDIOutput midiout;
+    OSC_MIDIMessage msg;
+
+    // MIDI Output
+
+    printf(&quot;Select MIDI Output Device:\n&quot;);
+
+    OSC_StringArray devicelist;
+    midiout.GetListOfDevices(devicelist, true);
+
+    for (int i=0; i&lt;devicelist.size(); i++)
+        printf(&quot; %s\n&quot;, devicelist[i].c_str());
+
+    int midioutdevice;
+    scanf(&quot;%d&quot;, &amp;midioutdevice);
+
+    midiout.Open(midioutdevice);
+
+    TutorialMIDIInput midiin;
+
+    // MIDI Input
+    
+    printf(&quot;Select MIDI Input Device:\n&quot;);
+
+    midiin.GetListOfDevices(devicelist, true);
+
+    for (i=0; i&lt;devicelist.size(); i++)
+        printf(&quot; %s\n&quot;, devicelist[i].c_str());
+
+    int midiindevice;
+    scanf(&quot;%d&quot;, &amp;midiindevice);
+
+    midiin.SetMIDIOutput(&amp;midiout);
+    midiin.Open(midiindevice);
+
+    // SoundFonts
+    
+    OSC_SFManager sfman;
+    sfman.Init();
+    
+    printf(&quot;Select SoundFont device (should match the MIDI Output Device):\n&quot;);
+    
+    sfman.GetListOfDevices(devicelist, true);
+
+    for (i=0; i&lt;devicelist.size(); i++)
+        printf(&quot; %s\n&quot;, devicelist[i].c_str());
+
+    int soundfontdevice;
+    scanf(&quot;%d&quot;, &amp;soundfontdevice);
+
+    sfman.Open(soundfontdevice);
+
+    // Banks
+
+    printf(&quot;Select Bank:\n&quot;);
+
+    for (i=0; i&lt;128; i++)
+        if (sfman.BoolIsMIDIBankUsed(i))
+        {
+            std::string name;
+            if ( (sfman.GetLoadedBankDescriptor(i, name)) != OSC_ERR_OK)
+                break;
+            else
+                printf(&quot;[%d] %s\n&quot;, i, name.c_str());
+        }
+
+    int bank;
+    scanf(&quot;%d&quot;, &amp;bank);
+
+    // Presets
+
+    printf(&quot;Select Preset:\n&quot;);
+
+    for (i=0; i&lt;128; i++)
+    {
+        std::string presetname;
+        sfman.GetLoadedPresetDescriptor(bank, i, presetname);
+        if (!presetname.empty())
+        {
+            printf(&quot;[%d] %s\n&quot;, i, presetname.c_str());
+        };
+    }
+
+    int preset;
+    scanf(&quot;%d&quot;, &amp;preset);
+
+    // Set MIDI bank &amp; preset
+
+    // CC0 bank
+    msg.Clear();
+    msg.SetMessageType(OSC_MIDI_MESSAGE_CONTROL_CHANGE);
+    msg.SetChannel(0);
+    msg.SetControllerNumber(OSC_MIDI_MESSAGE_CONTROL_BANK_SELECT);
+    msg.SetControllerValue(bank);
+    midiout.SendMIDIMessage(msg);
+    // PgChg program
+    msg.Clear();
+    msg.SetMessageType(OSC_MIDI_MESSAGE_PROGRAM_CHANGE);
+    msg.SetChannel(0);
+    msg.SetProgram(preset);
+    midiout.SendMIDIMessage(msg);
+
+    midiin.Start();
+
+    printf(&quot;Listening to MIDI Device %d, playing on MIDI Device %d\n&quot;, 
+        midiindevice, midioutdevice);
+
+    printf(&quot;Hit a key to exit\n&quot;);
+    getch();
+
+    midiin.Stop();
+    sfman.Close();
+    midiin.Close();
+    midiout.Close();
+
+};</pre>
+    </td>
+  </tr>
+</table>
+
+<p><small><font face="Arial">And that concludes this tutorial. </font></small></p>
+
+<p>&nbsp;</p>
+</font>
+</body>
+</html>

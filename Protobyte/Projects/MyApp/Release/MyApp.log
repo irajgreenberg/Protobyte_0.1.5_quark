@@ -1,0 +1,603 @@
+﻿Build started 6/20/2015 1:58:51 PM.
+     1>Project "C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\MyApp\MyApp.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\ProtoInclude /I..\..\OtherLib\libtess2\Include /I"..\..\OtherLib\glew-1.10.0\glew-1.10.0\include" /I"..\..\OtherLib\glfw-3.0.4.bin.WIN32\include" /I..\..\OtherLib\glm /I..\..\OtherLib\FreeImage.WIN32\Dist /I..\..\OtherLib\dirent\include /I..\..\OtherLib\oscpackLib\include /I..\..\OtherLib\libTriangle\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\ProtoSrc\ProtoBaseApp.cpp ..\..\ProtoSrc\ProtoBlock.cpp ..\..\ProtoSrc\ProtoCamera.cpp ..\..\ProtoSrc\ProtoCephalopod.cpp ..\..\ProtoSrc\ProtoCilia.cpp ..\..\ProtoSrc\ProtoCurve3.cpp ..\..\ProtoSrc\ProtoCylinder.cpp ..\..\ProtoSrc\ProtoEllipse.cpp ..\..\ProtoSrc\ProtoFace3.cpp ..\..\ProtoSrc\ProtoFrenetFrame.cpp ..\..\ProtoSrc\ProtoGeom2.cpp ..\..\ProtoSrc\ProtoGeom3.cpp ..\..\ProtoSrc\ProtoGeosphere.cpp ..\..\ProtoSrc\ProtoGroundPlane.cpp ..\..\ProtoSrc\ProtoJuncusEffusus.cpp ..\..\ProtoSrc\ProtoLight.cpp ..\..\ProtoSrc\ProtoMath.cpp ..\..\ProtoSrc\ProtoOSC.cpp ..\..\ProtoSrc\ProtoPath2.cpp ..\..\ProtoSrc\ProtoPath3.cpp ..\..\ProtoSrc\ProtoPlane.cpp ..\..\ProtoSrc\ProtoPlasm.cpp ..\..\ProtoSrc\ProtoQuaternion.cpp ..\..\ProtoSrc\ProtoRenderer.cpp ..\..\ProtoSrc\ProtoRootBall.cpp ..\..\ProtoSrc\ProtoShader.cpp ..\..\ProtoSrc\ProtoShape3.cpp ..\..\ProtoSrc\ProtoSphere.cpp ..\..\ProtoSrc\ProtoSpline3.cpp ..\..\ProtoSrc\ProtoTentacle.cpp ..\..\ProtoSrc\ProtoTessellator.cpp ..\..\ProtoSrc\ProtoTexture.cpp ..\..\ProtoSrc\ProtoToroid.cpp ..\..\ProtoSrc\ProtoTransformFunction.cpp ..\..\ProtoSrc\ProtoTube.cpp ..\..\ProtoSrc\ProtoUtility.cpp ..\..\ProtoSrc\ProtoVerletBall.cpp ..\..\ProtoSrc\ProtoVerletStick.cpp ..\..\ProtoSrc\ProtoVertex3.cpp ..\..\ProtoSrc\ProtoWorld.cpp ProtoController.cpp ProtoMain.cpp
+         ProtoBaseApp.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoLight.h(93): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoWorld.h(323): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoCephalopod.h(128): warning C4244: 'return' : conversion from 'time_t' to 'long', possible loss of data
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(454): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(457): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(458): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(459): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(460): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(463): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(681): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(138): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(139): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(140): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(141): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(177): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(352): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(400): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(511): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(512): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(513): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(516): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(517): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(518): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(519): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(523): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(524): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(525): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(528): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(530): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(531): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(534): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(535): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(536): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(541): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(542): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(543): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(1591): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(1592): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(1598): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(1602): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(1624): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(1752): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(1762): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(1787): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(1796): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(2083): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(2106): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoBaseApp.cpp(2422): warning C4101: 'gl_texID' : unreferenced local variable
+         ProtoBlock.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoBlock.cpp(97): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(98): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(101): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(102): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(106): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(107): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(110): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(111): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(115): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(116): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(119): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(120): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(124): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(125): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(128): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(129): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(133): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(134): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(137): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(138): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(142): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(143): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(146): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(147): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoBlock.cpp(152): warning C4018: '<' : signed/unsigned mismatch
+         ProtoCamera.cpp
+     1>..\..\ProtoSrc\ProtoCamera.cpp(35): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCamera.cpp(96): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+         ProtoCephalopod.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoCephalopod.h(128): warning C4244: 'return' : conversion from 'time_t' to 'long', possible loss of data
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(31): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(63): warning C4244: 'argument' : conversion from 'time_t' to 'long', possible loss of data
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(75): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(78): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(88): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(92): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(93): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(97): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(98): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(99): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(102): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(102): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(102): warning C4244: 'argument' : conversion from 'float' to 'short', possible loss of data
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(103): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(103): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(103): warning C4244: 'argument' : conversion from 'float' to 'short', possible loss of data
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(162): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(163): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(168): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(169): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(171): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(175): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(179): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(187): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(191): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(195): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(196): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(200): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(201): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(202): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(207): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(208): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(213): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(214): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(226): warning C4244: 'argument' : conversion from 'float' to 'short', possible loss of data
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(226): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(227): warning C4244: 'argument' : conversion from 'float' to 'short', possible loss of data
+     1>..\..\ProtoSrc\ProtoCephalopod.cpp(227): warning C4305: 'argument' : truncation from 'double' to 'float'
+         ProtoCilia.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>..\..\ProtoSrc\ProtoCilia.cpp(74): warning C4018: '<' : signed/unsigned mismatch
+         ProtoCurve3.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>..\..\ProtoSrc\ProtoCurve3.cpp(161): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoCurve3.cpp(171): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCurve3.cpp(172): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCurve3.cpp(173): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCurve3.cpp(184): warning C4018: '<' : signed/unsigned mismatch
+         ProtoCylinder.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoCylinder.cpp(85): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCylinder.cpp(94): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCylinder.cpp(110): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCylinder.cpp(111): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCylinder.cpp(111): warning C4244: 'argument' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCylinder.cpp(112): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCylinder.cpp(125): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoCylinder.cpp(134): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+         ProtoEllipse.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoEllipse.cpp(24): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+         ProtoFace3.cpp
+     1>..\..\ProtoSrc\ProtoFace3.cpp(79): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>..\..\ProtoSrc\ProtoFace3.cpp(82): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>..\..\ProtoSrc\ProtoFace3.cpp(85): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+         ProtoFrenetFrame.cpp
+         ProtoGeom2.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoGeom2.h(319): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(103): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(278): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(294): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(299): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(327): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(346): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(393): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(427): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(513): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(541): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(565): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(566): warning C4244: '*=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(567): warning C4244: '*=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(578): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(579): warning C4244: '*=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeom2.cpp(580): warning C4244: '*=' : conversion from 'double' to 'float', possible loss of data
+         ProtoGeom3.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(103): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(283): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(299): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(304): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(332): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(351): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(398): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(432): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(522): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(550): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(574): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(575): warning C4244: '*=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(576): warning C4244: '*=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(587): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(588): warning C4244: '*=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeom3.cpp(589): warning C4244: '*=' : conversion from 'double' to 'float', possible loss of data
+         ProtoGeosphere.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoGeosphere.cpp(68): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeosphere.cpp(69): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeosphere.cpp(70): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeosphere.cpp(71): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeosphere.cpp(72): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeosphere.cpp(73): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeosphere.cpp(74): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeosphere.cpp(75): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeosphere.cpp(76): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeosphere.cpp(77): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeosphere.cpp(78): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoGeosphere.cpp(79): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+         ProtoGroundPlane.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+         ProtoJuncusEffusus.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(30): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(71): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(79): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(80): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(121): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(138): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(144): warning C4244: 'argument' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(150): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(152): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(160): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(163): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(166): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(169): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(172): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(206): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(209): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(216): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(232): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(238): warning C4244: 'argument' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(246): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(251): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(251): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(263): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(265): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(266): warning C4244: 'argument' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(295): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(299): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(303): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(312): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(337): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(343): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(410): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoJuncusEffusus.cpp(454): warning C4018: '<' : signed/unsigned mismatch
+         ProtoLight.cpp
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoLight.h(93): warning C4305: '=' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoLight.cpp(30): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoLight.cpp(49): warning C4305: 'argument' : truncation from 'double' to 'float'
+         ProtoMath.cpp
+         ProtoOSC.cpp
+     1>..\..\ProtoSrc\ProtoOSC.cpp(81): warning C4101: 'e' : unreferenced local variable
+         ProtoPath2.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoLight.h(93): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoWorld.h(323): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoCephalopod.h(128): warning C4244: 'return' : conversion from 'time_t' to 'long', possible loss of data
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(454): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(457): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(458): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(459): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(460): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(463): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(681): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>..\..\ProtoSrc\ProtoPath2.cpp(139): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoPath2.cpp(157): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoPath2.cpp(183): warning C4018: '<' : signed/unsigned mismatch
+         ProtoPath3.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoPath3.cpp(114): warning C4018: '<' : signed/unsigned mismatch
+         Compiling...
+         ProtoPlane.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+         ProtoPlasm.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY' : macro redefinition
+                 C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\OtherLib\glfw-3.0.4.bin.WIN32\include\GLFW/glfw3.h(92) : see previous definition of 'APIENTRY'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoLight.h(93): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoWorld.h(323): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoCephalopod.h(128): warning C4244: 'return' : conversion from 'time_t' to 'long', possible loss of data
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(454): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(457): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(458): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(459): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(460): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(463): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(681): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(165): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(212): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(212): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(213): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(213): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(214): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(214): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(215): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(215): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(218): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(218): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(219): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(219): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(220): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(220): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(221): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(221): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoPlasm.cpp(347): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoVector4.h(214): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoVector4.h(212) : while compiling class template member function 'ijg::ProtoVector4<int>::ProtoVector4(T,T,T,T,ijg::ProtoVector4<T>::RandFlag)'
+                 with
+                 [
+                     T=int
+                 ]
+                 ..\..\ProtoSrc\ProtoPlasm.cpp(350) : see reference to function template instantiation 'ijg::ProtoVector4<int>::ProtoVector4(T,T,T,T,ijg::ProtoVector4<T>::RandFlag)' being compiled
+                 with
+                 [
+                     T=int
+                 ]
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(144) : see reference to class template instantiation 'ijg::ProtoVector4<int>' being compiled
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoVector4.h(214): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoVector4.h(215): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoVector4.h(215): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoVector4.h(216): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoVector4.h(216): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoVector4.h(217): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoVector4.h(217): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+         ProtoQuaternion.cpp
+         ProtoRenderer.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+         ProtoRootBall.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoRootBall.cpp(144): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoRootBall.cpp(155): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoRootBall.cpp(161): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoRootBall.cpp(164): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoRootBall.cpp(171): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoRootBall.cpp(173): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoRootBall.cpp(192): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoRootBall.cpp(200): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoRootBall.cpp(206): warning C4018: '<' : signed/unsigned mismatch
+         ProtoShader.cpp
+         ProtoShape3.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+         ProtoSphere.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoSphere.cpp(65): warning C4244: 'initializing' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoSphere.cpp(77): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoSphere.cpp(78): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoSphere.cpp(81): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoSphere.cpp(92): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoSphere.cpp(93): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoSphere.cpp(111): warning C4244: '-=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoSphere.cpp(113): warning C4244: '-=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoSphere.cpp(199): warning C4244: 'initializing' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoSphere.cpp(239): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoSphere.cpp(240): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoSphere.cpp(247): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoSphere.cpp(250): warning C4244: '-=' : conversion from 'const double' to 'float', possible loss of data
+         ProtoSpline3.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>..\..\ProtoSrc\ProtoSpline3.cpp(70): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoSpline3.cpp(72): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoSpline3.cpp(277): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoSpline3.cpp(287): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoSpline3.cpp(300): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoSpline3.cpp(306): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoSpline3.cpp(317): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
+     1>..\..\ProtoSrc\ProtoSpline3.cpp(319): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoSpline3.cpp(360): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoSpline3.cpp(427): warning C4018: '<' : signed/unsigned mismatch
+         ProtoTentacle.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoTentacle.cpp(61): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoTentacle.cpp(209): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoTentacle.cpp(224): warning C4244: 'argument' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoTentacle.cpp(270): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>..\..\ProtoSrc\ProtoTentacle.cpp(271): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>..\..\ProtoSrc\ProtoTentacle.cpp(274): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoTentacle.cpp(281): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoTentacle.cpp(282): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoTentacle.cpp(283): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoTentacle.cpp(293): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoTentacle.cpp(293): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoTentacle.cpp(303): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoTentacle.cpp(358): warning C4244: 'initializing' : conversion from 'const double' to 'float', possible loss of data
+         ProtoTessellator.cpp
+     1>..\..\ProtoSrc\ProtoTessellator.cpp(86): warning C4018: '<' : signed/unsigned mismatch
+         ProtoTexture.cpp
+     1>..\..\ProtoSrc\ProtoTexture.cpp(297): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoTexture.cpp(298): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoTexture.cpp(304): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoTexture.cpp(326): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoTexture.cpp(336): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoTexture.cpp(337): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoTexture.cpp(382): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoTexture.cpp(388): warning C4244: '=' : conversion from 'float' to 'BYTE', possible loss of data
+     1>..\..\ProtoSrc\ProtoTexture.cpp(389): warning C4244: '=' : conversion from 'float' to 'BYTE', possible loss of data
+     1>..\..\ProtoSrc\ProtoTexture.cpp(390): warning C4244: '=' : conversion from 'float' to 'BYTE', possible loss of data
+         ProtoToroid.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoToroid.cpp(59): warning C4244: '=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoToroid.cpp(60): warning C4244: '=' : conversion from 'const double' to 'float', possible loss of data
+         ProtoTransformFunction.cpp
+         ProtoTube.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoTube.cpp(44): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoTube.cpp(63): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoTube.cpp(84): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoTube.cpp(105): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoTube.cpp(449): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoTube.cpp(450): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoTube.cpp(477): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoTube.cpp(477): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoTube.cpp(500): warning C4244: '=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoTube.cpp(507): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoTube.cpp(525): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoTube.cpp(530): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>..\..\ProtoSrc\ProtoTube.cpp(531): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         ProtoUtility.cpp
+     1>..\..\ProtoSrc\ProtoUtility.cpp(211): warning C4101: 'length_of_arg' : unreferenced local variable
+         ProtoVerletBall.cpp
+         ProtoVerletStick.cpp
+         ProtoVertex3.cpp
+         ProtoWorld.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoLight.h(93): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoWorld.h(323): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>..\..\ProtoSrc\ProtoWorld.cpp(98): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoWorld.cpp(485): warning C4018: '<' : signed/unsigned mismatch
+     1>..\..\ProtoSrc\ProtoWorld.cpp(493): warning C4018: '<' : signed/unsigned mismatch
+         Compiling...
+         ProtoController.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoLight.h(93): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoWorld.h(323): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoCephalopod.h(128): warning C4244: 'return' : conversion from 'time_t' to 'long', possible loss of data
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(454): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(457): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(458): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(459): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(460): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(463): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(681): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>ProtoController.cpp(4): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>ProtoController.cpp(6): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>ProtoController.cpp(10): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>ProtoController.cpp(22): warning C4244: 'initializing' : conversion from 'const double' to 'float', possible loss of data
+     1>ProtoController.cpp(26): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>ProtoController.cpp(31): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>ProtoController.cpp(33): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+     1>ProtoController.cpp(61): warning C4244: 'initializing' : conversion from 'const double' to 'float', possible loss of data
+         ProtoMain.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY' : macro redefinition
+                 C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\OtherLib\glfw-3.0.4.bin.WIN32\include\GLFW/glfw3.h(92) : see previous definition of 'APIENTRY'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(330): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoLight.h(93): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoWorld.h(323): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoCephalopod.h(128): warning C4244: 'return' : conversion from 'time_t' to 'long', possible loss of data
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(454): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(457): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(458): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(459): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(460): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(463): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(681): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\MyApp\Release\MyApp.exe" /NOLOGO /LIBPATH:..\..\ProtoSrc /LIBPATH:"..\..\OtherLib\glfw-3.0.4.bin.WIN32\lib-msvc110" /LIBPATH:"..\..\OtherLib\glew-1.10.0\glew-1.10.0\lib\Release\Win32" /LIBPATH:..\..\OtherLib\FreeImage.WIN32\Dist /LIBPATH:..\..\OtherLib\oscpackLib /LIBPATH:..\..\OtherLib\libTriangle\lib glew32.lib opengl32.lib glu32.lib glfw3.lib freeImage.lib ws2_32.lib Winmm.lib oscpack.lib triangle.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\MyApp\Release\MyApp.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\MyApp\Release\MyApp.lib" /MACHINE:X86 /SAFESEH Release\ProtoBaseApp.obj
+         Release\ProtoBlock.obj
+         Release\ProtoCamera.obj
+         Release\ProtoCephalopod.obj
+         Release\ProtoCilia.obj
+         Release\ProtoCurve3.obj
+         Release\ProtoCylinder.obj
+         Release\ProtoEllipse.obj
+         Release\ProtoFace3.obj
+         Release\ProtoFrenetFrame.obj
+         Release\ProtoGeom2.obj
+         Release\ProtoGeom3.obj
+         Release\ProtoGeosphere.obj
+         Release\ProtoGroundPlane.obj
+         Release\ProtoJuncusEffusus.obj
+         Release\ProtoLight.obj
+         Release\ProtoMath.obj
+         Release\ProtoOSC.obj
+         Release\ProtoPath2.obj
+         Release\ProtoPath3.obj
+         Release\ProtoPlane.obj
+         Release\ProtoPlasm.obj
+         Release\ProtoQuaternion.obj
+         Release\ProtoRenderer.obj
+         Release\ProtoRootBall.obj
+         Release\ProtoShader.obj
+         Release\ProtoShape3.obj
+         Release\ProtoSphere.obj
+         Release\ProtoSpline3.obj
+         Release\ProtoTentacle.obj
+         Release\ProtoTessellator.obj
+         Release\ProtoTexture.obj
+         Release\ProtoToroid.obj
+         Release\ProtoTransformFunction.obj
+         Release\ProtoTube.obj
+         Release\ProtoUtility.obj
+         Release\ProtoVerletBall.obj
+         Release\ProtoVerletStick.obj
+         Release\ProtoVertex3.obj
+         Release\ProtoWorld.obj
+         Release\ProtoController.obj
+         Release\ProtoMain.obj
+         Generating code
+         Finished generating code
+         MyApp.vcxproj -> C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\MyApp\Release\MyApp.exe
+     1>Done Building Project "C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\MyApp\MyApp.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:01:30.62

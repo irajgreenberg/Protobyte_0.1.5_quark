@@ -1,0 +1,361 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+<title>HammerSound - OSC Documentation</title>
+</head>
+
+<body stylesrc="style.html" bgcolor="#000000" text="#C0C0C0" link="#C0C0C0" vlink="#C0C0C0" alink="#C0C0C0">
+
+<h1 align="center"><font face="Arial">OSC - Documentation</font></h1>
+
+<ul>
+  <li><a href="#Overview"><font face="Arial">Overview</font></a></li>
+  <li><a href="#Installation instructions"><font face="Arial">Installation instructions</font></a></li>
+  <li><a href="#User's Guide"><font face="Arial">User's Guide for C++ programmers</font></a></li>
+  <li><a href="#User's Guide for the ActiveX control"><font face="Arial">User's Guide for the
+    ActiveX control</font></a></li>
+  <li><a href="#Source Code documentation"><font face="Arial">Source code documentation</font></a></li>
+  <li><a href="#Recommended reading"><font face="Arial">Known problems</font></a></li>
+  <li><a href="#History"><font face="Arial">History</font></a></li>
+  <li><a href="#Recommended reading"><font face="Arial">Recommended reading</font></a></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<h2><a name="Overview"><font face="Arial">Overview</font></a></h2>
+
+<p><small><font face="Arial">The OSC Library currently consists of the following</font></small>
+
+<ul>
+  <li><small><font face="Arial">Source code written in C++ for the Windows Platform. </font></small></li>
+  <li><small><font face="Arial">One ActiveX control (for those not programming in C++), which
+    can be used with most modern development environments, like VisualBasic, Delphi, Java,
+    etc.</font></small></li>
+</ul>
+
+<p><small><font face="Arial">The C++ source code has three major classes:</font></small> 
+
+<ul>
+  <li><small><font face="Arial"><a href="source/OSC_MIDIInput.html">OSC_MIDIInput</a> - for
+    MIDI input</font></small></li>
+  <li><small><font face="Arial"><a href="source/OSC_MIDIOutput.html">OSC_MIDIOutput</a> - for
+    MIDI output</font></small></li>
+  <li><small><font face="Arial"><a href="source/OSC_SFManager.html">OSC_SFManager</a> - for
+    SoundFont management (loading, clearing, selecting presets, etc)</font></small></li>
+</ul>
+
+<p><small><font face="Arial">The source code is not tied to any particular C++ compiler,
+allthough it has been developed using Microsoft Visual C++ 6.0.</font></small></p>
+
+<p><small><font face="Arial">The ActiveX control wraps the OSC_SFManager class. The
+control is released for beta-testing to get feedback.</font></small></p>
+
+<p><small><font face="Arial">The current version of the OSC Library (as of June 27. 1999)
+is 1.1.</font></small></p>
+
+<p>&nbsp;</p>
+
+<h2><a name="Installation instructions"><font face="Arial">Installation instructions</font></a></h2>
+
+<p><small><font face="Arial">Download the zip'ed archive and decompress it (using <a href="http://www.winzip.com" target="_top">WinZip</a>, or a similar tool) to a new folder
+on your hard-drive. The folder should be named 'OSC'.</font></small></p>
+
+<p><small><font face="Arial">For SoundFont support, you'll also need the SoundFont
+Management System from Creative Labs, which can be downloaded from <a href="http://developer.soundblaster.com/support/tools/files/sfmansdk.zip">here</a>
+[12.8MB]. All you need is one file (sfman.h), but Creative's license doesn't permit me to
+copy the file, so ...</font></small></p>
+
+<p><small><font face="Arial">To install the ActiveX control (not neccessary for C++
+programmers), just run the file activex/RegisterActiveXControls.bat.</font></small></p>
+
+<p>&nbsp;</p>
+
+<h2><font face="Arial"><a name="User's Guide">User's Guide</a> for C++ programmers</font></h2>
+
+<p><small><font face="Arial">To use the OSC Library in your project, there are a couple of
+things you have to do:</font></small></p>
+
+<p><strong><small><font face="Arial">1. Adding include directories</font></small></strong></p>
+
+<p><small><font face="Arial">Add the path of the OSC include files to the projects. In MS
+Visual C++ you do this by selecting 'Project | Settings | C++ | Preprocessor' and typing
+the path in the field named 'Additional include directories'.</font></small></p>
+
+<p><small><font face="Arial">If you're using the OSC_SFManager class (for SoundFont
+support), add the path to the sfman.h file (included in the SoundFont Management System)
+to the projects include files (In MS Visual C++, 'Project | Settings | C++ | Preprocessor'
+&nbsp; - 'Additional include directories'), or just copy it (sfman.h) to the OSC\include
+folder.</font></small></p>
+
+<p><strong><small><font face="Arial">2. Adding the library-file to the project</font></small></strong></p>
+
+<p><small><font face="Arial">Add the OSC library (.lib) file to the project by selecting
+'Project | Settings | Link | General' and adding the full path to the .lib file to the end
+of the field named 'Object/library modules'.</font></small></p>
+
+<p><small><font face="Arial">There are 6 differend .lib files to choose from, and it is
+important that you choose the library that matches the run-time library you use. If you
+choose the wrong type of library, you'll get lots of linker errors. (In Visual C++, select
+Project | Settings | C++ | Code Generation and look at the the field 'Use run-time
+library').</font></small></p>
+
+<p><small><font face="Arial">Here's the match between OSC libraries and run-time
+libraries:</font></small></p>
+
+<table border="1" cellpadding="3">
+  <tr>
+    <th><small><font face="Arial">OSC Library</font></small></th>
+    <th><small><font face="Arial">Run-time library</font></small></th>
+  </tr>
+  <tr>
+    <td><small><font face="Arial">osc_s.lib </font></small></td>
+    <td><small><font face="Arial">SingleThreaded</font></small></td>
+  </tr>
+  <tr>
+    <td><small><font face="Arial">osc_m.lib </font></small></td>
+    <td><small><font face="Arial">MultiThreaded</font></small></td>
+  </tr>
+  <tr>
+    <td><small><font face="Arial">osd_md.lib </font></small></td>
+    <td><small><font face="Arial">MultiThreaded DLL</font></small></td>
+  </tr>
+  <tr>
+    <td><small><font face="Arial">osc_ds.lib </font></small></td>
+    <td><small><font face="Arial">Debug SingleThreaded</font></small></td>
+  </tr>
+  <tr>
+    <td><small><font face="Arial">osc_dm.lib </font></small></td>
+    <td><small><font face="Arial">Debug MultiThreaded</font></small></td>
+  </tr>
+  <tr>
+    <td><small><font face="Arial">osc_dmd.lib </font></small></td>
+    <td><small><font face="Arial">Debug MultiThreaded DLL</font></small></td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<p><font face="Arial"><small>And that's it. To use the OSC classes, just #include the
+appropriate header file.</small></font></p>
+
+<p><font face="Arial"><small>If you need more guidance, take a look at <a href="#Source Code documentation">the source code documentation</a> for documentation of
+each OSC class. Then dive right into the tutorial and the samples to get started.</small></font></p>
+
+<h3><a name="Tutorial"><font face="Arial">Tutorial</font></a></h3>
+
+<p><small><font face="Arial"><a href="osc_tutorial.html">The tutorial</a> gives a good
+example of what the OSC Library can be used for, as well as a goot introduction to
+actually using it.</font></small></p>
+
+<h3><font face="Arial">Samples</font></h3>
+
+<p><small><font face="Arial">Another good example is the source code for sf2load, which is
+a part of the OSC distribution. This is a real world program which has been downloaded by
+thousands of users.</font></small></p>
+
+<p>&nbsp;</p>
+
+<h2><a name="Source Code documentation"><font face="Arial">Source Code documentation</font></a></h2>
+
+<p><small><font face="Arial">The complete documentation for the OSC source code is
+available on-line. </font></small>
+
+<ul>
+  <li><a href="source/index.html"><small><font face="Arial">Index</font></small></a></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<h2><a name="User's Guide for the ActiveX control"><font face="Arial">User's Guide for the
+ActiveX control</font></a></h2>
+
+<p><small><font face="Arial">The ActiveX control is currently in beta. This means that the
+interface might change later on, and you will need to recompile your programs using this
+ActiveX control when the complete version is released. It will probably be a bad idea to
+release programs using this beta version to the general public. </font></small></p>
+
+<p><small><font face="Arial">I'm very interested in feedback from users of this control.
+Please share your experiences at the <a href="news://news.silco.com/silco.hammersound.osc">OSC
+newsgroup</a>.</font></small></p>
+
+<p><small><font face="Arial">Please remember to register the ActiveX control, as described
+under the section about installation above, before trying to use it.</font></small></p>
+
+<p><small><font face="Arial">You should read the documentation of the <a href="source/OSC_SFManager.html">OSC_SFManager class</a> for a description of the
+different functions. The functions and properties of the ActiveX control closely matches
+the functions in this class. You should also take a look at the example webpage below as
+well as the tutorial.</font></small></p>
+
+<p><small><font face="Arial">The control's properties and functiona are as follows.</font></small></p>
+
+<p><small><font face="Arial">Properties:</font></small> 
+
+<ul>
+  <li><small><font face="Arial">short int NumDevs</font></small></li>
+  <li><small><font face="Arial">BSTR DevName([in] short int deviceno)</font></small></li>
+  <li><small><font face="Arial">VARIANT_BOOL IsDeviceFree([in] short int deviceno)</font></small></li>
+  <li><small><font face="Arial">short int CurrentOpenDevice</font></small></li>
+  <li><small><font face="Arial">VARIANT_BOOL BoolIsMIDIBankUsed([in] short int bankno)</font></small></li>
+  <li><small><font face="Arial">short int IsMIDIBankUsed([in] short int bankno)</font></small></li>
+  <li><small><font face="Arial">BSTR LoadedBankDescriptor([in] short int bankno)</font></small></li>
+  <li><small><font face="Arial">BSTR LoadedBankPathname([in] short int bankno)</font></small></li>
+  <li><small><font face="Arial">int StaticSampleMemorySizeMax</font></small></li>
+  <li><small><font face="Arial">int StaticSampleMemorySizeAvail</font></small></li>
+  <li><small><font face="Arial">short int NumSynthEmulations</font></small></li>
+  <li><small><font face="Arial">BSTR SynthEmulationDescription([in] short int emulationno)</font></small></li>
+  <li><small><font face="Arial">short int CurrentSynthEmulation</font></small></li>
+</ul>
+
+<p><small><font face="Arial">Functions:</font></small> 
+
+<ul>
+  <li><small><font face="Arial">Open([in] short deviceno)</font></small></li>
+  <li><small><font face="Arial">Close()</font></small></li>
+  <li><small><font face="Arial">LoadBank([in] short bankno, [in] BSTR path)</font></small></li>
+  <li><small><font face="Arial">ClearLoadedBank([in] short bankno)</font></small></li>
+  <li><small><font face="Arial">ClearAllLoadedBanks()</font></small></li>
+  <li><small><font face="Arial">LoadPreset([in] short sourceBankno, [in] short sourcePreset,
+    [in] short destBankno, [in] short destPreset, [in] BSTR path)</font></small></li>
+  <li><small><font face="Arial">ClearLoadedPreset([in] short bankno, [in] short preset)</font></small></li>
+  <li><small><font face="Arial">LoadWaveform([in] short destBankno, [in] short destPreset,
+    [in] BSTR path)</font></small></li>
+  <li><small><font face="Arial">ClearLoadedWaveform([in] short bankno, [in] short preset)</font></small></li>
+  <li><small><font face="Arial">StaticSampleMemorySizeMax([out, retval] long *pVal)</font></small></li>
+  <li><small><font face="Arial">StaticSampleMemorySizeAvail([out, retval] long *pVal)</font></small></li>
+</ul>
+
+<p><small><font face="Arial">All functions and properties except Open, NumDevs, DevName
+and IsDeviceFree require that a device has been opened before use.</font></small></p>
+
+<p><small><font face="Arial">I have created a sample that illustrates the use of the
+ActiveX control. The sample is a <a href="OSCX_SFManControl.html">webpage</a> which hosts
+the control and uses JavaScript to control it. The webpage shows the number of installed
+SoundFont devices and shows a list of all soundfonts currently loaded by the first device
+(index 0). The webpage also lets the user select a soundfont on disk and load it into a
+bank. The webpage has only been tested with InternetExplorer v. 4.0 and above and might
+not work with older versions of InternetExplorer or with other browsers. Anyway, it's the
+source code that matters, and it shouldn't be too difficult to translate this example into
+other programming languages.</font></small></p>
+
+<h3><small><font face="Arial">Tutorial for VisualBasic 6.0</font></small></h3>
+
+<p><small><font face="Arial">I am not a VB programmer, so please bear with me.</font></small></p>
+
+<h4><small><font face="Arial">Step 1 - Creating the project and adding the OSC ActiveX
+control</font></small></h4>
+
+<p><small><font face="Arial">Select 'File | New Project' and choose the kind of project
+you want to create. This example uses the 'Standard EXE' project type.</font></small></p>
+
+<p><small><font face="Arial">Select 'Project | Components' and check the box next to the
+OSCX_SFMan Type Library. A new icon should appear on the toolbar on the left (the dockable
+window with the arrow, the different types of controls, etc). This is the icon of the
+OSCX_SFMan ActiveX control. If the OSCX_SFMan TypeLibrary entry is missing from the list,
+you probably have forgotten to install the control. Read <a href="#Installation instructions">the installation instructions</a> again.</font></small></p>
+
+<p><small><font face="Arial">Doubleclick this new icon and the control is inserted into
+your form. A frame with some text in it should appear in the form.</font></small></p>
+
+<h4><small><font face="Arial">Step 2 - Using the OSC ActiveX control</font></small></h4>
+
+<p><small><font face="Arial">Add a text box, a list and a button.</font></small></p>
+
+<p><small><font face="Arial">Double-click on the button and add the following line of
+code:</font></small></p>
+
+<pre>Text1 = OSCX_SFManControl1.NumDevs
+List1.Clear
+OSCX_SFManControl1.Open (0)
+For i = 0 To 127
+	If OSCX_SFManControl1.BoolIsMIDIBankUsed(i) Then
+		List1.AddItem (OSCX_SFManControl1.LoadedBankDescriptor(i))
+	End If
+Next i
+OSCX_SFManControl1.Close</pre>
+
+<p><font face="Arial"><small>Run the program and click the button. A number should appear
+in the textbox indicating the total number of SoundFont devices in your systems. If you
+have one SBLive! soundcard, this number will be 2 (the A and B synth), if you have one
+AWE32 soundcard, the number will be 1. The list should be filled with the names of the
+soundfonts currently loaded. You could verify that this list is correct by comparing it
+with the output from the SoundFont application in the AudioHQ (SBLive users), or the AWE
+Control Panel (AWE32/64 users).</small></font></p>
+
+<p><small><font face="Arial">Well, that's as far as I got today. As this is the largest VB
+program I have ever written, I'm pretty proud of myself now ;-). I'd be very interested in
+featuring the source code of a more experienced VB programmer.</font></small></p>
+
+<h3><small><font face="Arial">More Tutorials</font></small></h3>
+
+<p><small><font face="Arial">I'd like to have tutorials for Delphi, J++ and any other
+development language/environment capable of using ActiveX controls. Please <a href="mailto:thammer@pvv.org">contact me</a> if you'd like to write such a tutorial.</font></small></p>
+
+<p>&nbsp;</p>
+
+<h2><a name="Known problems"><font face="Arial">Known problems</font></a></h2>
+
+<h3><small><font face="Arial">The C++ library</font></small></h3>
+
+<p><small><font face="Arial">On some occasions, my SFExplorer has crashed when I sent MIDI
+CC and PitchBend messages to a SoundFont device. I haven't researched the problem
+thoroughly yet, and it doesn't appear in the tutorial, so it is very possible that there
+is something I do wrong in SFExplorer. I just thought I'd warn you.</font></small></p>
+
+<p><small><font face="Arial">The MIDI input and output <em>is not real-time</em>!<em> </em>On
+most system it should be very close to real-time. But especially on Win95 &amp; Win98
+systems where some drivers and parts of the OS kernel runs in 16-bit mode, response time
+cannot be quarranteed. If you want to write a program using true real-time MIDI input and
+output, I recommend reading Paul Messick's book 'Maximum MIDI'. He explains how to write
+&amp; use a 16-bit dll to create a sequencer.</font></small></p>
+
+<h3><small><font face="Arial">The ActiveX Control</font></small></h3>
+
+<p><small><font face="Arial">The only kind of error reporting is throug the HRESULTs
+(S_OK, E_FAIL) that all functions and properties return. I don't know how the different
+development environments deal with ActiveX errors yet, and the system for error reporting
+will very probably have to be modified.</font></small></p>
+
+<p>&nbsp;</p>
+
+<h2><a name="History"><font face="Arial">History</font></a></h2>
+
+<table border="0" cellpadding="4">
+  <tr>
+    <td valign="top" align="left" nowrap><small><font face="Arial">[May 25. 1999]</font></small></td>
+    <td valign="top" align="left"><font face="Arial"><small>Version 1.0</small></font></td>
+    <td valign="top" align="left"><ul>
+      <li><font face="Arial"><small>First&nbsp; public release</small></font></li>
+    </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" align="left" nowrap><small><font face="Arial">[June 27. 1999]</font></small></td>
+    <td valign="top" align="left"><font face="Arial"><small>Version 1.1</small></font></td>
+    <td valign="top" align="left"><ul>
+      <li><small><font face="Arial">ActiveX control added </font></small></li>
+      <li><small><font face="Arial">Changed some of the function names so that the first letter is
+        uppercase (all functions now starts with uppercase)</font></small></li>
+      <li><small><font face="Arial">Added 2 functions to the OSC_SFManager class to make it easier
+        to access information about Synthesizer Emulation</font></small></li>
+    </ul>
+    </td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<h2><a name="Recommended reading"><font face="Arial">Recommended reading</font></a></h2>
+
+<p><small><font face="Arial">Here are some of the books which I recommend:</font> </small>
+
+<ul>
+  <li><small><font face="Arial">&quot;Computer Music - Synthesis, Composition and
+    Performance&quot; 2nd. ed. by Charles Dodge and Thomas A. Jerse [1997].</font></small></li>
+  <li><small><font face="Arial">&quot;Maximum MIDI - Music Applications in C++&quot; by Paul
+    Messic [1998].</font></small></li>
+</ul>
+
+<p>&nbsp;</p>
+</body>
+</html>

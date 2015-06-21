@@ -1,0 +1,135 @@
+<html><head><TITLE>OSC_MIDIOutput</TITLE></head>
+<body>
+In file OSC_MIDIOutput.h:<H2><A HREF ="#DOC.DOCU" > <IMG BORDER=0 SRC=down.gif></A> class OSC_MIDIOutput</H2> <br>  <br><BLOCKQUOTE>
+
+This class does MIDI output
+</BLOCKQUOTE>
+<hr>
+
+<DL>
+<DL>
+<DT><h3>Public Methods</h3><DD><DT><A HREF="#DOC.3.1"> <IMG BORDER=0 SRC=icon1.gif></A>  <B>OSC_MIDIOutput</B>() </B>
+ <DD><I></I>
+<DT><A HREF="#DOC.3.2"> <IMG BORDER=0 SRC=icon1.gif></A> virtual  <B>~OSC_MIDIOutput</B>() </B>
+ <DD><I></I>
+<DT><A HREF="#DOC.3.3"> <IMG BORDER=0 SRC=icon1.gif></A> void  <B>GetListOfDevices</B>(OSC_StringArray &list, bool includeDeviceNumber = false) </B>
+ <DD><I> Returns a list of installed MIDI input devices</I>
+<DT><A HREF="#DOC.3.4"> <IMG BORDER=0 SRC=icon1.gif></A> int  <B>GetNumDevices</B>() </B>
+ <DD><I> Returns the number of installed devices</I>
+<DT><A HREF="#DOC.3.5"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>GetDevName</B>(std::string &name) </B>
+ <DD><I> Get the name of the current open device</I>
+<DT><A HREF="#DOC.3.6"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>GetDevName</B>(int deviceid, std:: string &name) </B>
+ <DD><I> Get the name of the specified device (number)</I>
+<DT><A HREF="#DOC.3.7"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>GetDevID</B>(const std::string &name, int &deviceid) </B>
+ <DD><I> Get the device id of the specified device (name)</I>
+<DT><A HREF="#DOC.3.8"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>Open</B>(int deviceid) </B>
+ <DD><I> Opens the device. Must be called before calling SendMIDIMessage(...).</I>
+<DT><A HREF="#DOC.3.9"> <IMG BORDER=0 SRC=icon1.gif></A> OSC_ERR  <B>Close</B>() </B>
+ <DD><I> Closes the device</I>
+<DT><A HREF="#DOC.3.10"> <IMG BORDER=0 SRC=icon1.gif></A> void  <B>SendMIDIMessage</B>(OSC_MIDIDataShort status, OSC_MIDIDataShort data1, OSC_MIDIDataShort data2) </B>
+ <DD><I> Sends a MIDI message</I>
+<DT><A HREF="#DOC.3.11"> <IMG BORDER=0 SRC=icon1.gif></A> void  <B>SendMIDIMessage</B>(const <!1><A HREF="OSC_MIDIMessage.html">OSC_MIDIMessage</A> &message) </B>
+ <DD><I> Sends a MIDI message</I>
+<DT><A HREF="#DOC.3.12"> <IMG BORDER=0 SRC=icon1.gif></A> MMRESULT  <B>GetLastMMError</B>() </B>
+ <DD><I> Returns the latest error (if any) from the Windows MultiMedia system</I>
+<DT><A HREF="#DOC.3.13"> <IMG BORDER=0 SRC=icon1.gif></A> std::string  <B>GetLastMMErrorDescription</B>() </B>
+ <DD><I> Returns the latest error in text format</I>
+</DL></DL>
+<A NAME="DOC.DOCU">
+<hr>
+ <h2> Documentation </h2>
+<BLOCKQUOTE>
+
+This class does MIDI output. It lets the user get a list of 
+available MIDI output devices, open a MIDI output device and
+send MIDI messages to that device.
+
+A program using this class might do something like this:
+<ul>
+<li> GetListOfDevices(...) to get the display names of all available 
+MIDI output Devices</li>
+<li> Open(deviceid) - Open a device</li>
+<li> SendMIDIMessage(...) - send cool messages</li>
+<li> Close() - Close device</li>
+</ul>
+
+
+</BLOCKQUOTE>
+<DL>
+
+<A NAME="OSC_MIDIOutput">
+<A NAME ="DOC.3.1">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B>  OSC_MIDIOutput()</B></TT>
+<DL></DL><P>
+<A NAME="~OSC_MIDIOutput">
+<A NAME ="DOC.3.2">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> virtual  ~OSC_MIDIOutput()</B></TT>
+<DL></DL><P>
+<A NAME="GetListOfDevices">
+<A NAME ="DOC.3.3">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> void  GetListOfDevices(OSC_StringArray &list, bool includeDeviceNumber = false)</B></TT>
+<DD> Returns a list of installed MIDI input devices
+<DL></DL><P>
+<A NAME="GetNumDevices">
+<A NAME ="DOC.3.4">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> int  GetNumDevices()</B></TT>
+<DD> Returns the number of installed devices
+<DL></DL><P>
+<A NAME="GetDevName">
+<A NAME ="DOC.3.5">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  GetDevName(std::string &name)</B></TT>
+<DD> Get the name of the current open device
+<DL></DL><P>
+<A NAME="GetDevName">
+<A NAME ="DOC.3.6">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  GetDevName(int deviceid, std:: string &name)</B></TT>
+<DD> Get the name of the specified device (number)
+<DL></DL><P>
+<A NAME="GetDevID">
+<A NAME ="DOC.3.7">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  GetDevID(const std::string &name, int &deviceid)</B></TT>
+<DD> Get the device id of the specified device (name)
+<DL></DL><P>
+<A NAME="Open">
+<A NAME ="DOC.3.8">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  Open(int deviceid)</B></TT>
+<DD> Opens the device. Must be called before calling SendMIDIMessage(...).
+<DL></DL><P>
+<A NAME="Close">
+<A NAME ="DOC.3.9">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> OSC_ERR  Close()</B></TT>
+<DD> Closes the device
+<DL></DL><P>
+<A NAME="SendMIDIMessage">
+<A NAME ="DOC.3.10">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> void  SendMIDIMessage(OSC_MIDIDataShort status, OSC_MIDIDataShort data1, OSC_MIDIDataShort data2)</B></TT>
+<DD> Sends a MIDI message
+<DL></DL><P>
+<A NAME="SendMIDIMessage">
+<A NAME ="DOC.3.11">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> void  SendMIDIMessage(const <!1><A HREF="OSC_MIDIMessage.html">OSC_MIDIMessage</A> &message)</B></TT>
+<DD> Sends a MIDI message
+<DL></DL><P>
+<A NAME="GetLastMMError">
+<A NAME ="DOC.3.12">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> MMRESULT  GetLastMMError()</B></TT>
+<DD> Returns the latest error (if any) from the Windows MultiMedia system
+<DL></DL><P>
+<A NAME="GetLastMMErrorDescription">
+<A NAME ="DOC.3.13">
+<DT><IMG BORDER=0 SRC=icon2.gif><TT><B> std::string  GetLastMMErrorDescription()</B></TT>
+<DD> Returns the latest error in text format
+<DL></DL><P></DL>
+<hr>
+ <DL><DT><B>This class has no child classes.</B></DL>
+<DL></DL><P><I><A HREF="aindex.html"> alphabetic index</A></I>  <I><A HREF="HIER.html"> hierarchy of classes</A></I><P><hr>
+<HR>
+</body>
+</html>
+
+
+
+
+
+<P Align=right><I>generated by <A HREF="http://www.zib.de/Visual/software/doc++/index.html">doc++</A></I>
+</BODY>
