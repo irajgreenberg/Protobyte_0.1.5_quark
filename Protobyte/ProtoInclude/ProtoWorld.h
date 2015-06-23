@@ -27,6 +27,7 @@
 #define Protobyte_v02_ProtoWorld_cpp
 
 #if defined(_WIN32) || defined(__linux__)
+#define GLEW_STATIC // link to glew32s instead of including dll
 #include <GL/glew.h>
 #endif
 

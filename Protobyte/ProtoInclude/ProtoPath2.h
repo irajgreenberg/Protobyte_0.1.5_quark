@@ -25,6 +25,7 @@ This class is part of the group common (update)
 #define PROTO_PATH2_H
 
 #if defined(_WIN32) || defined(__linux__)
+#define GLEW_STATIC
 #include <GL/glew.h>
 #endif
 

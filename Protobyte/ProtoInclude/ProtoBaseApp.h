@@ -2,6 +2,7 @@
 #define _PROTO_BASEAPP_H_
 
 #if defined (_WIN32) || defined(_WIN64)
+#define GLEW_STATIC // link to glew32s instead of including dll
 #include <GL/glew.h>
 #include <Windows.h>
 #include <stdio.h>

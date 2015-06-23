@@ -25,6 +25,7 @@
 #define Protobyte_v02_ProtoCamera_cpp
 
 #ifdef _WIN32
+#define GLEW_STATIC // link to glew32s instead of including dll
 #include <GL/glew.h>
 #else
 #include <OpenGL/gl.h>

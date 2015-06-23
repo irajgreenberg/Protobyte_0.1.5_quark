@@ -13,6 +13,7 @@
 
 // about to switch to GLFW
 #if defined(_WIN32) || defined(_WIN64) || defined(__linux__)
+#define GLEW_STATIC // link to glew32s instead of including dll
 #include <GL/glew.h>
 #endif
 
