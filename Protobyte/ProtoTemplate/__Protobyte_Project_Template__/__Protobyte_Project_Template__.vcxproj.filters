@@ -67,9 +67,6 @@
     <ClCompile Include="..\..\ProtoSrc\ProtoMath.cpp">
       <Filter>ProtoLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ProtoSrc\ProtoOSC.cpp">
-      <Filter>ProtoLib\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\ProtoSrc\ProtoPath2.cpp">
       <Filter>ProtoLib\src</Filter>
     </ClCompile>
@@ -222,9 +219,6 @@
       <Filter>ProtoLib\include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ProtoInclude\ProtoMatrix4.h">
-      <Filter>ProtoLib\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ProtoInclude\ProtoOSC.h">
       <Filter>ProtoLib\include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ProtoInclude\ProtoPath2.h">
