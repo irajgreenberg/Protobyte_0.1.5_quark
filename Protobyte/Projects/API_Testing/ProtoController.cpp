@@ -40,7 +40,8 @@ void ProtoController::run() {
 
 void ProtoController::display() {
 	//protoBlockTest();
-	edgeTesting();
+	//edgeTesting();
+	rectTestD();
 }
 
 void ProtoController::mousePressed() {
@@ -133,7 +134,7 @@ void ProtoController::spinnySquare() {
 }
 
 void ProtoController::rectTestA() {
-	translate(400, 0, 0);
+	//translate(400, 0, 0);
 	stroke(black);
 	fill(0.5, 0.1, 0.4);
 	rect(100, 200, CORNER_TR);

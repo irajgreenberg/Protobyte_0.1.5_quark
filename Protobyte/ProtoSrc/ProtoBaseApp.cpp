@@ -1403,7 +1403,8 @@ void ProtoBaseApp::rect(float x, float y, float w, float h, Registration reg){
 }
 
 void ProtoBaseApp::rect(const Vec2& pt0, const Vec2& pt1, Registration reg) {
-	rect(pt0.x, pt0.y, pt1.x - pt0.x, pt1.y - pt0.y, reg);
+	//adjusted order of y points to fix rect implementation - bw
+	rect(pt0.x, pt0.y, pt1.x - pt0.x, pt0.y - pt1.y, reg);
 }
 void ProtoBaseApp::rect(float radius1, float radius2, Registration reg) {
 	rect(0, 0, radius1, radius2, reg);
