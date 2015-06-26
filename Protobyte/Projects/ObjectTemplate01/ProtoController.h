@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "ProtoBaseApp.h"
+#include "BrittCube.h"
 
 using namespace ijg;
 
