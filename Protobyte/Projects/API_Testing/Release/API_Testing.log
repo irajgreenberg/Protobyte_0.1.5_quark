@@ -1,7 +1,7 @@
-﻿Build started 6/25/2015 1:32:24 PM.
+﻿Build started 6/25/2015 1:57:05 PM.
      1>Project "C:\Users\britt_000\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\API_Testing\API_Testing.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\ProtoInclude /I..\..\OtherLib\libtess2\Include /I"..\..\OtherLib\glew-1.10.0\glew-1.10.0\include" /I"..\..\OtherLib\glfw-3.0.4.bin.WIN32\include" /I..\..\OtherLib\glm /I..\..\OtherLib\FreeImage.WIN32\Dist\x32 /I..\..\OtherLib\dirent\include /I..\..\OtherLib\oscpackLib\include /I..\..\OtherLib\libTriangle\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ProtoController.cpp ProtoMain.cpp
+         C:\Program Files\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\ProtoInclude /I..\..\OtherLib\libtess2\Include /I"..\..\OtherLib\glew-1.10.0\glew-1.10.0\include" /I"..\..\OtherLib\glfw-3.0.4.bin.WIN32\include" /I..\..\OtherLib\glm /I..\..\OtherLib\FreeImage.WIN32\Dist\x32 /I..\..\OtherLib\dirent\include /I..\..\OtherLib\oscpackLib\include /I..\..\OtherLib\libTriangle\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ProtoController.cpp
          ProtoController.cpp
      1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
      1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
@@ -19,34 +19,16 @@
      1>C:\Users\britt_000\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(464): warning C4237: 'export' keyword is not yet supported, but reserved for future use
      1>C:\Users\britt_000\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(682): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>ProtoController.cpp(4): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>ProtoController.cpp(61): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>ProtoController.cpp(71): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>ProtoController.cpp(83): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>ProtoController.cpp(86): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>ProtoController.cpp(62): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>ProtoController.cpp(72): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>ProtoController.cpp(84): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>ProtoController.cpp(87): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>ProtoController.cpp(96): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>ProtoController.cpp(98): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>ProtoController.cpp(109): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>ProtoController.cpp(137): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>ProtoController.cpp(472): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         ProtoMain.cpp
-     1>C:\Program Files\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY' : macro redefinition
-                 C:\Users\britt_000\Dev\Protobyte_0.1.5_quark\Protobyte\OtherLib\glfw-3.0.4.bin.WIN32\include\GLFW/glfw3.h(92) : see previous definition of 'APIENTRY'
-     1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-     1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
-                 c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
-     1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(331): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoLight.h(93): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoWorld.h(324): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoCephalopod.h(128): warning C4244: 'return' : conversion from 'time_t' to 'long', possible loss of data
-     1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(455): warning C4237: 'export' keyword is not yet supported, but reserved for future use
-     1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(458): warning C4237: 'export' keyword is not yet supported, but reserved for future use
-     1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(459): warning C4237: 'export' keyword is not yet supported, but reserved for future use
-     1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(460): warning C4237: 'export' keyword is not yet supported, but reserved for future use
-     1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(461): warning C4237: 'export' keyword is not yet supported, but reserved for future use
-     1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(464): warning C4237: 'export' keyword is not yet supported, but reserved for future use
-     1>c:\users\britt_000\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoBaseApp.h(682): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>ProtoController.cpp(88): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>ProtoController.cpp(97): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>ProtoController.cpp(99): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>ProtoController.cpp(110): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>ProtoController.cpp(138): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>ProtoController.cpp(473): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
        Link:
          C:\Program Files\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\britt_000\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\API_Testing\Release\API_Testing.exe" /NOLOGO /LIBPATH:..\..\ProtoSrc /LIBPATH:"..\..\OtherLib\glfw-3.0.4.bin.WIN32\lib-msvc110" /LIBPATH:"..\..\OtherLib\glew-1.10.0\glew-1.10.0\lib\Release\Win32" /LIBPATH:..\..\OtherLib\FreeImage.WIN32\Dist\x32 /LIBPATH:..\..\OtherLib\oscpackLib /LIBPATH:..\..\OtherLib\libTriangle\lib glew32s.lib opengl32.lib glu32.lib glfw3.lib FreeImaged.lib ws2_32.lib Winmm.lib oscpack.lib triangle.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\britt_000\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\API_Testing\Release\API_Testing.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\britt_000\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\API_Testing\Release\API_Testing.lib" /MACHINE:X86 /SAFESEH Release\ProtoBaseApp.obj
          Release\ProtoBlock.obj
@@ -101,4 +83,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:09.46
+Time Elapsed 00:00:07.50

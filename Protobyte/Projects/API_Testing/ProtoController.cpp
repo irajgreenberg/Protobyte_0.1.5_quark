@@ -40,6 +40,7 @@ void ProtoController::run() {
 
 void ProtoController::display() {
 	protoBlockTest();
+	//edgeTesting();
 }
 
 void ProtoController::mousePressed() {
@@ -505,5 +506,5 @@ void ProtoController::protoBlockTest() {
 	t0.display(POINTS, 6);
 	pop();
 
-	theta++;
+	theta += 0.5;
 }
