@@ -41,3 +41,4 @@ Global
 	EndGlobalSection
 EndGlobal\"" > $projName.sln
 ls -a
+start .

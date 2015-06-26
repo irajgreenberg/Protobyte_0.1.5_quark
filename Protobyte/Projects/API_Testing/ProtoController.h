@@ -1,4 +1,3 @@
-
 #ifndef __PROTOCONTROLLER_H__
 #define __PROTOCONTROLLER_H__
 
@@ -86,7 +85,7 @@ public:
 	int clickCount = 0;
 
 private:
-	
+
 };
 
 #endif //__PROTOCONTROLLER_H__
