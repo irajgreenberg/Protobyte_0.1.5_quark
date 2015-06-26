@@ -2568,7 +2568,7 @@ void ProtoBaseApp::pop(){
 
 
 
-// EVENTS
+// Mouse & Key Events
 void ProtoBaseApp::keyPressed(){}
 void ProtoBaseApp::mousePressed(){}
 void ProtoBaseApp::mouseRightPressed(){}
@@ -2577,7 +2577,7 @@ void ProtoBaseApp::mouseRightReleased(){}
 void ProtoBaseApp::mouseMoved(){}
 void ProtoBaseApp::mouseDragged(){}
 
-// window events
+// Window Events
 void ProtoBaseApp::onResized(){}
 void ProtoBaseApp::onClosed(){}
 

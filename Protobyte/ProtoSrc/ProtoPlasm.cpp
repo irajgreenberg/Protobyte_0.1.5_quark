@@ -147,7 +147,7 @@ void ProtoPlasm::initGLFW(){
 
 
 	// set gl states
-	glClearColor(0, 0, 0, 1.0f);
+	glClearColor(.46f, .485f, .575f, 1.0f);
 	glShadeModel(GL_SMOOTH);
 	// enable specualrity on textures
 	glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL, GL_SEPARATE_SPECULAR_COLOR);

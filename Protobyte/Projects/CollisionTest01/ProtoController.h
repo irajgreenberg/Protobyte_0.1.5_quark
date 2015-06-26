@@ -14,16 +14,21 @@ public:
 	void run();
 	void display();
 
-private:
-	float w = 1400.0;
-	float d = 1400.0;
-	static const int cols = 10;
-	static const int lays = 10;
+	// Key and Mouse Events
+	void keyPressed();
+	void mousePressed();
+	void mouseRightPressed();
+	void mouseReleased();
+	void mouseRightReleased();
+	void mouseMoved();
+	void mouseDragged();
 
-	ProtoBlock block;
-	std::vector<Vec3> scl;
-	std::vector<Vec3> pos;
-	std::vector<Vec2> ang;
+	// Window Events
+	void onResized();
+	void onClosed();
+
+private:
+
 };
 
 #endif //__PROTOCONTROLLER_H__
