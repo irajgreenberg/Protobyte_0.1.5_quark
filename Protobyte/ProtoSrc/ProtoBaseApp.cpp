@@ -769,7 +769,8 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	// I thought I needed this to reset matrix each frame?
 	M = glm::mat4(1.0f);
 	// was 18
-	V = glm::lookAt(glm::vec3(0.0, 0.0, 652.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+	//2D edge testing fix - bw
+	V = glm::lookAt(glm::vec3(0.0, 0.0, ((height / 1000.0) * 652.0f)), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
 	//M = T * R * S;
 	MV = V * M;
 	MVP = P * MV;
