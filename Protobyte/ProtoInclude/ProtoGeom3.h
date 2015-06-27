@@ -60,7 +60,7 @@
 
 
 namespace ijg {
-    
+
 
     // for offset into the FBO interleaved buffer (ugly I know!)
 #define BUFFER_OFFSET(i) ((void*)(i))
