@@ -92,6 +92,7 @@
     <ClCompile Include="..\..\ProtoSrc\ProtoPlane.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoPlasm.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoQuaternion.cpp" />
+    <ClCompile Include="..\..\ProtoSrc\ProtoRectangle.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoRenderer.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoRootBall.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoShader.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="..\..\ProtoInclude\ProtoPoint2.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoPoint3.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoQuaternion.h" />
+    <ClInclude Include="..\..\ProtoInclude\ProtoRectangle.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoRenderer.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoRootBall.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoShader.h" />
