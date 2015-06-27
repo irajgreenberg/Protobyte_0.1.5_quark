@@ -29,6 +29,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
+#include "ProtoBroadcaster.h"
 #include "ProtoBaseApp.h"
 #include <memory>
 
@@ -90,6 +91,8 @@ namespace ijg {
         int appWidth;
         int appHeight;
         std::string appTitle;
+
+		ProtoBroadcaster* broadcaster;
 
 		
     };

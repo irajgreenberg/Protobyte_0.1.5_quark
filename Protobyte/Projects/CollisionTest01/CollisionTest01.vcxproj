@@ -72,6 +72,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\ProtoSrc\ProtoBaseApp.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoBlock.cpp" />
+    <ClCompile Include="..\..\ProtoSrc\ProtoBroadcaster.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoCamera.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoCephalopod.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoCilia.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="..\..\ProtoInclude\ProtoBaseApp.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoBlock.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoBounds.h" />
+    <ClInclude Include="..\..\ProtoInclude\ProtoBroadcaster.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoCamera.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoCephalopod.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoCilia.h" />

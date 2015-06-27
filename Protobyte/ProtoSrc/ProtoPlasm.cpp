@@ -78,7 +78,7 @@ void ProtoPlasm::initGLFW(){
 
 
 
-
+	broadcaster = new ProtoBroadcaster(baseApp);
 
 	baseApp->setFrameCount(0);
 	baseApp->setFrameRate(60.0f);

@@ -138,6 +138,9 @@
     <ClCompile Include="..\..\ProtoSrc\ProtoRectangle.cpp">
       <Filter>ProtoLib\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\ProtoSrc\ProtoBroadcaster.cpp">
+      <Filter>ProtoLib\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\ProtoInclude\ProtoWorld.h">
@@ -313,6 +316,9 @@
     </ClInclude>
     <ClInclude Include="ProtoController.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoRectangle.h">
+      <Filter>ProtoLib\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ProtoInclude\ProtoBroadcaster.h">
       <Filter>ProtoLib\include</Filter>
     </ClInclude>
   </ItemGroup>

@@ -11,8 +11,6 @@
 
 using namespace ijg;
 
-
-
 ProtoBaseApp* ProtoBaseApp::baseApp = 0;
 
 

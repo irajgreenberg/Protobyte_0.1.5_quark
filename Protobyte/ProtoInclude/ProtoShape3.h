@@ -36,7 +36,6 @@
 #include "ProtoColor4.h"
 #include "ProtoMatrix3.h"
 #include "ProtoMatrix4.h"
-
 //#if defined (_WIN32) || defined(_WIN64)
 //#include <GL/glew.h>
 //#include <Windows.h>

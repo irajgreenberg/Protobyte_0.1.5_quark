@@ -106,6 +106,7 @@ namespace ijg {
 	
 	// non-member functions
 
+
 	// forward declares
 	class Protoplasm; 
 

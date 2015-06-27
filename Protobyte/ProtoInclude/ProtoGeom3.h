@@ -37,6 +37,7 @@
 #endif
 
 //#include <SFML/OpenGL.hpp>
+
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -60,6 +61,7 @@
 
 
 namespace ijg {
+
 
 
     // for offset into the FBO interleaved buffer (ugly I know!)

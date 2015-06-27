@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include "ProtoBaseApp.h"
-#include "ProtoRectangle.h"
 
 using namespace ijg;
 
