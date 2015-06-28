@@ -16,20 +16,31 @@
 //	fputs(description, stderr);
 //}
 //
-
-//static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-//{
-//	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-//		trace("action =", action);
-//	//glfwSetWindowShouldClose(window, GL_TRUE);
+//namespace ijg {
+	//static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+	//{
+	//	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+	//		//trace("action =", action);
+	//	glfwSetWindowShouldClose(window, GL_TRUE);
+	//}
 //}
 
 namespace ijg {
 	void mouseBtn_callback(GLFWwindow* window, int button, int action, int mods) {
+		
 		ProtoBaseApp* ba = (ProtoBaseApp*)glfwGetWindowUserPointer(window);
 		ba->setMouseButton(action, button, mods);
 	}
 
+	void  key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+			glfwSetWindowShouldClose(window, GL_TRUE);
+
+
+		ProtoBaseApp* ba = (ProtoBaseApp*)glfwGetWindowUserPointer(window);
+		ba->setKeyEvent(key, scancode, action, mods);
+	}
+	
 	void window_size_callback(GLFWwindow* window, int width, int height) {
 		ProtoBaseApp* ba = (ProtoBaseApp*)glfwGetWindowUserPointer(window);
 		ba->setWindowFrameSize(Dim2i(width, height));
@@ -139,7 +150,7 @@ void ProtoPlasm::initGLFW(){
 	}
 	glfwMakeContextCurrent(window);
 
-	//glfwSetKeyCallback(window, key_callback);
+	glfwSetKeyCallback(window, key_callback);
 
 	// mouse press events
 	glfwSetMouseButtonCallback(window, mouseBtn_callback);

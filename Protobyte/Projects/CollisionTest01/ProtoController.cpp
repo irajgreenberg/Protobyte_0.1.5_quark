@@ -17,6 +17,7 @@ void ProtoController::display() {
 
 // Key and Mouse Events
 void ProtoController::keyPressed(){
+	trace("key =", key, " scancode =", scancode, " action =", action);
 }
 
 void ProtoController::mousePressed(){

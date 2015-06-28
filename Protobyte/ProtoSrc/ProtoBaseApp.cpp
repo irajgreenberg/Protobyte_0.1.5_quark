@@ -989,8 +989,8 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 
 }
 
-// event behavior
-void ProtoBaseApp::setMouseButton(int mouseAction, int mouseButton, int mouseMods){
+// Mouse event behavior
+void ProtoBaseApp::setMouseButton(int mouseAction, int mouseButton, int mouseMods) {
 	if (mouseAction == 1){
 		isMousePressed = true;
 
@@ -1012,6 +1012,14 @@ void ProtoBaseApp::setMouseButton(int mouseAction, int mouseButton, int mouseMod
 	}
 	/*this->mouseButton = mouseButton;
 	trace("LEFT mouse button pressed");*/
+}
+
+// Key event behavior
+void ProtoBaseApp::setKeyEvent(int key, int scancode, int action, int mods) {
+	this->key = key;
+	this->scancode = scancode;
+	this->action = action;
+	keyPressed();
 }
 
 //arcball

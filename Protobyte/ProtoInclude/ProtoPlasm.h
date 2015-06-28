@@ -8,38 +8,21 @@
 
 
 
-#ifndef __Protobyte_dev_v02__ProtoPlasm__
-#define __Protobyte_dev_v02__ProtoPlasm__
+#ifndef __PROTO_PLASM_H__
+#define __PROTO_PLASM_H__
 
-// about to switch to GLFW
+// setup GL on Win/OSX/Linux
 #if defined(_WIN32) || defined(_WIN64) || defined(__linux__)
 #define GLEW_STATIC // link to glew32s instead of including dll
 #include <GL/glew.h>
-#endif
-
-// from OF documentation
-// OSX link with " " instead of < > to avoid putting in defualt include path
-#if defined(_WIN32) || defined(_WIN64)
-#include <GL/glu.h>
 #include <GLFW/glfw3.h>
 #else
+#define GLFW_INCLUDE_GLCOREARB
 #include "GLFW/glfw3.h"
 #endif
 
 #include <iostream>
-#include <stdlib.h>
-#include <stdio.h>
 #include "ProtoBaseApp.h"
-#include <memory>
-
-
-
-// use GL3 context (OpenGL 3.2-4.1) // required for osx only, I think
-#define GLFW_INCLUDE_GLCOREARB
-
-// bring in GLU
-#define GLFW_INCLUDE_GLU
-
 
 
 
@@ -49,26 +32,20 @@ namespace ijg {
 	{
 		fputs(description, stderr);
 	}
-	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-	{
-		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-			glfwSetWindowShouldClose(window, GL_TRUE);
-	}
-
-	// foward declare
-	//class ProtoBaseApp;
 
     class ProtoPlasm {
         
     public:
+		// Setup Event callbacks pushed through to user ProtoController class
 		friend void mouseBtn_callback(GLFWwindow* window, int button, int action, int mods);
+		friend void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 		friend void window_size_callback(GLFWwindow* window, int width, int height);
-
+		
         int frameCount;
         float frameRate;
         
-        
-        explicit ProtoPlasm(ProtoBaseApp* baseApp);
+        //cstrs
+		explicit ProtoPlasm(ProtoBaseApp* baseApp);
         ProtoPlasm(int appWidth, int appHeight, std::string appTitle, ProtoBaseApp* baseApp);
         
         
@@ -99,4 +76,4 @@ namespace ijg {
    
 }
 
-#endif /* defined(__Protobyte_dev_v02__ProtoPlasm__) */
+#endif // __PROTO_PLASM_H__
