@@ -1,46 +1,48 @@
-//
-//  ProtoPlasm.h
-//  Protobyte_dev_v02
-//
-//  Created by iragreenberg on 9/27/13.
-//  Copyright (c) 2013 Ira Greenberg. All rights reserved.
-//
+/*!  \brief  Protoplasm.h: Base class that encapsulates GLFW/GL
+Protoplasm.h
+Protobyte Library
+
+Copyright (c) 2013 Ira Greenberg. All rights reserved.
+
+Library Usage:
+This work is licensed under the Creative Commons
+Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+To view a copy of this license, visit
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+or send a letter to Creative Commons,
+444 Castro Street, Suite 900,
+Mountain View, California, 94041, USA.
+
+This notice must be retained in any source distribution.
+
+\ingroup common
+This class is part of the group common (update)
+\sa NO LINK
+*/
 
 
 
-#ifndef __Protobyte_dev_v02__ProtoPlasm__
-#define __Protobyte_dev_v02__ProtoPlasm__
+#ifndef __PROTO_PLASM_H__
+#define __PROTO_PLASM_H__
 
-// about to switch to GLFW
+// setup GL on Win/OSX/Linux
 #if defined(_WIN32) || defined(_WIN64) || defined(__linux__)
 #define GLEW_STATIC // link to glew32s instead of including dll
 #include <GL/glew.h>
-#endif
-
-// from OF documentation
-// OSX link with " " instead of < > to avoid putting in defualt include path
-#if defined(_WIN32) || defined(_WIN64)
-#include <GL/glu.h>
 #include <GLFW/glfw3.h>
 #else
+#define GLFW_INCLUDE_GLCOREARB
 #include "GLFW/glfw3.h"
 #endif
 
 #include <iostream>
+<<<<<<< HEAD
 #include <stdlib.h>
 #include <stdio.h>
 #include "ProtoBroadcaster.h"
+=======
+>>>>>>> d33923f6bbf5082e99a39a089c2e6186594282fc
 #include "ProtoBaseApp.h"
-#include <memory>
-
-
-
-// use GL3 context (OpenGL 3.2-4.1) // required for osx only, I think
-#define GLFW_INCLUDE_GLCOREARB
-
-// bring in GLU
-#define GLFW_INCLUDE_GLU
-
 
 
 
@@ -50,26 +52,20 @@ namespace ijg {
 	{
 		fputs(description, stderr);
 	}
-	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-	{
-		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-			glfwSetWindowShouldClose(window, GL_TRUE);
-	}
-
-	// foward declare
-	//class ProtoBaseApp;
 
     class ProtoPlasm {
         
     public:
+		// Setup Event callbacks pushed through to user ProtoController class
 		friend void mouseBtn_callback(GLFWwindow* window, int button, int action, int mods);
+		friend void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 		friend void window_size_callback(GLFWwindow* window, int width, int height);
-
+		
         int frameCount;
         float frameRate;
         
-        
-        explicit ProtoPlasm(ProtoBaseApp* baseApp);
+        //cstrs
+		explicit ProtoPlasm(ProtoBaseApp* baseApp);
         ProtoPlasm(int appWidth, int appHeight, std::string appTitle, ProtoBaseApp* baseApp);
         
         
@@ -83,7 +79,7 @@ namespace ijg {
         GLFWwindow* window;
         
         // Master controller class, manages view, lighting and rendering
-        std::unique_ptr<ProtoWorld> world;
+        //std::unique_ptr<ProtoWorld> world;
         
         // base app class for user defined app classes
         ProtoBaseApp* baseApp;
@@ -102,4 +98,4 @@ namespace ijg {
    
 }
 
-#endif /* defined(__Protobyte_dev_v02__ProtoPlasm__) */
+#endif // __PROTO_PLASM_H__

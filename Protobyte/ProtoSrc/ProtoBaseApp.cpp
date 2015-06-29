@@ -87,7 +87,7 @@ void ProtoBaseApp::_init(){
 	// camera at 11
 	// default inital light
 	//light0.setPosition(Vec3f(-1.9, .9, 8));
-	light0.setPosition(Vec3f(-90, 200, 40));
+	light0.setPosition(Vec3f(-90, 20, 40));
 	//light0.setPosition(Vec3f(-14.2, 2.5, 8));
 	light0.setIntensity(Vec3f(1, 1, 1));
 
@@ -987,8 +987,8 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 
 }
 
-// event behavior
-void ProtoBaseApp::setMouseButton(int mouseAction, int mouseButton, int mouseMods){
+// Mouse event behavior
+void ProtoBaseApp::setMouseButton(int mouseAction, int mouseButton, int mouseMods) {
 	if (mouseAction == 1){
 		isMousePressed = true;
 
@@ -1010,6 +1010,14 @@ void ProtoBaseApp::setMouseButton(int mouseAction, int mouseButton, int mouseMod
 	}
 	/*this->mouseButton = mouseButton;
 	trace("LEFT mouse button pressed");*/
+}
+
+// Key event behavior
+void ProtoBaseApp::setKeyEvent(int key, int scancode, int action, int mods) {
+	this->key = key;
+	this->scancode = scancode;
+	this->action = action;
+	keyPressed();
 }
 
 //arcball

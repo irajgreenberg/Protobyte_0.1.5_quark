@@ -123,9 +123,14 @@ namespace ijg {
 
 		// GLFW Mouse events
 		void setMouseButton(int mouseAction, int mouseButton, int mouseMods);
+
+		// GLFW Key events
+		void setKeyEvent(int key, int scancode, int action, int mods);
 		
-		// GLFW window events
+		// GLFW Window events
 		void setWindowFrameSize(const Dim2i& windowFrameSize);
+
+			
 
 
 		static ProtoBaseApp* baseApp;
@@ -194,7 +199,7 @@ namespace ijg {
 		//made private -bw
 		//Col3f bgColor;
 
-		// mouse fields
+		// Mouse fields
 		float mouseX, mouseY, mouseLastFrameX, mouseLastFrameY;
 		// 1, 2, or 3
 		int mouseButton;
@@ -207,6 +212,11 @@ namespace ijg {
 		float arcballRotXLast, arcballRotYLast;
 		float mouseXIn, mouseYIn;
 		//bool isArcballOn;
+
+		// Key Fields
+		int key;
+		int scancode;
+		int action;
 			
 			
 			// CAMERAS
