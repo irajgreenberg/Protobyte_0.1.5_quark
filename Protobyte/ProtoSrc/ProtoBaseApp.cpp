@@ -89,7 +89,7 @@ void ProtoBaseApp::_init(){
 	// camera at 11
 	// default inital light
 	//light0.setPosition(Vec3f(-1.9, .9, 8));
-	light0.setPosition(Vec3f(-90, 200, 40));
+	light0.setPosition(Vec3f(-90, 20, 40));
 	//light0.setPosition(Vec3f(-14.2, 2.5, 8));
 	light0.setIntensity(Vec3f(1, 1, 1));
 

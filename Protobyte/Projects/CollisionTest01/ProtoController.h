@@ -30,6 +30,7 @@ public:
 
 private:
 	Rect rect;
+	Toroid toroid;
 
 };
 

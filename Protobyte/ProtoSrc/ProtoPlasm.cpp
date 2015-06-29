@@ -1,33 +1,31 @@
-//
-//  ProtoPlasm.cpp
-//  Protobyte_dev_v02
-//
-//  Created by iragreenberg on 9/27/13.
-//  Copyright (c) 2013 Ira Greenberg. All rights reserved.
+/*!  \brief  Protoplasm.cpp: Base class that encapsulates GLFW/GL
+Protoplasm.cpp
+Protobyte Library
+
+Copyright (c) 2013 Ira Greenberg. All rights reserved.
+
+Library Usage:
+This work is licensed under the Creative Commons
+Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+To view a copy of this license, visit
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+or send a letter to Creative Commons,
+444 Castro Street, Suite 900,
+Mountain View, California, 94041, USA.
+
+This notice must be retained in any source distribution.
+
+\ingroup common
+This class is part of the group common (update)
+\sa NO LINK
+*/
+
 
 #include "ProtoPlasm.h"
 
-
-
-
-// callbacks
-//static void error_callback(int error, const char* description)
-//{
-//	fputs(description, stderr);
-//}
-//
-//namespace ijg {
-	//static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-	//{
-	//	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-	//		//trace("action =", action);
-	//	glfwSetWindowShouldClose(window, GL_TRUE);
-	//}
-//}
-
 namespace ijg {
 	void mouseBtn_callback(GLFWwindow* window, int button, int action, int mods) {
-		
+
 		ProtoBaseApp* ba = (ProtoBaseApp*)glfwGetWindowUserPointer(window);
 		ba->setMouseButton(action, button, mods);
 	}
@@ -36,11 +34,10 @@ namespace ijg {
 		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 			glfwSetWindowShouldClose(window, GL_TRUE);
 
-
 		ProtoBaseApp* ba = (ProtoBaseApp*)glfwGetWindowUserPointer(window);
 		ba->setKeyEvent(key, scancode, action, mods);
 	}
-	
+
 	void window_size_callback(GLFWwindow* window, int width, int height) {
 		ProtoBaseApp* ba = (ProtoBaseApp*)glfwGetWindowUserPointer(window);
 		ba->setWindowFrameSize(Dim2i(width, height));
@@ -49,13 +46,9 @@ namespace ijg {
 
 using namespace ijg;
 
-
 ProtoPlasm::ProtoPlasm(ProtoBaseApp* baseApp) :
 baseApp(baseApp), appWidth(1920), appHeight(1080), appTitle("Protobyte App")
 {
-	// instantiate world
-	//world = std::unique_ptr<ProtoWorld>(new ProtoWorld(appWidth, appHeight));
-
 	// init app and call init() and run() to activate functions in user defined BaseApp derived class
 	initGLFW();
 	runGLFW();
@@ -76,84 +69,72 @@ appWidth(appWidth), appHeight(appHeight), appTitle(appTitle), baseApp(baseApp){
 
 void ProtoPlasm::initGLFW(){
 
-	//#if defined(_WIN32) || defined (_WIN64) 
-	//	glewExperimental = TRUE;
-	//	GLenum err = glewInit();
-	//	if (err != GLEW_OK)
-	//	{
-	//		//Problem: glewInit failed, something is seriously wrong.
-	//		std::cout << "glewInit failed, aborting." << std::endl;
-	//	}
-	//#endif
-
-
-
-
-
-
 	baseApp->setFrameCount(0);
 	baseApp->setFrameRate(60.0f);
 
-	// Start GLFW setup  // NOTE: DO I need this??
-	// for modern context handling
-	//glfwInit();
-
+	// seed random function
 	srand(static_cast <unsigned> (time(0)));
 
+	// cacth start-up failures
 	glfwSetErrorCallback(error_callback);
 	if (!glfwInit())
 		exit(EXIT_FAILURE);
 
-	// uncomment for 3.2+ context (OS X)
-	// need to check this on WIN
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	// OS X needs this for modern GL
+#if defined(__APPLE__)
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#endif
 
-
-
-	// anti-aliasing
+	// set anti-aliasing
 	glfwWindowHint(GLFW_SAMPLES, 8);
 
+	// genereate sized GLFW window with title
 	window = glfwCreateWindow(appWidth, appHeight, appTitle.c_str(), NULL, NULL);
-	
-	
-	//figure out window resolution:
-	/*const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	trace(mode->width, ",", mode->height);*/
-	
 
-	//int monitors;
-	//GLFWmonitor** mons = glfwGetMonitors(&monitors);
-	//trace("monitor 02 =", mons[1]);
-	// position for multi-screen setup
-	//glfwSetWindowPos(window, (1920 - appWidth) / 2, -1080 + (1080-appHeight) / 2);
-	//glfwSetWindowPos(window, 1920 + (1920 - appWidth) / 2, -1080 + (1080 - appHeight) / 2);
+	// connected monitors
+	int monitors;
+	GLFWmonitor** mons = glfwGetMonitors(&monitors);
 
+	// position window for different montior configurations
+	//  -- primary monitor resolution :
 	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	//trace("screen.width = ", mode->width, ", screen.height = ", mode->height);
-		
-	// position for laptop
-	glfwSetWindowPos(window, (mode->width - appWidth) / 2, (mode->height - appHeight) / 2);
 
-	// position for SMU, C3
-	//glfwSetWindowPos(window, 1920 + (mode->width-appWidth)/2, (mode->height - appHeight) / 2);
+	switch (monitors){
+	case 1:
+		glfwSetWindowPos(window, (mode->width - appWidth) / 2, (mode->height - appHeight) / 2);
+		break;
+	case 2:
+		glfwSetWindowPos(window, (mode->width - appWidth) / 2, (mode->height - appHeight) / 2);
+		break;
+	case 3:
+		glfwSetWindowPos(window, (mode->width - appWidth) / 2, (mode->height - appHeight) / 2);
+		break;
+	case 4:
+		glfwSetWindowPos(window, (mode->width - appWidth) / 2, -mode->height + (mode->height-appHeight) / 2);
+		break;
+	case 6:
+		glfwSetWindowPos(window, (mode->width - appWidth) / 2, (mode->height - appHeight) / 2);
+		break;
+	default:
+		glfwSetWindowPos(window, (mode->width - appWidth) / 2, (mode->height - appHeight) / 2);
+	}
 
 	glfwSetWindowUserPointer(window, baseApp); // enable callback funcs to speak to baseApp
-	glfwSetWindowSizeCallback(window, window_size_callback); // dynamically change viewport on resize
+	
+	// register callbacks
+	glfwSetWindowSizeCallback(window, window_size_callback); // change viewport on resize
+	glfwSetKeyCallback(window, key_callback);
+	glfwSetMouseButtonCallback(window, mouseBtn_callback);
 
-	if (!window)
-	{
+	if (!window) {
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
+	
 	glfwMakeContextCurrent(window);
-
-	glfwSetKeyCallback(window, key_callback);
-
-	// mouse press events
-	glfwSetMouseButtonCallback(window, mouseBtn_callback);
 	// end GLFW setup
 
 
