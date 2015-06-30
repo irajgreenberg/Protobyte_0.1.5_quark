@@ -3,6 +3,8 @@
 in vec4 vertCol; // orig attribute color set in v. shader
 out vec4 color;
 
+in vec3 intensity;
+
 // Texture maps
 //layout (binding = 0) uniform sampler2D shadowMap;
 //layout (binding = 0) uniform sampler2D diffuseMap;
@@ -56,9 +58,9 @@ in VS_OUT
     vec2 texcoord;
     vec3 eyeDir;
     vec3 lightDir[8];
+
     vec3 normal;
 } fs_in;
-
 
 
 void main(void)

@@ -130,13 +130,13 @@
     <ClCompile Include="..\..\ProtoSrc\ProtoVertex3.cpp">
       <Filter>ProtoLib\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ProtoSrc\ProtoWorld.cpp">
-      <Filter>ProtoLib\src</Filter>
-    </ClCompile>
     <ClCompile Include="ProtoController.cpp" />
     <ClCompile Include="ProtoMain.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoRectangle.cpp">
       <Filter>ProtoLib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ProtoSrc\ProtoWorld.cpp">
+      <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -315,5 +315,13 @@
     <ClInclude Include="..\..\ProtoInclude\ProtoRectangle.h">
       <Filter>ProtoLib\include</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Resources\shaders\bumpmapping.fs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Resources\shaders\bumpmapping.vs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -37,12 +37,12 @@ ProtoGeom3::ProtoGeom3() {
 
 
 ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4) :
-ProtoShape3(pos, rot, size, col4), diffuseMapImage("white_tile.jpg") {
+ProtoShape3(pos, rot, size, col4), diffuseMapImage("white_tile.jpg"), textureScale(Vec2f(1, 1)) {
 	diffuseTextureImageURLs.push_back(diffuseMapImage);
 }
 
 ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const std::vector< ProtoColor4f > col4s) :
-ProtoShape3(pos, rot, size, col4s), diffuseMapImage("white_tile.jpg") {
+ProtoShape3(pos, rot, size, col4s), diffuseMapImage("white_tile.jpg"), textureScale(Vec2f(1, 1)) {
 	diffuseTextureImageURLs.push_back(diffuseMapImage);
 }
 
@@ -116,15 +116,15 @@ void ProtoGeom3::init() {
 	//setTextureUniforms();
     
     // initialize glew for Windows
-#if defined(_WIN32) || defined(__linux__)
-	GLenum err = glewInit();
-	if (GLEW_OK != err)
-	{
-		/* Problem: glewInit failed, something is seriously wrong. */
-		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
-	}
-	//fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
-#endif
+//#if defined(_WIN32) || defined(__linux__)
+//	GLenum err = glewInit();
+//	if (GLEW_OK != err)
+//	{
+//		/* Problem: glewInit failed, something is seriously wrong. */
+//		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+//	}
+//	//fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
+//#endif
 	
 	// Special thanks to:
 	// http://stackoverflow.com/questions/8704801/glvertexattribpointer-clarification
