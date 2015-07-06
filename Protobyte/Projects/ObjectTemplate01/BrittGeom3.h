@@ -1,9 +1,17 @@
 #ifndef __BrittGeom3__Protobyte__
 #define __BrittGeom3__Protobyte__
 
+#if defined(_WIN32) || defined(__linux__)
+#define GLEW_STATIC
+#include <GL/glew.h>
+#endif
+
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <fstream>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "ProtoShader.h"
 
@@ -15,6 +23,9 @@
 #include "ProtoTuple3.h"
 
 namespace ijg {
+
+#define BUFFER_OFFSET(i) ((void*)(i))
+
 	class BrittGeom3 {
 		
 	public:
@@ -24,6 +35,7 @@ namespace ijg {
 		void display();
 
 	protected:
+		//should materials struct and property by private or protected?
 		struct Material {
 			Col4f diffuse;
 			Col4f ambient;
@@ -47,6 +59,10 @@ namespace ijg {
 			float defaultShininess = 8.0;
 		};
 
+		enum {
+			STRIDE = 15
+		};
+
 		Material materials;
 
 		std::vector<ProtoVertex3> verts;
@@ -68,9 +84,11 @@ namespace ijg {
 		virtual void calcInds() = 0;
 
 	private:
-		enum {
-			STRIDE = 15
-		};
+		//enum {
+			//STRIDE = 15
+		//};
+
+		bool isTextureEnabled;
 
 		std::vector<ProtoFace3> faces;
 
@@ -95,7 +113,7 @@ namespace ijg {
 
 		void setMaterialMemLocs();
 		void initializeGLEW();
-		void initializeOpenGL();
+		void initializeBuffers();
 
 		void createDiffuseMapTexture(const std::string& diffuseMapImage);
 

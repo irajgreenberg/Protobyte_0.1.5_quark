@@ -1,6 +1,6 @@
 #include "BrittGeom3.h"
 
-//#define STRIDE ijg::BrittGeom3::STRIDE;
+#define STRIDE ijg::BrittGeom3::STRIDE;
 
 using namespace ijg;
 
@@ -56,8 +56,9 @@ void BrittGeom3::init() {
 
 	setMaterialMemLocs();
 
-	//initializeGLEW();
-	//initializeOpenGL();
+	initializeGLEW();
+	initializeBuffers();
+	isTextureEnabled = true;
 }
 
 void BrittGeom3::createDiffuseMapTexture(const std::string& diffuseMapImage) {
@@ -144,4 +145,55 @@ void BrittGeom3::setMaterialMemLocs() {
 	specular_loc_U = glGetUniformLocation(ProtoShader::getID_2(), "specularMaterial");
 	emissive_loc_U = glGetUniformLocation(ProtoShader::getID_2(), "emissiveMaterial");
 	shininess_loc_U = glGetUniformLocation(ProtoShader::getID_2(), "shininess");
+}
+
+void BrittGeom3::initializeGLEW() {
+#if defined(_WIN32) || defined(__linux__)
+	GLenum err = glewInit();
+	if (GLEW_OK != err) {
+		/* Problem: glewInit failed, something is seriously wrong. */
+		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+	}
+#endif
+}
+
+void BrittGeom3::initializeBuffers() {
+	// Special thanks to:
+	// http://stackoverflow.com/questions/8704801/glvertexattribpointer-clarification
+	// http://www.swiftless.com/tutorials/opengl4/4-opengl-4-vao.html
+	/***************************************/
+	/*       Setup VAO/VBO buffers         */
+	/***************************************/
+	// 1. Create and bind VAO
+	glGenVertexArrays(1, &vaoID); // Create VAO
+	glBindVertexArray(vaoID); // Bind VAO (making it active)
+	//2. Create and bind VBO
+	// a. Vertex attributes
+	glGenBuffers(1, &vboID); // Create VBO ID
+	glBindBuffer(GL_ARRAY_BUFFER, vboID); // Bind vertex attributes VBO
+	int vertsDataSize = sizeof (float)* static_cast<int>(interleavedPrims.size());
+	glBufferData(GL_ARRAY_BUFFER, vertsDataSize, NULL, GL_STREAM_DRAW); // allocate space
+	glBufferSubData(GL_ARRAY_BUFFER, 0, vertsDataSize, &interleavedPrims[0]); // upload the data
+
+	// b. Indices  uses ELEMENT_ARRAY_BUFFER
+	glGenBuffers(1, &indexVboID); // Generate buffer
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexVboID); // Bind indices VBO
+	int indsDataSize = static_cast<int>(inds.size()) * 3 * sizeof (GL_UNSIGNED_INT);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indsDataSize, NULL, GL_STATIC_DRAW); // allocate
+	glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, indsDataSize, &indPrims[0]); // upload the data
+
+	for (int i = 0; i < 5; i++) {
+		glEnableVertexAttribArray(i);
+	}
+	// STRIDE is 15: pos(3) + norm(3) + col(4) + uv(2) + tang(3)
+	// (x, y, z, nx, ny, nz, r, g, b, a, u, v, tx, ty, tz)
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, STRIDE * sizeof (GLfloat), BUFFER_OFFSET(0)); // pos
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, STRIDE * sizeof (GLfloat), BUFFER_OFFSET(12)); // norm
+	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, STRIDE * sizeof (GLfloat), BUFFER_OFFSET(24)); // col
+	glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, STRIDE * sizeof (GLfloat), BUFFER_OFFSET(40)); // uv
+	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, STRIDE * sizeof (GLfloat), BUFFER_OFFSET(48)); // tangent
+
+	// Disable VAO
+	glEnableVertexAttribArray(0);
+	glBindVertexArray(0);
 }
