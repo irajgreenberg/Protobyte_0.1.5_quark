@@ -59,6 +59,7 @@
 #include "ProtoPath3.h"
 #include "ProtoTessellator.h"
 #include "ProtoPath2.h"
+#include "ProtoRectangle.h"
 
 
 #include "ProtoJuncusEffusus.h"
