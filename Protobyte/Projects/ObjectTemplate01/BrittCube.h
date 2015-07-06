@@ -3,14 +3,17 @@
 
 #include "BrittGeom3.h"
 
-class BrittCube: public BrittGeom3 {
+namespace ijg {
+	class BrittCube : public BrittGeom3 {
 
-public:
+	public:
+		BrittCube();
 
+		void calcVerts();
+		void calcInds();
 
-private:
-
-
-
-};
+	private:
+		Col4f defaultColor = Col4f(0.5, 0.5, 0.5, 1);
+	};
+}
 #endif

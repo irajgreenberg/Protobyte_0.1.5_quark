@@ -15,7 +15,10 @@ public:
 	void run();
 	void display();
 
+	void mousePressed();
+
 private:
+	BrittCube b;
 	
 };
 

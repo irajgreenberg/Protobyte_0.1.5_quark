@@ -5,26 +5,35 @@
 #include <vector>
 #include <memory>
 
-#include "ProtoVector3.h"
-#include "ProtoDimension3.h"
+#include "ProtoShader.h"
+
+#include "ProtoGeomSet.h"
+#include "ProtoTexture.h"
 
 #include "ProtoVertex3.h"
 #include "ProtoTuple3.h"
-#include "ProtoFace3.h"
-
-
-#include "ProtoColor4.h"
 
 namespace ijg {
 	class BrittGeom3 {
-		
-		friend class ProtoVerex3;
 		
 	public:
 		BrittGeom3();
 		~BrittGeom3();
 
+		void display();
+
 	protected:
+		std::vector<ProtoVertex3> verts;
+		std::vector<ProtoTuple3<int>> inds;
+
+		std::vector<Col4f> color;
+
+		Vec2f textureScale;
+
+		std::string diffuseMapImage;
+		ProtoTexture diffuseMapTexture;
+		
+
 		void init();
 
 		void clearVectors();
@@ -32,20 +41,31 @@ namespace ijg {
 		virtual void calcVerts() = 0;
 		virtual void calcInds() = 0;
 
-
-		std::vector<ProtoVertex3> vertices;
-		std::vector<ProtoTuple3<int>> indexes;
-
-		std::vector<Col4f> color;
-
-
 	private:
+		enum {
+			STRIDE = 15
+		};
+
+		//Primitives
+		std::vector<unsigned int> indPrims;
+		std::vector<float> interleavedPrims;
+
+		//Open GL and GLEW
+		GLuint vaoID;
+		GLuint vboID, indexVboID;
+
+		GLint diffuseMapLoc;
+
+		std::vector<ProtoGeomSet> geomSets;
+
 		void calcFaces();
 		void calcVertexNorms();
 		void calcPrimitives();
 
 		void initializeGLEW();
 		void initializeOpenGL();
+
+		void createDiffuseMapTexture(const std::string& diffuseMapImage);
 
 	};
 }

@@ -10,3 +10,7 @@ void ProtoController::run() {
 void ProtoController::display() {
 	
 }
+
+void ProtoController::mousePressed() {
+	println("Working.");
+}
