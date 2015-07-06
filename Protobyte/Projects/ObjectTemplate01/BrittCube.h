@@ -13,6 +13,7 @@ namespace ijg {
 		void calcInds();
 
 	private:
+		//added default color
 		Col4f defaultColor = Col4f(0.5, 0.5, 0.5, 1);
 	};
 }

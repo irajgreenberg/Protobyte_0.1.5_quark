@@ -23,7 +23,6 @@ void BrittCube::calcVerts() {
 	vs[6] = Vec3f(-.5, -.5, -.5);
 	vs[7] = Vec3f(-.5, .5, -.5);
 
-
 	verts.resize(36);
 	// FRONT
 	verts.at(0) = ProtoVertex3(vs[0], color[0], Tup2f(0.0, 0.0));
