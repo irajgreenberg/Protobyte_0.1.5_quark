@@ -1,4 +1,3 @@
-
 #ifndef __PROTOCONTROLLER_H__
 #define __PROTOCONTROLLER_H__
 
@@ -18,10 +17,8 @@ public:
 	void mousePressed();
 
 private:
-	//BrittCube b;
 	ProtoBlock c;
 	float theta;
 	
 };
-
 #endif //__PROTOCONTROLLER_H__
