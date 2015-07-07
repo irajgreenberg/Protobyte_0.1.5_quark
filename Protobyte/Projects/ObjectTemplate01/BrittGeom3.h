@@ -47,7 +47,7 @@ namespace ijg {
 		std::vector<std::string> diffuseTextureImageURLs;
 
 		BrittGeom3();
-		~BrittGeom3();
+		virtual ~BrittGeom3();
 
 		void display();
 
