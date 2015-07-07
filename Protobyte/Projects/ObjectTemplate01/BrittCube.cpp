@@ -9,7 +9,7 @@ BrittGeom3() {
 	for (int i = 0; i < 8; i++) {
 		color.push_back(defaultColor);
 	}
-	//init();
+	init();
 }
 
 void BrittCube::calcVerts() {

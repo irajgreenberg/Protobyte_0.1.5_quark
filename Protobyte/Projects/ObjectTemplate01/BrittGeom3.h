@@ -2,10 +2,11 @@
 #define __BrittGeom3__Protobyte__
 
 #if defined(_WIN32) || defined(__linux__)
-#define GLEW_STATIC
+#define GLEW_STATIC // link to glew32s instead of including dll
 #include <GL/glew.h>
 #endif
 
+#include <sstream>
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -13,13 +14,26 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+// preproc dir for relative resource loading
+// from http://stackoverflow.com/questions/143174/how-do-i-get-the-directory-that-a-program-is-running-from
+// http://www.daniweb.com/software-development/cpp/threads/202937/ifdef-with-boolean-and-or
+#include <stdio.h>  /* defines FILENAME_MAX */
+#if defined (_WIN32) || defined (_WIN64)
+#include <direct.h>
+#define GetCurrentDir _getcwd
+#else
+#include <unistd.h>
+#define GetCurrentDir getcwd
+#endif
+// end relative loading proproc dir
+
 #include "ProtoShader.h"
 
 #include "ProtoGeomSet.h"
 #include "ProtoTexture.h"
 
 #include "ProtoVertex3.h"
-#include "ProtoFace3.h"s
+#include "ProtoFace3.h"
 #include "ProtoTuple3.h"
 
 namespace ijg {
@@ -29,13 +43,36 @@ namespace ijg {
 	class BrittGeom3 {
 		
 	public:
+		static GLuint textureID;
+		std::vector<std::string> diffuseTextureImageURLs;
+
 		BrittGeom3();
 		~BrittGeom3();
 
 		void display();
 
 	protected:
-		//should materials struct and property by private or protected?
+		std::vector<ProtoVertex3> verts;
+		std::vector<ProtoTuple3<int>> inds;
+		Vec2f textureScale;
+
+		std::string diffuseMapImage;
+
+		//make private and create getter and setter
+		std::vector<Col4f> color;
+
+		void init();
+
+		void clearVectors();
+
+		virtual void calcVerts() = 0;
+		virtual void calcInds() = 0;
+
+	private:
+		enum {
+			STRIDE = 15
+		};
+
 		struct Material {
 			Col4f diffuse;
 			Col4f ambient;
@@ -44,7 +81,7 @@ namespace ijg {
 			float shininess;
 
 			//added implementation for default materials constuctor
-			Material():
+			Material() :
 				diffuse(defaultDiffuse), ambient(defaultAmbient), specular(defaultSpecular), emissive(defaultEmissive), shininess(defaultShininess) {
 			}
 
@@ -59,53 +96,28 @@ namespace ijg {
 			float defaultShininess = 8.0;
 		};
 
-		enum {
-			STRIDE = 15
-		};
-
 		Material materials;
-
-		std::vector<ProtoVertex3> verts;
-		std::vector<ProtoTuple3<int>> inds;
-
-		std::vector<Col4f> color;
-
-		Vec2f textureScale;
-
-		std::string diffuseMapImage;
-		ProtoTexture diffuseMapTexture;
-		
-
-		void init();
-
-		void clearVectors();
-
-		virtual void calcVerts() = 0;
-		virtual void calcInds() = 0;
-
-	private:
-		//enum {
-			//STRIDE = 15
-		//};
 
 		bool isTextureEnabled;
 
 		std::vector<ProtoFace3> faces;
 
+		
+		ProtoTexture diffuseMapTexture;
+		GLint diffuseMapLoc;
+
+		std::vector<ProtoGeomSet> geomSets;
+
 		//Primitives
 		std::vector<unsigned int> indPrims;
 		std::vector<float> interleavedPrims;
 
-		//Open GL and GLEW
-		GLuint vaoID;
-		GLuint vboID, indexVboID;
-
-		GLint diffuseMapLoc;
-
 		//Material Uniform Locations
 		GLuint diffuse_loc_U, ambient_loc_U, specular_loc_U, emissive_loc_U, shininess_loc_U;
 
-		std::vector<ProtoGeomSet> geomSets;
+		//Open GL and GLEW
+		GLuint vaoID;
+		GLuint vboID, indexVboID;
 
 		void calcFaces();
 		void calcVertexNorms();
@@ -116,7 +128,6 @@ namespace ijg {
 		void initializeBuffers();
 
 		void createDiffuseMapTexture(const std::string& diffuseMapImage);
-
 	};
 }
 #endif

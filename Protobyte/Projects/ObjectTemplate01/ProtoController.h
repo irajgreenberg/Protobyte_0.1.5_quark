@@ -5,6 +5,8 @@
 #include <iostream>
 #include "ProtoBaseApp.h"
 #include "BrittCube.h"
+#include "TestShape.h"
+#include "TestGeom.h"
 
 using namespace ijg;
 
@@ -18,7 +20,10 @@ public:
 	void mousePressed();
 
 private:
-	BrittCube b;
+	//BrittCube b;
+	ProtoBlock c;
+	TestShape s;
+	float theta;
 	
 };
 

@@ -1,19 +1,20 @@
 #include "BrittGeom3.h"
 
-#define STRIDE ijg::BrittGeom3::STRIDE;
+#define STRIDE ijg::BrittGeom3::STRIDE
 
 using namespace ijg;
 
-//GLuint BrittGeom3::textureID = 0;
+GLuint BrittGeom3::textureID = 0;
 
 BrittGeom3::BrittGeom3():
 diffuseMapImage("white_tile.jpg"), textureScale(Vec2f(1, 1)) { //moved texture scale set to Geom constructor
 	println("in geom constructor.");
+	diffuseTextureImageURLs.push_back(diffuseMapImage);
 }
 
 BrittGeom3::~BrittGeom3() {
 #ifdef FREEIMAGE_LIB
-	FreeImage_DeInitialize();
+	FreeImage_DeInitialise();
 #endif
 }
 
@@ -43,22 +44,26 @@ void BrittGeom3::clearVectors() {
 }
 
 void BrittGeom3::init() {
+	println("in brittGeom init()");
+	println(diffuseMapImage);
+	println(textureID);
 	clearVectors();
 	createDiffuseMapTexture(diffuseMapImage);
-	calcVerts();
-	calcInds();
-	calcFaces();
-	calcVertexNorms();
-	calcPrimitives();
+	//calcVerts();
+	//calcInds();
+	//calcFaces();
+	//calcVertexNorms();
+	//calcPrimitives();
 
 	//necessary?
-	materials = Material();
+	//materials = Material();
 
-	setMaterialMemLocs();
-
-	initializeGLEW();
-	initializeBuffers();
-	isTextureEnabled = true;
+	//setMaterialMemLocs();
+	//initializeGLEW();
+	//initializeBuffers();
+	//replace with setter
+	// set default texture enabled state
+	//isTextureEnabled = true;
 }
 
 void BrittGeom3::createDiffuseMapTexture(const std::string& diffuseMapImage) {
@@ -148,9 +153,11 @@ void BrittGeom3::setMaterialMemLocs() {
 }
 
 void BrittGeom3::initializeGLEW() {
+	// initialize glew for Windows
 #if defined(_WIN32) || defined(__linux__)
 	GLenum err = glewInit();
-	if (GLEW_OK != err) {
+	if (GLEW_OK != err)
+	{
 		/* Problem: glewInit failed, something is seriously wrong. */
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 	}
