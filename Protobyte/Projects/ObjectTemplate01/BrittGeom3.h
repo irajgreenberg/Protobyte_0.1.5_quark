@@ -1,20 +1,44 @@
 #ifndef __BrittGeom3__Protobyte__
 #define __BrittGeom3__Protobyte__
 
+#if defined(_WIN32) || defined(__linux__)
+#define GLEW_STATIC
+#include <GL/glew.h>
+#endif
+
+#if defined(__APPLE__) || defined(__linux__)
+#include <unistd.h>
+#define GetCurrentDir getcwd
+#endif
+
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include <sstream>
 #include <stdio.h>
+#include <memory>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "ProtoMath.h"
 #include "ProtoCore.h"
 #include "ProtoUtility.h"
 
+#include "ProtoShader.h"
+#include "ProtoTexture.h"
+
+#include "ProtoVector2.h"
 #include "ProtoVector3.h"
+#include "ProtoVector4.h"
+#include "ProtoDimension2.h"
 #include "ProtoDimension3.h"
+#include "ProtoTuple3.h"
 #include "ProtoTuple4.h"
 #include "ProtoMatrix3.h"
 #include "ProtoMatrix4.h"
+
+#include "ProtoFace3.h"
+#include "ProtoGeomSet.h"
 
 #include "ProtoColor4.h"
 
@@ -27,10 +51,15 @@
 #endif
 
 namespace ijg {
+
+#define BUFFER_OFFSET(i) ((void*)(i))
+
 	class BrittGeom3 {
+		friend class ProtoVertex3;
+
 	public:
 		friend std::ostream& operator <<(std::ostream& out, const BrittGeom3& geom);
-
+		
 		enum RenderMode {
 			bPOINTS,
 			bWIREFRAME,
@@ -66,6 +95,8 @@ namespace ijg {
 		virtual void setRotSpd(const Vec3f& newRotSpd);
 
 	protected:
+		enum { STRIDE = 15 };
+		
 		Vec3f pos, rot;
 		Dim3f size;
 		//removed single color component - vector only
@@ -73,8 +104,43 @@ namespace ijg {
 		//necessary? - move and rotate functions in future?
 		Vec3f spd, rotSpd;
 
-		void clearColor();
+		std::vector<ProtoVertex3> verts;
+		std::vector<ProtoTuple3<int>> inds;
 
+		std::vector<float> interleavedPrims;
+
+		ProtoTexture diffuseMapTexture, bumpMapTexture, reflectionMapTexture, refractionMapTexture, specularMapTexture;
+
+		std::string diffuseMapImage, bumpMapImage, reflectionMapImage, refractionMapImage, specularMapImage;
+
+		GLint diffuseMapLoc, bumpMapLoc;
+		std::vector<std::string> diffuseTextureImageURLs;
+
+		Vec2f textureScale;
+
+		GLuint vaoID;
+		GLuint vboID, indexVboID;
+		float* sharedMemPointer;
+
+		std::vector<ProtoGeomSet> geomSets;
+
+		//virtual void calcVerts() = 0;
+		//virtual void calcInds() = 0;
+
+		//private or protected?s
+		void clearColor();
+		void clearVectors();
+
+		void init();
+		void calcFaces();
+		void calcVertexNorms();
+		void calcPrimitives();
+
+		//void createDiffuseMapTexture(const std::string& diffuseMapImage);
+		//void createBumpMapTexture(const std::string& bumpMapImage); 
+		//void createReflectionMapTexture(const std::string& reflectioneMapImage); 
+		//void createRefractionMapTexture(const std::string& refractionMapImage); 
+		//void createSpecularMapTexture(const std::string& specularMapImage); 
 
 	private:
 
@@ -129,9 +195,7 @@ namespace ijg {
 	}
 
 	inline void BrittGeom3::setColor(const std::vector<ProtoColor4f>& newColor) {
-		if (color.size() > 0) {
-			color.clear();
-		}
+		clearColor();
 		color = newColor;
 	}
 
