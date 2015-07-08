@@ -26,7 +26,7 @@
 #define GetCurrentDir getcwd
 #endif
 
-namespace blw {
+namespace ijg {
 	class BrittGeom3 {
 	public:
 		friend std::ostream& operator <<(std::ostream& out, const BrittGeom3& geom);
@@ -41,7 +41,37 @@ namespace blw {
 
 		virtual ~BrittGeom3();
 
+		//for getters and setters - should Vec3f attributes be
+		//separated into compontents (x, y, z)?
+
+		//GETTERS:
+		virtual Vec3f getPos() const;
+		virtual Vec3f getRot() const;
+		virtual Dim3f getSize() const;
+		//should color be returned as vector and single color
+		//or just as single color?
+		virtual std::vector<ProtoColor4f> getColor() const;
+		virtual ProtoColor4f getColorAt(int position) const;
+		virtual Vec3f getSpd() const;
+		virtual Vec3f getRotSpd() const;
+
+		//SETTERS:
+		virtual void setPos(const Vec3f& newPos);
+		virtual void setRot(const Vec3f& newRot);
+		virtual void setSize(const Dim3f& newSize);
+		//vector or single color?
+		virtual void setColor(const std::vector<ProtoColor4f>& newColors);
+		virtual void setColorAt(int position, const ProtoColor4f& newColor);
+		virtual void setSpd(const Vec3f& newSpd);
+		virtual void setRotSpd(const Vec3f& newRotSpd);
+
 	protected:
+		Vec3f pos, rot;
+		Dim3f size;
+		//removed single color component - vector only
+		std::vector<ProtoColor4f> color;
+		//necessary? - move and rotate functions in future?
+		Vec3f spd, rotSpd;
 
 
 	private:
