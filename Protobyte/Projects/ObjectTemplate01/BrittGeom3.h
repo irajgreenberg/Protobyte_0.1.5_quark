@@ -60,7 +60,7 @@ namespace ijg {
 		virtual void setRot(const Vec3f& newRot);
 		virtual void setSize(const Dim3f& newSize);
 		//vector or single color?
-		virtual void setColor(const std::vector<ProtoColor4f>& newColors);
+		virtual void setColor(const std::vector<ProtoColor4f>& newColor);
 		virtual void setColorAt(int position, const ProtoColor4f& newColor);
 		virtual void setSpd(const Vec3f& newSpd);
 		virtual void setRotSpd(const Vec3f& newRotSpd);
@@ -73,11 +73,89 @@ namespace ijg {
 		//necessary? - move and rotate functions in future?
 		Vec3f spd, rotSpd;
 
+		void clearColor();
+
 
 	private:
 
 
 	};
+
+	inline Vec3f BrittGeom3::getPos() const {
+		return pos;
+	}
+
+	inline Vec3f BrittGeom3::getRot() const {
+		return rot;
+	}
+
+	inline Dim3f BrittGeom3::getSize() const {
+		return size;
+	}
+
+	inline std::vector<ProtoColor4f> BrittGeom3::getColor() const {
+		return color;
+	}
+
+	inline ProtoColor4f BrittGeom3::getColorAt(int position) const {
+		int max = color.size() - 1;
+		if (position < 0) {
+			position = 0;
+		}
+		else if (position > max) {
+			position = max;
+		}
+		return color.at(position);
+	}
+
+	inline Vec3f BrittGeom3::getSpd() const {
+		return spd;
+	}
+
+	inline Vec3f BrittGeom3::getRotSpd() const {
+		return rotSpd;
+	}
+
+	inline void BrittGeom3::setPos(const Vec3f& newPos) {
+		pos = newPos;
+	}
+
+	inline void BrittGeom3::setRot(const Vec3f& newRot) {
+		rot = newRot;
+	}
+
+	inline void BrittGeom3::setSize(const Dim3f& newSize) {
+		size = newSize;
+	}
+
+	inline void BrittGeom3::setColor(const std::vector<ProtoColor4f>& newColor) {
+		if (color.size() > 0) {
+			color.clear();
+		}
+		color = newColor;
+	}
+
+	inline void BrittGeom3::setColorAt(int position, const ProtoColor4f& newColor) {
+		int max = color.size() - 1;
+		if (position < 0) {
+			position = 0;
+		}
+		else if (position > max) {
+			color.push_back(newColor);
+		}
+		else {
+			color[position] = newColor;
+		}
+	}
+
+	inline void BrittGeom3::setSpd(const Vec3f& newSpd) {
+		spd = newSpd;
+	}
+
+	inline void BrittGeom3::setRotSpd(const Vec3f& newRotSpd) {
+		rotSpd = newRotSpd;
+	}
+
 }
 
 #endif

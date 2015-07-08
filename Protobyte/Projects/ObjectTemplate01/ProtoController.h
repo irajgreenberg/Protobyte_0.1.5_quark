@@ -17,6 +17,7 @@ public:
 	void mousePressed();
 
 private:
+	BrittGeom3 brittni;
 	ProtoBlock c;
 	float theta;
 	
