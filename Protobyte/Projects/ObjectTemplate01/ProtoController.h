@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "ProtoBaseApp.h"
-#include "BrittCube.h"
+#include "BrittGeom3.h"
 
 using namespace ijg;
 
