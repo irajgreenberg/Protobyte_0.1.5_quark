@@ -57,6 +57,22 @@ namespace ijg {
 	class BrittGeom3 {
 		friend class ProtoVertex3;
 
+	protected:
+		struct Material {
+			Col4f diffuse;
+			Col4f ambient;
+			Col4f specular;
+			Col4f emissive;
+			float shininess;
+
+			// cstrs
+			//implement default constructor!!
+			Material(){}
+			Material(const Col4f& diffuse, const Col4f& ambient, const Col4f& specular, const Col4f& emissive, float shininess) :
+				diffuse(diffuse), ambient(ambient), specular(specular), emissive(emissive), shininess(shininess){}
+
+		};
+
 	public:
 		friend std::ostream& operator <<(std::ostream& out, const BrittGeom3& geom);
 		
@@ -66,9 +82,30 @@ namespace ijg {
 			bSURFACE
 		};
 
+		static GLuint textureID;
+
+		//make protected or private
+		std::vector<float> packedFaces;
+		std::vector<ProtoFace3> faces;
+		std::vector<ProtoFace3> faces2;
+
 		BrittGeom3();
 
 		virtual ~BrittGeom3();
+
+		virtual void display(RenderMode render = bSURFACE, float pointSize = 0.5);
+
+		//necessary? useful?
+		virtual void move(const Vec3f& v);
+		virtual void rotate(const Vec3f& v);
+		virtual void scale(const ProtoDimension3f& s);
+		virtual void transform(const ProtoMatrix4f& mat4);
+
+		void sortFaces();
+		void enableNormalMap(float depth = 0.5);
+		void disableNormalMap();
+		void textureOn();
+		void textureOff();
 
 		//for getters and setters - should Vec3f attributes be
 		//separated into compontents (x, y, z)?
@@ -84,6 +121,26 @@ namespace ijg {
 		virtual Vec3f getSpd() const;
 		virtual Vec3f getRotSpd() const;
 
+		std::vector<ProtoFace3>& getFaces();
+		std::vector<ProtoVertex3>& getVertices();
+		std::vector<float>& getInterleavedPrims();
+
+		const Col4f& getDiffuseMaterial() const;
+		const Col4f& getAmbientMaterial() const;
+		const Col4f& getSpecularMaterial() const;
+		const Col4f& getEmissiveMaterial() const;
+		float getShininess();
+
+		Vec2f getTextureScale() const;
+
+		const Material& getMaterials() const;
+
+		std::vector<Tup4v> getGeomData();
+
+		GLuint getVboID() const;
+		GLuint getIndexVboID() const;
+		int getIndicesSize() const;
+
 		//SETTERS:
 		virtual void setPos(const Vec3f& newPos);
 		virtual void setRot(const Vec3f& newRot);
@@ -93,6 +150,23 @@ namespace ijg {
 		virtual void setColorAt(int position, const ProtoColor4f& newColor);
 		virtual void setSpd(const Vec3f& newSpd);
 		virtual void setRotSpd(const Vec3f& newRotSpd);
+
+		void setBumpMap(const std::string& bumpMapImage);
+		void loadBumpMapTexture(const std::string& bumpMapImage); // loc 1 // pre-made normal map
+		void setDiffuseMap(const std::string& diffuseMapImage);
+		void setReflectionMap(const std::string& reflectionMapImage);
+		void setRefractionMap(const std::string& refractionMapImage);
+		void setSpecularMap(const std::string& specularMapImage);
+
+		void setDiffuseMaterial(const Col4f& diffuseMaterial);
+		void setAmbientMaterial(const Col4f& ambientMaterial);
+		void setSpecularMaterial(const Col4f& specularMaterial);
+		void setEmissiveMaterial(const Col4f& emissiveMaterial);
+		void setShininess(float shininess);
+
+		void setTextureScale(const Vec2f& textureScale);
+
+		void setMaterials(const Material& materials);
 
 	protected:
 		enum { STRIDE = 15 };
@@ -104,6 +178,12 @@ namespace ijg {
 		//necessary? - move and rotate functions in future?
 		Vec3f spd, rotSpd;
 
+		Material materials;
+
+		const ProtoShader* shader;
+
+		bool isTextureEnabled;
+
 		std::vector<ProtoVertex3> verts;
 		std::vector<ProtoTuple3<int>> inds;
 
@@ -112,6 +192,11 @@ namespace ijg {
 		ProtoTexture diffuseMapTexture, bumpMapTexture, reflectionMapTexture, refractionMapTexture, specularMapTexture;
 
 		std::string diffuseMapImage, bumpMapImage, reflectionMapImage, refractionMapImage, specularMapImage;
+
+		GLuint displayListIndex;
+
+		// material uniform locations 
+		GLuint diffuse_loc_U, ambient_loc_U, specular_loc_U, emissive_loc_U, shininess_loc_U;
 
 		GLint diffuseMapLoc, bumpMapLoc;
 		std::vector<std::string> diffuseTextureImageURLs;
@@ -136,11 +221,17 @@ namespace ijg {
 		void calcVertexNorms();
 		void calcPrimitives();
 
-		//void createDiffuseMapTexture(const std::string& diffuseMapImage);
-		//void createBumpMapTexture(const std::string& bumpMapImage); 
-		//void createReflectionMapTexture(const std::string& reflectioneMapImage); 
-		//void createRefractionMapTexture(const std::string& refractionMapImage); 
-		//void createSpecularMapTexture(const std::string& specularMapImage); 
+		void setShader(const ProtoShader* newShader);
+
+		void createDiffuseMapTexture(const std::string& diffuseMapImage);
+		void createBumpMapTexture(const std::string& bumpMapImage); 
+		void createReflectionMapTexture(const std::string& reflectioneMapImage); 
+		void createRefractionMapTexture(const std::string& refractionMapImage); 
+		void createSpecularMapTexture(const std::string& specularMapImage); 
+
+		void updateBuffer();
+		void updateTextureBuffer();
+		void updateColorBuffer();
 
 	private:
 
@@ -220,6 +311,94 @@ namespace ijg {
 		rotSpd = newRotSpd;
 	}
 
+	inline std::vector<ProtoFace3>& BrittGeom3::getFaces() {
+		return faces;
+	}
+
+	inline std::vector<ProtoVertex3>& BrittGeom3::getVertices() {
+		return verts;
+	}
+
+	inline  std::vector<float>& BrittGeom3::getInterleavedPrims(){
+		return interleavedPrims;
+	}
+
+	inline void BrittGeom3::setTextureScale(const Vec2f& textureScale) {
+		this->textureScale = textureScale;
+		updateTextureBuffer();
+	}
+
+	inline Vec2f BrittGeom3::getTextureScale() const {
+		return textureScale;
+	}
+
+	inline GLuint BrittGeom3::getVboID() const {
+		return vboID;
+	}
+
+	inline GLuint BrittGeom3::getIndexVboID() const {
+		return indexVboID;
+	}
+
+	inline int BrittGeom3::getIndicesSize() const{
+		return static_cast<int>(inds.size());
+	}
+
+	// materials
+	inline void BrittGeom3::setDiffuseMaterial(const Col4f& diffuseMaterial){
+		materials.diffuse = diffuseMaterial;
+
+		diffuse_loc_U = glGetUniformLocation(ProtoShader::getID_2(), "diffuseMaterial");
+		//init();
+	}
+
+	inline void BrittGeom3::setAmbientMaterial(const Col4f& ambientMaterial){
+		materials.ambient = ambientMaterial;
+
+		ambient_loc_U = glGetUniformLocation(ProtoShader::getID_2(), "ambientMaterial");
+		//init();
+	}
+	inline void BrittGeom3::setSpecularMaterial(const Col4f& specularMaterial){
+		materials.specular = specularMaterial;
+
+		specular_loc_U = glGetUniformLocation(ProtoShader::getID_2(), "specularMaterial");
+		//init();
+	}
+
+	inline void BrittGeom3::setEmissiveMaterial(const Col4f& emissiveMaterial){
+		materials.emissive = emissiveMaterial;
+
+		emissive_loc_U = glGetUniformLocation(ProtoShader::getID_2(), "emissiveMaterial");
+		//init();
+	}
+
+	inline void BrittGeom3::setShininess(float shininess){
+		materials.shininess = shininess;
+		//init();
+	}
+
+	inline const Col4f& BrittGeom3::getDiffuseMaterial() const{
+		return materials.diffuse;
+	}
+	inline const Col4f& BrittGeom3::getAmbientMaterial() const{
+		return materials.ambient;
+	}
+	inline const Col4f& BrittGeom3::getSpecularMaterial() const{
+		return materials.specular;
+	}
+	inline const Col4f& BrittGeom3::getEmissiveMaterial() const{
+		return materials.emissive;
+	}
+	inline float BrittGeom3::getShininess(){
+		return materials.shininess;
+	}
+
+	inline void BrittGeom3::setMaterials(const Material& materials){
+		this->materials = materials;
+	}
+	inline const BrittGeom3::Material& BrittGeom3::getMaterials() const{
+		return materials;
+	}
 }
 
 #endif
