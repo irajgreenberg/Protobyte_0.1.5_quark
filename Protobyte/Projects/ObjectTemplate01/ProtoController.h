@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "ProtoBaseApp.h"
-#include "BrittGeom3.h"
+#include "BrittCube.h"
 
 using namespace ijg;
 
@@ -17,7 +17,7 @@ public:
 	void mousePressed();
 
 private:
-	BrittGeom3 brittni;
+	BrittCube brittni;
 	ProtoBlock c;
 	float theta;
 	

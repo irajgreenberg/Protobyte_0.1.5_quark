@@ -42,6 +42,8 @@
 
 #include "ProtoColor4.h"
 
+#include "ProtoShape3.h"
+
 #if defined (_WIN32) || defined (_WIN64)
 #include <direct.h>
 #define GetCurrentDir _getcwd
@@ -49,6 +51,10 @@
 #include <unistd.h>
 #define GetCurrentDir getcwd
 #endif
+
+#define SURFACE ProtoShape3::RenderMode::SURFACE
+#define WIREFRAME ProtoShape3::RenderMode::WIREFRAME
+#define POINTS ProtoShape3::RenderMode::POINTS
 
 namespace ijg {
 
@@ -76,11 +82,11 @@ namespace ijg {
 	public:
 		friend std::ostream& operator <<(std::ostream& out, const BrittGeom3& geom);
 		
-		enum RenderMode {
-			bPOINTS,
-			bWIREFRAME,
-			bSURFACE
-		};
+//		enum RenderMode {
+//			bPOINTS,
+//			bWIREFRAME,
+//			bSURFACE
+//		};
 
 		static GLuint textureID;
 
@@ -93,7 +99,7 @@ namespace ijg {
 
 		virtual ~BrittGeom3();
 
-		virtual void display(RenderMode render = bSURFACE, float pointSize = 0.5);
+		virtual void display(ProtoShape3::RenderMode render = SURFACE, float pointSize = 0.5);
 
 		//necessary? useful?
 		virtual void move(const Vec3f& v);
@@ -116,8 +122,8 @@ namespace ijg {
 		virtual Dim3f getSize() const;
 		//should color be returned as vector and single color
 		//or just as single color?
-		virtual std::vector<ProtoColor4f> getColor() const;
-		virtual ProtoColor4f getColorAt(int position) const;
+		//virtual std::vector<ProtoColor4f> getColor() const;
+		//virtual ProtoColor4f getColorAt(int position) const;
 		virtual Vec3f getSpd() const;
 		virtual Vec3f getRotSpd() const;
 
@@ -146,8 +152,8 @@ namespace ijg {
 		virtual void setRot(const Vec3f& newRot);
 		virtual void setSize(const Dim3f& newSize);
 		//vector or single color?
-		virtual void setColor(const std::vector<ProtoColor4f>& newColor);
-		virtual void setColorAt(int position, const ProtoColor4f& newColor);
+		//virtual void setColor(const std::vector<ProtoColor4f>& newColor);
+		//virtual void setColorAt(int position, const ProtoColor4f& newColor);
 		virtual void setSpd(const Vec3f& newSpd);
 		virtual void setRotSpd(const Vec3f& newRotSpd);
 
@@ -171,12 +177,16 @@ namespace ijg {
 	protected:
 		enum { STRIDE = 15 };
 		
+	public:
 		Vec3f pos, rot;
 		Dim3f size;
-		//removed single color component - vector only
-		std::vector<ProtoColor4f> color;
+		//change name of colors
+		ProtoColor4f col4;
+		std::vector<ProtoColor4f> col4s;
 		//necessary? - move and rotate functions in future?
 		Vec3f spd, rotSpd;
+
+	protected:
 
 		Material materials;
 
@@ -188,6 +198,7 @@ namespace ijg {
 		std::vector<ProtoTuple3<int>> inds;
 
 		std::vector<float> interleavedPrims;
+		std::vector<unsigned int> indPrims;
 
 		ProtoTexture diffuseMapTexture, bumpMapTexture, reflectionMapTexture, refractionMapTexture, specularMapTexture;
 
@@ -209,8 +220,8 @@ namespace ijg {
 
 		std::vector<ProtoGeomSet> geomSets;
 
-		//virtual void calcVerts() = 0;
-		//virtual void calcInds() = 0;
+		virtual void calcVerts() = 0;
+		virtual void calcInds() = 0;
 
 		//private or protected?s
 		void clearColor();
@@ -250,20 +261,20 @@ namespace ijg {
 		return size;
 	}
 
-	inline std::vector<ProtoColor4f> BrittGeom3::getColor() const {
-		return color;
-	}
+//	inline std::vector<ProtoColor4f> BrittGeom3::getColor() const {
+//		return color;
+//	}
 
-	inline ProtoColor4f BrittGeom3::getColorAt(int position) const {
-		int max = color.size() - 1;
-		if (position < 0) {
-			position = 0;
-		}
-		else if (position > max) {
-			position = max;
-		}
-		return color.at(position);
-	}
+//	inline ProtoColor4f BrittGeom3::getColorAt(int position) const {
+//		int max = color.size() - 1;
+//		if (position < 0) {
+//			position = 0;
+//		}
+//		else if (position > max) {
+//			position = max;
+//		}
+//		return color.at(position);
+//	}
 
 	inline Vec3f BrittGeom3::getSpd() const {
 		return spd;
@@ -285,23 +296,23 @@ namespace ijg {
 		size = newSize;
 	}
 
-	inline void BrittGeom3::setColor(const std::vector<ProtoColor4f>& newColor) {
-		clearColor();
-		color = newColor;
-	}
+//	inline void BrittGeom3::setColor(const std::vector<ProtoColor4f>& newColor) {
+//		clearColor();
+//		color = newColor;
+//	}
 
-	inline void BrittGeom3::setColorAt(int position, const ProtoColor4f& newColor) {
-		int max = color.size() - 1;
-		if (position < 0) {
-			position = 0;
-		}
-		else if (position > max) {
-			color.push_back(newColor);
-		}
-		else {
-			color[position] = newColor;
-		}
-	}
+//	inline void BrittGeom3::setColorAt(int position, const ProtoColor4f& newColor) {
+//		int max = color.size() - 1;
+//		if (position < 0) {
+//			position = 0;
+//		}
+//		else if (position > max) {
+//			color.push_back(newColor);
+//		}
+//		else {
+//			color[position] = newColor;
+//		}
+//	}
 
 	inline void BrittGeom3::setSpd(const Vec3f& newSpd) {
 		spd = newSpd;
