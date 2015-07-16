@@ -189,14 +189,14 @@ namespace ijg {
 
 		//ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const std::vector< ProtoColor4f > col4s, const std::string& diffuseTextureImage);
 
-		TestGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4, const std::string& diffuseTextureImage, const Vec2f& textureScale = Vec2f(1, 1));
+		//TestGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4, const std::string& diffuseTextureImage, const Vec2f& textureScale = Vec2f(1, 1));
 
-		TestGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
-			const std::vector< ProtoColor4f > col4s, const std::string& diffuseTextureImage, const Vec2f& textureScale = Vec2f(1, 1));
+		//TestGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
+			//const std::vector< ProtoColor4f > col4s, const std::string& diffuseTextureImage, const Vec2f& textureScale = Vec2f(1, 1));
 
 		// multi-texturing
-		TestGeom3(const Dim3f& size, const Col4f& col4, const std::vector<std::string>& textureImageURLs, const Vec2f& textureScale = Vec2f(1, 1));
-		TestGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f& size, const Col4f& col4, const std::vector<std::string>& textureImageURLs, const Vec2f& textureScale = Vec2f(1, 1));
+		//TestGeom3(const Dim3f& size, const Col4f& col4, const std::vector<std::string>& textureImageURLs, const Vec2f& textureScale = Vec2f(1, 1));
+		//TestGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f& size, const Col4f& col4, const std::vector<std::string>& textureImageURLs, const Vec2f& textureScale = Vec2f(1, 1));
 
 
 

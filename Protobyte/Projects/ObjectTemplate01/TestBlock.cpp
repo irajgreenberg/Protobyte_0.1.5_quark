@@ -14,7 +14,13 @@ namespace ijg {
 
 using namespace ijg;
 
-TestBlock::TestBlock() {
+TestBlock::TestBlock():
+TestGeom3(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(10, 10, 10), Col4f(0.2, 0.2, 0.2, 1.0)) {
+	textureScale = Vec2f(1, 1);
+	for (int i = 0; i < 8; ++i){
+		col4s.push_back(col4);
+	}
+	//init();
 }
 
 TestBlock::TestBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size,
@@ -27,14 +33,14 @@ TestBlock::TestBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f&
 	init();
 }
 
-TestBlock::TestBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size,
-	const Col4f& col4, const std::string& textureImageURL, const Vec2f& textureScale) :
-	TestGeom3(pos, rot, size, col4, textureImageURL, textureScale) {
-	for (int i = 0; i < 8; ++i){
-		col4s.push_back(col4);
-	}
-	init();
-}
+//TestBlock::TestBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size,
+//	const Col4f& col4, const std::string& textureImageURL, const Vec2f& textureScale) :
+//	TestGeom3(pos, rot, size, col4, textureImageURL, textureScale) {
+//	for (int i = 0; i < 8; ++i){
+//		col4s.push_back(col4);
+//	}
+//	init();
+//}
 
 /*!
 * Constructor */
@@ -46,11 +52,11 @@ TestBlock::TestBlock(const Vec3f& pos, const Vec3f& rot, const Dim3f& size,
 
 /*!
 * Constructor */
-TestBlock::TestBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size,
-	const std::vector<Col4f>& cols4, const std::string& textureImageURL, const Vec2f& textureScale) :
-	TestGeom3(pos, rot, size, cols4, textureImageURL, textureScale) {
-	init();
-}
+//TestBlock::TestBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size,
+//	const std::vector<Col4f>& cols4, const std::string& textureImageURL, const Vec2f& textureScale) :
+//	TestGeom3(pos, rot, size, cols4, textureImageURL, textureScale) {
+//	init();
+//}
 
 
 //Uses uuplicate vertices to allow proper texture mapping

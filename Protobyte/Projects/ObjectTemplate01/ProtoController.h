@@ -17,8 +17,9 @@ public:
 	void mousePressed();
 
 private:
-	ProtoBlock c;
-	TestBlock d;
+	ProtoBlock a;
+	TestBlock b;
+	TestBlock c;
 	float theta;
 	
 };

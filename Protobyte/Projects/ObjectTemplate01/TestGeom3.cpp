@@ -6,7 +6,9 @@ using namespace ijg;
 
 GLuint TestGeom3::textureID = 0;
 
-TestGeom3::TestGeom3() {
+TestGeom3::TestGeom3():
+ProtoShape3(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(10, 10, 10), Col4f(0.2, 0.2, 0.2, 1.0)), diffuseMapImage("white_tile.jpg") {
+	diffuseTextureImageURLs.push_back(diffuseMapImage);
 }
 
 TestGeom3::TestGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4) :
@@ -30,24 +32,23 @@ ProtoShape3(pos, rot, size, col4s), diffuseMapImage("white_tile.jpg") {
 //	diffuseTextureImageURLs.push_back(diffuseMapImage);
 //}
 
-TestGeom3::TestGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4, const std::string& diffuseMapImage, const Vec2f& textureScale) :
-ProtoShape3(pos, rot, size, col4), diffuseMapImage(diffuseMapImage), textureScale(textureScale) {
-	diffuseTextureImageURLs.push_back(diffuseMapImage);
-}
+//TestGeom3::TestGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4, const std::string& diffuseMapImage, const Vec2f& textureScale) :
+//ProtoShape3(pos, rot, size, col4), diffuseMapImage(diffuseMapImage), textureScale(textureScale) {
+	//diffuseTextureImageURLs.push_back(diffuseMapImage);
+//
 
-TestGeom3::TestGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
-	const std::vector< ProtoColor4f > col4s, const std::string& diffuseMapImage, const Vec2f& textureScale) :
-	ProtoShape3(pos, rot, size, col4s), diffuseMapImage(diffuseMapImage), textureScale(textureScale) {
-	diffuseTextureImageURLs.push_back(diffuseMapImage);
-}
+//TestGeom3::TestGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
+	//const std::vector< ProtoColor4f > col4s, const std::string& diffuseMapImage, const Vec2f& textureScale) :
+	//ProtoShape3(pos, rot, size, col4s), diffuseMapImage(diffuseMapImage), textureScale(textureScale) {
+	//diffuseTextureImageURLs.push_back(diffuseMapImage);
+//}
 
 // multi-texturing
-TestGeom3::TestGeom3(const Dim3f& size, const Col4f& col4, const std::vector<std::string>& diffuseTextureImageURLs, const Vec2f& textureScale) :
-ProtoShape3(Vec3f(), Vec3f(), size, col4), diffuseTextureImageURLs(diffuseTextureImageURLs), textureScale(textureScale){
-}
-TestGeom3::TestGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f& size, const Col4f& col4, const std::vector<std::string>& diffuseTextureImageURLs, const Vec2f& textureScale) :
-ProtoShape3(pos, rot, size, col4s), diffuseTextureImageURLs(diffuseTextureImageURLs), textureScale(textureScale){
-}
+//TestGeom3::TestGeom3(const Dim3f& size, const Col4f& col4, const std::vector<std::string>& diffuseTextureImageURLs, const Vec2f& textureScale) :
+//}
+//TestGeom3::TestGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f& size, const Col4f& col4, const std::vector<std::string>& diffuseTextureImageURLs, const Vec2f& textureScale) :
+//ProtoShape3(pos, rot, size, col4s), diffuseTextureImageURLs(diffuseTextureImageURLs), textureScale(textureScale){
+//}
 
 TestGeom3::~TestGeom3() {
 	// glDeleteLists(displayListIndex, 1);
