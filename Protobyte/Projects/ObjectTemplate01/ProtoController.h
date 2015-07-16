@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "ProtoBaseApp.h"
+#include "TestBlock.h"
 
 using namespace ijg;
 
@@ -17,6 +18,7 @@ public:
 
 private:
 	ProtoBlock c;
+	TestBlock d;
 	float theta;
 	
 };
