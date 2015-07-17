@@ -45,6 +45,7 @@ namespace ijg {
 			position = max;
 		}
 		col4s[position] = newColor;
+		//updateColorBuffer();
 	}
 
 	inline ProtoColor4f TestBlock::getColorAt(int position) const {

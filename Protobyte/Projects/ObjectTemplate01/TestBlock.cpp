@@ -40,6 +40,7 @@ ProtoGeom3(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(10, 10, 10), col4s) {
 	init();
 }
 
+//constructor with texture
 TestBlock::TestBlock(const std::string& diffuseMapImage, const Vec2f& textureScale = Vec2f(1, 1)):
 ProtoGeom3(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(10, 10, 10), Col4f(0.2, 0.2, 0.2, 1.0), diffuseMapImage, textureScale) {
 	init();
