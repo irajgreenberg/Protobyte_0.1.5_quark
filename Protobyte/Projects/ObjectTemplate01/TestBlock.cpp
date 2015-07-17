@@ -26,20 +26,32 @@ ProtoGeom3(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(10, 10, 10), Col4f(0.2, 0.2, 0.
 	init();
 }
 
-TestBlock::TestBlock(const ProtoColor4f& col4) {
-
+TestBlock::TestBlock(const ProtoColor4f& col4):
+ProtoGeom3(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(10, 10, 10), col4) {
+	textureScale = Vec2f(1, 1);
+	for (int i = 0; i < 8; ++i){
+		col4s.push_back(col4);
+	}
+	init();
 }
 
-TestBlock::TestBlock(const std::vector<Col4f> cols4) {
-
+TestBlock::TestBlock(const std::vector<Col4f> col4s): 
+ProtoGeom3(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(10, 10, 10), col4s) {
+	init();
 }
 
-TestBlock::TestBlock(const std::string& diffuseMapImage, const Vec2f& textureScale = Vec2f(1, 1)) {
-
+TestBlock::TestBlock(const std::string& diffuseMapImage, const Vec2f& textureScale = Vec2f(1, 1)):
+ProtoGeom3(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(10, 10, 10), Col4f(0.2, 0.2, 0.2, 1.0), diffuseMapImage, textureScale) {
+	init();
 }
 
-TestBlock::TestBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size) {
-
+TestBlock::TestBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size):
+ProtoGeom3(pos, rot, size, Col4f(0.2, 0.2, 0.2, 1.0)) {
+	textureScale = Vec2f(1, 1);
+	for (int i = 0; i < 8; ++i){
+		col4s.push_back(col4);
+	}
+	init();
 }
 
 TestBlock::TestBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size,

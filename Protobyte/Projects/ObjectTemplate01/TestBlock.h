@@ -17,7 +17,7 @@ namespace ijg {
 
 		TestBlock(const ProtoColor4f& col4);
 
-		TestBlock(const std::vector<Col4f> cols4);
+		TestBlock(const std::vector<Col4f> col4s);
 
 		TestBlock(const std::string& diffuseMapImage, const Vec2f& textureScale);
 
