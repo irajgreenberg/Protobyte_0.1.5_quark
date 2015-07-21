@@ -34,7 +34,10 @@ GLuint ProtoGeom3::textureID = 0;
 ProtoGeom3::ProtoGeom3() {
 }
 
-
+ProtoGeom3::ProtoGeom3(const Vec3f& pos):
+ProtoShape3(pos, Vec3f(), Dim3f(1, 1, 1), Col4f(.6, 0.0, .65, 1.0)), diffuseMapImage("white_tile.jpg"), textureScale(Vec2f(1, 1)) {
+	diffuseTextureImageURLs.push_back(diffuseMapImage);
+}
 
 ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4) :
 ProtoShape3(pos, rot, size, col4), diffuseMapImage("white_tile.jpg"), textureScale(Vec2f(1, 1)) {

@@ -200,7 +200,9 @@ namespace ijg {
         
         ProtoGeom3();
         
-        ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
+		ProtoGeom3(const Vec3f& pos); 
+		
+		ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
                    const ProtoColor4f col4);
         
         ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,

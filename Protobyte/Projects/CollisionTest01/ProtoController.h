@@ -30,8 +30,7 @@ public:
 
 private:
 	Rect rect;
-	Toroid toroid;
-
+	Toroid* toroid;
 };
 
 #endif //__PROTOCONTROLLER_H__

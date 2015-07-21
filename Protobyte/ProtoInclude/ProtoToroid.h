@@ -37,6 +37,8 @@ namespace ijg {
 
         ProtoToroid();
 
+		ProtoToroid(int ringCount, int ringDetail, float ringRadius, float ringThickness);
+
         ProtoToroid(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3<float>& size, const ProtoColor4<float>& col4,
                 int ringCount, int ringDetail, float ringRadius, float ringThickness);
         ProtoToroid(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3<float>& size, const ProtoColor4<float>& col4,
