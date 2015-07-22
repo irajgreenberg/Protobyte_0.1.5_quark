@@ -26,9 +26,8 @@
 
 using namespace ijg;
 
-ProtoToroid::ProtoToroid() :
-ProtoGeom3(Vec3f(), Vec3f(), Dim3f(1, 1, 1), Col4f(0, 0, 0, 1)), ringCount(24), ringDetail(36), ringRadius(1), ringThickness(.2) {
-	init();
+ProtoToroid::ProtoToroid()
+{
 }
 
 ProtoToroid::ProtoToroid(int ringCount, int ringDetail, float ringRadius, float ringThickness) :

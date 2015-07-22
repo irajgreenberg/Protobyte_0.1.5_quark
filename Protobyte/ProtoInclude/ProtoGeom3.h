@@ -73,6 +73,7 @@ namespace ijg {
        
 		// called from cstr's
 		virtual void init();
+		virtual void update();
         
 		// primitive pipeline CPU - > GPU
 		// Utilizes VBO's/VAO

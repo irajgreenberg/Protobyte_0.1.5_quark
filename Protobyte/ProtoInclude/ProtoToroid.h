@@ -56,8 +56,8 @@ namespace ijg {
         int getRingCount() const;
 
     private:
-        int ringCount, ringDetail;
-        float ringRadius, ringThickness;
+        int ringCount = 12, ringDetail = 24;
+        float ringRadius = 1.0, ringThickness = .345;
 
         void calcVerts(); // overrides virtual method in base class
         void calcInds(); // overrides virtual method in base class
@@ -75,7 +75,7 @@ namespace ijg {
     }
 
     inline void ProtoToroid::setRingRadius(float ringRadius) {
-        this->ringRadius = ringRadius;
+		this->ringRadius = ringRadius; 
     }
 
     inline float ProtoToroid::getRingRadius() const {
