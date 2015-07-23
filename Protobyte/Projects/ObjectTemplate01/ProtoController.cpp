@@ -3,6 +3,7 @@
 using namespace ijg;
 
 void ProtoController::init() {
+	std::cout << "HI." << std::endl;
 	background(0.7);
 	setColors();
 	setRainbow();
