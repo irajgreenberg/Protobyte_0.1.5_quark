@@ -1988,7 +1988,7 @@ void ProtoBaseApp::point(float x, float y) {
 	glDisable(GL_MULTISAMPLE_ARB);
 	noStroke();
 	if (lineWidth < 2){
-		rect(0, 0, 1, 1);
+		rect(x, y, 1, 1);
 	}
 	else {
 		ellipse(x, y, lineWidth, lineWidth);
@@ -2005,6 +2005,7 @@ void ProtoBaseApp::point(float x, float y) {
 	glEnable(GL_MULTISAMPLE_ARB);
 
 }
+
 
 /****END 2D API****/
 //3D
