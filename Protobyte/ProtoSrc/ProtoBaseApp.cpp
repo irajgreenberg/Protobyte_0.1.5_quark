@@ -269,8 +269,8 @@ void ProtoBaseApp::_createRect(){
 	glBufferSubData(GL_ARRAY_BUFFER, 0, vertsDataSize, &rectPrims[0]); // upload the data
 
 	// fill state is true - need to create this
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glPolygonMode(GL_BACK, GL_FILL);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glPolygonMode(GL_BACK, GL_FILL);
 
 	// draw rect
 	glBindBuffer(GL_ARRAY_BUFFER, vboRectID);
@@ -1376,7 +1376,7 @@ void ProtoBaseApp::rect(float x, float y, float w, float h, Registration reg){
 		glBufferData(GL_ARRAY_BUFFER, vertsDataSize, NULL, GL_STREAM_DRAW);// allocate space
 		glBufferSubData(GL_ARRAY_BUFFER, 0, vertsDataSize, &rectPrims[0]); // upload the data
 
-		glDrawArrays(GL_POLYGON, 0, rectPrimCount / stride);
+		glDrawArrays(GL_TRIANGLE_FAN, 0, rectPrimCount / stride);
 		disable2DRendering();
 
 		// Disable VAO
@@ -1676,7 +1676,7 @@ void ProtoBaseApp::star(int sides, const Vec2& radiusAndRatio) {
 }
 
 // PATH
-void ProtoBaseApp::beginPath(PathRenderMode renderMode) {
+void ProtoBaseApp::beginPath(PathRenderMode pathRenderMode) {
 	this->pathRenderMode = pathRenderMode;
 	isPathRecording = true;
 	pathVerticesAll.size()>0 ? pathVerticesAll.clear() : 0;
@@ -1756,6 +1756,9 @@ void ProtoBaseApp::endPath(bool isClosed) {
 	//float smoothness = .7;
 
 	if (pathVerticesAll.size() > 0){
+		if (pathVerticesAll.size() < 3){
+		//	pathRenderMode = LINE_STRIP;
+		}
 		
 		for (int i = 0; i < pathVerticesAll.size(); ++i) {
 			
@@ -1882,6 +1885,7 @@ void ProtoBaseApp::endPath(bool isClosed) {
 				}
 			}
 			else {
+				
 				// detected linear vertex
 				auto v = pathVerticesAll.at(i); 
 				pathPrimsFill.push_back(PathPrims(std::get<0>(v).x, std::get<0>(v).y, std::get<0>(v).z, 
@@ -1891,7 +1895,6 @@ void ProtoBaseApp::endPath(bool isClosed) {
 			}
 		}
 	}
-
 	switch (pathRenderMode) {
 	case POLYGON:
 		enable2DRendering(); // turn off 3D lighting
@@ -1905,10 +1908,11 @@ void ProtoBaseApp::endPath(bool isClosed) {
 			glBufferSubData(GL_ARRAY_BUFFER, 0, vertsDataSize, &pathPrimsFill[0].x); // upload the data
 
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-			glDrawArrays(GL_POLYGON, 0, pathPrimsFill.size());
+			glDrawArrays(GL_TRIANGLE_FAN, 0, pathPrimsFill.size());
 
 		}
 		if (isStroke){
+	
 			// using struct prims for coding tersity
 			int vertsDataSize = sizeof (PathPrims)* pathPrimsStroke.size();
 			glBufferData(GL_ARRAY_BUFFER, vertsDataSize, NULL, GL_STREAM_DRAW);// allocate space
@@ -1917,13 +1921,13 @@ void ProtoBaseApp::endPath(bool isClosed) {
 			glLineWidth(lineWidth);
 
 			// closed path
-			if (pathRenderMode){
-				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			if (isClosed){
+				//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 				glDrawArrays(GL_LINE_LOOP, 0, pathPrimsStroke.size());
 			}
 			// open path
 			else {
-				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 				glDrawArrays(GL_LINE_STRIP, 0, pathPrimsStroke.size());
 			}
 		}
@@ -1947,7 +1951,7 @@ void ProtoBaseApp::endPath(bool isClosed) {
 		break;
 	default:
 		//glDrawArrays(GL_POLYGON, 0, pathPrims.size() / stride);
-		glDrawArrays(GL_POLYGON, 0, pathPrimsFill.size());
+		glDrawArrays(GL_TRIANGLE_FAN, 0, pathPrimsFill.size());
 
 	}
 
@@ -1959,6 +1963,49 @@ void ProtoBaseApp::endPath(bool isClosed) {
 	pathPrimsFill.clear();
 	pathVerticesAll.clear();
 }
+void ProtoBaseApp::line(float x1, float y1, float x2, float y2) {
+	beginShape();
+	vertex(x1, y1);
+	vertex(x2, y2);
+	endShape();
+}
+void ProtoBaseApp::line(float x1, float y1, float z1, float x2, float y2, float z2) {
+	beginShape();
+	vertex(x1, y1, z1);
+	vertex(x2, y2, z2);
+	endShape();
+}
+
+void ProtoBaseApp::point(float x, float y) {
+	glDisable(GL_DITHER);
+	glDisable(GL_POINT_SMOOTH);
+	glDisable(GL_LINE_SMOOTH);
+	glDisable(GL_POLYGON_SMOOTH);
+	glHint(GL_POINT_SMOOTH, GL_DONT_CARE);
+	glHint(GL_LINE_SMOOTH, GL_DONT_CARE);
+	glHint(GL_POLYGON_SMOOTH_HINT, GL_DONT_CARE);
+#define GL_MULTISAMPLE_ARB 0x809D
+	glDisable(GL_MULTISAMPLE_ARB);
+	noStroke();
+	if (lineWidth < 2){
+		rect(0, 0, 1, 1);
+	}
+	else {
+		ellipse(x, y, lineWidth, lineWidth);
+	}
+	stroke(strokeColor);
+	glEnable(GL_DITHER);
+	glEnable(GL_POINT_SMOOTH);
+	glEnable(GL_LINE_SMOOTH);
+	glEnable(GL_POLYGON_SMOOTH);
+	glHint(GL_POINT_SMOOTH, GL_NICEST);
+	glHint(GL_LINE_SMOOTH, GL_NICEST);
+	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+#define GL_MULTISAMPLE_ARB 0x809D
+	glEnable(GL_MULTISAMPLE_ARB);
+
+}
+
 /****END 2D API****/
 //3D
 void ProtoBaseApp::box(float sz, Registration reg) {

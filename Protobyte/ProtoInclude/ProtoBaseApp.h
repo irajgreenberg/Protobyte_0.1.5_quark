@@ -520,7 +520,6 @@ namespace ijg {
 		// points around ellipse
 		int ellipseDetail;
 
-		
 		// Primitives API
 		// Precalculating buffers for 2D primitives for efficiency
 		// updated with glBufferSubData and binding vbo/vao
@@ -625,6 +624,13 @@ namespace ijg {
 		void vertex(const Vec3f& vec);
 		void vertex(float x, float y);
 		void vertex(float x, float y, float z);
+
+		// NEW
+		void line(float x1, float y1, float x2, float y2);
+		void line(float x1, float y1, float z1, float x2, float y2, float z2);
+
+		void point(float x, float y);
+		void point(float x, float y, float z); // not implemented
 
 		// Catmull-Rom spline curve
 		void curveVertex(const Vec2f& vec);

@@ -590,7 +590,7 @@ void ProtoGeom3::display(RenderMode render, float pointSize) {
 	// call update to enable real-time changes to geometry.
 	// this will need further refacotring
 	// including potentially a geometry shader implementation
-	update();
+	//update();
 
 	GLuint d = diffuseMapTexture.getTextureID();
 	glActiveTexture(GL_TEXTURE0);

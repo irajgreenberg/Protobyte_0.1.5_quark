@@ -1,0 +1,74 @@
+﻿Build started 7/27/2015 12:36:24 PM.
+     1>Project "C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\lineTest\lineTest.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\ProtoInclude /I..\..\OtherLib\libtess2\Include /I"..\..\OtherLib\glew-1.10.0\glew-1.10.0\include" /I"..\..\OtherLib\glfw-3.0.4.bin.WIN32\include" /I..\..\OtherLib\glm /I..\..\OtherLib\FreeImage.WIN32\Dist\x32 /I..\..\OtherLib\dirent\include /I..\..\OtherLib\oscpackLib\include /I..\..\OtherLib\libTriangle\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ProtoController.cpp
+         ProtoController.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoDimension3.h(28): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoShape3.h(55): warning C4005: 'GetCurrentDir' : macro redefinition
+                 c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoUtility.h(62) : see previous definition of 'GetCurrentDir'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeomSet.h(63): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoGeom3.h(334): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoLight.h(93): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoWorld.h(324): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoToroid.h(60): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\protoinclude\ProtoCephalopod.h(128): warning C4244: 'return' : conversion from 'time_t' to 'long', possible loss of data
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(466): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(469): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(470): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(471): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(472): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(475): warning C4237: 'export' keyword is not yet supported, but reserved for future use
+     1>C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\ProtoInclude\ProtoBaseApp.h(699): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>ProtoController.cpp(10): warning C4244: '+=' : conversion from 'const double' to 'float', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\lineTest\Release\lineTest.exe" /NOLOGO /LIBPATH:..\..\ProtoSrc /LIBPATH:"..\..\OtherLib\glfw-3.0.4.bin.WIN32\lib-msvc110" /LIBPATH:"..\..\OtherLib\glew-1.10.0\glew-1.10.0\lib\Release\Win32" /LIBPATH:..\..\OtherLib\FreeImage.WIN32\Dist\x32 /LIBPATH:..\..\OtherLib\oscpackLib /LIBPATH:..\..\OtherLib\libTriangle\lib glew32s.lib opengl32.lib glu32.lib glfw3.lib FreeImaged.lib ws2_32.lib Winmm.lib oscpack.lib triangle.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\lineTest\Release\lineTest.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\lineTest\Release\lineTest.lib" /MACHINE:X86 /SAFESEH Release\ProtoBaseApp.obj
+         Release\ProtoBlock.obj
+         Release\ProtoCamera.obj
+         Release\ProtoCephalopod.obj
+         Release\ProtoCilia.obj
+         Release\ProtoCurve3.obj
+         Release\ProtoCylinder.obj
+         Release\ProtoEllipse.obj
+         Release\ProtoFace3.obj
+         Release\ProtoFrenetFrame.obj
+         Release\ProtoGeom2.obj
+         Release\ProtoGeom3.obj
+         Release\ProtoGeosphere.obj
+         Release\ProtoGroundPlane.obj
+         Release\ProtoJuncusEffusus.obj
+         Release\ProtoLight.obj
+         Release\ProtoMath.obj
+         Release\ProtoPath2.obj
+         Release\ProtoPath3.obj
+         Release\ProtoPlane.obj
+         Release\ProtoPlasm.obj
+         Release\ProtoQuaternion.obj
+         Release\ProtoRenderer.obj
+         Release\ProtoRootBall.obj
+         Release\ProtoShader.obj
+         Release\ProtoShape3.obj
+         Release\ProtoSphere.obj
+         Release\ProtoSpline3.obj
+         Release\ProtoTentacle.obj
+         Release\ProtoTessellator.obj
+         Release\ProtoTexture.obj
+         Release\ProtoToroid.obj
+         Release\ProtoTransformFunction.obj
+         Release\ProtoTube.obj
+         Release\ProtoUtility.obj
+         Release\ProtoVerletBall.obj
+         Release\ProtoVerletStick.obj
+         Release\ProtoVertex3.obj
+         Release\ProtoWorld.obj
+         Release\ProtoController.obj
+         Release\ProtoMain.obj
+     1>LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+         Generating code
+         Finished generating code
+     1>glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\lineTest\Release\vc100.pdb'; linking object as if no debug info
+         lineTest.vcxproj -> C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\lineTest\Release\lineTest.exe
+     1>Done Building Project "C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\lineTest\lineTest.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.10

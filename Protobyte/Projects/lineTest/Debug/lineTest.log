@@ -1,0 +1,12 @@
+﻿Build started 7/26/2015 4:30:46 PM.
+     1>Project "C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\lineTest\lineTest.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\ProtoInclude /I..\..\OtherLib\libtess2\Include /I"..\..\OtherLib\glew-1.10.0\glew-1.10.0\include" /I"..\..\OtherLib\glfw-3.0.4.bin.WIN32\include" /I..\..\OtherLib\glm /I..\..\OtherLib\FreeImage.WIN32\Dist\x32 /I..\..\OtherLib\dirent\include /I..\..\OtherLib\libTriangle\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ProtoController.cpp
+     1>cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
+         ProtoController.cpp
+     1>c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\projects\linetest\protocontroller.cpp : fatal error C1041: cannot open program database 'c:\users\ira\dev\protobyte_0.1.5_quark\protobyte\projects\linetest\debug\vc120.idb'; if multiple CL.EXE write to the same .PDB file, please use /FS
+     1>Done Building Project "C:\Users\Ira\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\lineTest\lineTest.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.12
