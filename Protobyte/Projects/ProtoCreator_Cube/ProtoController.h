@@ -28,7 +28,20 @@ public:
 	void onClosed();
 
 private:
+	Col4f red, blue, white;
+	std::vector<Col4f> colors;
+	ProtoBlock b;
+
+	void clearColors();
+	void makeColors();
+	void assignColors();
 
 };
+
+inline void ProtoController::clearColors() {
+	if (colors.size() > 0) {
+		colors.clear();
+	}
+}
 
 #endif //__PROTOCONTROLLER_H__
