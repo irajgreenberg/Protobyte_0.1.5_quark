@@ -1668,6 +1668,26 @@ void ProtoBaseApp::star(int sides, float innerRadius, float outerRadius) {
 }
 void ProtoBaseApp::star(int sides, const Vec2& radiusAndRatio) {
 }
+void ProtoBaseApp::line(float x0, float y0, float x1, float y1){
+}
+void ProtoBaseApp::line(const Vec2& pt0, const Vec2& pt1){
+}
+void ProtoBaseApp::line(const Vec2& pt0, float l, float rot){
+}
+void ProtoBaseApp::line(float l, float rot){
+}
+void ProtoBaseApp::point(float x, float y){
+}
+void ProtoBaseApp::point(const Vec2& pt){
+}
+void ProtoBaseApp::semi(float x, float y, float r, int hemi){
+}
+void ProtoBaseApp::semi(const Vec2& pt, float r, int hemi){
+}
+void ProtoBaseApp::pie(float x, float y, float r, int pecentage){
+}
+void ProtoBaseApp::pie(const Vec2& pt, float r, int percentage){
+}
 
 // PATH
 void ProtoBaseApp::beginPath(PathRenderMode renderMode) {

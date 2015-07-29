@@ -597,6 +597,19 @@ namespace ijg {
 		void poly(int sides, float radius1, float radius2);
 		void star(int sides, float innerRadius, float outerRadius);
 		void star(int sides, const Vec2& radiusAndRatio);
+
+		//possible additional primitives - bw
+		void line(float x0, float y0, float x1, float y1);
+		void line(const Vec2& pt0, const Vec2& pt1);
+		void line(const Vec2& pt0, float l, float rot);
+		void line(float l, float rot);
+		void point(float x, float y);
+		void point(const Vec2& pt);
+		void semi(float x, float y, float r, int hemi);
+		void semi(const Vec2& pt, float r, int hemi);
+		void pie(float x, float y, float r, int pecentage);
+		void pie(const Vec2& pt, float r, int percentage);
+
 		
 		// 3D Primitives
 		void box(float sz, Registration reg = CENTER);
