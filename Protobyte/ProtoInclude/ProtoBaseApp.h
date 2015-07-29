@@ -605,6 +605,8 @@ namespace ijg {
 		void line(float l, float rot);
 		void point(float x, float y);
 		void point(const Vec2& pt);
+		//use enum for hemi parameter - similat to registration for 
+			//rect and ellipse - bw
 		void semi(float x, float y, float r, int hemi);
 		void semi(const Vec2& pt, float r, int hemi);
 		void pie(float x, float y, float r, int pecentage);

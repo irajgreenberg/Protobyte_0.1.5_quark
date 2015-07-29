@@ -1668,6 +1668,7 @@ void ProtoBaseApp::star(int sides, float innerRadius, float outerRadius) {
 }
 void ProtoBaseApp::star(int sides, const Vec2& radiusAndRatio) {
 }
+//possible additional 2D primitives - bw
 void ProtoBaseApp::line(float x0, float y0, float x1, float y1){
 }
 void ProtoBaseApp::line(const Vec2& pt0, const Vec2& pt1){
