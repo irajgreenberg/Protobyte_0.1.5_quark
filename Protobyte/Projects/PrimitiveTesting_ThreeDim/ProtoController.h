@@ -28,6 +28,31 @@ public:
 	void onClosed();
 
 private:
+	enum TestType {
+		COLOR,
+		FRAME
+	};
+
+	float theta;
+	int clickNum;
+
+	Col4f red, blue, green, magenta, yellow, cyan, white, black, grey;
+	void colorsInit();
+	void setColorsAlpha(float newA);
+
+	ProtoBlock blocks[5];
+	void protoBlockInit();
+	void protoBlockTest(TestType type = COLOR);
+	void protoBlockClick();
+
+	ProtoCylinder cyls[5];
+	void protoCylInit();
+	void protoCylTest(TestType type = COLOR);
+	void protoCylClick();
+
+	//TO DO:
+		//ProtoSphere
+		//ProtoToroid
 
 };
 
