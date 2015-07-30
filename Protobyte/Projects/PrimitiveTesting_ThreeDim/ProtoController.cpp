@@ -5,7 +5,8 @@ void ProtoController::init() {
 	clickNum = 0;
 	colorsInit();
 	//protoBlockInit();
-	protoCylInit();
+	//protoCylInit();
+	protoSphereInit();
 }
 
 void ProtoController::run() {
@@ -13,7 +14,8 @@ void ProtoController::run() {
 
 void ProtoController::display() {
 	//protoBlockTest(FRAME);
-	protoCylTest(FRAME);
+	//protoCylTest(FRAME);
+	protoSphereTest(FRAME);
 	theta += 0.1;
 }
 
@@ -24,7 +26,8 @@ void ProtoController::keyPressed(){
 void ProtoController::mousePressed(){
 	clickNum++;
 	//protoBlockClick();
-	protoCylClick();
+	//protoCylClick();
+	protoSphereClick();
 }
 
 void ProtoController::mouseRightPressed(){
@@ -301,4 +304,131 @@ void ProtoController::protoCylClick() {
 		cyls[3].setColor(grey);
 		cyls[4].setColor(black);
 	}
+}
+
+void ProtoController::protoSphereInit() {
+	for (int i = 0; i < 5; i++) {
+		spheres[i] = ProtoSphere(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(75, 75, 75), red, 20, 20);
+	}
+	spheres[0].setColor(blue);
+	spheres[1].setColor(grey);
+	spheres[2].setColor(cyan);
+	spheres[3].setColor(grey);
+	spheres[4].setColor(green);
+}
+
+void ProtoController::protoSphereTest(TestType type) {
+	if (type == COLOR) {
+		//Sphere 0
+		push();
+		translate(Vec3f(-200, 0, 0));
+		//scale(75);
+		rotate(theta, Vec3f(0.5, 0.5, 0.0));
+		spheres[0].display();
+		pop();
+
+		//Sphere 1
+		push();
+		translate(Vec3f(-100, 0, 0));
+		//scale(75);
+		rotate(theta, Vec3f(0.5, 0.5, 0.0));
+		spheres[1].display();
+		pop();
+
+
+		//Sphere 2
+		push();
+		translate(Vec3f(0, 0, 0));
+		//scale(75);
+		rotate(theta, Vec3f(0.5, 0.5, 0.0));
+		spheres[2].display();
+		pop();
+
+		//Sphere 3
+		push();
+		translate(Vec3f(100, 0, 0));
+		//scale(75);
+		rotate(theta, Vec3f(0.5, 0.5, 0.0));
+		spheres[3].display();
+		pop();
+
+		//Sphere 4
+		push();
+		translate(Vec3f(200, 0, 0));
+		//scale(75);
+		rotate(theta, Vec3f(0.5, 0.5, 0.0));
+		spheres[4].display();
+		pop();
+	}
+	else if (type == FRAME) {
+		//Sphere 0
+		push();
+		translate(Vec3f(-200, 0, 0));
+		//scale(75);
+		rotate(theta, Vec3f(0.5, 0.5, 0.0));
+		spheres[0].display(POINTS, 3);
+		pop();
+
+		//Sphere 1
+		push();
+		translate(Vec3f(-100, 0, 0));
+		//scale(75);
+		rotate(theta, Vec3f(0.5, 0.5, 0.0));
+		spheres[1].display();
+		pop();
+
+
+		//Sphere 2
+		push();
+		translate(Vec3f(0, 0, 0));
+		//scale(75);
+		rotate(theta, Vec3f(0.5, 0.5, 0.0));
+		spheres[2].display(WIREFRAME, 1);
+		pop();
+
+		//Sphere 3
+		push();
+		translate(Vec3f(100, 0, 0));
+		//scale(75);
+		rotate(theta, Vec3f(0.5, 0.5, 0.0));
+		spheres[3].display();
+		pop();
+
+		//Sphere 4
+		push();
+		translate(Vec3f(200, 0, 0));
+		//scale(75);
+		rotate(theta, Vec3f(0.5, 0.5, 0.0));
+		spheres[4].display(POINTS, 3);
+		pop();
+	}
+}
+
+void ProtoController::protoSphereClick() {
+	if (clickNum % 2 == 0) {
+		spheres[0].setColor(blue);
+		spheres[1].setColor(grey);
+		spheres[2].setColor(cyan);
+		spheres[3].setColor(grey);
+		spheres[4].setColor(green);
+	}
+	else if (clickNum % 2 == 1) {
+		spheres[0].setColor(black);
+		spheres[1].setColor(red);
+		spheres[2].setColor(black);
+		spheres[3].setColor(magenta);
+		spheres[4].setColor(black);
+	}
+}
+
+void ProtoController::protoTorInit() {
+
+}
+
+void ProtoController::protoTorTest(TestType type) {
+
+}
+
+void ProtoController::protoTorClick() {
+
 }

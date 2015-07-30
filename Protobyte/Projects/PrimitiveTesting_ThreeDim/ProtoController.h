@@ -50,9 +50,19 @@ private:
 	void protoCylTest(TestType type = COLOR);
 	void protoCylClick();
 
+	ProtoSphere spheres[5];
+	void protoSphereInit();
+	void protoSphereTest(TestType type = COLOR);
+	void protoSphereClick();
+
+	ProtoToroid tors[5];
+	void protoTorInit();
+	void protoTorTest(TestType type = COLOR);
+	void protoTorClick();
+
 	//TO DO:
-		//ProtoSphere
 		//ProtoToroid
+		//Test affect of parameters on all shapes
 
 };
 
