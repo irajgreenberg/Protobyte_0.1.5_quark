@@ -61,7 +61,6 @@ private:
 	void protoTorClick();
 
 	//TO DO:
-		//ProtoToroid
 		//Test affect of parameters on all shapes
 
 };
