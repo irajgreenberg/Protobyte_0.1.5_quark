@@ -7,7 +7,12 @@ void ProtoController::init() {
 	//protoBlockInit();
 	//protoCylInit();
 	//protoSphereInit();
-	protoTorInit();
+	//protoTorInit();
+
+	block = ProtoBlock(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(1, 1, 1), blue);
+	cylinder = ProtoCylinder(Vec3f(0, 0, 0), Dim3f(1, 1, 1), 20);
+	cylinder.setColor(red);
+	sphere = ProtoSphere(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(300, 300, 1), magenta, 25, 25);
 }
 
 void ProtoController::run() {
@@ -17,7 +22,10 @@ void ProtoController::display() {
 	//protoBlockTest(FRAME);
 	//protoCylTest(FRAME);
 	//protoSphereTest(FRAME);
-	protoTorTest(FRAME);
+	//protoTorTest(FRAME);
+	//blockTest();
+	//cylinderTest(FRAME);
+	sphereTest(PNTS);
 	theta += 0.1;
 }
 
@@ -30,7 +38,7 @@ void ProtoController::mousePressed(){
 	//protoBlockClick();
 	//protoCylClick();
 	//protoSphereClick();
-	protoTorClick();
+	//protoTorClick();
 }
 
 void ProtoController::mouseRightPressed(){
@@ -536,5 +544,84 @@ void ProtoController::protoTorClick() {
 		tors[2].setColor(white);
 		tors[3].setColor(cyan);
 		tors[4].setColor(black);
+	}
+}
+
+void ProtoController::blockTest(TestType test) {
+	if (test == COLOR) {
+		push();
+		scale(100);
+		rotate(theta, Vec3f(0.4, 0.3, 0.3));
+		block.display();
+		pop();
+	}
+	else if (test == FRAME) {
+		push();
+		scale(100);
+		rotate(theta, Vec3f(0.4, 0.3, 0.3));
+		block.display(WIREFRAME, 1);
+		pop();
+	}
+	else if (test = PNTS) {
+		push();
+		scale(100);
+		rotate(theta, Vec3f(0.4, 0.3, 0.3));
+		block.display(POINTS, 3);
+		pop();
+	}
+}
+
+void ProtoController::cylinderTest(TestType type) {
+	switch (type)
+	{
+	case ProtoController::COLOR:
+		push();
+		scale(100);
+		rotate(theta, Vec3f(0.4, 0.3, 0.3));
+		cylinder.display();
+		pop();
+		break;
+	case ProtoController::FRAME:
+		push();
+		scale(100);
+		rotate(theta, Vec3f(0.4, 0.3, 0.3));
+		cylinder.display(WIREFRAME, 1);
+		pop();
+		break;
+	case ProtoController::PNTS:
+		push();
+		scale(100);
+		rotate(theta, Vec3f(0.4, 0.3, 0.3));
+		cylinder.display(POINTS, 3);
+		pop();
+		break;
+	default:
+		break;
+	}
+}
+
+void ProtoController::sphereTest(TestType type) {
+	switch (type)
+	{
+	case ProtoController::COLOR:
+		push();
+		rotate(theta, Vec3f(0.4, 0.3, 0.3));
+		sphere.display();
+		pop();
+		break;
+	case ProtoController::FRAME:
+		push();
+		rotate(theta, Vec3f(0.4, 0.3, 0.3));
+		sphere.display(WIREFRAME, 1);
+		pop();
+		break;
+	case ProtoController::PNTS:
+		push();
+		rotate(theta, Vec3f(0.4, 0.3, 0.3));
+		sphere.display(POINTS, 3);
+		pop();
+		break;
+	default:
+		break;
 	}
 }

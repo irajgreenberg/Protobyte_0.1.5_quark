@@ -30,7 +30,8 @@ public:
 private:
 	enum TestType {
 		COLOR,
-		FRAME
+		FRAME,
+		PNTS
 	};
 
 	float theta;
@@ -59,6 +60,15 @@ private:
 	void protoTorInit();
 	void protoTorTest(TestType type = COLOR);
 	void protoTorClick();
+
+	ProtoBlock block;
+	void blockTest(TestType type = COLOR);
+
+	ProtoCylinder cylinder;
+	void cylinderTest(TestType type = COLOR);
+
+	ProtoSphere sphere;
+	void sphereTest(TestType type = COLOR);
 
 	//TO DO:
 		//Test affect of parameters on all shapes
