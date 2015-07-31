@@ -46,6 +46,9 @@ namespace ijg {
 		ProtoSphere(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
 			const ProtoColor4f col4, const std::string& textureImageURL, float textureScale, int spines, int spineNodes, const Vec3f& chaos);
 
+		//new constructors - bw
+		ProtoSphere(const Col4f& col4);
+		
 //        void init(); // temp override
         void calcVerts();
         void calcInds();

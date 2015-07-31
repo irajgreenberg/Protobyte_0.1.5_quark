@@ -57,8 +57,8 @@ private:
 	void protoCylClick();
 
 	ProtoSphere spheres[5];
-	void protoSphereInit();
-	void protoSphereTest(TestType type = COLOR);
+	void protoSphereInit(ConstType type = PROTO);
+	void protoSphereTest(TestType type0 = COLOR, ConstType type1 = PROTO);
 	void protoSphereClick();
 
 	ProtoToroid tors[5];

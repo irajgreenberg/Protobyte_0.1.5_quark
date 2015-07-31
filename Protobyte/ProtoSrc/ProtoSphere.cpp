@@ -48,6 +48,12 @@ ProtoSphere::ProtoSphere(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
 
 }
 
+//new constructors - bw
+ProtoSphere::ProtoSphere(const Col4f& col4) :
+ProtoGeom3(col4), spines(20), spineNodes(20) {
+	init();
+}
+
 //void ProtoSphere::init() {
 //    calcVerts();
 //    calcInds();

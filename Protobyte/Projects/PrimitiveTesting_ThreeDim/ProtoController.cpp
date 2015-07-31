@@ -5,8 +5,8 @@ void ProtoController::init() {
 	clickNum = 0;
 	colorsInit();
 	//protoBlockInit(BRITT);
-	protoCylInit(BRITT);
-	//protoSphereInit();
+	//protoCylInit(BRITT);
+	protoSphereInit(BRITT);
 	//protoTorInit();
 
 	block = ProtoBlock(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(1, 1, 1), blue);
@@ -21,8 +21,8 @@ void ProtoController::run() {
 
 void ProtoController::display() {
 	//protoBlockTest();
-	protoCylTest();
-	//protoSphereTest(FRAME);
+	//protoCylTest();
+	protoSphereTest(FRAME, BRITT);
 	//protoTorTest(FRAME);
 	//blockTest();
 	//cylinderTest(FRAME);
@@ -38,8 +38,8 @@ void ProtoController::keyPressed(){
 void ProtoController::mousePressed(){
 	clickNum++;
 	//protoBlockClick();
-	protoCylClick();
-	//protoSphereClick();
+	//protoCylClick();
+	protoSphereClick();
 	//protoTorClick();
 }
 
@@ -353,101 +353,222 @@ void ProtoController::protoCylClick() {
 	}
 }
 
-void ProtoController::protoSphereInit() {
-	for (int i = 0; i < 5; i++) {
-		spheres[i] = ProtoSphere(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(75, 75, 75), red, 20, 20);
+void ProtoController::protoSphereInit(ConstType type) {
+	switch (type)
+	{
+	case ProtoController::PROTO:
+		for (int i = 0; i < 5; i++) {
+			spheres[i] = ProtoSphere(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(75, 75, 75), red, 20, 20);
+		}
+		spheres[0].setColor(blue);
+		spheres[1].setColor(grey);
+		spheres[2].setColor(cyan);
+		spheres[3].setColor(grey);
+		spheres[4].setColor(green);
+		break;
+	case ProtoController::BRITT:
+		spheres[0] = Sphere(blue);
+		spheres[1] = Sphere(grey);
+		spheres[2] = Sphere(cyan);
+		spheres[3] = Sphere(grey);
+		spheres[4] = Sphere(green);
+		break;
+	default:
+		break;
 	}
-	spheres[0].setColor(blue);
-	spheres[1].setColor(grey);
-	spheres[2].setColor(cyan);
-	spheres[3].setColor(grey);
-	spheres[4].setColor(green);
 }
 
-void ProtoController::protoSphereTest(TestType type) {
-	if (type == COLOR) {
-		//Sphere 0
-		push();
-		translate(Vec3f(-200, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		spheres[0].display();
-		pop();
+void ProtoController::protoSphereTest(TestType type0, ConstType type1) {
+	switch (type1)
+	{
+	case ProtoController::PROTO:
+		switch (type0)
+		{
+		case ProtoController::COLOR:
+			//Sphere 0
+			push();
+			translate(Vec3f(-200, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[0].display();
+			pop();
 
-		//Sphere 1
-		push();
-		translate(Vec3f(-100, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		spheres[1].display();
-		pop();
-
-
-		//Sphere 2
-		push();
-		translate(Vec3f(0, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		spheres[2].display();
-		pop();
-
-		//Sphere 3
-		push();
-		translate(Vec3f(100, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		spheres[3].display();
-		pop();
-
-		//Sphere 4
-		push();
-		translate(Vec3f(200, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		spheres[4].display();
-		pop();
-	}
-	else if (type == FRAME) {
-		//Sphere 0
-		push();
-		translate(Vec3f(-200, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		spheres[0].display(POINTS, 3);
-		pop();
-
-		//Sphere 1
-		push();
-		translate(Vec3f(-100, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		spheres[1].display();
-		pop();
+			//Sphere 1
+			push();
+			translate(Vec3f(-100, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[1].display();
+			pop();
 
 
-		//Sphere 2
-		push();
-		translate(Vec3f(0, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		spheres[2].display(WIREFRAME, 1);
-		pop();
+			//Sphere 2
+			push();
+			translate(Vec3f(0, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[2].display();
+			pop();
 
-		//Sphere 3
-		push();
-		translate(Vec3f(100, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		spheres[3].display();
-		pop();
+			//Sphere 3
+			push();
+			translate(Vec3f(100, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[3].display();
+			pop();
 
-		//Sphere 4
-		push();
-		translate(Vec3f(200, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		spheres[4].display(POINTS, 3);
-		pop();
+			//Sphere 4
+			push();
+			translate(Vec3f(200, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[4].display();
+			pop();
+			break;
+		case ProtoController::FRAME:
+			//Sphere 0
+			push();
+			translate(Vec3f(-200, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[0].display(POINTS, 3);
+			pop();
+
+			//Sphere 1
+			push();
+			translate(Vec3f(-100, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[1].display();
+			pop();
+
+
+			//Sphere 2
+			push();
+			translate(Vec3f(0, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[2].display(WIREFRAME, 1);
+			pop();
+
+			//Sphere 3
+			push();
+			translate(Vec3f(100, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[3].display();
+			pop();
+
+			//Sphere 4
+			push();
+			translate(Vec3f(200, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[4].display(POINTS, 3);
+			pop();
+			break;
+		case ProtoController::PNTS:
+			break;
+		default:
+			break;
+		}
+		break;
+	case ProtoController::BRITT:
+		switch (type0)
+		{
+		case ProtoController::COLOR:
+			//Sphere 0
+			push();
+			translate(Vec3f(-200, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[0].display();
+			pop();
+
+			//Sphere 1
+			push();
+			translate(Vec3f(-100, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[1].display();
+			pop();
+
+
+			//Sphere 2
+			push();
+			translate(Vec3f(0, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[2].display();
+			pop();
+
+			//Sphere 3
+			push();
+			translate(Vec3f(100, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[3].display();
+			pop();
+
+			//Sphere 4
+			push();
+			translate(Vec3f(200, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[4].display();
+			pop();
+			break;
+		case ProtoController::FRAME:
+			//Sphere 0
+			push();
+			translate(Vec3f(-200, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[0].display(POINTS, 3);
+			pop();
+
+			//Sphere 1
+			push();
+			translate(Vec3f(-100, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[1].display();
+			pop();
+
+
+			//Sphere 2
+			push();
+			translate(Vec3f(0, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[2].display(WIREFRAME, 1);
+			pop();
+
+			//Sphere 3
+			push();
+			translate(Vec3f(100, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[3].display();
+			pop();
+
+			//Sphere 4
+			push();
+			translate(Vec3f(200, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			spheres[4].display(POINTS, 3);
+			pop();
+			break;
+		case ProtoController::PNTS:
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
 	}
 }
 
