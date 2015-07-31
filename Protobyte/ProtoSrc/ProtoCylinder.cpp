@@ -102,7 +102,8 @@ void ProtoCylinder::calcVerts() {
 				z = sin(theta);
 				//verts.push_back(ProtoVertex3(Vec3f(-.5 + (1 * i), y, z),
 				//	ProtoColor4f(col4.getR(), col4.getG(), col4.getB(), col4.getA()), ProtoTuple2f(theta / TWO_PI, (i*detail + j) / (detail * 2.0f))));
-				trace(theta / TWO_PI);
+				//removed trace - bw
+				//trace(theta / TWO_PI);
 			//verts.push_back(ProtoVertex3(Vec3f(-.5 + (1 * i), y, z),
 			//	ProtoColor4f(col4.getR(), col4.getG(), col4.getB(), col4.getA()), ProtoTuple2f(theta / TWO_PI, -.5 + (i*i))));
 			//		theta += TWO_PI / (detail-1);

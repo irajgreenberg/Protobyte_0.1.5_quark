@@ -29,6 +29,10 @@
 
 namespace ijg {
 
+	//created namespace safe shortname - bw
+	class ProtoBlock;
+	typedef ProtoBlock Block;
+
     class ProtoBlock : public ProtoGeom3 {
     public:
         friend std::ostream& operator<<(std::ostream& out, const ProtoBlock& block);
