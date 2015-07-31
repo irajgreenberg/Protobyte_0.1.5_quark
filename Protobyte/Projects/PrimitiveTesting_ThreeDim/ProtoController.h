@@ -62,8 +62,8 @@ private:
 	void protoSphereClick();
 
 	ProtoToroid tors[5];
-	void protoTorInit();
-	void protoTorTest(TestType type = COLOR);
+	void protoTorInit(ConstType type = PROTO);
+	void protoTorTest(TestType type0 = COLOR, ConstType type1 = PROTO);
 	void protoTorClick();
 
 	ProtoBlock block;

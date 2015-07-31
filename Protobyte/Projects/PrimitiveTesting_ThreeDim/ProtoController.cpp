@@ -6,8 +6,8 @@ void ProtoController::init() {
 	colorsInit();
 	//protoBlockInit(BRITT);
 	//protoCylInit(BRITT);
-	protoSphereInit(BRITT);
-	//protoTorInit();
+	//protoSphereInit(BRITT);
+	protoTorInit(BRITT);
 
 	block = ProtoBlock(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(1, 1, 1), blue);
 	cylinder = ProtoCylinder(Vec3f(0, 0, 0), Dim3f(1, 1, 1), 20);
@@ -22,8 +22,8 @@ void ProtoController::run() {
 void ProtoController::display() {
 	//protoBlockTest();
 	//protoCylTest();
-	protoSphereTest(FRAME, BRITT);
-	//protoTorTest(FRAME);
+	//protoSphereTest(FRAME, BRITT);
+	protoTorTest(COLOR, BRITT);
 	//blockTest();
 	//cylinderTest(FRAME);
 	//sphereTest(PNTS);
@@ -39,8 +39,8 @@ void ProtoController::mousePressed(){
 	clickNum++;
 	//protoBlockClick();
 	//protoCylClick();
-	protoSphereClick();
-	//protoTorClick();
+	//protoSphereClick();
+	protoTorClick();
 }
 
 void ProtoController::mouseRightPressed(){
@@ -589,101 +589,225 @@ void ProtoController::protoSphereClick() {
 	}
 }
 
-void ProtoController::protoTorInit() {
-	for (int i = 0; i < 5; i++) {
-		tors[i] = ProtoToroid(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(10, 10, 10), red, 20, 15, 75, 20);
+void ProtoController::protoTorInit(ConstType type) {
+	switch (type)
+	{
+	case ProtoController::PROTO:
+		for (int i = 0; i < 5; i++) {
+			tors[i] = ProtoToroid(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(10, 10, 10), red, 20, 15, 75, 20);
+		}
+		tors[0].setColor(green);
+		tors[1].setColor(black);
+		tors[2].setColor(yellow);
+		tors[3].setColor(black);
+		tors[4].setColor(red);
+		break;
+	case ProtoController::BRITT:
+		tors[0] = Toroid(green);
+		tors[1] = Toroid(black);
+		tors[2] = Toroid(yellow);
+		tors[3] = Toroid(black);
+		tors[4] = Toroid(red);
+		break;
+	default:
+		break;
 	}
-	tors[0].setColor(green);
-	tors[1].setColor(black);
-	tors[2].setColor(yellow);
-	tors[3].setColor(black);
-	tors[4].setColor(red);
+
+	
 }
 
-void ProtoController::protoTorTest(TestType type) {
-	if (type == COLOR) {
-		//Toroid 0
-		push();
-		translate(Vec3f(-200, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		tors[0].display();
-		pop();
+void ProtoController::protoTorTest(TestType type0, ConstType type1) {
+	switch (type1)
+	{
+	case ProtoController::PROTO:
+		switch (type0)
+		{
+		case ProtoController::COLOR:
+			//Toroid 0
+			push();
+			translate(Vec3f(-200, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[0].display();
+			pop();
 
-		//Toroid 1
-		push();
-		translate(Vec3f(-100, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		tors[1].display();
-		pop();
-
-
-		//Toroid 2
-		push();
-		translate(Vec3f(0, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		tors[2].display();
-		pop();
-
-		//Toroid 3
-		push();
-		translate(Vec3f(100, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		tors[3].display();
-		pop();
-
-		//Toroid 4
-		push();
-		translate(Vec3f(200, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		tors[4].display();
-		pop();
-	}
-	else if (type == FRAME) {
-		//Toroid 0
-		push();
-		translate(Vec3f(-200, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		tors[0].display(POINTS, 3);
-		pop();
-
-		//Toroid 1
-		push();
-		translate(Vec3f(-100, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		tors[1].display();
-		pop();
+			//Toroid 1
+			push();
+			translate(Vec3f(-100, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[1].display();
+			pop();
 
 
-		//Toroid 2
-		push();
-		translate(Vec3f(0, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		tors[2].display(WIREFRAME, 1);
-		pop();
+			//Toroid 2
+			push();
+			translate(Vec3f(0, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[2].display();
+			pop();
 
-		//Toroid 3
-		push();
-		translate(Vec3f(100, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		tors[3].display();
-		pop();
+			//Toroid 3
+			push();
+			translate(Vec3f(100, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[3].display();
+			pop();
 
-		//Toroid 4
-		push();
-		translate(Vec3f(200, 0, 0));
-		//scale(75);
-		rotate(theta, Vec3f(0.5, 0.5, 0.0));
-		tors[4].display(POINTS, 3);
-		pop();
+			//Toroid 4
+			push();
+			translate(Vec3f(200, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[4].display();
+			pop();
+			break;
+		case ProtoController::FRAME:
+			//Toroid 0
+			push();
+			translate(Vec3f(-200, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[0].display(POINTS, 3);
+			pop();
+
+			//Toroid 1
+			push();
+			translate(Vec3f(-100, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[1].display();
+			pop();
+
+
+			//Toroid 2
+			push();
+			translate(Vec3f(0, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[2].display(WIREFRAME, 1);
+			pop();
+
+			//Toroid 3
+			push();
+			translate(Vec3f(100, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[3].display();
+			pop();
+
+			//Toroid 4
+			push();
+			translate(Vec3f(200, 0, 0));
+			//scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[4].display(POINTS, 3);
+			pop();
+
+			break;
+		case ProtoController::PNTS:
+			break;
+		default:
+			break;
+		}
+		break;
+	case ProtoController::BRITT:
+		switch (type0)
+		{
+		case ProtoController::COLOR:
+			//Toroid 0
+			push();
+			translate(Vec3f(-200, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[0].display();
+			pop();
+
+			//Toroid 1
+			push();
+			translate(Vec3f(-100, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[1].display();
+			pop();
+
+
+			//Toroid 2
+			push();
+			translate(Vec3f(0, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[2].display();
+			pop();
+
+			//Toroid 3
+			push();
+			translate(Vec3f(100, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[3].display();
+			pop();
+
+			//Toroid 4
+			push();
+			translate(Vec3f(200, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[4].display();
+			pop();
+			break;
+		case ProtoController::FRAME:
+			//Toroid 0
+			push();
+			translate(Vec3f(-200, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[0].display(POINTS, 3);
+			pop();
+
+			//Toroid 1
+			push();
+			translate(Vec3f(-100, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[1].display();
+			pop();
+
+
+			//Toroid 2
+			push();
+			translate(Vec3f(0, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[2].display(WIREFRAME, 1);
+			pop();
+
+			//Toroid 3
+			push();
+			translate(Vec3f(100, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[3].display();
+			pop();
+
+			//Toroid 4
+			push();
+			translate(Vec3f(200, 0, 0));
+			scale(75);
+			rotate(theta, Vec3f(0.5, 0.5, 0.0));
+			tors[4].display(POINTS, 3);
+			pop();
+			break;
+		case ProtoController::PNTS:
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
 	}
 }
 

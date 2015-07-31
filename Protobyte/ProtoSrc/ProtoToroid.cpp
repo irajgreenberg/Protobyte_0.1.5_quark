@@ -40,6 +40,12 @@ ProtoGeom3(pos, rot, size, col4, textureImageURL, textureScale), ringCount(ringC
     init();
 }
 
+//new constructors - bw
+ProtoToroid::ProtoToroid(const Col4f& col4) :
+ProtoGeom3(col4), ringCount(20), ringDetail(20), ringRadius(1), ringThickness(0.3) {
+	init();
+}
+
 
 
 void ProtoToroid::calcVerts() {
