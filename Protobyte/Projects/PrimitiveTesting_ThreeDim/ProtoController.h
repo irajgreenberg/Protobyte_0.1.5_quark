@@ -70,9 +70,8 @@ private:
 	ProtoSphere sphere;
 	void sphereTest(TestType type = COLOR);
 
-	//TO DO:
-		//Test affect of parameters on all shapes
-
+	ProtoToroid toroid;
+	void toroidTest(TestType type = COLOR);
 };
 
 #endif //__PROTOCONTROLLER_H__

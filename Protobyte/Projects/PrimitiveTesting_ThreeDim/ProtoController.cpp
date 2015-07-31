@@ -13,6 +13,7 @@ void ProtoController::init() {
 	cylinder = ProtoCylinder(Vec3f(0, 0, 0), Dim3f(1, 1, 1), 20);
 	cylinder.setColor(red);
 	sphere = ProtoSphere(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(300, 300, 1), magenta, 25, 25);
+	toroid = ProtoToroid(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(1, 1, 1), black, 20, 20, 75, 25);
 }
 
 void ProtoController::run() {
@@ -25,7 +26,8 @@ void ProtoController::display() {
 	//protoTorTest(FRAME);
 	//blockTest();
 	//cylinderTest(FRAME);
-	sphereTest(PNTS);
+	//sphereTest(PNTS);
+	toroidTest(FRAME);
 	theta += 0.1;
 }
 
@@ -619,6 +621,32 @@ void ProtoController::sphereTest(TestType type) {
 		push();
 		rotate(theta, Vec3f(0.4, 0.3, 0.3));
 		sphere.display(POINTS, 3);
+		pop();
+		break;
+	default:
+		break;
+	}
+}
+
+void ProtoController::toroidTest(TestType type) {
+	switch (type)
+	{
+	case ProtoController::COLOR:
+		push();
+		rotate(theta, Vec3f(0.4, 0.3, 0.3));
+		toroid.display();
+		pop();
+		break;
+	case ProtoController::FRAME:
+		push();
+		rotate(theta, Vec3f(0.4, 0.3, 0.3));
+		toroid.display(WIREFRAME, 1);
+		pop();
+		break;
+	case ProtoController::PNTS:
+		push();
+		rotate(theta, Vec3f(0.4, 0.3, 0.3));
+		toroid.display(POINTS, 3);
 		pop();
 		break;
 	default:
