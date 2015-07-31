@@ -75,6 +75,16 @@ ProtoBlock::ProtoBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3
 	init();
 }
 
+//new constructors - bw
+ProtoBlock::ProtoBlock(const Col4f& col4) :
+ProtoGeom3(col4) {
+	textureScale = Vec2f(1, 1);
+	for (int i = 0; i < 8; ++i){
+		col4s.push_back(col4);
+	}
+	init();
+}
+
 
 //Uses uuplicate vertices to allow proper texture mapping
 

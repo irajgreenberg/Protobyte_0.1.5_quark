@@ -78,6 +78,12 @@ ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f& size, co
 ProtoShape3(pos, rot, size, col4s), diffuseTextureImageURLs(diffuseTextureImageURLs), textureScale(textureScale){
 }
 
+//new constructors - bw
+ProtoGeom3::ProtoGeom3(const Col4f& col4):
+ProtoShape3(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(1, 1, 1), col4), diffuseMapImage("white_tile.jpg") {
+	diffuseTextureImageURLs.push_back(diffuseMapImage);
+}
+
 
 ProtoGeom3::~ProtoGeom3() {
 	// glDeleteLists(displayListIndex, 1);

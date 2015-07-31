@@ -4,7 +4,7 @@ void ProtoController::init() {
 	theta = 0.0;
 	clickNum = 0;
 	colorsInit();
-	//protoBlockInit();
+	protoBlockInit(BRITT);
 	//protoCylInit();
 	//protoSphereInit();
 	//protoTorInit();
@@ -20,14 +20,14 @@ void ProtoController::run() {
 }
 
 void ProtoController::display() {
-	//protoBlockTest(FRAME);
+	protoBlockTest();
 	//protoCylTest(FRAME);
 	//protoSphereTest(FRAME);
 	//protoTorTest(FRAME);
 	//blockTest();
 	//cylinderTest(FRAME);
 	//sphereTest(PNTS);
-	toroidTest(FRAME);
+	//toroidTest(FRAME);
 	theta += 0.1;
 }
 
@@ -37,7 +37,7 @@ void ProtoController::keyPressed(){
 
 void ProtoController::mousePressed(){
 	clickNum++;
-	//protoBlockClick();
+	protoBlockClick();
 	//protoCylClick();
 	//protoSphereClick();
 	//protoTorClick();
@@ -89,15 +89,33 @@ void ProtoController::setColorsAlpha(float newA) {
 	grey.setA(newA);
 }
 
-void ProtoController::protoBlockInit() {
-	for (int i = 0; i < 5; i++) {
-		blocks[i] = ProtoBlock(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(10, 10, 10), red);
+void ProtoController::protoBlockInit(ConstType type) {
+	switch (type)
+	{
+	case ProtoController::PROTO:
+		for (int i = 0; i < 5; i++) {
+			blocks[i] = ProtoBlock(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(10, 10, 10), red);
+		}
+		blocks[0].setColor(red);
+		blocks[1].setColor(blue);
+		blocks[2].setColor(green);
+		blocks[3].setColor(white);
+		blocks[4].setColor(black);
+		print("Using proto constructors.");
+		break;
+	case ProtoController::BRITT:
+		blocks[0] = Block(red);
+		blocks[1] = Block(blue);
+		blocks[2] = Block(green);
+		blocks[3] = Block(white);
+		blocks[4] = Block(black);
+		print("Using brittni's constructors.");
+		break;
+	default:
+		break;
 	}
-	blocks[0].setColor(red);
-	blocks[1].setColor(blue);
-	blocks[2].setColor(green);
-	blocks[3].setColor(white);
-	blocks[4].setColor(black);
+
+	
 }
 
 void ProtoController::protoBlockTest(TestType type) {

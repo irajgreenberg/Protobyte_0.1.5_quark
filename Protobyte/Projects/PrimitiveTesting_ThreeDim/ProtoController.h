@@ -34,6 +34,11 @@ private:
 		PNTS
 	};
 
+	enum ConstType {
+		PROTO,
+		BRITT
+	};
+
 	float theta;
 	int clickNum;
 
@@ -42,7 +47,7 @@ private:
 	void setColorsAlpha(float newA);
 
 	ProtoBlock blocks[5];
-	void protoBlockInit();
+	void protoBlockInit(ConstType type = PROTO);
 	void protoBlockTest(TestType type = COLOR);
 	void protoBlockClick();
 

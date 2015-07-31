@@ -221,6 +221,8 @@ namespace ijg {
 		ProtoGeom3(const Dim3f& size, const Col4f& col4, const std::vector<std::string>& textureImageURLs, const Vec2f& textureScale = Vec2f(1, 1));
 		ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f& size, const Col4f& col4, const std::vector<std::string>& textureImageURLs, const Vec2f& textureScale = Vec2f(1, 1));
         
+		//new constructors - bw
+		ProtoGeom3(const Col4f& col4);
         
         
         virtual ~ProtoGeom3();

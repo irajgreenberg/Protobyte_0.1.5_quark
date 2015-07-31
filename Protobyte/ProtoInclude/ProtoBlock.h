@@ -58,6 +58,8 @@ namespace ijg {
 		ProtoBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size,
 			const std::vector<Col4f>& cols4, const std::string& textureImageURL, const Vec2f& textureScale = Vec2f(1, 1));
 
+		//new constuctors - bw
+		ProtoBlock(const Col4f& col4);
 
 
         /*!
