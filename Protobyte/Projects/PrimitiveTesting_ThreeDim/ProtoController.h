@@ -52,7 +52,7 @@ private:
 	void protoBlockClick();
 
 	ProtoCylinder cyls[5];
-	void protoCylInit();
+	void protoCylInit(ConstType type = PROTO);
 	void protoCylTest(TestType type = COLOR);
 	void protoCylClick();
 

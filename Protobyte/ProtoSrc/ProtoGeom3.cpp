@@ -80,7 +80,7 @@ ProtoShape3(pos, rot, size, col4s), diffuseTextureImageURLs(diffuseTextureImageU
 
 //new constructors - bw
 ProtoGeom3::ProtoGeom3(const Col4f& col4):
-ProtoShape3(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(1, 1, 1), col4), diffuseMapImage("white_tile.jpg") {
+ProtoShape3(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(1, 1, 1), col4), diffuseMapImage("white_tile.jpg"), textureScale(Vec2f(1, 1)) {
 	diffuseTextureImageURLs.push_back(diffuseMapImage);
 }
 

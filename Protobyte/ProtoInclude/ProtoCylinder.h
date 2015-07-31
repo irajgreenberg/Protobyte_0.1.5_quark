@@ -54,6 +54,9 @@ namespace ijg {
 		ProtoCylinder(const Vec3& pos, int detail, const std::string& textureImageURL, Registration reg = CENTER);
 		ProtoCylinder(const Dim3f& size, int detail, const std::string& textureImageURL, Registration reg = CENTER);
 		ProtoCylinder(const Vec3& pos, const Dim3f& size, int detail, const std::string& textureImageURL, Registration reg = CENTER);
+
+		//new constructors - bw
+		ProtoCylinder(const Col4f& col4);
 		
 
 		void setDetail(int sides);

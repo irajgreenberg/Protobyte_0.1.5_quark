@@ -4,8 +4,8 @@ void ProtoController::init() {
 	theta = 0.0;
 	clickNum = 0;
 	colorsInit();
-	protoBlockInit(BRITT);
-	//protoCylInit();
+	//protoBlockInit(BRITT);
+	protoCylInit(BRITT);
 	//protoSphereInit();
 	//protoTorInit();
 
@@ -20,8 +20,8 @@ void ProtoController::run() {
 }
 
 void ProtoController::display() {
-	protoBlockTest();
-	//protoCylTest(FRAME);
+	//protoBlockTest();
+	protoCylTest();
 	//protoSphereTest(FRAME);
 	//protoTorTest(FRAME);
 	//blockTest();
@@ -37,8 +37,8 @@ void ProtoController::keyPressed(){
 
 void ProtoController::mousePressed(){
 	clickNum++;
-	protoBlockClick();
-	//protoCylClick();
+	//protoBlockClick();
+	protoCylClick();
 	//protoSphereClick();
 	//protoTorClick();
 }
@@ -222,15 +222,31 @@ void ProtoController::protoBlockClick() {
 	}
 }
 
-void ProtoController::protoCylInit() {
-	for (int i = 0; i < 5; i++) {
-		cyls[i] = ProtoCylinder(50);
-	}
-	cyls[0].setColor(red);
-	cyls[1].setColor(magenta);
-	cyls[2].setColor(blue);
-	cyls[3].setColor(cyan);
-	cyls[4].setColor(green);
+void ProtoController::protoCylInit(ConstType type) {
+	switch (type)
+	{
+	case ProtoController::PROTO:
+		for (int i = 0; i < 5; i++) {
+			cyls[i] = ProtoCylinder(50);
+		}
+		cyls[0].setColor(red);
+		cyls[1].setColor(magenta);
+		cyls[2].setColor(blue);
+		cyls[3].setColor(cyan);
+		cyls[4].setColor(green);
+		print("Using proto constructors.");
+		break;
+	case ProtoController::BRITT:
+		cyls[0] = Cylinder(red);
+		cyls[1] = Cylinder(magenta);
+		cyls[2] = Cylinder(blue);
+		cyls[3] = Cylinder(cyan);
+		cyls[4] = Cylinder(green);
+		print("Using brittni's constructors.");
+		break;
+	default:
+		break;
+	} 
 }
 
 void ProtoController::protoCylTest(TestType type) {

@@ -66,6 +66,11 @@ ProtoGeom3(pos, Vec3f(), size, Col4f(1), textureImageURL, Vec2(1)), detail(detai
 	init();
 }
 
+//new constructors - bw
+ProtoCylinder::ProtoCylinder(const Col4f& col4):
+ProtoGeom3(col4), detail(20), registration(CENTER) {
+	init();
+}
 
 void ProtoCylinder::calcVerts() {
 	//trace(verts.size());
