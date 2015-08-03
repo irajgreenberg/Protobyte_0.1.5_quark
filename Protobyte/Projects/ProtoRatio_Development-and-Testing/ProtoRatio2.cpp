@@ -28,21 +28,9 @@ ProtoTuple2i(elem0, elem1), sampleSize(sampleSize) {
 	calculateElemSamples();
 }
 
-void ProtoRatio2::setUnit(UnitType type) {
-	int total = 0;
-	switch (type)
-	{
-	case ijg::ProtoRatio2::TOTAL:
-		total = elem0 + elem1;
-		unit = (1.00 / total);
-		break;
-	case ijg::ProtoRatio2::FRACTION:
-		unit = 1.00;
-		break;
-	default:
-		unit = 1.00;
-		break;
-	}
+void ProtoRatio2::setUnit() {
+	int total = elem0 + elem1;
+	unit = (1.00 / total);
 }
 
 void ProtoRatio2::calculateElemSamples() {

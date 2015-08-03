@@ -26,17 +26,12 @@ namespace ijg {
 		void setSampleSize(int size);
 
 	private:
-		enum UnitType {
-			TOTAL,
-			FRACTION
-		};
-		
 		int sampleSize;
 		float unit;
 
 		float elemSample0, elemSample1;
 		
-		void setUnit(UnitType type = TOTAL);
+		void setUnit();
 		void calculateElemSamples();
 
 	};
