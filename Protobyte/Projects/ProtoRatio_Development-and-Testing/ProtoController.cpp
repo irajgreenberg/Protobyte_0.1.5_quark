@@ -2,13 +2,22 @@
 
 void ProtoController::init() {
 	println(r);
+	r = ProtoRatio2(2, 3);
+	println(r);
 	r.setElem1(5);
 	r.setElem0(6);
+	r.setSampleSize(100);
 	println(r.getElem0());
 	println(r.getElem1());
 	println(r.getUnit());
-	r.setElem1(1);
+	println(r.getSampleSize());
+	println(r.getElemSample0());
+	println(r.getElemSample1());
+	r = ProtoRatio2(1, 1, 100);
 	println(r);
+
+	r1 = ProtoRatio2(2, 3, 45);
+	println(r1);
 
 }
 

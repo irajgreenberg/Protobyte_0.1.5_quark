@@ -31,6 +31,7 @@ public:
 private:
 
 	ProtoRatio2 r;
+	ProtoRatio2 r1;
 
 };
 
