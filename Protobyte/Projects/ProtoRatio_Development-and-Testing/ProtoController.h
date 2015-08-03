@@ -34,6 +34,10 @@ private:
 	ProtoRatio2 r;
 	ProtoRatio2 r1;
 
+	Ratio3 rA;
+	ProtoRatio3 rB;
+	Ratio3 rC;
+
 };
 
 #endif //__PROTOCONTROLLER_H__
