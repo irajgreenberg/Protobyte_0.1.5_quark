@@ -4,10 +4,10 @@ void ProtoController::init() {
 	theta = 0.0;
 	clickNum = 0;
 	colorsInit();
-	//protoBlockInit(BRITT);
+	protoBlockInit(BRITT);
 	//protoCylInit(BRITT);
 	//protoSphereInit(BRITT);
-	protoTorInit(BRITT);
+	//protoTorInit(BRITT);
 
 	block = ProtoBlock(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(1, 1, 1), blue);
 	cylinder = ProtoCylinder(Vec3f(0, 0, 0), Dim3f(1, 1, 1), 20);
@@ -20,10 +20,10 @@ void ProtoController::run() {
 }
 
 void ProtoController::display() {
-	//protoBlockTest();
+	protoBlockTest();
 	//protoCylTest();
 	//protoSphereTest(FRAME, BRITT);
-	protoTorTest(COLOR, BRITT);
+	//protoTorTest(COLOR, BRITT);
 	//blockTest();
 	//cylinderTest(FRAME);
 	//sphereTest(PNTS);
@@ -37,10 +37,10 @@ void ProtoController::keyPressed(){
 
 void ProtoController::mousePressed(){
 	clickNum++;
-	//protoBlockClick();
+	protoBlockClick();
 	//protoCylClick();
 	//protoSphereClick();
-	protoTorClick();
+	//protoTorClick();
 }
 
 void ProtoController::mouseRightPressed(){
