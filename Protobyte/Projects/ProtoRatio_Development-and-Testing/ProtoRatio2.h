@@ -1,11 +1,14 @@
-#ifndef __PROTORATIO_H__
-#define __PROTORATIO_H__
+#ifndef __PROTORATIO2_H__
+#define __PROTORATIO2_H__
 
 
 #include <iostream>
 #include "ProtoTuple2.h"
 
 namespace ijg {
+
+	class ProtoRatio2;
+	typedef ProtoRatio2 Ratio2;
 
 	class ProtoRatio2 : private ProtoTuple2i {
 	public:
@@ -63,11 +66,13 @@ namespace ijg {
 	inline void ProtoRatio2::setElem0(int value) {
 		elem0 = value;
 		setUnit();
+		calculateElemSamples();
 	}
 
 	inline void ProtoRatio2::setElem1(int value) {
 		elem1 = value;
 		setUnit();
+		calculateElemSamples();
 	}
 
 	inline void ProtoRatio2::setSampleSize(int size) {
@@ -76,4 +81,4 @@ namespace ijg {
 	}
 }
 
-#endif //__PROTORATIO_H__
+#endif //__PROTORATIO2_H__

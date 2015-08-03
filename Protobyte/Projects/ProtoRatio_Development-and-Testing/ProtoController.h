@@ -5,6 +5,7 @@
 #include <iostream>
 #include "ProtoBaseApp.h"
 #include "ProtoRatio2.h"
+#include "ProtoRatio3.h"
 
 using namespace ijg;
 

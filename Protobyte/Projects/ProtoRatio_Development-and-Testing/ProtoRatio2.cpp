@@ -14,10 +14,9 @@ namespace ijg {
 using namespace ijg;
 
 ProtoRatio2::ProtoRatio2() :
-ProtoTuple2() {
+ProtoTuple2(), sampleSize(1) {
 	elem0 = 1;
 	elem1 = 1;
-	sampleSize = 1;
 	setUnit();
 	calculateElemSamples();
 }
