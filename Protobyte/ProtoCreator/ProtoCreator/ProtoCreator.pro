@@ -18,3 +18,6 @@ SOURCES += main.cpp\
 HEADERS  += protocreator.h
 
 FORMS    += protocreator.ui
+
+DISTFILES += \
+    ../Widget/ProtoCube_SMU.png

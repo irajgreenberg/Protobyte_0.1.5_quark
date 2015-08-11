@@ -6,6 +6,7 @@ ProtoCreator::ProtoCreator(QWidget *parent) :
     ui(new Ui::ProtoCreator)
 {
     ui->setupUi(this);
+    setPicture();
 }
 
 ProtoCreator::~ProtoCreator()
@@ -166,4 +167,16 @@ void ProtoCreator::setSlnString(const QString& usrProjName) {
     slnString += "HideSolutionNode = FALSE" + newLine;
     slnString += "EndGlobalSection" + newLine;
     slnString += "EndGlobal\"";
+}
+
+void ProtoCreator::setPicture() {
+    QPixmap cubePicture;
+
+    QString filename = "ProtoCube_SMU.png";
+
+    QString filepath = QDir::home().path() + "/Dev/Protobyte_0.1.5_quark/Protobyte/ProtoCreator/Widget/" + filename;
+
+    cubePicture.load(filepath);
+    ui->cubePic->setPixmap(cubePicture);
+    ui->cubePic->show();
 }

@@ -11,6 +11,9 @@
 #include <QStringList>
 #include <iostream>
 
+#include <QPicture>
+#include <QPixmap>
+
 namespace Ui {
 class ProtoCreator;
 }
@@ -34,6 +37,7 @@ private:
     void runScript(const QString& usrProjName);
     void print(const QString& myString);
     void setSlnString(const QString& usrProjName);
+    void setPicture();
 };
 
 #endif // PROTOCREATOR_H
