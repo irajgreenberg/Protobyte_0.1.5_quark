@@ -85,8 +85,24 @@ ProtoGeom3(col4), w(1.0), h(1.0), d(1.0) {
 	init();
 }
 
-ProtoBlock::ProtoBlock(const Col4f& col4, float w, float h, float d):
+ProtoBlock::ProtoBlock(float w, float h, float d, const Col4f& col4) :
 ProtoGeom3(col4), w(w), h(h), d(d) {
+	for (int i = 0; i < 8; ++i){
+		col4s.push_back(col4);
+	}
+	init();
+}
+
+ProtoBlock::ProtoBlock(const Dim3f& dims, const Col4f& col4):
+ProtoGeom3(col4), w(dims.w), h(dims.h), d(dims.d) {
+	for (int i = 0; i < 8; ++i){
+		col4s.push_back(col4);
+	}
+	init();
+}
+
+ProtoBlock::ProtoBlock(const Vec3f& dims, const Col4f& col4):
+ProtoGeom3(col4), w(dims.x), h(dims.y), d(dims.z) {
 	for (int i = 0; i < 8; ++i){
 		col4s.push_back(col4);
 	}

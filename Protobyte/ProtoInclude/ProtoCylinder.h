@@ -57,6 +57,7 @@ namespace ijg {
 
 		//new constructors - bw
 		ProtoCylinder(const Col4f& col4);
+		ProtoCylinder(float ellipseWidth, float ellipseHeight, float length, const Col4f& col4);
 		
 
 		void setDetail(int sides);
@@ -66,6 +67,9 @@ namespace ijg {
 		// fields
 		int detail;
 		Registration registration;
+
+		//new feilds - bw
+		float ellipseWidth, ellipseHeight, length;
 
 		// methods
 		void calcVerts(); // overrides virtual method in base class

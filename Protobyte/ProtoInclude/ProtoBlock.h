@@ -60,7 +60,9 @@ namespace ijg {
 
 		//new constuctors - bw
 		ProtoBlock(const Col4f& col4);
-		ProtoBlock(const Col4f& col4, float w, float h, float d);
+		ProtoBlock(float w, float h, float d, const Col4f& col4);
+		ProtoBlock(const Dim3f& dims, const Col4f& col4);
+		ProtoBlock(const Vec3f& dims, const Col4f& col4);
 
 
         /*!

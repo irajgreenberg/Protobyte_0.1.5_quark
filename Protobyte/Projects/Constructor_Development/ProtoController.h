@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "ProtoBaseApp.h"
+#include "ProtoBlock.h"
 
 using namespace ijg;
 
@@ -28,7 +29,10 @@ public:
 	void onClosed();
 
 private:
-	Block a, b;
+	Block a, b, c, d;
+
+	Cylinder e, f, g, h;
+
 	float theta;
 
 };
