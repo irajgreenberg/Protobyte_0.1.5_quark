@@ -60,6 +60,7 @@ namespace ijg {
 
 		//new constuctors - bw
 		ProtoBlock(const Col4f& col4);
+		ProtoBlock(const Col4f& col4, float w, float h, float d);
 
 
         /*!
@@ -76,6 +77,9 @@ namespace ijg {
          * 
          * Generates indices to group vertices to triangle faces.*/
         void calcInds();
+
+	private:
+		float w, h, d;
       
 
     };

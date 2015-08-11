@@ -42,7 +42,7 @@ ProtoBlock::ProtoBlock() {
 
 ProtoBlock::ProtoBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size,
         const Col4f& col4):
-ProtoGeom3(pos, rot, size, col4) {
+ProtoGeom3(pos, rot, size, col4), w(1.0), h(1.0), d(1.0) {
     textureScale = Vec2f(1, 1);
 	for (int i = 0; i < 8; ++i){
 		col4s.push_back(col4);
@@ -52,7 +52,7 @@ ProtoGeom3(pos, rot, size, col4) {
 
 ProtoBlock::ProtoBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size,
 	const Col4f& col4, const std::string& textureImageURL, const Vec2f& textureScale) :
-ProtoGeom3(pos, rot, size, col4, textureImageURL, textureScale) {
+	ProtoGeom3(pos, rot, size, col4, textureImageURL, textureScale), w(1.0), h(1.0), d(1.0) {
 	for (int i = 0; i < 8; ++i){
 		col4s.push_back(col4);
 	}
@@ -63,7 +63,7 @@ ProtoGeom3(pos, rot, size, col4, textureImageURL, textureScale) {
 * Constructor */
 ProtoBlock::ProtoBlock(const Vec3f& pos, const Vec3f& rot, const Dim3f& size,
 	const std::vector<Col4f>& cols4) :
-	ProtoGeom3(pos, rot, size, cols4) {
+	ProtoGeom3(pos, rot, size, cols4), w(1.0), h(1.0), d(1.0) {
 	init();
 }
 
@@ -71,14 +71,22 @@ ProtoBlock::ProtoBlock(const Vec3f& pos, const Vec3f& rot, const Dim3f& size,
 * Constructor */
 ProtoBlock::ProtoBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size,
 	const std::vector<Col4f>& cols4, const std::string& textureImageURL, const Vec2f& textureScale) :
-	ProtoGeom3(pos, rot, size, cols4, textureImageURL, textureScale) {
+	ProtoGeom3(pos, rot, size, cols4, textureImageURL, textureScale), w(1.0), h(1.0), d(1.0) {
 	init();
 }
 
 //new constructors - bw
 ProtoBlock::ProtoBlock(const Col4f& col4) :
-ProtoGeom3(col4) {
+ProtoGeom3(col4), w(1.0), h(1.0), d(1.0) {
 	//textureScale = Vec2f(1, 1);
+	for (int i = 0; i < 8; ++i){
+		col4s.push_back(col4);
+	}
+	init();
+}
+
+ProtoBlock::ProtoBlock(const Col4f& col4, float w, float h, float d):
+ProtoGeom3(col4), w(w), h(h), d(d) {
 	for (int i = 0; i < 8; ++i){
 		col4s.push_back(col4);
 	}
@@ -91,14 +99,14 @@ ProtoGeom3(col4) {
 void ProtoBlock::calcVerts() {
 
     Vec3f vs[8];
-    vs[0] = Vec3f(-.5, .5, .5);
-    vs[1] = Vec3f(-.5, -.5, .5);
-    vs[2] = Vec3f(.5, -.5, .5);
-    vs[3] = Vec3f(.5, .5, .5);
-    vs[4] = Vec3f(.5, .5, -.5);
-    vs[5] = Vec3f(.5, -.5, -.5);
-    vs[6] = Vec3f(-.5, -.5, -.5);
-    vs[7] = Vec3f(-.5, .5, -.5);
+    vs[0] = Vec3f(-.5 * w, .5 * h, .5 * d);
+    vs[1] = Vec3f(-.5 * w, -.5 * h, .5 * d);
+    vs[2] = Vec3f(.5 * w, -.5 * h, .5 * d);
+    vs[3] = Vec3f(.5 * w, .5 * h, .5 * d);
+    vs[4] = Vec3f(.5 * w, .5 * h, -.5 * d);
+    vs[5] = Vec3f(.5 * w, -.5 * h, -.5 * d);
+    vs[6] = Vec3f(-.5 * w, -.5 * h, -.5 * d);
+    vs[7] = Vec3f(-.5 * w, .5 * h, -.5 * d);
 
 
     verts.resize(36);
