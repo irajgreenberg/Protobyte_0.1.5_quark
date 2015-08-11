@@ -121,6 +121,7 @@ void ProtoCreator::runScript(const QString& usrProjName){
             }
             slnFile.close();
             currentDir.cd(projectsPath);
+
             if (currentDir.exists(newFileName)) {
                 ui->outputText->appendPlainText("Success! " + projectName + " has been created.");
             } else {
@@ -134,9 +135,6 @@ void ProtoCreator::runScript(const QString& usrProjName){
     }
 
     //TO DO:
-        //Create visual studios .sln file
-        //What is global selection, and is that needed here?
-        //Do I need to check which version of Visual Studios is on the machine?
         //How would I get this to open the folder containing the project or open the project
             //itself?
 }
@@ -167,5 +165,5 @@ void ProtoCreator::setSlnString(const QString& usrProjName) {
     slnString += "GlobalSection(SolutionProperties) = preSolution" + newLine;
     slnString += "HideSolutionNode = FALSE" + newLine;
     slnString += "EndGlobalSection" + newLine;
-    slnString += "EndGlobal\""  + newLine;
+    slnString += "EndGlobal\"";
 }
