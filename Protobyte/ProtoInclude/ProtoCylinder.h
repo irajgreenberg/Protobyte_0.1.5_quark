@@ -57,10 +57,8 @@ namespace ijg {
 
 		//new constructors - bw
 		ProtoCylinder(const Col4f& col4);
-		ProtoCylinder(float ellipseWidth, float ellipseHeight, float length, const Col4f& col4);
-		ProtoCylinder(const Dim3f& dims, const Col4f& col4);
-		ProtoCylinder(float ellipseWidth, float ellipseHeight, float length, int detail = 20, const Col4f& col4 = Col4f(0.0, 0.0, 0.0, 1.0));
-		ProtoCylinder(const Dim3f& dims, int detail = 20, const Col4f& col4 = Col4f(0.0, 0.0, 0.0, 1.0));
+		ProtoCylinder(float ellipseWidth, float ellipseHeight, float length, const Col4f& col4 = Col4f(0.0, 0.0, 0.0, 1.0));
+		ProtoCylinder(const Dim3f& dims, const Col4f& col4 = Col4f(0.0, 0.0, 0.0, 1.0));
 		
 
 		void setDetail(int sides);

@@ -121,19 +121,6 @@ ellipseWidth(dims.w), ellipseHeight(dims.h), length(dims.d) {
 	init();
 }
 
-//ProtoCylinder::ProtoCylinder(float ellipseWidth, float ellipseHeight, float length, int detail, const Col4f& col4):
-//ProtoGeom3(col4), registration(CENTER), detail(detail),
-//	ellipseWidth(ellipseWidth), ellipseHeight(ellipseHeight),
-//	length(length) {
-//	init();
-//}
-
-//ProtoCylinder::ProtoCylinder(const Dim3f& dims, int detail, const Col4f& col4) :
-//ProtoGeom3(col4), registration(CENTER), detail(detail),
-//ellipseWidth(dims.w), ellipseHeight(dims.h), length(dims.d) {
-//	init();
-//}
-
 void ProtoCylinder::calcVerts() {
 	//trace(verts.size());
 
