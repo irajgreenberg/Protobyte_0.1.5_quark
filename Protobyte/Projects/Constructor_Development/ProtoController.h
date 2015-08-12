@@ -29,9 +29,9 @@ public:
 	void onClosed();
 
 private:
-	Block a, b, c, d;
+	Block a, b, c;
 
-	Cylinder e, f, g, h;
+	Cylinder e, f, g, h, i, j, k;
 
 	float theta;
 

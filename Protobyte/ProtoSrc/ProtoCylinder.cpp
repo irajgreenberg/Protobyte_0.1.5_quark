@@ -108,12 +108,31 @@ ProtoGeom3(col4), detail(20), registration(CENTER),
 	init();
 }
 
-ProtoCylinder::ProtoCylinder(float ellipseWidth, float ellipseHeight, float length, const Col4f& col4):
+ProtoCylinder::ProtoCylinder(float ellipseWidth, float ellipseHeight, float length, const Col4f& col4) :
 ProtoGeom3(col4), registration(CENTER), detail(20),
-	ellipseWidth(ellipseWidth), ellipseHeight(ellipseHeight),
-	length(length) {
+ellipseWidth(ellipseWidth), ellipseHeight(ellipseHeight),
+length(length) {
 	init();
 }
+
+ProtoCylinder::ProtoCylinder(const Dim3f& dims, const Col4f& col4) :
+ProtoGeom3(col4), registration(CENTER), detail(20),
+ellipseWidth(dims.w), ellipseHeight(dims.h), length(dims.d) {
+	init();
+}
+
+//ProtoCylinder::ProtoCylinder(float ellipseWidth, float ellipseHeight, float length, int detail, const Col4f& col4):
+//ProtoGeom3(col4), registration(CENTER), detail(detail),
+//	ellipseWidth(ellipseWidth), ellipseHeight(ellipseHeight),
+//	length(length) {
+//	init();
+//}
+
+//ProtoCylinder::ProtoCylinder(const Dim3f& dims, int detail, const Col4f& col4) :
+//ProtoGeom3(col4), registration(CENTER), detail(detail),
+//ellipseWidth(dims.w), ellipseHeight(dims.h), length(dims.d) {
+//	init();
+//}
 
 void ProtoCylinder::calcVerts() {
 	//trace(verts.size());

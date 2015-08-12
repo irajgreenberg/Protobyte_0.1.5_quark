@@ -101,13 +101,13 @@ ProtoGeom3(col4), w(dims.w), h(dims.h), d(dims.d) {
 	init();
 }
 
-ProtoBlock::ProtoBlock(const Vec3f& dims, const Col4f& col4):
-ProtoGeom3(col4), w(dims.x), h(dims.y), d(dims.z) {
-	for (int i = 0; i < 8; ++i){
-		col4s.push_back(col4);
-	}
-	init();
-}
+//ProtoBlock::ProtoBlock(const Vec3f& dims, const Col4f& col4):
+//ProtoGeom3(col4), w(dims.x), h(dims.y), d(dims.z) {
+//	for (int i = 0; i < 8; ++i){
+//		col4s.push_back(col4);
+//	}
+//	init();
+//}
 
 
 //Uses uuplicate vertices to allow proper texture mapping

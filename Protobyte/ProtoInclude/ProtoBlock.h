@@ -62,7 +62,7 @@ namespace ijg {
 		ProtoBlock(const Col4f& col4);
 		ProtoBlock(float w, float h, float d, const Col4f& col4);
 		ProtoBlock(const Dim3f& dims, const Col4f& col4);
-		ProtoBlock(const Vec3f& dims, const Col4f& col4);
+		//ProtoBlock(const Vec3f& dims, const Col4f& col4);
 
 
         /*!
