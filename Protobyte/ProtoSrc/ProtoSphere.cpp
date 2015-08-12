@@ -220,6 +220,7 @@ void ProtoSphere::calcVerts() {
 		//x = cos(theta) * .5 * (1 + random(-chaos.x, chaos.x));
 		//y = sin(theta) * .5 * (1 + random(-chaos.y, chaos.y));
 		
+		//REPLACE - bw
 		x = cos(theta) * size.w / 2 * (1 + random(-chaos.x, chaos.x));
 		y = sin(theta) * size.h / 2 * (1 + random(-chaos.y, chaos.y));
         z = 0.0;

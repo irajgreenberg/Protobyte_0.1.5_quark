@@ -44,6 +44,7 @@ namespace ijg {
 
 		//new constructors - bw
 		ProtoToroid(const Col4f& col4);
+		ProtoToroid(float ringRadius, float ringThickness, const Col4f&  col4 = Col4f(0.0, 0.0, 0.0, 1.0));
 
 
         // get/sets inlined below class

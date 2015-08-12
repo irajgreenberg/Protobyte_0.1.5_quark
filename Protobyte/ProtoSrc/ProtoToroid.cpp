@@ -46,6 +46,11 @@ ProtoGeom3(col4), ringCount(20), ringDetail(20), ringRadius(1), ringThickness(0.
 	init();
 }
 
+ProtoToroid::ProtoToroid(float ringRadius, float ringThickness, const Col4f& col4):
+ProtoGeom3(col4), ringRadius(ringRadius), ringThickness(ringThickness), ringCount(20), ringDetail(20) {
+	init();
+}
+
 
 
 void ProtoToroid::calcVerts() {
