@@ -29,7 +29,7 @@ public:
 	void onClosed();
 
 private:
-	Block a, b, c;
+	Block a, b, c, d;
 
 	Cylinder e, f, g, h, i, j, k;
 

@@ -5,6 +5,8 @@ void ProtoController::init() {
 	a = Block(Col4f(1.0, 0.0, 0.0, 1.0));
 	b = Block(200, 125, 25, Col4f(0.0, 0.0, 1.0, 1.0));
 	c = Block(Dim3f(50, 30, 100), Col4f(0.0, 1.0, 0.0, 1.0));
+	//d = Block(100, 100, 100);
+	d = Block(Dim3f(100, 200, 300));
 	//implement default parameter for color of ProtoBlock?
 
 	e = Cylinder(Col4f(1.0, 0.0, 0.0, 1.0));
@@ -47,7 +49,8 @@ void ProtoController::display() {
 	push();
 	translate(0, 150, 0);
 	rotate(theta, Vec3f(0.3, 0.3, 0.4));
-	h.display();
+	d.display();
+	//h.display();
 	pop();
 
 	push();

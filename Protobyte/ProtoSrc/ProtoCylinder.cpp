@@ -102,21 +102,21 @@ ProtoGeom3(pos, Vec3f(), size, Col4f(1), textureImageURL,
 
 //new constructors - bw
 ProtoCylinder::ProtoCylinder(const Col4f& col4):
-ProtoGeom3(col4), detail(20), registration(CENTER),
+ProtoGeom3(col4), detail(36), registration(CENTER),
 	ellipseWidth(1.0), ellipseHeight(1.0),
 	length(1.0) {
 	init();
 }
 
 ProtoCylinder::ProtoCylinder(float ellipseWidth, float ellipseHeight, float length, const Col4f& col4) :
-ProtoGeom3(col4), registration(CENTER), detail(20),
+ProtoGeom3(col4), registration(CENTER), detail(36),
 ellipseWidth(ellipseWidth), ellipseHeight(ellipseHeight),
 length(length) {
 	init();
 }
 
 ProtoCylinder::ProtoCylinder(const Dim3f& dims, const Col4f& col4) :
-ProtoGeom3(col4), registration(CENTER), detail(20),
+ProtoGeom3(col4), registration(CENTER), detail(36),
 ellipseWidth(dims.w), ellipseHeight(dims.h), length(dims.d) {
 	init();
 }
