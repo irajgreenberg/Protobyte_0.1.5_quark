@@ -80,7 +80,7 @@ namespace ijg {
 	//implement getters/setters inline
 	inline void ProtoCylinder::setDetail(int detail){
 		this->detail = detail;
-
+		update();
 		// need to call init or reset here
 	}
 

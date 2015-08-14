@@ -13,6 +13,8 @@ void ProtoController::init() {
 	h = Cylinder(50.0, 50.0, 200.0);
 	i = Cylinder(Dim3f(30.0, 30.0, 5.0));
 
+	//g.setDetail(5);
+
 	theta = 0.0;
 }
 
@@ -74,6 +76,7 @@ void ProtoController::keyPressed(){
 }
 
 void ProtoController::mousePressed(){
+	g.setDetail(100);
 }
 
 void ProtoController::mouseRightPressed(){
