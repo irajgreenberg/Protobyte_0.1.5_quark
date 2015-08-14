@@ -172,7 +172,7 @@ void ProtoCreator::setSlnString(const QString& usrProjName) {
 void ProtoCreator::setPicture() {
     QPixmap cubePicture;
 
-    QString filename = "ProtoCube_SMU.png";
+    QString filename = "ProtoCube_SMU-1.png";
 
     QString filepath = QDir::home().path() + "/Dev/Protobyte_0.1.5_quark/Protobyte/ProtoCreator/Widget/" + filename;
 

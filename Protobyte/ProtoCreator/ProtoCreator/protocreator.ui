@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>613</width>
-    <height>271</height>
+    <width>572</width>
+    <height>213</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>10</x>
       <y>10</y>
       <width>331</width>
-      <height>251</height>
+      <height>191</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -70,15 +70,21 @@
      <rect>
       <x>350</x>
       <y>10</y>
-      <width>251</width>
-      <height>251</height>
+      <width>210</width>
+      <height>181</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>210</width>
+      <height>170</height>
+     </size>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../Widget/ProtoCube_SMU.png</pixmap>
+     <pixmap>../Widget/ProtoCube_SMU-1.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>

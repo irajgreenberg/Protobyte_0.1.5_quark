@@ -1,7 +1,7 @@
 #include "ProtoController.h"
 
 void ProtoController::init() {
-	background(0.7);
+	background(0.94);
 	//shadowsOn();
 	clearColors();
 	makeColors();
