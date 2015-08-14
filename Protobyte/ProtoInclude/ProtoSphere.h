@@ -48,6 +48,8 @@ namespace ijg {
 
 		//new constructors - bw
 		ProtoSphere(const Col4f& col4);
+		ProtoSphere(float xRadius, float yRadius, const Col4f& col4 = Col4f(0.0, 0.0, 0.0, 1.0));
+		ProtoSphere(const Dim2f& dims, const Col4f& col4 = Col4f(0.0, 0.0, 0.0, 1.0));
 		
 //        void init(); // temp override
         void calcVerts();
@@ -61,6 +63,7 @@ namespace ijg {
 		Vec3f chaos{0, 0, 0};
         int spines;
         int spineNodes;
+		float xRadius, yRadius;
 
     };
 }

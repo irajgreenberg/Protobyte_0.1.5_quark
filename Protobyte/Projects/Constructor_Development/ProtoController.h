@@ -33,6 +33,8 @@ private:
 
 	Cylinder e, f, g, h, i, j, k;
 
+	Sphere l, m, n, o, p;
+
 	float theta;
 
 };

@@ -6,7 +6,7 @@ void ProtoController::init() {
 	b = Block(200, 125, 25, Col4f(0.0, 0.0, 1.0, 1.0));
 	c = Block(Dim3f(50, 30, 100), Col4f(0.0, 1.0, 0.0, 1.0));
 	//d = Block(100, 100, 100);
-	d = Block(Dim3f(100, 200, 300));
+	d = Block(Dim3f(50, 100, 150));
 	//implement default parameter for color of ProtoBlock?
 
 	e = Cylinder(Col4f(1.0, 0.0, 0.0, 1.0));
@@ -14,6 +14,13 @@ void ProtoController::init() {
 	g = Cylinder(Dim3f(100, 100, 20), Col4f(0.0, 1.0, 0.0, 1.0));
 	h = Cylinder(50.0, 50.0, 200.0);
 	i = Cylinder(Dim3f(30.0, 30.0, 5.0));
+
+	l = Sphere(Col4f(1.0, 0.0, 0.0, 1.0));
+	m = Sphere(100, 30, Col4f(0.0, 1.0, 0.0, 1.0));
+	n = Sphere(Dim2f(45.0, 182.0), Col4f(0.0, 0.0, 1.0, 1.0));
+	o = Sphere(50, 50);
+	p = Sphere(Dim2f(78.0, 149.0));
+
 
 	//g.setDetail(5);
 
@@ -29,34 +36,39 @@ void ProtoController::display() {
 	scale(75);
 	rotate(theta, Vec3f(0.3, 0.3, 0.4));
 	//a.display();
-	e.display();
+	//e.display();
+	l.display(POINTS, 3);
 	pop();
 
 	push();
 	translate(100, 0, 0);
 	rotate(theta, Vec3f(0.3, 0.3, 0.4));
 	//b.display();
-	f.display();
+	//f.display();
+	m.display(POINTS, 3);
 	pop();
 
 	push();
 	translate(0, -150, 0);
 	rotate(theta, Vec3f(0.3, 0.3, 0.4));
 	//c.display();
-	g.display();
+	//g.display(POINTS, 3);
+	n.display(POINTS, 3);
 	pop();
 
 	push();
 	translate(0, 150, 0);
 	rotate(theta, Vec3f(0.3, 0.3, 0.4));
-	d.display();
+	//d.display();
 	//h.display();
+	o.display(POINTS, 3);
 	pop();
 
 	push();
 	translate(-200, 200, 0);
 	rotate(theta, Vec3f(0.3, 0.3, 0.4));
-	i.display();
+	//i.display();
+	p.display(POINTS, 3);
 	pop();
 
 	push();
@@ -79,7 +91,7 @@ void ProtoController::keyPressed(){
 }
 
 void ProtoController::mousePressed(){
-	g.setDetail(100);
+	g.setDetail(200);
 }
 
 void ProtoController::mouseRightPressed(){
