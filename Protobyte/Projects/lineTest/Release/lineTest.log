@@ -1,4 +1,4 @@
-﻿Build started 7/27/2015 3:34:24 PM.
+﻿Build started 8/14/2015 9:21:37 AM.
      1>Project "C:\Users\C3\Dev\Protobyte_0.1.5_quark\Protobyte\Projects\lineTest\lineTest.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\ProtoInclude /I..\..\OtherLib\libtess2\Include /I"..\..\OtherLib\glew-1.10.0\glew-1.10.0\include" /I"..\..\OtherLib\glfw-3.0.4.bin.WIN32\include" /I..\..\OtherLib\glm /I..\..\OtherLib\FreeImage.WIN32\Dist\x32 /I..\..\OtherLib\dirent\include /I..\..\OtherLib\oscpackLib\include /I..\..\OtherLib\libTriangle\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ProtoController.cpp
@@ -72,4 +72,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.38
+Time Elapsed 00:00:05.04
