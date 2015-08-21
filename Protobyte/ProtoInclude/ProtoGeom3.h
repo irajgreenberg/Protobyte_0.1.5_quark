@@ -229,9 +229,10 @@ namespace ijg {
         
         virtual ~ProtoGeom3();
         
-        virtual void move(const Vec3f& v);
-        virtual void rotate(const Vec3f& r);
-        virtual void scale(const ProtoDimension3f& s);
+		//removed translation functions - bw
+        //virtual void move(const Vec3f& v);
+        //virtual void rotate(const Vec3f& r);
+        //virtual void scale(const ProtoDimension3f& s);
         
         virtual void transform(const ProtoMatrix4f& mat4);
         

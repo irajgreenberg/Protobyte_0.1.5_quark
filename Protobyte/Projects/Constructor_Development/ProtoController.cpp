@@ -21,8 +21,9 @@ void ProtoController::init() {
 	o = Sphere(50, 50);
 	p = Sphere(Dim2f(78.0, 149.0));
 
-
-	//g.setDetail(5);
+	q = Toroid(Col4f(0.7, 0.5, 0.0, 1.0));
+	r = Toroid(100, 10, Col4f(0.0, 0.0, 1.0, 1.0));
+	s = Toroid(50, 14);
 
 	theta = 0.0;
 }
@@ -37,7 +38,8 @@ void ProtoController::display() {
 	rotate(theta, Vec3f(0.3, 0.3, 0.4));
 	//a.display();
 	//e.display();
-	l.display(POINTS, 3);
+	//l.display(POINTS, 3);
+	q.display();
 	pop();
 
 	push();
@@ -45,7 +47,8 @@ void ProtoController::display() {
 	rotate(theta, Vec3f(0.3, 0.3, 0.4));
 	//b.display();
 	//f.display();
-	m.display(POINTS, 3);
+	//m.display(POINTS, 3);
+	r.display();
 	pop();
 
 	push();
@@ -53,7 +56,8 @@ void ProtoController::display() {
 	rotate(theta, Vec3f(0.3, 0.3, 0.4));
 	//c.display();
 	//g.display(POINTS, 3);
-	n.display(POINTS, 3);
+	//n.display(POINTS, 3);
+	s.display();
 	pop();
 
 	push();
@@ -91,7 +95,7 @@ void ProtoController::keyPressed(){
 }
 
 void ProtoController::mousePressed(){
-	g.setDetail(200);
+
 }
 
 void ProtoController::mouseRightPressed(){

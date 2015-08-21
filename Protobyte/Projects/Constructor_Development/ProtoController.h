@@ -35,6 +35,8 @@ private:
 
 	Sphere l, m, n, o, p;
 
+	Toroid q, r, s;
+
 	float theta;
 
 };

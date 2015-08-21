@@ -9,6 +9,8 @@
 #include <QTextStream>
 #include <QString>
 #include <QStringList>
+#include <QDateTime>
+
 #include <iostream>
 
 #include <QPicture>

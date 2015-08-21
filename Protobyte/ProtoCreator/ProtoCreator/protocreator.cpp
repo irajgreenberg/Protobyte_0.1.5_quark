@@ -20,7 +20,14 @@ void ProtoCreator::on_runButton_clicked()
 
     QString projName = usrEntry.simplified();
     projName = projName.replace(" ", "_");
-    //add check to ensure only alpanumeric characters are used?
+
+    QString date = QDateTime::currentDateTime().toString("yyyyMMddhhmmsszzz");
+    QString defaultProjName = "sketch_" + date;
+
+    if (projName == "") {
+        projName = defaultProjName;
+    }
+
     setSlnString(projName);
     runScript(projName);
 }
@@ -62,10 +69,8 @@ void ProtoCreator::runScript(const QString& usrProjName){
     projectsExists = currentDir.exists(projectsDirName);
     templateExists = currentDir.exists(templateDirName);
 
-    QString protobyteDirPath;
-
     if (projectsExists && templateExists) {
-        protobyteDirPath = currentDir.path();
+        QString protobyteDirPath = currentDir.path();
 
         currentDir.cd(projectsDirName);
 
@@ -74,65 +79,69 @@ void ProtoCreator::runScript(const QString& usrProjName){
         if(!projectNameTaken) {
             currentDir.mkdir(projectName);
 
-            currentDir.cd(projectName);
+            bool projectDirCreationSuccess = currentDir.exists(projectName);
 
-            QString projectsPath;
-            projectsPath = currentDir.path();
+            if (projectDirCreationSuccess) {
 
-            //Navigate into Template Directory
-            currentDir.cd(protobyteDirPath);
-            currentDir.cd(templateDirName);
-            currentDir.cd(templateProjectName);
+                currentDir.cd(projectName);
 
-            QString templatesPath;
-            templatesPath = currentDir.path();
+                QString projectsPath = currentDir.path();
 
-            //Copy files into new project directory
-            QDirIterator iteration(currentDir, QDirIterator::Subdirectories);
-            QString copyLocation;
-            while (iteration.hasNext()) {
-                iteration.next();
-                copyLocation = projectsPath + "/" + iteration.fileName();
-                QFile::copy(iteration.filePath(), copyLocation);
-            }
+                //Navigate into Template Directory
+                currentDir.cd(protobyteDirPath);
+                currentDir.cd(templateDirName);
+                currentDir.cd(templateProjectName);
 
-            //navigate to proper projects folder
-            currentDir.cd(projectsPath);
+                QString templatesPath = currentDir.path();
 
-            //rename template files
-            QString oldPath;
-            QString newPath;
-            for (int i = 0; i < 2; i++) {
-                if(currentDir.exists(templateProjectName + extNames[i])) {
-                    oldPath = currentDir.path() + "/" + templateProjectName + extNames[i];
-                    newPath = currentDir.path() + "/" + projectName + extNames[i];
-                    QFile::rename(oldPath, newPath);
+                //Copy files into new project directory
+                QDirIterator iteration(currentDir, QDirIterator::Subdirectories);
+                QString copyLocation;
+                while (iteration.hasNext()) {
+                    iteration.next();
+                    copyLocation = projectsPath + "/" + iteration.fileName();
+                    QFile::copy(iteration.filePath(), copyLocation);
                 }
-                else {
-                    ui->outputText->appendPlainText("Error. Cannot find proper files. Project creation failed.");
+
+                //navigate to proper projects folder
+                currentDir.cd(projectsPath);
+
+                //rename template files
+                QString oldPath;
+                QString newPath;
+                for (int i = 0; i < 2; i++) {
+                    if(currentDir.exists(templateProjectName + extNames[i])) {
+                        oldPath = currentDir.path() + "/" + templateProjectName + extNames[i];
+                        newPath = currentDir.path() + "/" + projectName + extNames[i];
+                        QFile::rename(oldPath, newPath);
+                    }
+                    else {
+                        ui->outputText->appendPlainText("Error. Cannot find files to rename. Project creation failed.");
+                    }
                 }
-            }
-            QString newFileName = projectName + ".sln";
-            QString newFilePath = projectsPath + "/" + newFileName;
+                QString newFileName = projectName + ".sln";
+                QString newFilePath = projectsPath + "/" + newFileName;
 
-            QFile slnFile(newFilePath);
-            if (slnFile.open(QIODevice::WriteOnly)) {
-                QTextStream out(&slnFile);
-                out << slnString;
-            }
-            slnFile.close();
-            currentDir.cd(projectsPath);
-
-            if (currentDir.exists(newFileName)) {
-                ui->outputText->appendPlainText("Success! " + projectName + " has been created.");
+                QFile slnFile(newFilePath);
+                if (slnFile.open(QIODevice::WriteOnly)) {
+                    QTextStream out(&slnFile);
+                    out << slnString;
+                }
+                slnFile.close();
+                currentDir.cd(projectsPath);
+                if (currentDir.exists(newFileName)) {
+                    ui->outputText->appendPlainText("Success! " + projectName + " has been created.");
+                } else {
+                    ui->outputText->appendPlainText("Error. Visual Studios solution file not created. Project creation failed.");
+                }
             } else {
-                ui->outputText->appendPlainText("Error. Visual Studios solution file not created. Project creation failed.");
+                ui->outputText->appendPlainText("Error. Project file not created. Project Creation failed.");
             }
         } else {
-            ui->outputText->appendPlainText("Project name already taken. Cannot complete project creation.");
+            ui->outputText->appendPlainText("Project name already taken. Project creation failed.");
         }
     } else {
-       ui->outputText->appendPlainText("Cannot locate proper directories.");
+       ui->outputText->appendPlainText("Cannot locate proper directories. Project creation failed.");
     }
 
     //TO DO:
@@ -145,7 +154,7 @@ void ProtoCreator::print(const QString& myString) {
 }
 
 void ProtoCreator::setSlnString(const QString& usrProjName) {
-    QString newLine = "\r\n";
+    QString newLine = "\r";
     slnString += "\"Microsoft Visual Studio Solution File, Format Version 12.00" + newLine;
     slnString += "# Visual Studio 2013" + newLine;
     slnString += "VisualStudioVersion = 12.0.21005.1" + newLine;

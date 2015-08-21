@@ -93,6 +93,8 @@ ProtoGeom3(col4), w(w), h(h), d(d) {
 	init();
 }
 
+//"cube" constructor
+
 ProtoBlock::ProtoBlock(const Dim3f& dims, const Col4f& col4):
 ProtoGeom3(col4), w(dims.w), h(dims.h), d(dims.d) {
 	for (int i = 0; i < 8; ++i){
