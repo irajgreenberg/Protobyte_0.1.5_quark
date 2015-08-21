@@ -41,8 +41,8 @@ ProtoBlock::ProtoBlock() {
 }
 
 ProtoBlock::ProtoBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size,
-        const Col4f& col4):
-ProtoGeom3(pos, rot, size, col4), w(1.0), h(1.0), d(1.0) {
+        const Col4f& col4){
+//ProtoGeom3(pos, rot, size, col4), w(1.0), h(1.0), d(1.0) {
     textureScale = Vec2f(1, 1);
 	for (int i = 0; i < 8; ++i){
 		col4s.push_back(col4);
@@ -51,8 +51,8 @@ ProtoGeom3(pos, rot, size, col4), w(1.0), h(1.0), d(1.0) {
 }
 
 ProtoBlock::ProtoBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size,
-	const Col4f& col4, const std::string& textureImageURL, const Vec2f& textureScale) :
-	ProtoGeom3(pos, rot, size, col4, textureImageURL, textureScale), w(1.0), h(1.0), d(1.0) {
+	const Col4f& col4, const std::string& textureImageURL, const Vec2f& textureScale) {
+	//ProtoGeom3(pos, rot, size, col4, textureImageURL, textureScale), w(1.0), h(1.0), d(1.0) {
 	for (int i = 0; i < 8; ++i){
 		col4s.push_back(col4);
 	}
@@ -62,16 +62,16 @@ ProtoBlock::ProtoBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3
 /*!
 * Constructor */
 ProtoBlock::ProtoBlock(const Vec3f& pos, const Vec3f& rot, const Dim3f& size,
-	const std::vector<Col4f>& cols4) :
-	ProtoGeom3(pos, rot, size, cols4), w(1.0), h(1.0), d(1.0) {
+	const std::vector<Col4f>& cols4) {
+	//ProtoGeom3(pos, rot, size, cols4), w(1.0), h(1.0), d(1.0) {
 	init();
 }
 
 /*!
 * Constructor */
 ProtoBlock::ProtoBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size,
-	const std::vector<Col4f>& cols4, const std::string& textureImageURL, const Vec2f& textureScale) :
-	ProtoGeom3(pos, rot, size, cols4, textureImageURL, textureScale), w(1.0), h(1.0), d(1.0) {
+	const std::vector<Col4f>& cols4, const std::string& textureImageURL, const Vec2f& textureScale) {
+	//ProtoGeom3(pos, rot, size, cols4, textureImageURL, textureScale), w(1.0), h(1.0), d(1.0) {
 	init();
 }
 
