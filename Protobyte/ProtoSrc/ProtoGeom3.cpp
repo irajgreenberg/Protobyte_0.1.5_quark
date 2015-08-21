@@ -36,15 +36,15 @@ ProtoGeom3::ProtoGeom3() {
 
 
 
-ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4) :
-ProtoShape3(pos, rot, size, col4), diffuseMapImage("white_tile.jpg") {
-	diffuseTextureImageURLs.push_back(diffuseMapImage);
-}
+//ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4) :
+//ProtoShape3(pos, rot, size, col4), diffuseMapImage("white_tile.jpg") {
+//	diffuseTextureImageURLs.push_back(diffuseMapImage);
+//}
 
-ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const std::vector< ProtoColor4f > col4s) :
-ProtoShape3(pos, rot, size, col4s), diffuseMapImage("white_tile.jpg") {
-	diffuseTextureImageURLs.push_back(diffuseMapImage);
-}
+//ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const std::vector< ProtoColor4f > col4s) :
+//ProtoShape3(pos, rot, size, col4s), diffuseMapImage("white_tile.jpg") {
+//	diffuseTextureImageURLs.push_back(diffuseMapImage);
+//}
 
 
 // with textures
@@ -58,25 +58,25 @@ ProtoShape3(pos, rot, size, col4s), diffuseMapImage("white_tile.jpg") {
 //	diffuseTextureImageURLs.push_back(diffuseMapImage);
 //}
 
-ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4, const std::string& diffuseMapImage, const Vec2f& textureScale) :
-ProtoShape3(pos, rot, size, col4), diffuseMapImage(diffuseMapImage), textureScale(textureScale) {
-	diffuseTextureImageURLs.push_back(diffuseMapImage);
-}
+//ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4, const std::string& diffuseMapImage, const Vec2f& textureScale) :
+//ProtoShape3(pos, rot, size, col4), diffuseMapImage(diffuseMapImage), textureScale(textureScale) {
+//	diffuseTextureImageURLs.push_back(diffuseMapImage);
+//}
 
-ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
-	const std::vector< ProtoColor4f > col4s, const std::string& diffuseMapImage, const Vec2f& textureScale) :
-	ProtoShape3(pos, rot, size, col4s), diffuseMapImage(diffuseMapImage), textureScale(textureScale) {
-	diffuseTextureImageURLs.push_back(diffuseMapImage);
-}
+//ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
+//	const std::vector< ProtoColor4f > col4s, const std::string& diffuseMapImage, const Vec2f& textureScale) :
+//	ProtoShape3(pos, rot, size, col4s), diffuseMapImage(diffuseMapImage), textureScale(textureScale) {
+//	diffuseTextureImageURLs.push_back(diffuseMapImage);
+//}
 
 
 // multi-texturing
-ProtoGeom3::ProtoGeom3(const Dim3f& size, const Col4f& col4, const std::vector<std::string>& diffuseTextureImageURLs, const Vec2f& textureScale) :
-ProtoShape3(Vec3f(), Vec3f(), size, col4), diffuseTextureImageURLs(diffuseTextureImageURLs), textureScale(textureScale){
-}
-ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f& size, const Col4f& col4, const std::vector<std::string>& diffuseTextureImageURLs, const Vec2f& textureScale) :
-ProtoShape3(pos, rot, size, col4s), diffuseTextureImageURLs(diffuseTextureImageURLs), textureScale(textureScale){
-}
+//ProtoGeom3::ProtoGeom3(const Dim3f& size, const Col4f& col4, const std::vector<std::string>& diffuseTextureImageURLs, const Vec2f& textureScale) :
+//ProtoShape3(Vec3f(), Vec3f(), size, col4), diffuseTextureImageURLs(diffuseTextureImageURLs), textureScale(textureScale){
+//}
+//ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f& size, const Col4f& col4, const std::vector<std::string>& diffuseTextureImageURLs, const Vec2f& textureScale) :
+//ProtoShape3(pos, rot, size, col4s), diffuseTextureImageURLs(diffuseTextureImageURLs), textureScale(textureScale){
+//}
 
 //new constructors - bw
 ProtoGeom3::ProtoGeom3(const Col4f& col4):
