@@ -650,17 +650,17 @@ void ProtoGeom3::display(RenderMode render, float pointSize) {
     
 }
 
-void ProtoGeom3::move(const Vec3f& v) {
-	pos += v;
-}
+//void ProtoGeom3::move(const Vec3f& v) {
+//	pos += v;
+//}
 
-void ProtoGeom3::rotate(const Vec3f& r) {
-	rot += r;
-}
+//void ProtoGeom3::rotate(const Vec3f& r) {
+//	rot += r;
+//}
 
-void ProtoGeom3::scale(const ProtoDimension3f& s) {
-	size += s;
-}
+//void ProtoGeom3::scale(const ProtoDimension3f& s) {
+//	size += s;
+//}
 
 // transform VBO primitives using glBufferSubData
 void ProtoGeom3::transform(const ProtoMatrix4f& mat4){
