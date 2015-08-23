@@ -33,6 +33,9 @@
 //#include "ProtoPlasm.h"
 
 //#include "ProtoOSC.h"
+#include "ProtoContext.h";
+
+
 #include "ProtoDimension2.h"
 #include "ProtoDimension3.h"
 #include "ProtoPlane.h"
@@ -134,6 +137,8 @@ namespace ijg {
 
 		static ProtoBaseApp* baseApp;
 		static ProtoBaseApp* getBaseApp();
+
+		std::shared_ptr<ProtoContext> ctx;
 
 	private:
 		// only needed to be called by ProtoPlasm class - a friend
@@ -297,10 +302,11 @@ namespace ijg {
 		***********************************/
 		// using initials ONLY for matrices
 		// Uniform Camera Matrices
-		glm::mat4 M, V, MV, P, MVP;
+		//glm::mat4 M, V, MV, P, MVP;
+		glm::mat4 V, MV, P, MVP;
 
 		// Uniform Transformation Matrices
-		glm::mat4 T, R, S;
+		//glm::mat4 T, R, S;
 
 		// Uniform Shadow Map Matrices
 		glm::mat4 L_V, L_MV, L_P, L_B, L_BP, L_MVBP;
@@ -313,7 +319,7 @@ namespace ijg {
 
 		// flags for shader locations
 		GLuint M_U, V_U, MV_U, P_U, MVP_U, N_U;
-		GLuint T_U, R_U, S_U;
+		//GLuint T_U, R_U, S_U;
 		GLuint L_MVBP_U; // only for Light perspective
 		GLuint shaderPassFlag_U;
 

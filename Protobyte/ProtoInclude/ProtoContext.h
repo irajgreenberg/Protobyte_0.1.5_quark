@@ -23,8 +23,28 @@ This class is part of the group common (update)
 #ifndef __PROTO_CONTEXT_H__
 #define __PROTO_CONTEXT_H__
 
+// OpenGL drivers
+#if defined (_WIN32) || defined(_WIN64)
+#define GLEW_STATIC // link to glew32s instead of including dll
+#include <GL/glew.h>
+#endif
+
+#include <GLFW/glfw3.h> // brings in OpenGL
+
 #include <iostream>
+#include <stack>
 #include <memory>
+
+#include "ProtoVector3.h"
+#include "ProtoVector4.h"
+#include "ProtoShader.h"
+
+// include GLM
+#include "glm/gtc/type_ptr.hpp" // matrix copying
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtx/transform2.hpp"
+
 
 
 
@@ -33,11 +53,72 @@ namespace ijg {
 	class ProtoContext {
 
 	private:
-		ProtoContext() {}
-		static std::unique_ptr<ProtoContext> ctx;
+		ProtoContext() {} // private cstr for singleton pattern
+		static std::shared_ptr<ProtoContext> ctx;
+
+		
+
+		// flags for shader locations
+		//GLuint M_U, N_U;
+		//GLuint T_U, R_U, S_U;
+		std::stack <glm::mat4> matrixStack;
+
+		//ProtoShader shader;
+		
 
 	public:
-		static const ProtoContext& getContext();
+		static const std::shared_ptr<ProtoContext> getContext();
+
+		/*** Matrices (4x4) ***/
+		static glm::mat4 M; // Model
+		glm::mat4 V; // View
+		glm::mat4 MV; // ModelView
+		glm::mat4 P; // Projection
+		glm::mat4 MVP; // ModelViewProjection
+
+		// For Shadow map
+		glm::mat4 L_V; // Light View
+		glm::mat4 L_MV; // Light ModelView
+		glm::mat4 L_P; // Light Projection
+		glm::mat4 L_B; // Light Bias
+		glm::mat4 L_BP; // Light BiasProjection (depth bias)
+		glm::mat4 L_MVBP; // Light ModelViewBiasProjection
+
+		/*** Matrices (3x3) ***/
+		// Normal
+		glm::mat3 N;
+
+		// flags for shader locations
+		static GLuint M_U, V_U, MV_U, P_U, MVP_U, N_U;
+		//GLuint T_U, R_U, S_U;
+		//GLuint L_MVBP_U; // only for Light perspective
+		//GLuint shaderPassFlag_U;
+
+		// Uniform Shadow Map
+		//GLuint shadowMap_U;
+
+		// Uniform Lighting factors
+		// enable/disable lighting factors for 2D rendering
+		//Vec4f ltRenderingFactors;
+		//GLuint lightRenderingFactors_U;
+		
+
+		// Transformation Matrices
+		//static glm::mat4 T, R, S;
+
+	
+
+		void translate(float tx, float ty, float tz);
+		void translate(const Vec3f& tXYZ);
+		void rotate(float angle, float axisX, float axisY, float axisZ);
+		void rotate(float angle, const Vec3f& rXYZ);
+		void scale(float s);
+		void scale(float sx, float sy, float sz);
+		void scale(const Vec3f& sXYZ);
+		//implements transform matrix stack
+		void concat();
+		void push();
+		void pop();
 	};
 }
 
