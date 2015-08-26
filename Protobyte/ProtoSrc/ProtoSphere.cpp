@@ -30,20 +30,20 @@ ProtoSphere::ProtoSphere() {
 }
 
 ProtoSphere::ProtoSphere(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f size,
-                         const ProtoColor4f col4, const std::string& textureImageURL, float textureScale, int spines, int spineNodes) :
-ProtoGeom3(pos, rot, size, col4, textureImageURL, textureScale), spines(spines), spineNodes(spineNodes), xRadius(1.0), yRadius(1.0) {
+                         const ProtoColor4f col4, const std::string& textureImageURL, float textureScale, int spines, int spineNodes) {
+						 //ProtoGeom3(pos, rot, size, col4, textureImageURL, textureScale), spines(spines), spineNodes(spineNodes), xRadius(1.0), yRadius(1.0) {
     init();
 }
 
 ProtoSphere::ProtoSphere(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f size,
-                         const ProtoColor4f col4, int spines, int spineNodes) :
-ProtoGeom3(pos, rot, size, col4), spines(spines), spineNodes(spineNodes), xRadius(1.0), yRadius(1.0) {
+                         const ProtoColor4f col4, int spines, int spineNodes) {
+						 //ProtoGeom3(pos, rot, size, col4), spines(spines), spineNodes(spineNodes), xRadius(1.0), yRadius(1.0) {
     init();
 }
 
 ProtoSphere::ProtoSphere(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
-	const ProtoColor4f col4, const std::string& textureImageURL, float textureScale, int spines, int spineNodes, const Vec3f& chaos) :
-ProtoGeom3(pos, rot, size, col4), spines(spines), spineNodes(spineNodes), chaos(chaos), xRadius(1.0), yRadius(1.0) {
+	const ProtoColor4f col4, const std::string& textureImageURL, float textureScale, int spines, int spineNodes, const Vec3f& chaos) {
+	//ProtoGeom3(pos, rot, size, col4), spines(spines), spineNodes(spineNodes), chaos(chaos), xRadius(1.0), yRadius(1.0) {
 	init();
 
 }
