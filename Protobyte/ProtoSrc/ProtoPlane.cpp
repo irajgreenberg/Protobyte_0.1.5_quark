@@ -40,22 +40,22 @@ ProtoPlane::ProtoPlane() {
 }
 
 ProtoPlane::ProtoPlane(const Vec3f& pos, const Vec3f& rot, const Dim2f& size,
-	const Col4f& col4, int rows, int columns) : Geom3(pos, rot, Dim3f(size.w, 0, size.h), col4), rows(rows), columns(columns)
+	const Col4f& col4, int rows, int columns) //: Geom3(pos, rot, Dim3f(size.w, 0, size.h), col4), rows(rows), columns(columns)
 {
 	init();
 }
 
 
 ProtoPlane::ProtoPlane(const Vec3f& pos, const Vec3f& rot, const Dim2f& size,
-	const Col4f& col4, int rows, int columns, const std::string& textureImageURL, const Vec2f& textureScale) :
-	Geom3(pos, rot, Dim3f(size.w, 0, size.h), col4, textureImageURL, textureScale), rows(rows), columns(columns)
+	const Col4f& col4, int rows, int columns, const std::string& textureImageURL, const Vec2f& textureScale) 
+	//:Geom3(pos, rot, Dim3f(size.w, 0, size.h), col4, textureImageURL, textureScale), rows(rows), columns(columns)
 {
 	init();
 }
 
 ProtoPlane::ProtoPlane(const Vec3f& pos, const Vec3f& rot, const Dim2f& size,
-	const Col4f& col4, int rows, int columns, const std::vector<std::string>& textureImageURLs, const Vec2f& textureScale) :
-	Geom3(pos, rot, Dim3f(size.w, 0, size.h), col4, textureImageURLs, textureScale), rows(rows), columns(columns)
+	const Col4f& col4, int rows, int columns, const std::vector<std::string>& textureImageURLs, const Vec2f& textureScale) 
+	//:Geom3(pos, rot, Dim3f(size.w, 0, size.h), col4, textureImageURLs, textureScale), rows(rows), columns(columns)
 {
 	init();
 }
