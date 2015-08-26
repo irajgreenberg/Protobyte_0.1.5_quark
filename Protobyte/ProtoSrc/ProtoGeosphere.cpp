@@ -29,14 +29,14 @@ using namespace ijg;
 ProtoGeoSphere::ProtoGeoSphere(){
 }
 
-ProtoGeoSphere::ProtoGeoSphere(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3<float>& size, const ProtoColor4<float>& col4, int subdivisionLevel):
-ProtoGeom3(pos, rot, size, col4), subdivisionLevel(subdivisionLevel)
+ProtoGeoSphere::ProtoGeoSphere(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3<float>& size, const ProtoColor4<float>& col4, int subdivisionLevel)
+//:ProtoGeom3(pos, rot, size, col4), subdivisionLevel(subdivisionLevel)
 {
     init();
 }
 
-ProtoGeoSphere::ProtoGeoSphere(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3<float>& size, const ProtoColor4<float>& col4, int subdivisionLevel, const std::string& textureImageURL):
-ProtoGeom3(pos, rot, size, col4, textureImageURL), subdivisionLevel(subdivisionLevel)
+ProtoGeoSphere::ProtoGeoSphere(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3<float>& size, const ProtoColor4<float>& col4, int subdivisionLevel, const std::string& textureImageURL)
+//:ProtoGeom3(pos, rot, size, col4, textureImageURL), subdivisionLevel(subdivisionLevel)
 {
     init();
 }

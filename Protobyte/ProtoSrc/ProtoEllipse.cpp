@@ -6,8 +6,8 @@ ProtoEllipse::ProtoEllipse()
 {
 }
 ProtoEllipse::ProtoEllipse(const Vec3f& pos, const Vec3f& rot, const Dim2f& size,
-	const Col4f& col4, int detail) :
-	ProtoGeom3(pos, rot, size, col4), detail(detail)
+	const Col4f& col4, int detail) 
+	//:ProtoGeom3(pos, rot, size, col4), detail(detail)
 {
 	init();
 }

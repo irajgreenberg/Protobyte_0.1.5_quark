@@ -26,77 +26,86 @@
 using namespace ijg;
 
 // default cstr
-ProtoCylinder::ProtoCylinder() :
-ProtoGeom3(Vec3f(), Vec3f(), Dim3f(1), Col4f(1),
-	"white_tile.jpg", Vec2(1)), detail(12), registration(CENTER),
-	ellipseWidth(1.0), ellipseHeight(1.0),
-	length(1.0) {
+ProtoCylinder::ProtoCylinder() 
+//:ProtoGeom3(Vec3f(), Vec3f(), Dim3f(1), Col4f(1),
+	//"white_tile.jpg", Vec2(1)), detail(12), registration(CENTER),
+	//ellipseWidth(1.0), ellipseHeight(1.0),
+	//length(1.0) 
+{
 	//init();
 }
 
 //overloaded cstr's
-ProtoCylinder::ProtoCylinder(int detail, Registration reg) :
-ProtoGeom3(Vec3f(), Vec3f(), Dim3f(1), Col4f(1),
-	"white_tile.jpg", Vec2(1)), detail(detail), registration(reg),
-	ellipseWidth(1.0), ellipseHeight(1.0),
-	length(1.0) {
+ProtoCylinder::ProtoCylinder(int detail, Registration reg) //:
+//ProtoGeom3(Vec3f(), Vec3f(), Dim3f(1), Col4f(1),
+//	"white_tile.jpg", Vec2(1)), detail(detail), registration(reg),
+//	ellipseWidth(1.0), ellipseHeight(1.0),
+//	length(1.0) 
+{
 	//setBumpMap("white_tile.jpg");
 	init();
 }
 
-ProtoCylinder::ProtoCylinder(const Vec3& pos, int detail, Registration reg) :
-ProtoGeom3(pos, Vec3f(), Dim3f(1), Col4f(1), "white_tile.jpg",
-	Vec2(1)), detail(detail), registration(reg), 
-	ellipseWidth(1.0), ellipseHeight(1.0), 
-	length(1.0) {
+ProtoCylinder::ProtoCylinder(const Vec3& pos, int detail, Registration reg) 
+//:ProtoGeom3(pos, Vec3f(), Dim3f(1), Col4f(1), "white_tile.jpg",
+//	Vec2(1)), detail(detail), registration(reg), 
+//	ellipseWidth(1.0), ellipseHeight(1.0), 
+//	length(1.0) 
+{
 	init();
 }
 
-ProtoCylinder::ProtoCylinder(const Dim3f& size, int detail, Registration reg) :
-ProtoGeom3(Vec3f(), Vec3f(), size, Col4f(1), "white_tile.jpg",
-	Vec2(1)), detail(detail), registration(reg),
-	ellipseWidth(1.0), ellipseHeight(1.0),
-	length(1.0) {
+ProtoCylinder::ProtoCylinder(const Dim3f& size, int detail, Registration reg) 
+//:ProtoGeom3(Vec3f(), Vec3f(), size, Col4f(1), "white_tile.jpg",
+//	Vec2(1)), detail(detail), registration(reg),
+//	ellipseWidth(1.0), ellipseHeight(1.0),
+//	length(1.0) 
+{
 	init();
 }
 
-ProtoCylinder::ProtoCylinder(const Vec3& pos, const Dim3f& size, int detail, Registration reg) :
-ProtoGeom3(pos, Vec3f(), size, Col4f(1), "white_tile.jpg",
-	Vec2(1)), detail(detail), registration(reg), 
-	ellipseWidth(1.0), ellipseHeight(1.0), 
-	length(1.0) {
+ProtoCylinder::ProtoCylinder(const Vec3& pos, const Dim3f& size, int detail, Registration reg) 
+//:ProtoGeom3(pos, Vec3f(), size, Col4f(1), "white_tile.jpg",
+//	Vec2(1)), detail(detail), registration(reg), 
+//	ellipseWidth(1.0), ellipseHeight(1.0), 
+//	length(1.0) 
+{
 	init();
 }
 
-ProtoCylinder::ProtoCylinder(int detail, const std::string& textureImageURL, Registration reg) :
-ProtoGeom3(Vec3f(), Vec3f(), Dim3f(1), Col4f(1), textureImageURL,
-	Vec2(1)), detail(detail), registration(reg), 
-	ellipseWidth(1.0), ellipseHeight(1.0), 
-	length(1.0) {
+ProtoCylinder::ProtoCylinder(int detail, const std::string& textureImageURL, Registration reg) 
+//:ProtoGeom3(Vec3f(), Vec3f(), Dim3f(1), Col4f(1), textureImageURL,
+//	Vec2(1)), detail(detail), registration(reg), 
+//	ellipseWidth(1.0), ellipseHeight(1.0), 
+//	length(1.0) 
+{
 	init();
 }
 
-ProtoCylinder::ProtoCylinder(const Vec3& pos, int detail, const std::string& textureImageURL, Registration reg) :
-ProtoGeom3(pos, Vec3f(), Dim3f(1), Col4f(1), textureImageURL,
-	Vec2(1)), detail(detail), registration(reg), 
-	ellipseWidth(1.0), ellipseHeight(1.0), 
-	length(1.0) {
+ProtoCylinder::ProtoCylinder(const Vec3& pos, int detail, const std::string& textureImageURL, Registration reg) 
+//:ProtoGeom3(pos, Vec3f(), Dim3f(1), Col4f(1), textureImageURL,
+//	Vec2(1)), detail(detail), registration(reg), 
+//	ellipseWidth(1.0), ellipseHeight(1.0), 
+//	length(1.0) 
+{
 	init();
 }
 
-ProtoCylinder::ProtoCylinder(const Dim3f& size, int detail, const std::string& textureImageURL, Registration reg) :
-ProtoGeom3(Vec3f(), Vec3f(), size, Col4f(1), textureImageURL,
-	Vec2(1)), detail(detail), registration(reg), 
-	ellipseWidth(1.0), ellipseHeight(1.0),
-	length(1.0) {
+ProtoCylinder::ProtoCylinder(const Dim3f& size, int detail, const std::string& textureImageURL, Registration reg) 
+//:ProtoGeom3(Vec3f(), Vec3f(), size, Col4f(1), textureImageURL,
+//	Vec2(1)), detail(detail), registration(reg), 
+//	ellipseWidth(1.0), ellipseHeight(1.0),
+//	length(1.0) 
+{
 	init();
 }
 
-ProtoCylinder::ProtoCylinder(const Vec3& pos, const Dim3f& size, int detail, const std::string& textureImageURL, Registration reg) :
-ProtoGeom3(pos, Vec3f(), size, Col4f(1), textureImageURL,
-	Vec2(1)), detail(detail), registration(reg),
-	ellipseWidth(1.0), ellipseHeight(1.0),
-	length(1.0) {
+ProtoCylinder::ProtoCylinder(const Vec3& pos, const Dim3f& size, int detail, const std::string& textureImageURL, Registration reg) 
+//:ProtoGeom3(pos, Vec3f(), size, Col4f(1), textureImageURL,
+//	Vec2(1)), detail(detail), registration(reg),
+//	ellipseWidth(1.0), ellipseHeight(1.0),
+//	length(1.0) 
+{
 	init();
 }
 
