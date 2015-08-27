@@ -38,6 +38,7 @@ This class is part of the group common (update)
 #include "ProtoVector3.h"
 #include "ProtoVector4.h"
 #include "ProtoShader.h"
+#include "ProtoLight.h"
 
 // include GLM
 #include "glm/gtc/type_ptr.hpp" // matrix copying
@@ -64,6 +65,43 @@ namespace ijg {
 		std::stack <glm::mat4> matrixStack;
 
 		//ProtoShader shader;
+
+		// maybes
+		void _initUniforms(ProtoShader* shader_ptr);
+		
+		//Lighting
+		GLint glLights[8];
+		enum Light {
+			LIGHT_0,
+			LIGHT_1,
+			LIGHT_2,
+			LIGHT_3,
+			LIGHT_4,
+			LIGHT_5,
+			LIGHT_6,
+			LIGHT_7
+		};
+		std::vector<ProtoLight> lights;
+
+		float viewAngle, aspect, nearDist, farDist;
+
+		void setViewAngle(float viewAngle);
+		void setAspect(float aspect);
+		void setNearDist(float nearDist);
+		void setFarDist(float farDist);
+
+		float left, right, bottom, top;
+
+		void setLeft(float left);
+		void setRight(float right);
+		void setBottom(float bottom);
+		void setTop(float top);
+
+		enum ProjectionType {
+			PERSPECTIVE,
+			ORTHOGONAL
+		};
+		void setProjection(ProjectionType projType = PERSPECTIVE);
 		
 
 	public:
@@ -91,20 +129,48 @@ namespace ijg {
 		// flags for shader locations
 		static GLuint M_U, V_U, MV_U, P_U, MVP_U, N_U;
 		//GLuint T_U, R_U, S_U;
-		//GLuint L_MVBP_U; // only for Light perspective
-		//GLuint shaderPassFlag_U;
+		GLuint L_MVBP_U; // only for Light perspective
+		GLuint shaderPassFlag_U;
 
 		// Uniform Shadow Map
-		//GLuint shadowMap_U;
+		GLuint shadowMap_U;
 
 		// Uniform Lighting factors
 		// enable/disable lighting factors for 2D rendering
-		//Vec4f ltRenderingFactors;
-		//GLuint lightRenderingFactors_U;
+		Vec4f ltRenderingFactors;
+		GLuint lightRenderingFactors_U;
 		
 
-		// Transformation Matrices
-		//static glm::mat4 T, R, S;
+		// shadow mapping texture id's
+		GLuint shadowBufferID, shadowTextureID;
+
+		// flag for shadowing
+		bool areShadowsEnabled;
+
+		const int SHADOWMAP_WIDTH = 4096, SHADOWMAP_HEIGHT = 4096;
+		
+		
+		bool areShadowsOn;
+		void setShadowsOn(bool areShadowsOn);
+		void shadowsOn();
+		void shadowOff();
+
+
+
+		// Uniform Lighting location vars
+		struct Light_U {
+			GLuint position;
+			GLuint intensity;
+			GLuint diffuse;
+			GLuint ambient;
+			GLuint specular;;
+		};
+		Light_U lights_U[8];
+
+		GLuint globalAmbient_U;
+
+
+
 
 	
 

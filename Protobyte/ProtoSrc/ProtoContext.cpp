@@ -39,12 +39,12 @@ GLuint ProtoContext::N_U = 0;
 
 
 const std::shared_ptr<ProtoContext> ProtoContext::getContext() {
-
+	
 	// transformation matrices
-	M_U = glGetUniformLocation(ProtoShader::getID_2(), "modelMatrix");
-	MV_U = glGetUniformLocation(ProtoShader::getID_2(), "modelViewMatrix");
-	MVP_U = glGetUniformLocation(ProtoShader::getID_2(), "modelViewProjectionMatrix");
-	N_U = glGetUniformLocation(ProtoShader::getID_2(), "normalMatrix");
+	//M_U = glGetUniformLocation(ProtoShader::getID_2(), "modelMatrix");
+	//MV_U = glGetUniformLocation(ProtoShader::getID_2(), "modelViewMatrix");
+	//MVP_U = glGetUniformLocation(ProtoShader::getID_2(), "modelViewProjectionMatrix");
+	//N_U = glGetUniformLocation(ProtoShader::getID_2(), "normalMatrix");
 
 	// shadow map and light transformation matrix for shadowmapping
 	//shadowMap_U = glGetUniformLocation(shader_ptr->getID(), "shadowMap");
