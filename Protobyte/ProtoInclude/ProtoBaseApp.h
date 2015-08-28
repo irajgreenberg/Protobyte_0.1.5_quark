@@ -280,6 +280,11 @@ namespace ijg {
 		void setBottom(float bottom);
 		void setTop(float top);
 
+		// For view matrix
+		void setSceneCenter(const Vec3& axis);
+		void setEyePosition(const Vec3& eyePos);
+		void setUpAxis(const Vec3& axis);
+
 		enum ProjectionType {
 			PERSPECTIVE,
 			ORTHOGONAL

@@ -59,15 +59,17 @@ namespace ijg {
 
 		
 
+		
+
 		// flags for shader locations
 		//GLuint M_U, N_U;
 		//GLuint T_U, R_U, S_U;
 		std::stack <glm::mat4> matrixStack;
 
-		//ProtoShader shader;
+		ProtoShader shader;
 
 		// maybes
-		void _initUniforms(ProtoShader* shader_ptr);
+		//void _initUniforms(ProtoShader* shader_ptr);
 		
 		//Lighting
 		GLint glLights[8];
@@ -83,19 +85,15 @@ namespace ijg {
 		};
 		std::vector<ProtoLight> lights;
 
+		// perspective view 
 		float viewAngle, aspect, nearDist, farDist;
 
-		void setViewAngle(float viewAngle);
-		void setAspect(float aspect);
-		void setNearDist(float nearDist);
-		void setFarDist(float farDist);
-
+		// look at
+		Vec3 axis, eyePos, axis; 
+		
+		// orthogonal view 
 		float left, right, bottom, top;
 
-		void setLeft(float left);
-		void setRight(float right);
-		void setBottom(float bottom);
-		void setTop(float top);
 
 		enum ProjectionType {
 			PERSPECTIVE,
@@ -106,9 +104,10 @@ namespace ijg {
 
 	public:
 		static const std::shared_ptr<ProtoContext> getContext();
+		void init();
 
 		/*** Matrices (4x4) ***/
-		static glm::mat4 M; // Model
+		glm::mat4 M; // Model
 		glm::mat4 V; // View
 		glm::mat4 MV; // ModelView
 		glm::mat4 P; // Projection
@@ -127,7 +126,7 @@ namespace ijg {
 		glm::mat3 N;
 
 		// flags for shader locations
-		static GLuint M_U, V_U, MV_U, P_U, MVP_U, N_U;
+		GLuint M_U, V_U, MV_U, P_U, MVP_U, N_U;
 		//GLuint T_U, R_U, S_U;
 		GLuint L_MVBP_U; // only for Light perspective
 		GLuint shaderPassFlag_U;
@@ -165,13 +164,28 @@ namespace ijg {
 			GLuint ambient;
 			GLuint specular;;
 		};
+
 		Light_U lights_U[8];
 
 		GLuint globalAmbient_U;
 
 
+		// look at
+		void setSceneCenter(const Vec3& axis);
+		void setEyePosition(const Vec3& eyePos);
+		void setUpAxis(const Vec3& axis);
 
+		// perspective view
+		void setViewAngle(float viewAngle);
+		void setAspect(float aspect);
+		void setNearDist(float nearDist);
+		void setFarDist(float farDist);
 
+		// orthoonal view
+		void setLeft(float left);
+		void setRight(float right);
+		void setBottom(float bottom);
+		void setTop(float top);
 	
 
 		void translate(float tx, float ty, float tz);

@@ -70,7 +70,7 @@ void ProtoBaseApp::setWindowFrameSize(const Dim2i& windowFrameSize) {
 
 void ProtoBaseApp::_init(){
 	// get context (shared pointer)
-	ctx = ProtoContext::getContext();
+	
 
 	//GLint range[2];
 	//glGetIntegerv(GL_ALIASED_LINE_WIDTH_RANGE, range);
@@ -84,6 +84,8 @@ void ProtoBaseApp::_init(){
 	//shader2D = ProtoShader("colorOnlyShader.vert.glsl", "colorOnlyShader.frag.glsl");
 	shader3D = ProtoShader("bumpmapping.vs.glsl", "bumpmapping.fs.glsl");
 
+	ctx = ProtoContext::getContext();
+	ctx->init(); //potential issue as this is public
 
 
 	// default global ambient
@@ -244,6 +246,22 @@ void ProtoBaseApp::_init(){
 	init();
 
 }
+
+
+// For view matrix
+void ProtoBaseApp::setSceneCenter(const Vec3& axis) {
+	ctx->setSceneCenter(axis);
+}
+void ProtoBaseApp::setEyePosition(const Vec3& eyePos) {
+	ctx->setEyePosition(eyePos);
+}
+void ProtoBaseApp::setUpAxis(const Vec3& axis) {
+	ctx->setUpAxis(axis);
+}
+
+
+
+
 
 // create default buffers for rect function
 void ProtoBaseApp::_createRect(){
@@ -2560,38 +2578,45 @@ bool ProtoBaseApp::stitchTiles(std::string url, int tiles){
 // matrix transformation functions, in style of GL 1.0
 void ProtoBaseApp::translate(float tx, float ty, float tz){
 	//M = glm::translate(M, glm::vec3(tx, ty, tz));
-	ctx->M = glm::translate(ctx->M, glm::vec3(tx, ty, tz));
-	concat();
+	//ctx->M = glm::translate(ctx->M, glm::vec3(tx, ty, tz));
+	//concat();
+	ctx->translate(tx, ty, tz);
 }
 void ProtoBaseApp::translate(const Vec3f& tXYZ){
 	//M = glm::translate(M, glm::vec3(tXYZ.x, tXYZ.y, tXYZ.z));
-	ctx->M = glm::translate(ctx->M, glm::vec3(tXYZ.x, tXYZ.y, tXYZ.z));
-	concat();
+	//ctx->M = glm::translate(ctx->M, glm::vec3(tXYZ.x, tXYZ.y, tXYZ.z));
+	//concat();
+	ctx->translate(tXYZ);
 }
 void ProtoBaseApp::rotate(float angle, float axisX, float axisY, float axisZ){
 	//M = glm::rotate(M, angle, glm::vec3(axisX, axisY, axisZ));
-	ctx->M = glm::rotate(ctx->M, angle, glm::vec3(axisX, axisY, axisZ));
-	concat();
+	//ctx->M = glm::rotate(ctx->M, angle, glm::vec3(axisX, axisY, axisZ));
+	//concat();
+	ctx->rotate(angle, axisX, axisY, axisZ);
 }
 void ProtoBaseApp::rotate(float angle, const Vec3f& rXYZ){
 	//M = glm::rotate(M, angle, glm::vec3(rXYZ.x, rXYZ.y, rXYZ.z));
-	ctx->M = glm::rotate(ctx->M, angle, glm::vec3(rXYZ.x, rXYZ.y, rXYZ.z));
-	concat();
+	//ctx->M = glm::rotate(ctx->M, angle, glm::vec3(rXYZ.x, rXYZ.y, rXYZ.z));
+	//concat();
+	ctx->rotate(angle, rXYZ);
 }
 void ProtoBaseApp::scale(float s){
 	//M = glm::scale(M, glm::vec3(s, s, s));
-	ctx->M = glm::scale(ctx->M, glm::vec3(s, s, s));
-	concat();
+	//ctx->M = glm::scale(ctx->M, glm::vec3(s, s, s));
+	//concat();
+	ctx->scale(s);
 }
 void ProtoBaseApp::scale(float sx, float sy, float sz){
 	//M = glm::scale(M, glm::vec3(sx, sy, sz));
-	ctx->M = glm::scale(ctx->M, glm::vec3(sx, sy, sz));
-	concat();
+	//ctx->M = glm::scale(ctx->M, glm::vec3(sx, sy, sz));
+	//concat();
+	ctx->scale(sx, sy, sz);
 }
 void ProtoBaseApp::scale(const Vec3f& sXYZ){
 	//M = glm::scale(M, glm::vec3(sXYZ.x, sXYZ.y, sXYZ.z));
-	ctx->M = glm::scale(ctx->M, glm::vec3(sXYZ.x, sXYZ.y, sXYZ.z));
-	concat();
+	//ctx->M = glm::scale(ctx->M, glm::vec3(sXYZ.x, sXYZ.y, sXYZ.z));
+	//concat();
+	ctx->scale(sXYZ);
 }
 
 // concatenate MV, N, and MVP matrices and update values on GPU
@@ -2626,13 +2651,16 @@ void ProtoBaseApp::push(){
 	// push current transformation matrix onto stack
 	//matrixStack.push(M);
 	matrixStack.push(ctx->M);
+	//ctx->push();
 
 }
 
 // reset transformation matrix with stored matrix on stack
 void ProtoBaseApp::pop(){
 
-	// reset current transformation matrix with one on top of stack
+	//ctx->pop();
+		
+		// reset current transformation matrix with one on top of stack
 	//M = matrixStack.top();
 	ctx->M = matrixStack.top();
 
