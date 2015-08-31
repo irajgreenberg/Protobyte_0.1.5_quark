@@ -133,8 +133,6 @@ namespace ijg {
 		void setWindowFrameSize(const Dim2i& windowFrameSize);
 
 			
-
-
 		static ProtoBaseApp* baseApp;
 		static ProtoBaseApp* getBaseApp();
 
@@ -142,8 +140,8 @@ namespace ijg {
 
 	private:
 		// only needed to be called by ProtoPlasm class - a friend
-		void setWorld(std::unique_ptr<ProtoWorld> world);
-		void runWorld();
+		//void setWorld(std::unique_ptr<ProtoWorld> world);
+		//void runWorld();
 		// don't let users touch this after context is created
 		void setWidth(int canvasWidth);
 		void setHeight(int canvasHeight);
@@ -179,11 +177,11 @@ namespace ijg {
 	//protected:
 	public:
 		void _initUniforms(ProtoShader* shader_ptr); // temporarily here. put back in private eventually
-		void concat();
+		//void concat();
 		/************************************
 		 **********     FIELDS     **********
 		 ***********************************/
-		std::unique_ptr<ProtoWorld> world;
+		//std::unique_ptr<ProtoWorld> world;
 		//int appWidth;
 		//int appHeight;
 		//std::string appTitle;
@@ -225,27 +223,27 @@ namespace ijg {
 			
 			// CAMERAS
 		// 5 cameras (for now) accessible in world
-		ProtoCamera camera0, camera1, camera2, camera3, camera4;
+		//ProtoCamera camera0, camera1, camera2, camera3, camera4;
 
 		// LIGHTS
 		// per GL limits 8 lights accessible in world
 		// light0 enabled by default
 		//std::shared_ptr<ProtoLight> light0, light1, light2, light3, light4, light5, light6, light7;
 
-		Col3f globalAmbient;
+		//Col3f globalAmbient;
 
-		GLint glLights[8];
+		//GLint glLights[8];
 
-		enum Light {
-			LIGHT_0,
-			LIGHT_1,
-			LIGHT_2,
-			LIGHT_3,
-			LIGHT_4,
-			LIGHT_5,
-			LIGHT_6,
-			LIGHT_7
-		};
+		//enum Light {
+		//	LIGHT_0,
+		//	LIGHT_1,
+		//	LIGHT_2,
+		//	LIGHT_3,
+		//	LIGHT_4,
+		//	LIGHT_5,
+		//	LIGHT_6,
+		//	LIGHT_7
+		//};
 
 		enum Format {
 			STL,
@@ -261,19 +259,19 @@ namespace ijg {
 		//std::shared_ptr<ProtoLight> lights[8];
 
 		std::vector<ProtoLight> lights;
-		enum Matrix {
+		/*enum Matrix {
 			MODEL_VIEW,
 			PROJECTION
-		};
+		};*/
 
-		float viewAngle, aspect, nearDist, farDist;
+		//float viewAngle, aspect, nearDist, farDist;
 
 		void setViewAngle(float viewAngle);
 		void setAspect(float aspect);
 		void setNearDist(float nearDist);
 		void setFarDist(float farDist);
 
-		float left, right, bottom, top;
+		//float left, right, bottom, top;
 
 		void setLeft(float left);
 		void setRight(float right);
@@ -289,7 +287,7 @@ namespace ijg {
 			PERSPECTIVE,
 			ORTHOGONAL
 		};
-		void setProjection(ProjectionType projType = PERSPECTIVE);
+		void setProjection(ProjectionType projType, float viewAngle, float aspect, float nearDist, float farDist);
 
 		/***********************************
 		*           path plotting  
@@ -308,19 +306,19 @@ namespace ijg {
 		// using initials ONLY for matrices
 		// Uniform Camera Matrices
 		//glm::mat4 M, V, MV, P, MVP;
-		glm::mat4 V, MV, P, MVP;
+		//glm::mat4 V, MV, P, MVP;
 
 		// Uniform Transformation Matrices
 		//glm::mat4 T, R, S;
 
 		// Uniform Shadow Map Matrices
-		glm::mat4 L_V, L_MV, L_P, L_B, L_BP, L_MVBP;
+		//glm::mat4 L_V, L_MV, L_P, L_B, L_BP, L_MVBP;
 
 		//glm::mat4 L_MVS[8];
 		//glm::mat4 shadM[8];
 
 		// Uniform Normal Matrix
-		glm::mat3 N;
+		//glm::mat3 N;
 
 		// flags for shader locations
 		GLuint M_U, V_U, MV_U, P_U, MVP_U, N_U;
@@ -492,7 +490,7 @@ namespace ijg {
 		// CAMERAS
 
 		// WORLD
-		void printMatrix(Matrix m = MODEL_VIEW);
+		//void printMatrix(Matrix m);
 
 		/***********BEGIN************
 		 2D Automatic Procedural API
@@ -718,46 +716,46 @@ namespace ijg {
 	}
 
 
-	inline void ProtoBaseApp::setProjection(ProjectionType projType){
-		if (projType == PERSPECTIVE){
-			P = glm::perspective(viewAngle, aspect, nearDist, farDist);
-			//P = glm::frustum(left, right, bottom, top, nearDist, farDist);
-			//translate(0, 0, -600);
-			concat();
-		}
-		else {
-			//ortho (T const &left, T const &right, T const &bottom, T const &top, T const &zNear, T const &zFar)
-			P = glm::ortho(left, right, bottom, top, nearDist, farDist);
-			concat();
-		}
+	inline void ProtoBaseApp::setProjection(ProjectionType projType, float viewAngle, float aspect, float nearDist, float farDist){
+		//if (projType == PERSPECTIVE){
+		//	ctx->setProjectionMatrix(glm::perspective(viewAngle, aspect, nearDist, farDist));
+		//	//P = glm::frustum(left, right, bottom, top, nearDist, farDist);
+		//	//translate(0, 0, -600);
+		//	concat();
+		//}
+		//else {
+		//	//ortho (T const &left, T const &right, T const &bottom, T const &top, T const &zNear, T const &zFar)
+		//	P = glm::ortho(left, right, bottom, top, nearDist, farDist);
+		//	concat();
+		//}
 	}
 
 	// perspective projection
 	inline void ProtoBaseApp::setViewAngle(float viewAngle){
-		this->viewAngle = viewAngle;
+		//this->viewAngle = viewAngle;
 	}
 	inline void ProtoBaseApp::setAspect(float aspect){
-		this->aspect = aspect;
+		//this->aspect = aspect;
 	}
 	inline void ProtoBaseApp::setNearDist(float nearDist){
-		this->nearDist = nearDist;
+		//this->nearDist = nearDist;
 	}
 	inline void ProtoBaseApp::setFarDist(float farDist){
-		this->farDist = farDist;
+		//this->farDist = farDist;
 	}
 
 	// ortho projection
 	inline void  ProtoBaseApp::setLeft(float left){
-		this->left = left;
+		//this->left = left;
 	}
 	inline void  ProtoBaseApp::setRight(float right){
-		this->right = right;
+		//this->right = right;
 	}
 	inline void  ProtoBaseApp::setBottom(float bottom){
-		this->bottom = bottom;
+		//this->bottom = bottom;
 	}
 	inline void  ProtoBaseApp::setTop(float top){
-		this->top = top;
+		//this->top = top;
 	}
 
 	inline void ProtoBaseApp::setShadowsOn(bool areShadowsOn) { //not used I believe

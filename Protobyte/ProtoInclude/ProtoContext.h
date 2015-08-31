@@ -61,15 +61,8 @@ namespace ijg {
 		ProtoContext() {} // private cstr for singleton pattern
 		static std::shared_ptr<ProtoContext> ctx;
 
-
-		
 		std::stack <glm::mat4> matrixStack;
 
-		//ProtoShader shader;
-
-		// maybes
-		//void _initUniforms(ProtoShader* shader_ptr);
-		
 		//Lighting
 		GLint glLights[8];
 		enum Light {
@@ -128,7 +121,7 @@ namespace ijg {
 		glm::mat3 normalMatrix;
 
 		// flags for shader locations
-		// flags for shader locations
+		GLuint globalAmbient_U;
 		GLuint model_U, view_U, modelView_U, projection_U, modelViewProjection_U, normal_U;
 		GLuint L_MVBP_U, lightModelViewDepthBiasProjection_U; // only for Light perspective
 		GLuint shaderPassFlag_U;
@@ -182,10 +175,17 @@ namespace ijg {
 		void concatenateDepthBiasProjectionMatrix();
 		void concatenateLightModelViewDepthBiasProjectionMatrix();
 
+		const glm::mat4& getLightViewMatrix(); 
+		const glm::mat4& getLightModelViewMatrix();
+		const glm::mat4& getLightProjectionMatrix(); 
+		const glm::mat4& getLightDepthBiasMatrix(); 
+		const glm::mat4& getLightModelViewDepthBiasProjectionMatrix();
+
 		
 
 		// lighting
 		void setGlobalAmbient(const Col3f& globalAmbient);
+		const Col3f& getGlobalAmbient();
 		void setLight(int index, const Vec3& pos, const Vec3& intensity);
 		const ProtoLight& getLight(int index);
 
@@ -200,7 +200,8 @@ namespace ijg {
 
 		Light_U lights_U[8];
 
-		GLuint globalAmbient_U;
+
+		const Light_U& getLight_U(int index);
 
 
 		// look at
@@ -233,6 +234,136 @@ namespace ijg {
 		void push();
 		void pop();
 	};
+
+	// Geometry matrix set/get functions
+	inline void ProtoContext::setModelMatrix(const glm::mat4& modelMatrix) {
+		this->modelMatrix = modelMatrix;
+	}
+
+	inline void ProtoContext::setViewMatrix(const glm::mat4& viewMatrix) {
+		this->viewMatrix = viewMatrix;
+	}
+
+	inline void ProtoContext::setProjectionMatrix(const glm::mat4& projectionMatrix) {
+		this->projectionMatrix = projectionMatrix;
+	}
+
+	// Matrix concatenations functions
+	// MV Mat4
+	inline void ProtoContext::concatenateModelViewMatrix() {
+		modelViewMatrix = viewMatrix * modelMatrix;
+	}
+	// MVP Mat4
+	inline void ProtoContext::concatenateModelViewProjectionMatrix() {
+		modelViewProjectionMatrix = projectionMatrix * modelViewMatrix;
+	}
+
+	// shadow map
+	inline void ProtoContext::setLightViewMatrix(const glm::mat4& lightViewMatrix) {
+		this->lightViewMatrix = lightViewMatrix;
+	}
+
+	inline void ProtoContext::setLightDepthBiasMatrix(const glm::mat4& lightDepthBiasMatrix) {
+		this->lightDepthBiasMatrix; // Light Bias = depthBiasMatrix;
+	}
+
+	inline void ProtoContext::setLightProjectionMatrix(const glm::mat4& lightProjectionMatrix) {
+		this->lightProjectionMatrix = lightProjectionMatrix;
+	}
+
+	// shadow map concatenations functions
+	// MV Mat4
+	inline void ProtoContext::concatenateLightModelViewMatrix() {
+		lightModelViewMatrix = glm::lookAt(glm::vec3(lights.at(0).getPosition().x, lights.at(0).getPosition().y, lights.at(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	}
+
+	inline void ProtoContext::concatenateDepthBiasProjectionMatrix() {
+		lightDepthBiasProjectionMatrix = lightDepthBiasMatrix * lightProjectionMatrix;
+	}
+
+	inline void ProtoContext::concatenateLightModelViewDepthBiasProjectionMatrix() {
+		//L_MVBP = L_BP*L_MV
+		lightModelViewDepthBiasProjectionMatrix = lightDepthBiasProjectionMatrix*lightModelViewMatrix;
+	}
+
+	// geometry matrices
+	inline const glm::mat4& ProtoContext::getModelMatrix() {
+		return modelMatrix;
+	}
+
+	inline const glm::mat4& ProtoContext::getViewMatrix() {
+		return viewMatrix;
+	}
+
+	inline const glm::mat4& ProtoContext::getModelViewMatrix() {
+		return modelViewMatrix;
+	}
+
+	inline const glm::mat4& ProtoContext::getProjectionMatrix() {
+		return projectionMatrix;
+	}
+
+	inline const glm::mat4& ProtoContext::getModelViewProjectionMatrix() {
+		return modelViewProjectionMatrix;
+	}
+
+	inline const glm::mat3& ProtoContext::getNormalMatrix() {
+		return normalMatrix;
+	}
+	
+	// light matrices (for shadow map)
+	inline const glm::mat4& ProtoContext::getLightViewMatrix() {
+		return lightViewMatrix;
+	}
+
+	inline const glm::mat4& ProtoContext::getLightModelViewMatrix() {
+		return lightModelViewMatrix;
+	}
+	
+	inline const glm::mat4& ProtoContext::getLightProjectionMatrix() {
+		return lightProjectionMatrix;
+	}
+	
+	inline const glm::mat4& ProtoContext::getLightDepthBiasMatrix() {
+		return lightDepthBiasMatrix;
+	}
+	
+	inline const glm::mat4& ProtoContext::getLightModelViewDepthBiasProjectionMatrix() {
+		return lightModelViewDepthBiasProjectionMatrix;
+	}
+	
+	
+	// Lighting
+	inline const Col3f&  ProtoContext::getGlobalAmbient() {
+		return globalAmbient;
+	}
+
+	inline const ProtoContext::Light_U& ProtoContext::getLight_U(int index) {
+		return lights_U[index];
+	}
+
+
+	// N Mat3
+	inline void ProtoContext::createNormalMatrix() {
+		normalMatrix = glm::transpose(glm::inverse(glm::mat3(modelViewMatrix)));
+	}
+
+	// lighting
+	inline void ProtoContext::setGlobalAmbient(const Col3f& globalAmbient) {
+		this->globalAmbient = globalAmbient;
+		glUniform3fv(globalAmbient_U, 1, &globalAmbient.r);
+	}
+
+	inline void ProtoContext::setLight(int index, const Vec3& pos, const Vec3& intensity) {
+		lights[index].setPosition(pos);
+		lights[index].setIntensity(intensity);
+		glUniform3fv(lights_U[index].position, 1, &lights[index].getPosition().x);
+		glUniform3fv(lights_U[index].intensity, 1, &lights[index].getIntensity().x);
+	}
+
+	inline const ProtoLight& ProtoContext::getLight(int index) {
+		return lights.at(index);
+	}
 }
 
 #endif // __PROTO_CONTEXT_H__

@@ -152,98 +152,9 @@ void ProtoContext::init(){
 	}
 }
 
-// Geometry matrix set/get functions
-void ProtoContext::setModelMatrix(const glm::mat4& modelMatrix) {
-	this->modelMatrix = modelMatrix;
-}
-
-void ProtoContext::setViewMatrix(const glm::mat4& viewMatrix) {
-	this->viewMatrix = viewMatrix;
-}
-
-void ProtoContext::setProjectionMatrix(const glm::mat4& projectionMatrix) {
-	this->projectionMatrix = projectionMatrix;
-}
-
-const glm::mat4& ProtoContext::getModelMatrix() {
-	return modelMatrix;
-}
-
-const glm::mat4& ProtoContext::getViewMatrix() {
-	return viewMatrix;
-}
-
-const glm::mat4& ProtoContext::getModelViewMatrix() {
-	return modelViewMatrix;
-}
-
-const glm::mat4& ProtoContext::getProjectionMatrix() {
-	return projectionMatrix;
-}
-
-const glm::mat4& ProtoContext::getModelViewProjectionMatrix() {
-	return modelViewProjectionMatrix;
-}
-
-const glm::mat3& ProtoContext::getNormalMatrix() {
-	return normalMatrix;
-}
-
-// Matrix concatenations functions
-// MV Mat4
-void ProtoContext::concatenateModelViewMatrix() {
-	modelViewMatrix = viewMatrix * modelMatrix;
-}
-// MVP Mat4
-void ProtoContext::concatenateModelViewProjectionMatrix() {
-	modelViewProjectionMatrix = projectionMatrix * modelViewMatrix;
-}
-
-// shadow map
-void ProtoContext::setLightViewMatrix(const glm::mat4& lightViewMatrix) {
-	this->lightViewMatrix = lightViewMatrix;
-}
-
-void ProtoContext::setLightDepthBiasMatrix(const glm::mat4& lightDepthBiasMatrix) {
-	this->lightDepthBiasMatrix; // Light Bias = depthBiasMatrix;
-}
-
-void ProtoContext::setLightProjectionMatrix(const glm::mat4& lightProjectionMatrix) {
-	this->lightProjectionMatrix = lightProjectionMatrix;
-}
-
-// shadow map concatenations functions
-// MV Mat4
-void ProtoContext::concatenateLightModelViewMatrix() {
-	lightModelViewMatrix = glm::lookAt(glm::vec3(lights.at(0).getPosition().x, lights.at(0).getPosition().y, lights.at(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-}
-void ProtoContext::concatenateDepthBiasProjectionMatrix() {
-	lightDepthBiasProjectionMatrix = lightDepthBiasMatrix * lightProjectionMatrix;
-}
-void ProtoContext::concatenateLightModelViewDepthBiasProjectionMatrix() {
-	//L_MVBP = L_BP*L_MV
-	lightModelViewDepthBiasProjectionMatrix = lightDepthBiasProjectionMatrix*lightModelViewMatrix;
-}
 
 
-// N Mat3
-void ProtoContext::createNormalMatrix() {
-	normalMatrix = glm::transpose(glm::inverse(glm::mat3(modelViewMatrix)));
-}
 
-// lighting
-void ProtoContext::setGlobalAmbient(const Col3f& globalAmbient) {
-	this->globalAmbient = globalAmbient;
-}
-
-void ProtoContext::setLight(int index, const Vec3& pos, const Vec3& intensity) {
-	lights[index].setPosition(pos);
-	lights[index].setIntensity(intensity);
-}
-
-const ProtoLight& ProtoContext::getLight(int index) {
-	return lights.at(index);
-}
 
 
 

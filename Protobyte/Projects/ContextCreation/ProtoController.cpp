@@ -3,7 +3,7 @@
 void ProtoController::init() {
 	t = Toroid(36, 36, 125, 45);
 	pcg = new ProtoGeomComposite();
-	pcg->init();
+	//pcg->init();
 }
 
 void ProtoController::run() {

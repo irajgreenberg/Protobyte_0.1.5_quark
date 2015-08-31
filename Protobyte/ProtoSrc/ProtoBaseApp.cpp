@@ -111,7 +111,10 @@ void ProtoBaseApp::_init(){
 	bottom = -height / 2;
 	top = height / 2;*/
 
-	viewAngle = 75.0f; aspect = float(width) / float(height); nearDist = .1f; farDist = 1500.0f;
+	float viewAngle = 75.0f; 
+	float aspect = float(width) / float(height); 
+	float nearDist = .1f; 
+	float farDist = 1500.0f;
 	// perspective
 	ctx->setProjectionMatrix(glm::perspective(viewAngle, aspect, nearDist, farDist));
 	ctx->concatenateModelViewProjectionMatrix();
@@ -643,32 +646,32 @@ void ProtoBaseApp::_initUniforms(ProtoShader* shader_ptr){
 	//shader_ptr->bind();
 
 	// get shader location for default 8 lights
-	for (int i = 0; i < 8; ++i){
-		std::string pos = "lights[" + std::to_string(i) + "].position";
-		lights_U[i].position = glGetUniformLocation(shader_ptr->getID(), pos.c_str());
+	//for (int i = 0; i < 8; ++i){
+	//	std::string pos = "lights[" + std::to_string(i) + "].position";
+	//	lights_U[i].position = glGetUniformLocation(shader_ptr->getID(), pos.c_str());
 
-		std::string inten = "lights[" + std::to_string(i) + "].intensity";
-		lights_U[i].intensity = glGetUniformLocation(shader_ptr->getID(), inten.c_str());
+	//	std::string inten = "lights[" + std::to_string(i) + "].intensity";
+	//	lights_U[i].intensity = glGetUniformLocation(shader_ptr->getID(), inten.c_str());
 
-		// eventually get rid of these probably
-		std::string diff = "lights[" + std::to_string(i) + "].diffuse";
-		lights_U[i].diffuse = glGetUniformLocation(shader_ptr->getID(), diff.c_str());
+	//	// eventually get rid of these probably
+	//	std::string diff = "lights[" + std::to_string(i) + "].diffuse";
+	//	lights_U[i].diffuse = glGetUniformLocation(shader_ptr->getID(), diff.c_str());
 
-		std::string amb = "lights[" + std::to_string(i) + "].ambient";
-		lights_U[i].ambient = glGetUniformLocation(shader_ptr->getID(), amb.c_str());
+	//	std::string amb = "lights[" + std::to_string(i) + "].ambient";
+	//	lights_U[i].ambient = glGetUniformLocation(shader_ptr->getID(), amb.c_str());
 
-		std::string spec = "lights[" + std::to_string(i) + "].specular";
-		lights_U[i].specular = glGetUniformLocation(shader_ptr->getID(), spec.c_str());
-	}
+	//	std::string spec = "lights[" + std::to_string(i) + "].specular";
+	//	lights_U[i].specular = glGetUniformLocation(shader_ptr->getID(), spec.c_str());
+	//}
 
 	// global ambient light
-	globalAmbient_U = glGetUniformLocation(shader_ptr->getID(), "globalAmbientLight");
+	//globalAmbient_U = glGetUniformLocation(shader_ptr->getID(), "globalAmbientLight");
 
 	// transformation matrices
-	M_U = glGetUniformLocation(shader_ptr->getID(), "modelMatrix");
+	/*M_U = glGetUniformLocation(shader_ptr->getID(), "modelMatrix");
 	MV_U = glGetUniformLocation(shader_ptr->getID(), "modelViewMatrix");
 	MVP_U = glGetUniformLocation(shader_ptr->getID(), "modelViewProjectionMatrix");
-	N_U = glGetUniformLocation(shader_ptr->getID(), "normalMatrix");
+	N_U = glGetUniformLocation(shader_ptr->getID(), "normalMatrix");*/
 
 	// shadow map and light transformation matrix for shadowmapping
 	shadowMap_U = glGetUniformLocation(shader_ptr->getID(), "shadowMap");
@@ -716,12 +719,12 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	}
 
 	//global ambient
-	glUniform3fv(globalAmbient_U, 1, &globalAmbient.r);
+	//glUniform3fv(ctx->getGlobalAmbient_U(), 1, &ctx->getGlobalAmbient().r);
 
 	// update all 8 lights in shaders
 	for (int i = 0; i < 8; ++i){
-		glUniform3fv(lights_U[i].position, 1, &ctx->getLight(i).getPosition().x);
-		glUniform3fv(lights_U[i].intensity, 1, &ctx->getLight(i).getIntensity().x);
+		glUniform3fv(ctx->getLight_U(i).position, 1, &ctx->getLight(i).getPosition().x);
+		glUniform3fv(ctx->getLight_U(i).intensity, 1, &ctx->getLight(i).getIntensity().x);
 		//glUniform4fv(lights_U[i].diffuse, 1, &lights[i].getDiffuse().r);
 		//glUniform4fv(lights_U[i].ambient, 1, &lights[i].getAmbient().r);
 		//glUniform4fv(lights_U[i].specular, 1, &lights[i].getSpecular().r);
@@ -740,7 +743,7 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	//glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &L_MVBP[0][0]);
 
 	//glm::mat4 shaderMat = L_MVBP*M; // new  // include mult by Model mat
-	glm::mat4 shaderMat = L_MVBP*ctx->getModelMatrix(); // new  // include mult by Model mat
+	glm::mat4 shaderMat = ctx->getLightModelViewDepthBiasProjectionMatrix()*ctx->getModelMatrix(); // new  // include mult by Model mat
 	glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &shaderMat[0][0]);
 
 
