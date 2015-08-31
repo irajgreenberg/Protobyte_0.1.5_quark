@@ -2,13 +2,18 @@
 
 void ProtoController::init() {
 	t = Toroid(36, 36, 125, 45);
-
+	pcg = new ProtoGeomComposite();
+	pcg->init();
 }
 
 void ProtoController::run() {
 }
 
 void ProtoController::display() {
+	beginArcBall();
+	
+
+	
 	push();
 	translate(-200, 200, 0);
 	rotate(getFrameCount()*.2, Vec3(1, .2, 0));
@@ -34,6 +39,10 @@ void ProtoController::display() {
 	rotate(-getFrameCount()*1.2, Vec3(0, 0, 1));
 	t.display();
 	pop();
+
+	translate(0, 0, -500);
+	pcg->display();
+	endArcBall();
 
 	//compositeObj.display();  --> push, trans, obj1.display(), pop, push, trans, obj2.display(), pop,
 }

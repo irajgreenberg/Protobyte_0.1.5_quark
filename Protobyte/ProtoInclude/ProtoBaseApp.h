@@ -803,14 +803,14 @@ namespace ijg {
 	//#define rotatef glRotatef 
 	//#define scalef glScalef 
 
-#define light0 lights.at(0)
-#define light1 lights.at(1)
-#define light2 lights.at(2)
-#define light3 lights.at(3)
-#define light4 lights.at(4)
-#define light5 lights.at(5)
-#define light6 lights.at(6)
-#define light7 lights.at(7)
+//#define light0 lights.at(0)
+//#define light1 lights.at(1)
+//#define light2 lights.at(2)
+//#define light3 lights.at(3)
+//#define light4 lights.at(4)
+//#define light5 lights.at(5)
+//#define light6 lights.at(6)
+//#define light7 lights.at(7)
 
 #define background setBackground
 

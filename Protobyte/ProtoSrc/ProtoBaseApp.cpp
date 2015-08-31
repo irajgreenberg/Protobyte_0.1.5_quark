@@ -11,52 +11,33 @@
 
 using namespace ijg;
 
-
+//NOTE - maybe pul all flags in context? and access ctx->
 
 ProtoBaseApp* ProtoBaseApp::baseApp = 0;
 
 
 // for testing only
-GLdouble myStar[5][6] = {
-	0.6f, -0.1f, -2.0f, 1.0f, 1.0f, 1.0f,
-	1.35f, 1.4f, -2.0f, 1.0f, 1.0f, 1.0f,
-	2.1f, -0.1f, -2.0f, 1.0f, 1.0f, 1.0f,
-	0.6f, 0.9f, -2.0f, 1.0f, 1.0f, 1.0f,
-	2.1f, 0.9f, -2.0f, 1.0f, 1.0f, 1.0f };
+//GLdouble myStar[5][6] = {
+//	0.6f, -0.1f, -2.0f, 1.0f, 1.0f, 1.0f,
+//	1.35f, 1.4f, -2.0f, 1.0f, 1.0f, 1.0f,
+//	2.1f, -0.1f, -2.0f, 1.0f, 1.0f, 1.0f,
+//	0.6f, 0.9f, -2.0f, 1.0f, 1.0f, 1.0f,
+//	2.1f, 0.9f, -2.0f, 1.0f, 1.0f, 1.0f };
+//
+//GLdouble quad[4][6] = { 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+//1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+//1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+//0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, };
 
-GLdouble quad[4][6] = { 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
-1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, };
-
+// cstr
 // NOTE: called before GL context created
 ProtoBaseApp::ProtoBaseApp() {
-
-	lights.push_back(ProtoLight());
-	lights.push_back(ProtoLight());
-	lights.push_back(ProtoLight());
-	lights.push_back(ProtoLight());
-	lights.push_back(ProtoLight());
-	lights.push_back(ProtoLight());
-	lights.push_back(ProtoLight());
-	lights.push_back(ProtoLight());
-
 	ProtoBaseApp::baseApp = this;
 }
 
 //ProtoBaseApp::ProtoBaseApp(const ProtoOSC& listener) :
 //listener(listener){
-//
-//	lights.push_back(ProtoLight());
-//	lights.push_back(ProtoLight());
-//	lights.push_back(ProtoLight());
-//	lights.push_back(ProtoLight());
-//	lights.push_back(ProtoLight());
-//	lights.push_back(ProtoLight());
-//	lights.push_back(ProtoLight());
-//	lights.push_back(ProtoLight());
-//
-//	ProtoBaseApp::baseApp = this;
+// ProtoBaseApp::baseApp = this;
 //}
 
 ProtoBaseApp* ProtoBaseApp::getBaseApp() {
@@ -84,40 +65,26 @@ void ProtoBaseApp::_init(){
 	//shader2D = ProtoShader("colorOnlyShader.vert.glsl", "colorOnlyShader.frag.glsl");
 	shader3D = ProtoShader("bumpmapping.vs.glsl", "bumpmapping.fs.glsl");
 
-	ctx = ProtoContext::getContext();
-	ctx->init(); //potential issue as this is public
+	// create context
+	ctx = ProtoContext::getContext(width, height);
+	ctx->init();
+	//trace("ctx =", ctx);
 
 
 	// default global ambient
-	globalAmbient = Col3f(.02f, .02f, .02f);
+	//globalAmbient = Col3f(.02f, .02f, .02f);
+	ctx->setGlobalAmbient({ .02f, .02f, .02f });
 
 	// camera at 11
 	// default inital light
-	//light0.setPosition(Vec3f(-1.9, .9, 8));
-	light0.setPosition(Vec3f(-200, 200, 0));
-	//light0.setPosition(Vec3f(-14.2, 2.5, 8));
-	light0.setIntensity(Vec3f(1, 1, 1));
-
-	light1.setPosition(Vec3f(0, 0, 1));
-	light1.setIntensity(Vec3f(0, 0, 0));
-
-	light2.setPosition(Vec3f(0, 0, 1));
-	light2.setIntensity(Vec3f(0, 0, 0));
-
-	light3.setPosition(Vec3f(0, 0, 1));
-	light3.setIntensity(Vec3f(0, 0, 0));
-
-	light4.setPosition(Vec3f(0, 0, 1));
-	light4.setIntensity(Vec3f(0, 0, 0));
-
-	light5.setPosition(Vec3f(0, 0, 1));
-	light6.setIntensity(Vec3f(0, 0, 0));
-
-	light6.setPosition(Vec3f(0, 0, 1));
-	light6.setIntensity(Vec3f(0, 0, 0));
-
-	light7.setPosition(Vec3f(0, 0, 1));
-	light7.setIntensity(Vec3f(0, 0, 0));
+	ctx->setLight(0, {-200, 200, 0 }, { 1, 1, 1 });
+	ctx->setLight(1, { 0, 0, 1 }, { 0, 0, 0 });
+	ctx->setLight(2, { 0, 0, 1 }, { 0, 0, 0 });
+	ctx->setLight(3, { 0, 0, 1 }, { 0, 0, 0 });
+	ctx->setLight(4, { 0, 0, 1 }, { 0, 0, 0 });
+	ctx->setLight(5, { 0, 0, 1 }, { 0, 0, 0 });
+	ctx->setLight(6, { 0, 0, 1 }, { 0, 0, 0 });
+	ctx->setLight(7, { 0, 0, 1 }, { 0, 0, 0 });
 
 	// mouse
 	mouseX = mouseY = mouseLastFrameX = mouseLastFrameY = 0;
@@ -125,61 +92,37 @@ void ProtoBaseApp::_init(){
 	arcballRotX = arcballRotY = arcballRotXLast, arcballRotYLast = mouseXIn = mouseYIn = 0;
 	//isArcballOn = false;
 
+	// RECONSIDER THIS
+	// is it cool to set this here, versus in context?
 	glViewport(0, 0, width, height);
 
 	// START standard transformation matrices: ModelView / Projection / Normal
-	//M = glm::mat4(1.0f); // set to identity
-	ctx->M = glm::mat4(1.0f); // set to identity
-	V = glm::lookAt(glm::vec3(0.0, 0.0, 60), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
-	//MV = V * M
-	MV = V * ctx->M;
-	N = glm::transpose(glm::inverse(glm::mat3(MV)));
+	ctx->setModelMatrix(glm::mat4(1.0f));
+	ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 60), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+	ctx->concatenateModelViewMatrix();
+	ctx->createNormalMatrix();
 
 	// projection matrix and MVP Matrix
-	// perspective
-	viewAngle = 75.0f;
-	aspect = float(width) / float(height);
-	// ortho
+	/* ortho
 	//trace("width = ", width);
 	//trace("height =", height);
 	left = -width / 2;
 	right = width / 2;
 	bottom = -height / 2;
-	top = height / 2;
+	top = height / 2;*/
 
-	nearDist = .1f;
-	farDist = 1500.0f;
-
-	P = glm::perspective(viewAngle, aspect, nearDist, farDist);
-	MVP = P * MV;
+	viewAngle = 75.0f; aspect = float(width) / float(height); nearDist = .1f; farDist = 1500.0f;
+	// perspective
+	ctx->setProjectionMatrix(glm::perspective(viewAngle, aspect, nearDist, farDist));
+	ctx->concatenateModelViewProjectionMatrix();
 	// END Model / View / Projection data
 
-	// tranformation matricies
-	//T = glm::mat4(1.0f);
-	//R = glm::mat4(1.0f);
-	//S = glm::mat4(1.0f);
-
-	//glm::vec3 lightInvDir = glm::vec3(0.5f, 2, 2);
-
-	//// Compute the MVP matrix from the light's point of view
-	//glm::mat4 depthProjectionMatrix = glm::ortho<float>(-10, 10, -10, 10, -10, 20);
-	//glm::mat4 depthViewMatrix = glm::lookAt(lightInvDir, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-	//glm::mat4 depthModelMatrix = glm::mat4(1.0);
-	//glm::mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * depthModelMatrix;
-
-
-
+	
 	// START Shadow Map Matrices
-	L_MV = glm::lookAt(glm::vec3(light0.getPosition().x, light0.getPosition().y, light0.getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	//L_MV = glm::lookAt(glm::vec3(light0.getPosition().x, light0.getPosition().y, light0.getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	ctx->setLightViewMatrix(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
 	//L_P = glm::perspective(45.0f, 1.0f, .10f, 1000.0f);
-
-	L_P = glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f);
-
-
-	//L_P = glm::perspective(50.0f, 1.0f, .10f, 325.0f);
-	//L_B = glm::scale(glm::translate(glm::mat4(1), glm::vec3(.5, .5, .5)), glm::vec3(.5, .5, .5));
-
-	//L_B = glm::mat4(1.0);
+	ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
 
 	float ratio = getWidth() / getHeight();
 	//L_B = glm::mat4(
@@ -189,16 +132,15 @@ void ProtoBaseApp::_init(){
 	//	glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
 	//);
 
-	L_B = glm::mat4(
+	ctx->setLightDepthBiasMatrix(glm::mat4(
 		glm::vec4(.5, 0.0f, 0.0f, 0.0f),
 		glm::vec4(0.0f, .5, 0.0f, 0.0f),
 		glm::vec4(0.0f, 0.0f, .5, 0.0f),
 		glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
-		);
+		));
 
-
-	L_BP = L_B*L_P;
-	L_MVBP = L_BP*L_MV;
+	ctx->concatenateDepthBiasProjectionMatrix();
+	ctx->concatenateLightModelViewDepthBiasProjectionMatrix();
 	// END Shadow Matrices
 
 	createShadowMap();
@@ -222,7 +164,6 @@ void ProtoBaseApp::_init(){
 	// create primitives for immediate drawing
 
 	// for primitives
-
 	textureScale.x = textureScale.y = 1.0;
 
 	// default no texture
@@ -258,9 +199,6 @@ void ProtoBaseApp::setEyePosition(const Vec3& eyePos) {
 void ProtoBaseApp::setUpAxis(const Vec3& axis) {
 	ctx->setUpAxis(axis);
 }
-
-
-
 
 
 // create default buffers for rect function
@@ -782,43 +720,42 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 
 	// update all 8 lights in shaders
 	for (int i = 0; i < 8; ++i){
-		glUniform3fv(lights_U[i].position, 1, &lights[i].getPosition().x);
-		glUniform3fv(lights_U[i].intensity, 1, &lights[i].getIntensity().x);
-		glUniform4fv(lights_U[i].diffuse, 1, &lights[i].getDiffuse().r);
-		glUniform4fv(lights_U[i].ambient, 1, &lights[i].getAmbient().r);
-		glUniform4fv(lights_U[i].specular, 1, &lights[i].getSpecular().r);
+		glUniform3fv(lights_U[i].position, 1, &ctx->getLight(i).getPosition().x);
+		glUniform3fv(lights_U[i].intensity, 1, &ctx->getLight(i).getIntensity().x);
+		//glUniform4fv(lights_U[i].diffuse, 1, &lights[i].getDiffuse().r);
+		//glUniform4fv(lights_U[i].ambient, 1, &lights[i].getAmbient().r);
+		//glUniform4fv(lights_U[i].specular, 1, &lights[i].getSpecular().r);
 	}
 
 	// I thought I needed this to reset matrix each frame?
-	//M = glm::mat4(1.0f);
-	ctx->M = glm::mat4(1.0f);
+	ctx->setModelMatrix(glm::mat4(1.0f));
 	// was 18
-	V = glm::lookAt(glm::vec3(0.0, 0.0, 652.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
-	//M = T * R * S;
-	//MV = V * M;
-	MV = V * ctx->M;
-	MVP = P * MV;
-	//trace("light pos =", light0.getPosition());
+	ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 652.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+	ctx->concatenateModelViewMatrix();
+	ctx->concatenateModelViewProjectionMatrix();
+
 	// update shadow map texture matrix should light(s) changes position
-	L_MV = glm::lookAt(glm::vec3(light0.getPosition().x, light0.getPosition().y, light0.getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-	L_MVBP = L_BP*L_MV;
+	ctx->setLightViewMatrix(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+	ctx->concatenateLightModelViewDepthBiasProjectionMatrix();
 	//glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &L_MVBP[0][0]);
 
 	//glm::mat4 shaderMat = L_MVBP*M; // new  // include mult by Model mat
-	glm::mat4 shaderMat = L_MVBP*ctx->M; // new  // include mult by Model mat
+	glm::mat4 shaderMat = L_MVBP*ctx->getModelMatrix(); // new  // include mult by Model mat
 	glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &shaderMat[0][0]);
 
 
 	// some help from:http://www.opengl.org/discussion_boards/showthread.php/171184-GLM-to-create-gl_NormalMatrix
 	// update normals
 
-	N = glm::transpose(glm::inverse(glm::mat3(MV)));
+	//N = glm::transpose(glm::inverse(glm::mat3(MV)));
+	ctx->createNormalMatrix();
 
+	// don't think I need these anymore
 	//glUniformMatrix4fv(M_U, 1, GL_FALSE, &M[0][0]); 
-	glUniformMatrix4fv(M_U, 1, GL_FALSE, &ctx->M[0][0]);
-	glUniformMatrix4fv(MV_U, 1, GL_FALSE, &MV[0][0]);
-	glUniformMatrix4fv(MVP_U, 1, GL_FALSE, &MVP[0][0]);
-	glUniformMatrix3fv(N_U, 1, GL_FALSE, &N[0][0]);
+	//glUniformMatrix4fv(M_U, 1, GL_FALSE, &ctx->getModelMatrix()[0][0]);
+	//glUniformMatrix4fv(MV_U, 1, GL_FALSE, &ctx->getModelViewMatrix()[0][0]);
+	//glUniformMatrix4fv(MVP_U, 1, GL_FALSE, &ctx->getModelViewProjectionMatrix()[0][0]);
+	//glUniformMatrix3fv(N_U, 1, GL_FALSE, &ctx->getNormalMatrix()[0][0]);
 
 	// enable  /disable lighting effects ofr 2D rendering
 	ltRenderingFactors = Vec4f(1.0, 1.0, 1.0, 1.0); // default lighting
@@ -2577,98 +2514,39 @@ bool ProtoBaseApp::stitchTiles(std::string url, int tiles){
 
 // matrix transformation functions, in style of GL 1.0
 void ProtoBaseApp::translate(float tx, float ty, float tz){
-	//M = glm::translate(M, glm::vec3(tx, ty, tz));
-	//ctx->M = glm::translate(ctx->M, glm::vec3(tx, ty, tz));
-	//concat();
 	ctx->translate(tx, ty, tz);
 }
+
 void ProtoBaseApp::translate(const Vec3f& tXYZ){
-	//M = glm::translate(M, glm::vec3(tXYZ.x, tXYZ.y, tXYZ.z));
-	//ctx->M = glm::translate(ctx->M, glm::vec3(tXYZ.x, tXYZ.y, tXYZ.z));
-	//concat();
 	ctx->translate(tXYZ);
 }
+
 void ProtoBaseApp::rotate(float angle, float axisX, float axisY, float axisZ){
-	//M = glm::rotate(M, angle, glm::vec3(axisX, axisY, axisZ));
-	//ctx->M = glm::rotate(ctx->M, angle, glm::vec3(axisX, axisY, axisZ));
-	//concat();
 	ctx->rotate(angle, axisX, axisY, axisZ);
 }
+
 void ProtoBaseApp::rotate(float angle, const Vec3f& rXYZ){
-	//M = glm::rotate(M, angle, glm::vec3(rXYZ.x, rXYZ.y, rXYZ.z));
-	//ctx->M = glm::rotate(ctx->M, angle, glm::vec3(rXYZ.x, rXYZ.y, rXYZ.z));
-	//concat();
 	ctx->rotate(angle, rXYZ);
 }
+
 void ProtoBaseApp::scale(float s){
-	//M = glm::scale(M, glm::vec3(s, s, s));
-	//ctx->M = glm::scale(ctx->M, glm::vec3(s, s, s));
-	//concat();
 	ctx->scale(s);
 }
+
 void ProtoBaseApp::scale(float sx, float sy, float sz){
-	//M = glm::scale(M, glm::vec3(sx, sy, sz));
-	//ctx->M = glm::scale(ctx->M, glm::vec3(sx, sy, sz));
-	//concat();
 	ctx->scale(sx, sy, sz);
 }
+
 void ProtoBaseApp::scale(const Vec3f& sXYZ){
-	//M = glm::scale(M, glm::vec3(sXYZ.x, sXYZ.y, sXYZ.z));
-	//ctx->M = glm::scale(ctx->M, glm::vec3(sXYZ.x, sXYZ.y, sXYZ.z));
-	//concat();
 	ctx->scale(sXYZ);
 }
 
-// concatenate MV, N, and MVP matrices and update values on GPU
-void ProtoBaseApp::concat(){
-	//M = glm::mat4(1.0f);
-	//push();
-	//MV = V * M;
-	MV = V * ctx->M;
-	N = glm::transpose(glm::inverse(glm::mat3(MV)));
-	MVP = P * MV;
-	// update in shader
-	//glUniformMatrix4fv(M_U, 1, GL_FALSE, &M[0][0]);
-	glUniformMatrix4fv(M_U, 1, GL_FALSE, &ctx->M[0][0]);
-	glUniformMatrix4fv(MV_U, 1, GL_FALSE, &MV[0][0]);
-	glUniformMatrix4fv(MVP_U, 1, GL_FALSE, &MVP[0][0]);
-	glUniformMatrix3fv(N_U, 1, GL_FALSE, &N[0][0]);
-
-	glm::vec3 ltPos = glm::vec3(light0.getPosition().x, light0.getPosition().y, light0.getPosition().z);
-
-	L_MV = glm::lookAt(ltPos, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-	L_MVBP = L_BP*L_MV;
-	//glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &L_MVBP[0][0]);
-
-	//glm::mat4 shaderMat = L_MVBP*M; // new 
-	glm::mat4 shaderMat = L_MVBP*ctx->M; // new 
-	glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &shaderMat[0][0]);
-	//pop();
-}
-
-// implements transform matrix stack
 void ProtoBaseApp::push(){
-	// push current transformation matrix onto stack
-	//matrixStack.push(M);
-	matrixStack.push(ctx->M);
-	//ctx->push();
-
+	ctx->push();
 }
 
-// reset transformation matrix with stored matrix on stack
 void ProtoBaseApp::pop(){
-
-	//ctx->pop();
-		
-		// reset current transformation matrix with one on top of stack
-	//M = matrixStack.top();
-	ctx->M = matrixStack.top();
-
-	// pop transformation matrix off top of stack
-	matrixStack.pop();
-
-	// rebuild matrices and update on GPU
-	concat();
+	ctx->pop();
 }
 
 

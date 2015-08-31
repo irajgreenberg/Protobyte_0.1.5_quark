@@ -83,6 +83,7 @@
     <ClCompile Include="..\..\ProtoSrc\ProtoFrenetFrame.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoGeom2.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoGeom3.cpp" />
+    <ClCompile Include="..\..\ProtoSrc\ProtoGeomComposite.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoGeosphere.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoGroundPlane.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoJuncusEffusus.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="..\..\ProtoInclude\ProtoFrenetFrame.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoGeom2.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoGeom3.h" />
+    <ClInclude Include="..\..\ProtoInclude\ProtoGeomComposite.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoGeomSet.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoGeosphere.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoGroundPlane.h" />

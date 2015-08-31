@@ -138,6 +138,9 @@
     <ClCompile Include="..\..\ProtoSrc\ProtoContext.cpp">
       <Filter>ProtoLib\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\ProtoSrc\ProtoGeomComposite.cpp">
+      <Filter>ProtoLib\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\ProtoInclude\ProtoWorld.h">
@@ -313,6 +316,9 @@
     </ClInclude>
     <ClInclude Include="ProtoController.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoContext.h">
+      <Filter>ProtoLib\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ProtoInclude\ProtoGeomComposite.h">
       <Filter>ProtoLib\include</Filter>
     </ClInclude>
   </ItemGroup>

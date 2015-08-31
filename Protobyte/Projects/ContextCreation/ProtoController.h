@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "ProtoBaseApp.h"
+#include "ProtoGeomComposite.h"
 
 using namespace ijg;
 
@@ -29,6 +30,7 @@ public:
 
 private:
 	Toroid t;
+	ProtoGeomComposite* pcg;
 
 };
 

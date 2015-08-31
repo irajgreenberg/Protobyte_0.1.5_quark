@@ -39,6 +39,7 @@ This class is part of the group common (update)
 #include "ProtoVector4.h"
 #include "ProtoShader.h"
 #include "ProtoLight.h"
+#include "ProtoColor3.h"
 
 // include GLM
 #include "glm/gtc/type_ptr.hpp" // matrix copying
@@ -54,19 +55,17 @@ namespace ijg {
 	class ProtoContext {
 
 	private:
+
+		static float width;
+		static float height;
 		ProtoContext() {} // private cstr for singleton pattern
 		static std::shared_ptr<ProtoContext> ctx;
 
-		
 
 		
-
-		// flags for shader locations
-		//GLuint M_U, N_U;
-		//GLuint T_U, R_U, S_U;
 		std::stack <glm::mat4> matrixStack;
 
-		ProtoShader shader;
+		//ProtoShader shader;
 
 		// maybes
 		//void _initUniforms(ProtoShader* shader_ptr);
@@ -86,10 +85,13 @@ namespace ijg {
 		std::vector<ProtoLight> lights;
 
 		// perspective view 
-		float viewAngle, aspect, nearDist, farDist;
+		float viewAngle{ 75.0f };
+		float aspect{ 0.0f };
+		float nearDist{ .1f };
+		float farDist{ 1500.0f };
 
 		// look at
-		Vec3 axis, eyePos, axis; 
+		Vec3 eyePos, sceneCenter, axis; 
 		
 		// orthogonal view 
 		float left, right, bottom, top;
@@ -103,32 +105,32 @@ namespace ijg {
 		
 
 	public:
-		static const std::shared_ptr<ProtoContext> getContext();
+		static const std::shared_ptr<ProtoContext> getContext(float width = 100.0f, float height = 100.0f);
 		void init();
 
 		/*** Matrices (4x4) ***/
-		glm::mat4 M; // Model
-		glm::mat4 V; // View
-		glm::mat4 MV; // ModelView
-		glm::mat4 P; // Projection
-		glm::mat4 MVP; // ModelViewProjection
+		glm::mat4 modelMatrix; // Model
+		glm::mat4 viewMatrix; // View
+		glm::mat4 modelViewMatrix; // ModelView
+		glm::mat4 projectionMatrix; // Projection
+		glm::mat4 modelViewProjectionMatrix; // ModelViewProjection
 
 		// For Shadow map
-		glm::mat4 L_V; // Light View
-		glm::mat4 L_MV; // Light ModelView
-		glm::mat4 L_P; // Light Projection
-		glm::mat4 L_B; // Light Bias
-		glm::mat4 L_BP; // Light BiasProjection (depth bias)
-		glm::mat4 L_MVBP; // Light ModelViewBiasProjection
+		glm::mat4 lightViewMatrix; // Light View
+		glm::mat4 lightModelViewMatrix; // Light ModelView
+		glm::mat4 lightProjectionMatrix; // Light Projection
+		glm::mat4 lightDepthBiasMatrix; // Light Bias
+		glm::mat4 lightDepthBiasProjectionMatrix; // Light BiasProjection (depth bias)
+		glm::mat4 lightModelViewDepthBiasProjectionMatrix;// Light ModelViewBiasProjection
 
 		/*** Matrices (3x3) ***/
 		// Normal
-		glm::mat3 N;
+		glm::mat3 normalMatrix;
 
 		// flags for shader locations
-		GLuint M_U, V_U, MV_U, P_U, MVP_U, N_U;
-		//GLuint T_U, R_U, S_U;
-		GLuint L_MVBP_U; // only for Light perspective
+		// flags for shader locations
+		GLuint model_U, view_U, modelView_U, projection_U, modelViewProjection_U, normal_U;
+		GLuint L_MVBP_U, lightModelViewDepthBiasProjection_U; // only for Light perspective
 		GLuint shaderPassFlag_U;
 
 		// Uniform Shadow Map
@@ -154,7 +156,38 @@ namespace ijg {
 		void shadowsOn();
 		void shadowOff();
 
+		Col3f globalAmbient; // make private
 
+		// Geometry Matrix set/get Functions
+		void setModelMatrix(const glm::mat4& modelMatrix);
+		void setViewMatrix(const glm::mat4& viewMatrix);
+		void setProjectionMatrix(const glm::mat4& projectionMatrix);
+		void concatenateModelViewMatrix();
+		void concatenateModelViewProjectionMatrix();
+		void createNormalMatrix();
+		// get
+		const glm::mat4& getModelMatrix();
+		const glm::mat4& getViewMatrix();
+		const glm::mat4& getModelViewMatrix();
+		const glm::mat4& getProjectionMatrix();
+		const glm::mat4& getModelViewProjectionMatrix();
+		const glm::mat3& getNormalMatrix();
+
+
+		// Light Matrix Functions (for shadow map)
+		void setLightViewMatrix(const glm::mat4& lightViewMatrix);
+		void setLightDepthBiasMatrix(const glm::mat4& lightDepthBiasMatrix);
+		void setLightProjectionMatrix(const glm::mat4& lightProjectionMatrix);
+		void concatenateLightModelViewMatrix();
+		void concatenateDepthBiasProjectionMatrix();
+		void concatenateLightModelViewDepthBiasProjectionMatrix();
+
+		
+
+		// lighting
+		void setGlobalAmbient(const Col3f& globalAmbient);
+		void setLight(int index, const Vec3& pos, const Vec3& intensity);
+		const ProtoLight& getLight(int index);
 
 		// Uniform Lighting location vars
 		struct Light_U {
