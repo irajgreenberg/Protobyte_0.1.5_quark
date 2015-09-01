@@ -53,7 +53,7 @@ void ProtoContext::init(){
 		lights.push_back(ProtoLight());
 		lights.push_back(ProtoLight());
 	
-		ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 60), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+		ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 1560), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
 		ctx->concatenateModelViewMatrix();
 		ctx->createNormalMatrix();
 

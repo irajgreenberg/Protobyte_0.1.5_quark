@@ -115,7 +115,7 @@ namespace ijg {
 		glm::mat4 lightDepthBiasMatrix; // Light Bias
 		glm::mat4 lightDepthBiasProjectionMatrix; // Light BiasProjection (depth bias)
 		glm::mat4 lightModelViewDepthBiasProjectionMatrix;// Light ModelViewBiasProjection
-
+		glm::mat4 shadowMatrix;
 		/*** Matrices (3x3) ***/
 		// Normal
 		glm::mat3 normalMatrix;
@@ -125,14 +125,22 @@ namespace ijg {
 		GLuint model_U, view_U, modelView_U, projection_U, modelViewProjection_U, normal_U;
 		GLuint L_MVBP_U, lightModelViewDepthBiasProjection_U; // only for Light perspective
 		GLuint shaderPassFlag_U;
+		const GLuint& getShaderPassFlag_U();
+		void setShaderPassFlag_U(const GLuint& shaderPassFlag_U);
 
 		// Uniform Shadow Map
 		GLuint shadowMap_U;
+		const GLuint& getShadowMap_U();
+		void setShadowMap_U(const GLuint& shadowMap_U);
 
 		// Uniform Lighting factors
 		// enable/disable lighting factors for 2D rendering
-		Vec4f ltRenderingFactors;
+		Vec4f lightRenderingFactors;
 		GLuint lightRenderingFactors_U;
+		const Vec4f& getLightRenderingFactors();
+		void setLightRenderingFactors(const Vec4f& lightRenderingFactors);
+		const GLuint& getLightRenderingFactors_U();
+		void setLightRenderingFactors_U(const GLuint& lightRenderingFactors_U);
 		
 
 		// shadow mapping texture id's
@@ -174,6 +182,9 @@ namespace ijg {
 		void concatenateLightModelViewMatrix();
 		void concatenateDepthBiasProjectionMatrix();
 		void concatenateLightModelViewDepthBiasProjectionMatrix();
+		
+		void concatenateShadowMatrix();
+		const glm::mat4& getShadowMatrix();
 
 		const glm::mat4& getLightViewMatrix(); 
 		const glm::mat4& getLightModelViewMatrix();
@@ -186,6 +197,7 @@ namespace ijg {
 		// lighting
 		void setGlobalAmbient(const Col3f& globalAmbient);
 		const Col3f& getGlobalAmbient();
+		const GLuint& getGlobalAmbient_U();
 		void setLight(int index, const Vec3& pos, const Vec3& intensity);
 		const ProtoLight& getLight(int index);
 
@@ -202,6 +214,7 @@ namespace ijg {
 
 
 		const Light_U& getLight_U(int index);
+		const GLuint getLightModelViewDepthBiasProjection_U();
 
 
 		// look at
@@ -286,6 +299,10 @@ namespace ijg {
 		lightModelViewDepthBiasProjectionMatrix = lightDepthBiasProjectionMatrix*lightModelViewMatrix;
 	}
 
+	inline void ProtoContext::concatenateShadowMatrix() {
+		lightModelViewDepthBiasProjectionMatrix*modelMatrix;
+	}
+
 	// geometry matrices
 	inline const glm::mat4& ProtoContext::getModelMatrix() {
 		return modelMatrix;
@@ -331,11 +348,19 @@ namespace ijg {
 	inline const glm::mat4& ProtoContext::getLightModelViewDepthBiasProjectionMatrix() {
 		return lightModelViewDepthBiasProjectionMatrix;
 	}
+
+	inline const glm::mat4& ProtoContext::getShadowMatrix() {
+		return shadowMatrix;
+	}
 	
 	
 	// Lighting
 	inline const Col3f&  ProtoContext::getGlobalAmbient() {
 		return globalAmbient;
+	}
+
+	inline const GLuint& ProtoContext::getGlobalAmbient_U() {
+		return globalAmbient_U;
 	}
 
 	inline const ProtoContext::Light_U& ProtoContext::getLight_U(int index) {
@@ -363,6 +388,42 @@ namespace ijg {
 
 	inline const ProtoLight& ProtoContext::getLight(int index) {
 		return lights.at(index);
+	}
+
+	inline const GLuint ProtoContext::getLightModelViewDepthBiasProjection_U() {
+		return lightModelViewDepthBiasProjection_U;
+	}
+
+	inline const Vec4f& ProtoContext::getLightRenderingFactors() {
+		return lightRenderingFactors;
+	}
+	
+	inline void ProtoContext::setLightRenderingFactors(const Vec4f& lightRenderingFactors) {
+		this->lightRenderingFactors = lightRenderingFactors;
+	}
+	
+	inline const GLuint& ProtoContext::getLightRenderingFactors_U() {
+		return lightRenderingFactors_U;
+	}
+
+	inline void ProtoContext::setLightRenderingFactors_U(const GLuint& lightRenderingFactors_U) {
+		this->lightRenderingFactors_U = lightRenderingFactors_U;
+	}
+
+	inline const GLuint& ProtoContext::getShadowMap_U() {
+		return shadowMap_U;
+	}
+
+	inline void ProtoContext::setShadowMap_U(const GLuint& shadowMap_U) {
+		this->shadowMap_U = shadowMap_U;
+	}
+
+	inline const GLuint& ProtoContext::getShaderPassFlag_U() {
+		return shaderPassFlag_U;
+	}
+
+	inline void ProtoContext::setShaderPassFlag_U(const GLuint& shaderPassFlag_U) {
+		this->shaderPassFlag_U = shaderPassFlag_U;
 	}
 }
 

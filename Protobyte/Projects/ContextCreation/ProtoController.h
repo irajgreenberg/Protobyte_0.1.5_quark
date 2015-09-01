@@ -30,6 +30,7 @@ public:
 
 private:
 	Toroid t;
+	ProtoPlane plane;
 	ProtoGeomComposite* pcg;
 
 };

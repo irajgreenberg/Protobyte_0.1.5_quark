@@ -258,7 +258,7 @@ namespace ijg {
 		//ProtoLight light0, light1, light2, light3, light4, light5, light6, light7;
 		//std::shared_ptr<ProtoLight> lights[8];
 
-		std::vector<ProtoLight> lights;
+		//std::vector<ProtoLight> lights;
 		/*enum Matrix {
 			MODEL_VIEW,
 			PROJECTION
@@ -321,7 +321,7 @@ namespace ijg {
 		//glm::mat3 N;
 
 		// flags for shader locations
-		GLuint M_U, V_U, MV_U, P_U, MVP_U, N_U;
+		//GLuint M_U, V_U, MV_U, P_U, MVP_U, N_U;
 		//GLuint T_U, R_U, S_U;
 		GLuint L_MVBP_U; // only for Light perspective
 		GLuint shaderPassFlag_U;

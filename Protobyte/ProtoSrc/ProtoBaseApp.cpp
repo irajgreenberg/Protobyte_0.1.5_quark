@@ -59,7 +59,11 @@ void ProtoBaseApp::_init(){
 	//trace("GL_TRIANGLES =", GL_TRIANGLES);
 	//trace("GL_TRIANGLE_FAN =", GL_TRIANGLE_FAN);
 	//trace(ProtoBaseApp::baseApp);
-	//areShadowsEnabled = true;
+
+
+	areShadowsEnabled = true;
+
+
 	//shader = ProtoShader("shader1.vert", "shader1.frag");
 	//shader = ProtoShader("protoShader.vert", "protoShader.frag");
 	//shader2D = ProtoShader("colorOnlyShader.vert.glsl", "colorOnlyShader.frag.glsl");
@@ -73,7 +77,7 @@ void ProtoBaseApp::_init(){
 
 	// default global ambient
 	//globalAmbient = Col3f(.02f, .02f, .02f);
-	ctx->setGlobalAmbient({ .02f, .02f, .02f });
+	ctx->setGlobalAmbient({ .2f, 1.2f, .2f });
 
 	// camera at 11
 	// default inital light
@@ -185,7 +189,11 @@ void ProtoBaseApp::_init(){
 	//protoPath2.setBaseApp(this);
 
 	shader3D.bind();
+
+
 	_initUniforms(&shader3D);
+
+
 
 	init();
 
@@ -674,17 +682,20 @@ void ProtoBaseApp::_initUniforms(ProtoShader* shader_ptr){
 	N_U = glGetUniformLocation(shader_ptr->getID(), "normalMatrix");*/
 
 	// shadow map and light transformation matrix for shadowmapping
-	shadowMap_U = glGetUniformLocation(shader_ptr->getID(), "shadowMap");
-	L_MVBP_U = glGetUniformLocation(shader_ptr->getID(), "shadowModelViewBiasProjectionMatrix");
+	//shadowMap_U = glGetUniformLocation(shader_ptr->getID(), "shadowMap");
+	ctx->setShadowMap_U(glGetUniformLocation(shader_ptr->getID(), "shadowMap"));
+	//L_MVBP_U = glGetUniformLocation(shader_ptr->getID(), "shadowModelViewBiasProjectionMatrix");
 
-	// pass shadow map texture to shader
-	shaderPassFlag_U = glGetUniformLocation(shader_ptr->getID(), "shadowPassFlag");
-	glUniform1i(shaderPassFlag_U, 1); // controls render pass in shader
-	glUniform1i(shadowMap_U, 5);
+	//// pass shadow map texture to shader
+	//shaderPassFlag_U = glGetUniformLocation(shader_ptr->getID(), "shadowPassFlag");
+	ctx->setShaderPassFlag_U(glGetUniformLocation(shader_ptr->getID(), "shadowPassFlag"));
+	glUniform1i(ctx->getShaderPassFlag_U(), 1); // controls render pass in shader
+	glUniform1i(ctx->getShadowMap_U(), 5);
 
-	// enable/disable lighting factors for 2D rendering
-	// default is all on
-	lightRenderingFactors_U = glGetUniformLocation(shader_ptr->getID(), "lightRenderingFactors");
+	//// enable/disable lighting factors for 2D rendering
+	//// default is all on
+	//lightRenderingFactors_U = glGetUniformLocation(shader_ptr->getID(), "lightRenderingFactors");
+	ctx->setLightRenderingFactors_U(glGetUniformLocation(shader_ptr->getID(), "lightRenderingFactors"));
 	//glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
 
 
@@ -719,7 +730,7 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	}
 
 	//global ambient
-	//glUniform3fv(ctx->getGlobalAmbient_U(), 1, &ctx->getGlobalAmbient().r);
+	glUniform3fv(ctx->getGlobalAmbient_U(), 1, &ctx->getGlobalAmbient().r);
 
 	// update all 8 lights in shaders
 	for (int i = 0; i < 8; ++i){
@@ -733,7 +744,7 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	// I thought I needed this to reset matrix each frame?
 	ctx->setModelMatrix(glm::mat4(1.0f));
 	// was 18
-	ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 652.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+	ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 800.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
 	ctx->concatenateModelViewMatrix();
 	ctx->concatenateModelViewProjectionMatrix();
 
@@ -743,8 +754,10 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	//glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &L_MVBP[0][0]);
 
 	//glm::mat4 shaderMat = L_MVBP*M; // new  // include mult by Model mat
-	glm::mat4 shaderMat = ctx->getLightModelViewDepthBiasProjectionMatrix()*ctx->getModelMatrix(); // new  // include mult by Model mat
-	glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &shaderMat[0][0]);
+	//glm::mat4 shaderMat = ctx->getLightModelViewDepthBiasProjectionMatrix()*ctx->getModelMatrix(); // new  // include mult by Model mat
+	ctx->concatenateShadowMatrix();
+	//glUniformMatrix4fv(ctx->getLightModelViewDepthBiasProjection_U(), 1, GL_FALSE, &shaderMat[0][0]);
+	glUniformMatrix4fv(ctx->getLightModelViewDepthBiasProjection_U(), 1, GL_FALSE, &ctx->getShadowMatrix()[0][0]);
 
 
 	// some help from:http://www.opengl.org/discussion_boards/showthread.php/171184-GLM-to-create-gl_NormalMatrix
@@ -762,7 +775,7 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 
 	// enable  /disable lighting effects ofr 2D rendering
 	ltRenderingFactors = Vec4f(1.0, 1.0, 1.0, 1.0); // default lighting
-	glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+	glUniform4fv(ctx->getLightRenderingFactors_U(), 1, &ltRenderingFactors.x);
 
 
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -888,7 +901,7 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 		glCullFace(GL_FRONT);
 
 		// enables shadow blending in fragment shader
-		glUniform1i(shaderPassFlag_U, 1); // controls render pass in shader
+		glUniform1i(ctx->getShaderPassFlag_U(), 1); // controls render pass in shader
 
 		// render shadow in first pass
 		display();
@@ -914,7 +927,7 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 
 
 		// disable shadowing blending in fragment shader
-		glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
+		glUniform1i(ctx->getShaderPassFlag_U(), 0); // controls render pass in shader
 		//glUniform1i(shadowMap_U, 0);
 
 		// enable 3D lighting by default
@@ -927,7 +940,8 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 		//trace("shadows not enabled");
 		//glClear(GL_DEPTH_BUFFER_BIT); 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
+		//glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
+		glUniform1i(ctx->getShaderPassFlag_U(), 0); // controls render pass in shader
 
 		// no shadowing use default run
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -946,7 +960,8 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 		//
 
 		// disable shadoing blending in fragment shader
-		glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
+		//glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
+		glUniform1i(ctx->getShaderPassFlag_U(), 0);
 		//glUniform1i(shadowMap_U, 0);
 
 		// render scene in single pass

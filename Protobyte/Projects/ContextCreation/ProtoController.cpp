@@ -4,6 +4,8 @@ void ProtoController::init() {
 	t = Toroid(36, 36, 125, 45);
 	pcg = new ProtoGeomComposite();
 	//pcg->init();
+
+	plane = ProtoPlane(Vec3(), Vec3(), Dim2f(500, 500), Col4(.3, .3, .3, 1), 1, 1);
 }
 
 void ProtoController::run() {
@@ -11,7 +13,13 @@ void ProtoController::run() {
 
 void ProtoController::display() {
 	beginArcBall();
-	
+
+	push();
+	translate(0, -400, -400);
+	rotate(90, 1, 0, 0);
+	scale(5000);
+	plane.display();
+	pop();
 
 	
 	push();
