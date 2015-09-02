@@ -430,6 +430,7 @@ namespace ijg {
 		this->shaderPassFlag_U = shaderPassFlag_U;
 	}
 
+<<<<<<< HEAD
 	inline void ProtoContext::setShadowBuffer_U(const GLuint& shadowBuffer_U) {
 		this->shadowBuffer_U = shadowBuffer_U;
 	}
@@ -447,5 +448,17 @@ namespace ijg {
 	}
 
 } // close ijg namespace
+=======
+	inline void ProtoContext::setSceneCenter(const Vec3& axis) {
+
+	}
+	inline void ProtoContext::setEyePosition(const Vec3& eyePos) {
+
+	}
+	inline void ProtoContext::setUpAxis(const Vec3& axis) {
+
+	}
+}
+>>>>>>> 1042bf7f4b4c185f1ba37151fb6e7c5a5e8e7673
 
 #endif // __PROTO_CONTEXT_H__

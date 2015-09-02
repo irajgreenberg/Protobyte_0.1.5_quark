@@ -237,12 +237,4 @@ void ProtoContext::pop(){
 	concat();
 }
 
-void ProtoContext::setSceneCenter(const Vec3& axis) {
 
-}
-void ProtoContext::setEyePosition(const Vec3& eyePos) {
-
-}
-void ProtoContext::setUpAxis(const Vec3& axis) {
-
-}

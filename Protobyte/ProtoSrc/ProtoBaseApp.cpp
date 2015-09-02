@@ -789,7 +789,7 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 
 	run();
 	push();
-	display();
+	display(); //Is this necessary??
 	pop();
 	render();
 
