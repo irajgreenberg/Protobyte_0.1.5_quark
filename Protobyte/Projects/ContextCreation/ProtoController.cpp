@@ -6,6 +6,7 @@ void ProtoController::init() {
 	//pcg->init();
 
 	plane = ProtoPlane(Vec3(), Vec3(), Dim2f(500, 500), Col4(.3, .3, .3, 1), 1, 1);
+	//shadowsOn();
 }
 
 void ProtoController::run() {

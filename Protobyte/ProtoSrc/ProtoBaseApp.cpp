@@ -61,7 +61,7 @@ void ProtoBaseApp::_init(){
 	//trace(ProtoBaseApp::baseApp);
 
 
-	areShadowsEnabled = true;
+	//areShadowsEnabled = true;
 
 
 	//shader = ProtoShader("shader1.vert", "shader1.frag");
@@ -81,7 +81,7 @@ void ProtoBaseApp::_init(){
 
 	// camera at 11
 	// default inital light
-	ctx->setLight(0, {-200, 200, 0 }, { 1, 1, 1 });
+	ctx->setLight(0, {0, 0, 50 }, { 1, 1, 1 });
 	ctx->setLight(1, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(2, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(3, { 0, 0, 1 }, { 0, 0, 0 });
@@ -629,7 +629,7 @@ bool ProtoBaseApp::createShadowMap(){
 	// set up FBO
 	glGenFramebuffers(1, &shadowBufferID);
 	glBindFramebuffer(GL_FRAMEBUFFER, shadowBufferID);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowTextureID, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, ctx->getShadowTexture_U(), 0);
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE){
 		// unbind fbo
@@ -884,7 +884,7 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 		//glEnable(GL_CULL_FACE);
 		//trace("shadows enabled");
 		// bind shadow map framebuffer
-		glBindFramebuffer(GL_FRAMEBUFFER, shadowBufferID);
+		glBindFramebuffer(GL_FRAMEBUFFER, ctx->getShadowBuffer_U());
 		//clear depth buffer
 		glClear(GL_DEPTH_BUFFER_BIT);
 

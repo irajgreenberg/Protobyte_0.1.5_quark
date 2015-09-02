@@ -84,8 +84,8 @@ namespace ijg {
 		float farDist{ 1500.0f };
 
 		// look at
-		Vec3 eyePos, sceneCenter, axis; 
-		
+		Vec3 eyePos, sceneCenter, axis;
+
 		// orthogonal view 
 		float left, right, bottom, top;
 
@@ -95,7 +95,7 @@ namespace ijg {
 			ORTHOGONAL
 		};
 		void setProjection(ProjectionType projType = PERSPECTIVE);
-		
+
 
 	public:
 		static const std::shared_ptr<ProtoContext> getContext(float width = 100.0f, float height = 100.0f);
@@ -141,17 +141,21 @@ namespace ijg {
 		void setLightRenderingFactors(const Vec4f& lightRenderingFactors);
 		const GLuint& getLightRenderingFactors_U();
 		void setLightRenderingFactors_U(const GLuint& lightRenderingFactors_U);
-		
+
 
 		// shadow mapping texture id's
-		GLuint shadowBufferID, shadowTextureID;
+		GLuint shadowBuffer_U, shadowTexture_U;
+		void setShadowBuffer_U(const GLuint& shadowBuffer_U);
+		const GLuint& getShadowBuffer_U();
+		void setShadowTexture_U(const GLuint& shadowTexture_U);
+		const GLuint& getShadowTexture_U();
 
 		// flag for shadowing
 		bool areShadowsEnabled;
 
 		const int SHADOWMAP_WIDTH = 4096, SHADOWMAP_HEIGHT = 4096;
-		
-		
+
+
 		bool areShadowsOn;
 		void setShadowsOn(bool areShadowsOn);
 		void shadowsOn();
@@ -182,17 +186,17 @@ namespace ijg {
 		void concatenateLightModelViewMatrix();
 		void concatenateDepthBiasProjectionMatrix();
 		void concatenateLightModelViewDepthBiasProjectionMatrix();
-		
+
 		void concatenateShadowMatrix();
 		const glm::mat4& getShadowMatrix();
 
-		const glm::mat4& getLightViewMatrix(); 
+		const glm::mat4& getLightViewMatrix();
 		const glm::mat4& getLightModelViewMatrix();
-		const glm::mat4& getLightProjectionMatrix(); 
-		const glm::mat4& getLightDepthBiasMatrix(); 
+		const glm::mat4& getLightProjectionMatrix();
+		const glm::mat4& getLightDepthBiasMatrix();
 		const glm::mat4& getLightModelViewDepthBiasProjectionMatrix();
 
-		
+
 
 		// lighting
 		void setGlobalAmbient(const Col3f& globalAmbient);
@@ -233,7 +237,7 @@ namespace ijg {
 		void setRight(float right);
 		void setBottom(float bottom);
 		void setTop(float top);
-	
+
 
 		void translate(float tx, float ty, float tz);
 		void translate(const Vec3f& tXYZ);
@@ -327,7 +331,7 @@ namespace ijg {
 	inline const glm::mat3& ProtoContext::getNormalMatrix() {
 		return normalMatrix;
 	}
-	
+
 	// light matrices (for shadow map)
 	inline const glm::mat4& ProtoContext::getLightViewMatrix() {
 		return lightViewMatrix;
@@ -336,15 +340,15 @@ namespace ijg {
 	inline const glm::mat4& ProtoContext::getLightModelViewMatrix() {
 		return lightModelViewMatrix;
 	}
-	
+
 	inline const glm::mat4& ProtoContext::getLightProjectionMatrix() {
 		return lightProjectionMatrix;
 	}
-	
+
 	inline const glm::mat4& ProtoContext::getLightDepthBiasMatrix() {
 		return lightDepthBiasMatrix;
 	}
-	
+
 	inline const glm::mat4& ProtoContext::getLightModelViewDepthBiasProjectionMatrix() {
 		return lightModelViewDepthBiasProjectionMatrix;
 	}
@@ -352,8 +356,8 @@ namespace ijg {
 	inline const glm::mat4& ProtoContext::getShadowMatrix() {
 		return shadowMatrix;
 	}
-	
-	
+
+
 	// Lighting
 	inline const Col3f&  ProtoContext::getGlobalAmbient() {
 		return globalAmbient;
@@ -397,11 +401,11 @@ namespace ijg {
 	inline const Vec4f& ProtoContext::getLightRenderingFactors() {
 		return lightRenderingFactors;
 	}
-	
+
 	inline void ProtoContext::setLightRenderingFactors(const Vec4f& lightRenderingFactors) {
 		this->lightRenderingFactors = lightRenderingFactors;
 	}
-	
+
 	inline const GLuint& ProtoContext::getLightRenderingFactors_U() {
 		return lightRenderingFactors_U;
 	}
@@ -425,6 +429,23 @@ namespace ijg {
 	inline void ProtoContext::setShaderPassFlag_U(const GLuint& shaderPassFlag_U) {
 		this->shaderPassFlag_U = shaderPassFlag_U;
 	}
-}
+
+	inline void ProtoContext::setShadowBuffer_U(const GLuint& shadowBuffer_U) {
+		this->shadowBuffer_U = shadowBuffer_U;
+	}
+
+	inline const GLuint& ProtoContext::getShadowBuffer_U() {
+		return shadowBuffer_U;
+	}
+
+	inline void ProtoContext::setShadowTexture_U(const GLuint& shadowTexture_U) {
+		this->shadowTexture_U = shadowTexture_U;
+	}
+
+	inline const GLuint& ProtoContext::getShadowTexture_U() {
+		return shadowTexture_U;
+	}
+
+} // close ijg namespace
 
 #endif // __PROTO_CONTEXT_H__
