@@ -425,6 +425,16 @@ namespace ijg {
 	inline void ProtoContext::setShaderPassFlag_U(const GLuint& shaderPassFlag_U) {
 		this->shaderPassFlag_U = shaderPassFlag_U;
 	}
+
+	inline void ProtoContext::setSceneCenter(const Vec3& axis) {
+
+	}
+	inline void ProtoContext::setEyePosition(const Vec3& eyePos) {
+
+	}
+	inline void ProtoContext::setUpAxis(const Vec3& axis) {
+
+	}
 }
 
 #endif // __PROTO_CONTEXT_H__

@@ -61,7 +61,7 @@ void ProtoBaseApp::_init(){
 	//trace(ProtoBaseApp::baseApp);
 
 
-	areShadowsEnabled = true;
+	//areShadowsEnabled = true;
 
 
 	//shader = ProtoShader("shader1.vert", "shader1.frag");
@@ -789,7 +789,7 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 
 	run();
 	push();
-	display();
+	display(); //Is this necessary??
 	pop();
 	render();
 
