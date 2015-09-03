@@ -146,9 +146,10 @@ namespace ijg {
 		// shadow mapping texture id's
 		GLuint shadowBuffer_U, shadowTexture_U;
 		void setShadowBuffer_U(const GLuint& shadowBuffer_U);
-		const GLuint& getShadowBuffer_U();
+		//const GLuint& getShadowBuffer_U();
+		GLuint& getShadowBuffer_U();
 		void setShadowTexture_U(const GLuint& shadowTexture_U);
-		const GLuint& getShadowTexture_U();
+		GLuint& getShadowTexture_U();
 
 		// flag for shadowing
 		bool areShadowsEnabled;
@@ -430,12 +431,15 @@ namespace ijg {
 		this->shaderPassFlag_U = shaderPassFlag_U;
 	}
 
-<<<<<<< HEAD
 	inline void ProtoContext::setShadowBuffer_U(const GLuint& shadowBuffer_U) {
 		this->shadowBuffer_U = shadowBuffer_U;
 	}
 
-	inline const GLuint& ProtoContext::getShadowBuffer_U() {
+	//inline const GLuint& ProtoContext::getShadowBuffer_U() {
+	//	return shadowBuffer_U;
+	//}
+
+	inline GLuint& ProtoContext::getShadowBuffer_U() {
 		return shadowBuffer_U;
 	}
 
@@ -443,12 +447,12 @@ namespace ijg {
 		this->shadowTexture_U = shadowTexture_U;
 	}
 
-	inline const GLuint& ProtoContext::getShadowTexture_U() {
+	inline GLuint& ProtoContext::getShadowTexture_U() {
 		return shadowTexture_U;
 	}
 
-} // close ijg namespace
-=======
+
+
 	inline void ProtoContext::setSceneCenter(const Vec3& axis) {
 
 	}
@@ -459,6 +463,7 @@ namespace ijg {
 
 	}
 }
->>>>>>> 1042bf7f4b4c185f1ba37151fb6e7c5a5e8e7673
+
+// close ijg namespace
 
 #endif // __PROTO_CONTEXT_H__

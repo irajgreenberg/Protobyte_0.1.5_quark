@@ -606,9 +606,9 @@ void ProtoBaseApp::setAmbientMaterial(const Col4f& amb) {
 bool ProtoBaseApp::createShadowMap(){
 
 	//set up shadow texture object
-	glGenTextures(1, &shadowTextureID);
+	glGenTextures(1, &ctx->getShadowTexture_U());
 	glActiveTexture(GL_TEXTURE5);
-	glBindTexture(GL_TEXTURE_2D, shadowTextureID);
+	glBindTexture(GL_TEXTURE_2D, ctx->getShadowTexture_U());
 	GLfloat border[] = { 1.0f, .0f, .0f, .0f };
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -627,8 +627,9 @@ bool ProtoBaseApp::createShadowMap(){
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, NULL);
 
 	// set up FBO
-	glGenFramebuffers(1, &shadowBufferID);
-	glBindFramebuffer(GL_FRAMEBUFFER, shadowBufferID);
+	//glGenFramebuffers(1, &shadowBufferID);
+	glGenFramebuffers(1, &ctx->getShadowBuffer_U());
+	glBindFramebuffer(GL_FRAMEBUFFER, ctx->getShadowBuffer_U());
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, ctx->getShadowTexture_U(), 0);
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE){
