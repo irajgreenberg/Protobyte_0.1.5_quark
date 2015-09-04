@@ -123,6 +123,14 @@ namespace ijg {
 		// flags for shader locations
 		GLuint globalAmbient_U;
 		GLuint model_U, view_U, modelView_U, projection_U, modelViewProjection_U, normal_U;
+		
+		GLuint getModel_U();
+		GLuint getView_U();
+		GLuint getModelView_U();
+		GLuint getProjection_U();
+		GLuint getModelViewProjection_U();
+		GLuint getNormal_U();
+	
 		GLuint L_MVBP_U, lightModelViewDepthBiasProjection_U; // only for Light perspective
 		GLuint shaderPassFlag_U;
 		const GLuint& getShaderPassFlag_U();
@@ -274,6 +282,31 @@ namespace ijg {
 	// MVP Mat4
 	inline void ProtoContext::concatenateModelViewProjectionMatrix() {
 		modelViewProjectionMatrix = projectionMatrix * modelViewMatrix;
+	}
+
+	// matrix locations (don't currently need all these)
+	inline GLuint ProtoContext::getModel_U() {
+		return model_U;
+	}
+
+	inline GLuint ProtoContext::getView_U() {
+		return view_U;
+	}
+
+	inline GLuint ProtoContext::getModelView_U() {
+		return modelView_U;
+	}
+
+	inline GLuint ProtoContext::getProjection_U() {
+		return projection_U;
+	}
+
+	inline GLuint ProtoContext::getModelViewProjection_U() {
+		return modelViewProjection_U;
+	}
+
+	inline GLuint ProtoContext::getNormal_U() {
+		return normal_U;
 	}
 
 	// shadow map
@@ -448,6 +481,7 @@ namespace ijg {
 	}
 
 	inline GLuint& ProtoContext::getShadowTexture_U() {
+		//trace("&shadowTexture_U", &shadowTexture_U);
 		return shadowTexture_U;
 	}
 

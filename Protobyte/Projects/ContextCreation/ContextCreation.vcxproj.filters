@@ -324,5 +324,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="..\..\Resources\shaders\bumpmapping.fs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\Resources\shaders\bumpmapping.vs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

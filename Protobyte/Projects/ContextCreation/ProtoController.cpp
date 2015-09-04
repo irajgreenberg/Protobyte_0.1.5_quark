@@ -1,12 +1,15 @@
 #include "ProtoController.h"
 
 void ProtoController::init() {
+	shadowsOn();
 	t = Toroid(36, 36, 125, 45);
+	t.setDiffuseMap("ship_plate_rainbow.jpg");
+	t.setBumpMap("ship_plate_rainbow.jpg");
 	pcg = new ProtoGeomComposite();
 	//pcg->init();
 
 	plane = ProtoPlane(Vec3(), Vec3(), Dim2f(500, 500), Col4(.3, .3, .3, 1), 1, 1);
-	//shadowsOn();
+
 }
 
 void ProtoController::run() {

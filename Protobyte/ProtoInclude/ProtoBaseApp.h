@@ -172,6 +172,13 @@ namespace ijg {
 		Col3f bgColor;
 
 
+		// TEMPORARY Shader vars to test shadow map
+		GLuint frameBufferName = 0;
+		GLuint depthTexture;
+
+
+
+
 		
 
 	//protected:
@@ -323,16 +330,16 @@ namespace ijg {
 		// flags for shader locations
 		//GLuint M_U, V_U, MV_U, P_U, MVP_U, N_U;
 		//GLuint T_U, R_U, S_U;
-		GLuint L_MVBP_U; // only for Light perspective
-		GLuint shaderPassFlag_U;
+		//GLuint L_MVBP_U; // only for Light perspective
+		//GLuint shaderPassFlag_U;
 
 		// Uniform Shadow Map
-		GLuint shadowMap_U;
+		//GLuint shadowMap_U;
 
 		// Uniform Lighting factors
 		// enable/disable lighting factors for 2D rendering
-		Vec4f ltRenderingFactors;
-		GLuint lightRenderingFactors_U;
+		//Vec4f ltRenderingFactors;
+		//GLuint lightRenderingFactors_U;
 
 		// color flags/fields for immediate mode drawing
 		bool isStroke, isFill;
@@ -341,19 +348,19 @@ namespace ijg {
 
 
 		// shadow mapping texture id's
-		GLuint shadowBufferID, shadowTextureID;
+		//GLuint shadowBufferID, shadowTextureID;
 
 		// flag for shadowing
 		bool areShadowsEnabled;
 
 		const int SHADOWMAP_WIDTH = 4096, SHADOWMAP_HEIGHT = 4096;
 
-		std::stack <glm::mat4> matrixStack;
+		//std::stack <glm::mat4> matrixStack;
 
 
 
 		// Uniform Lighting location vars
-		struct Light_U {
+		/*struct Light_U {
 			GLuint position;
 			GLuint intensity;
 			GLuint diffuse;
@@ -362,7 +369,7 @@ namespace ijg {
 		};
 		Light_U lights_U[8];
 
-		GLuint globalAmbient_U;
+		GLuint globalAmbient_U;*/
 
 
 
