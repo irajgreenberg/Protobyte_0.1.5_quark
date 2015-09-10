@@ -77,11 +77,11 @@ void ProtoBaseApp::_init(){
 
 	// default global ambient
 	//globalAmbient = Col3f(.02f, .02f, .02f);
-	ctx->setGlobalAmbient({ .2f, 1.2f, .2f });
+	ctx->setGlobalAmbient({ .45f, .45f, .45f });
 
 	// camera at 11
 	// default inital light
-	ctx->setLight(0, {0, 0, 50 }, { 1, 1, 1 });
+	ctx->setLight(0, {0, -100, 200 }, { 1, 1, 1 });
 	ctx->setLight(1, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(2, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(3, { 0, 0, 1 }, { 0, 0, 0 });
@@ -118,7 +118,7 @@ void ProtoBaseApp::_init(){
 	float viewAngle = 75.0f; 
 	float aspect = float(width) / float(height); 
 	float nearDist = .1f; 
-	float farDist = 1500.0f;
+	float farDist = 5500.0f;
 	// perspective
 	ctx->setProjectionMatrix(glm::perspective(viewAngle, aspect, nearDist, farDist));
 	ctx->concatenateModelViewProjectionMatrix();
@@ -130,6 +130,7 @@ void ProtoBaseApp::_init(){
 	ctx->setLightViewMatrix(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
 	//L_P = glm::perspective(45.0f, 1.0f, .10f, 1000.0f);
 	ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
+	//ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
 
 	float ratio = getWidth() / getHeight();
 	//L_B = glm::mat4(
@@ -604,46 +605,18 @@ void ProtoBaseApp::setAmbientMaterial(const Col4f& amb) {
 
 }
 
-bool ProtoBaseApp::createShadowMap(){
-
-	// set up FBO
-	glGenFramebuffers(1, &frameBufferName);
-	glBindFramebuffer(GL_FRAMEBUFFER, frameBufferName);
-	
-	//set up shadow texture object
-	glGenTextures(1, &depthTexture);
-	glBindTexture(GL_TEXTURE_2D, depthTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, 104, 50, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-
-	//glActiveTexture(GL_TEXTURE5);
-	GLfloat border[] = { 1.0f, .0f, .0f, .0f };
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
-	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);
-	
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
-
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE)
-		return false;
-}
-
 //bool ProtoBaseApp::createShadowMap(){
 //
+//	// set up FBO
+//	glGenFramebuffers(1, &frameBufferName);
+//	glBindFramebuffer(GL_FRAMEBUFFER, frameBufferName);
+//	
 //	//set up shadow texture object
-//	glGenTextures(1, &ctx->getShadowTexture_U());
-//	//trace("&ctx->getShadowTexture_U()", &ctx->getShadowTexture_U());
-//	glActiveTexture(GL_TEXTURE5);
-//	glBindTexture(GL_TEXTURE_2D, ctx->getShadowTexture_U());
+//	glGenTextures(1, &depthTexture);
+//	glBindTexture(GL_TEXTURE_2D, depthTexture);
+//	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, 1024, 1024, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+//
+//	//glActiveTexture(GL_TEXTURE5);
 //	GLfloat border[] = { 1.0f, .0f, .0f, .0f };
 //	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 //	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -658,31 +631,59 @@ bool ProtoBaseApp::createShadowMap(){
 //	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
 //	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 //	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);
+//	
+//	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
 //
-//	//trace(SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT);
-//	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, NULL);
-//
-//	// set up FBO
-//	//glGenFramebuffers(1, &shadowBufferID);
-//	//trace("before ctx->getShadowBuffer_U()=", ctx->getShadowBuffer_U());
-//	glGenFramebuffers(1, &ctx->getShadowBuffer_U());
-//	//trace("after ctx->getShadowBuffer_U()=", ctx->getShadowBuffer_U());
-//	glBindFramebuffer(GL_FRAMEBUFFER, ctx->getShadowBuffer_U());
-//	//trace("ctx->getShadowTexture_U() =", ctx->getShadowTexture_U());
-//	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, ctx->getShadowTexture_U(), 0);
-//
-//	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE){
-//		// unbind fbo
-//		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-//		return true;
-//	}
-//	else {
-//		// unbind fbo
-//		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-//	}
-//
-//	return false;
+//	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE)
+//		return false;
 //}
+
+bool ProtoBaseApp::createShadowMap(){
+
+	//set up shadow texture object
+	glGenTextures(1, &ctx->getShadowTexture_U());
+	//trace("&ctx->getShadowTexture_U()", &ctx->getShadowTexture_U());
+	glActiveTexture(GL_TEXTURE5);
+	glBindTexture(GL_TEXTURE_2D, ctx->getShadowTexture_U());
+	GLfloat border[] = { 1.0f, .0f, .0f, .0f };
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);
+
+	//trace(SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, NULL);
+
+	// set up FBO
+	//glGenFramebuffers(1, &shadowBufferID);
+	//trace("before ctx->getShadowBuffer_U()=", ctx->getShadowBuffer_U());
+	glGenFramebuffers(1, &ctx->getShadowBuffer_U());
+	//trace("after ctx->getShadowBuffer_U()=", ctx->getShadowBuffer_U());
+	glBindFramebuffer(GL_FRAMEBUFFER, ctx->getShadowBuffer_U());
+	//trace("ctx->getShadowTexture_U() =", ctx->getShadowTexture_U());
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, ctx->getShadowTexture_U(), 0);
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE){
+		// unbind fbo
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		return true;
+	}
+	else {
+		// unbind fbo
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	return false;
+}
 
 //void ProtoBaseApp::_resetBuffers(){
 //	
@@ -743,6 +744,8 @@ void ProtoBaseApp::_initUniforms(ProtoShader* shader_ptr){
 }
 
 void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int mouseBtn, int key*/){
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
 	// reset state
 	fillColor = Col4f(1, 1, 1, 1); // white fill
 	strokeColor = Col4f(0, 0, 0, 1); // black stroke
@@ -774,6 +777,9 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	// update all 8 lights in shaders
 	for (int i = 0; i < 8; ++i){
 		glUniform3fv(ctx->getLight_U(i).position, 1, &ctx->getLight(i).getPosition().x);
+		//trace("ctx->getLight(",i,").getPosition().x =", ctx->getLight(i).getPosition().x);
+		//trace("ctx->getLight(", i, ").getPosition().y =", ctx->getLight(i).getPosition().y);
+		//trace("ctx->getLight(", i, ").getPosition().z =", ctx->getLight(i).getPosition().z);
 		glUniform3fv(ctx->getLight_U(i).intensity, 1, &ctx->getLight(i).getIntensity().x);
 		//glUniform4fv(lights_U[i].diffuse, 1, &lights[i].getDiffuse().r);
 		//glUniform4fv(lights_U[i].ambient, 1, &lights[i].getAmbient().r);
@@ -783,12 +789,14 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	// I thought I needed this to reset matrix each frame?
 	ctx->setModelMatrix(glm::mat4(1.0f));
 	// was 18
-	ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 800.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+	ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 1000.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
 	ctx->concatenateModelViewMatrix();
 	ctx->concatenateModelViewProjectionMatrix();
 
 	// update shadow map texture matrix should light(s) changes position
+	ctx->setLightProjectionMatrix(glm::ortho<float>(-10, 10, -10, 10, -10, 20));
 	ctx->setLightViewMatrix(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+	ctx->concatenateLightModelViewProjectionMatrix();
 	ctx->concatenateLightModelViewDepthBiasProjectionMatrix();
 
 	//glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &L_MVBP[0][0]);
@@ -836,7 +844,7 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 
 	run();
 	push();
-	display(); //Is this necessary??
+    display(); //Is this necessary??
 	pop();
 	render();
 
@@ -924,135 +932,37 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 }
 
 
-void ProtoBaseApp::render(int x, int y, int scaleFactor) {
-
-
-	// if shadowing is enabled do double pass with shadow map framebuffer
-	if (areShadowsEnabled){
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glBindFramebuffer(GL_FRAMEBUFFER, frameBufferName);
-		glClear(GL_DEPTH_BUFFER_BIT);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glViewport(0, 0, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT);
-		glCullFace(GL_FRONT);
-		glUniform1i(ctx->getShaderPassFlag_U(), 1); // controls render pass in shader
-		glUniformMatrix4fv(ctx->getLightModelViewDepthBiasProjection_U(), 1, GL_FALSE, &ctx->getShadowMatrix()[0][0]);
-		display();
-		glCullFace(GL_BACK);
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glDrawBuffer(GL_BACK_LEFT);
-		glViewport(x*windowFrameSize.w, y*windowFrameSize.h, scaleFactor * windowFrameSize.w, scaleFactor * windowFrameSize.h);
-		glUniform1i(ctx->getShaderPassFlag_U(), 0); // controls render pass in shader
-		enableLights();
-		//glUniformMatrix4fv(ctx->getModelViewProjection_U(), 1, GL_FALSE, &ctx->getModelViewProjectionMatrix()[0][0]);
-		display();
-	}
-	else {
-		//trace("shadows not enabled");
-		//glClear(GL_DEPTH_BUFFER_BIT); 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
-		glUniform1i(ctx->getShaderPassFlag_U(), 0); // controls render pass in shader
-
-		// no shadowing use default run
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-		// not sure what this does
-		//glDrawBuffer(GL_BACK_LEFT);
-
-		// reset default view
-		////glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
-		//glViewport(0, 0, getWidth(), getHeight());
-		glViewport(x*width, y*height, scaleFactor * width, scaleFactor * height);
-		//glViewport(-2 * width, -2 * height, 6 * width, 6 * height);
-
-		// reset backface culling
-		glCullFace(GL_BACK);
-		//
-
-		// disable shadoing blending in fragment shader
-		//glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
-		glUniform1i(ctx->getShaderPassFlag_U(), 0);
-		//glUniform1i(shadowMap_U, 0);
-
-		// render scene in single pass
-
-
-		display();
-	}
-
-}
-
-
-
 //void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 //
-//
+//	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //	// if shadowing is enabled do double pass with shadow map framebuffer
 //	if (areShadowsEnabled){
-//		//glEnable(GL_CULL_FACE);
-//		//trace("shadows enabled");
-//		// bind shadow map framebuffer
+//		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //		glBindFramebuffer(GL_FRAMEBUFFER, ctx->getShadowBuffer_U());
-//		//trace("ctx->getShadowBuffer_U()=", ctx->getShadowBuffer_U());
-//		//clear depth buffer
+//		//glBindFramebuffer(GL_FRAMEBUFFER, frameBufferName);
 //		glClear(GL_DEPTH_BUFFER_BIT);
-//
 //		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-//
-//		//set viewport to the shadow map view size
-//		//glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
-//		//glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
 //		glViewport(0, 0, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT);
-//		//glViewport(x*SHADOWMAP_WIDTH, y*SHADOWMAP_HEIGHT, scaleFactor * SHADOWMAP_WIDTH, scaleFactor *  SHADOWMAP_HEIGHT);
-//		//glViewport(-2 * SHADOWMAP_WIDTH, -2 * SHADOWMAP_WIDTH, 6 * SHADOWMAP_WIDTH, 6 * SHADOWMAP_HEIGHT);
-//
-//		// enable front face culling for shadowing
 //		glCullFace(GL_FRONT);
-//
-//		// enables shadow blending in fragment shader
 //		glUniform1i(ctx->getShaderPassFlag_U(), 1); // controls render pass in shader
-//
-//		// render shadow in first pass
+//		glUniform1i(ctx->getShadowMap_U(), 5);
+//		glUniformMatrix4fv(ctx->getLightModelViewDepthBiasProjection_U(), 1, GL_FALSE, &ctx->getShadowMatrix()[0][0]);
 //		display();
 //
-//		// reset backface culling
-//		//glEnable(GL_CULL_FACE);
+//
 //		glCullFace(GL_BACK);
-//		//glDisable(GL_CULL_FACE);
-//
-//		// reset default framebuffer
 //		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-//
-//		// not sure what this does
 //		glDrawBuffer(GL_BACK_LEFT);
-//
-//		// reset default view
-//		////glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
-//		//glViewport(x*width, y*height, scaleFactor * width, scaleFactor * height);
-//		//trace("windowFrameSize =", windowFrameSize);
-//		//trace("x =",x);
-//		//trace("y =", y);
-//		//trace("scaleFactor =", scaleFactor);
 //		glViewport(x*windowFrameSize.w, y*windowFrameSize.h, scaleFactor * windowFrameSize.w, scaleFactor * windowFrameSize.h);
-//		//windowFrameSize
-//
-//
-//
-//		// disable shadowing blending in fragment shader
 //		glUniform1i(ctx->getShaderPassFlag_U(), 0); // controls render pass in shader
-//		//glUniform1i(shadowMap_U, 0);
-//
-//		// enable 3D lighting by default
 //		enableLights();
-//
-//		// render scene in second pass
+//		//glUniformMatrix4fv(ctx->getModelViewProjection_U(), 1, GL_FALSE, &ctx->getModelViewProjectionMatrix()[0][0]);
 //		display();
 //	}
 //	else {
 //		//trace("shadows not enabled");
 //		//glClear(GL_DEPTH_BUFFER_BIT); 
-//		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //		//glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
 //		glUniform1i(ctx->getShaderPassFlag_U(), 0); // controls render pass in shader
 //
@@ -1084,6 +994,109 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 //	}
 //
 //}
+
+
+
+void ProtoBaseApp::render(int x, int y, int scaleFactor) {
+
+
+	// if shadowing is enabled do double pass with shadow map framebuffer
+	if (areShadowsEnabled){
+		//glEnable(GL_CULL_FACE);
+		//trace("shadows enabled");
+		// bind shadow map framebuffer
+		glBindFramebuffer(GL_FRAMEBUFFER, ctx->getShadowBuffer_U());
+		//trace("ctx->getShadowBuffer_U()=", ctx->getShadowBuffer_U());
+		//clear depth buffer
+		glClear(GL_DEPTH_BUFFER_BIT);
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		//set viewport to the shadow map view size
+		//glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
+		//glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
+		glViewport(0, 0, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT);
+		//glViewport(x*SHADOWMAP_WIDTH, y*SHADOWMAP_HEIGHT, scaleFactor * SHADOWMAP_WIDTH, scaleFactor *  SHADOWMAP_HEIGHT);
+		//glViewport(-2 * SHADOWMAP_WIDTH, -2 * SHADOWMAP_WIDTH, 6 * SHADOWMAP_WIDTH, 6 * SHADOWMAP_HEIGHT);
+
+		// enable front face culling for shadowing
+		glCullFace(GL_FRONT);
+
+		// enables shadow blending in fragment shader
+		glUniform1i(ctx->getShaderPassFlag_U(), 1); // controls render pass in shader
+
+		// render shadow in first pass
+		display();
+
+		// reset backface culling
+		//glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		//glDisable(GL_CULL_FACE);
+
+		// reset default framebuffer
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		// not sure what this does
+		glDrawBuffer(GL_BACK_LEFT);
+
+		// reset default view
+		////glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
+		//glViewport(x*width, y*height, scaleFactor * width, scaleFactor * height);
+		//trace("windowFrameSize =", windowFrameSize);
+		//trace("x =",x);
+		//trace("y =", y);
+		//trace("scaleFactor =", scaleFactor);
+		glViewport(x*windowFrameSize.w, y*windowFrameSize.h, scaleFactor * windowFrameSize.w, scaleFactor * windowFrameSize.h);
+		//windowFrameSize
+
+
+
+		// disable shadowing blending in fragment shader
+		glUniform1i(ctx->getShaderPassFlag_U(), 0); // controls render pass in shader
+		//glUniform1i(shadowMap_U, 0);
+
+		// enable 3D lighting by default
+		enableLights();
+
+		// render scene in second pass
+		display();
+	}
+	else {
+		//trace("shadows not enabled");
+		//glClear(GL_DEPTH_BUFFER_BIT); 
+	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
+		glUniform1i(ctx->getShaderPassFlag_U(), 0); // controls render pass in shader
+
+		// no shadowing use default run
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		// not sure what this does
+		//glDrawBuffer(GL_BACK_LEFT);
+
+		// reset default view
+		////glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
+		//glViewport(0, 0, getWidth(), getHeight());
+		glViewport(x*width, y*height, scaleFactor * width, scaleFactor * height);
+		//glViewport(-2 * width, -2 * height, 6 * width, 6 * height);
+
+		// reset backface culling
+		glCullFace(GL_BACK);
+		//
+
+		// disable shadoing blending in fragment shader
+		//glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
+		glUniform1i(ctx->getShaderPassFlag_U(), 0);
+		//glUniform1i(shadowMap_U, 0);
+
+		// render scene in single pass
+
+
+		display();
+	}
+
+	GLSLInfo(&shader3D);
+}
 
 // Mouse event behavior
 void ProtoBaseApp::setMouseButton(int mouseAction, int mouseButton, int mouseMods) {

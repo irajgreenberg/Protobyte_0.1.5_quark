@@ -79,6 +79,7 @@
     <ClCompile Include="..\..\ProtoSrc\ProtoCurve3.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoCylinder.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoEllipse.cpp" />
+    <ClCompile Include="..\..\ProtoSrc\ProtoException.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoFace3.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoFrenetFrame.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoGeom2.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="..\..\ProtoInclude\ProtoDimension2.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoDimension3.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoEllipse.h" />
+    <ClInclude Include="..\..\ProtoInclude\ProtoException.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoFace3.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoFrenetFrame.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoGeom2.h" />

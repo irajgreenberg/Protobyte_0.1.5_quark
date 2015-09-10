@@ -112,6 +112,7 @@ namespace ijg {
 		glm::mat4 lightViewMatrix; // Light View
 		glm::mat4 lightModelViewMatrix; // Light ModelView
 		glm::mat4 lightProjectionMatrix; // Light Projection
+		glm::mat4 lightModelViewProjectionMatrix; // Light MVP
 		glm::mat4 lightDepthBiasMatrix; // Light Bias
 		glm::mat4 lightDepthBiasProjectionMatrix; // Light BiasProjection (depth bias)
 		glm::mat4 lightModelViewDepthBiasProjectionMatrix;// Light ModelViewBiasProjection
@@ -192,7 +193,8 @@ namespace ijg {
 		void setLightViewMatrix(const glm::mat4& lightViewMatrix);
 		void setLightDepthBiasMatrix(const glm::mat4& lightDepthBiasMatrix);
 		void setLightProjectionMatrix(const glm::mat4& lightProjectionMatrix);
-		void concatenateLightModelViewMatrix();
+		void concatenateLightModelViewMatrix(); //L_MV
+		void concatenateLightModelViewProjectionMatrix(); // L_MVP
 		void concatenateDepthBiasProjectionMatrix();
 		void concatenateLightModelViewDepthBiasProjectionMatrix();
 
@@ -315,7 +317,8 @@ namespace ijg {
 	}
 
 	inline void ProtoContext::setLightDepthBiasMatrix(const glm::mat4& lightDepthBiasMatrix) {
-		this->lightDepthBiasMatrix; // Light Bias = depthBiasMatrix;
+		// Light Bias = depthBiasMatrix;
+		this->lightDepthBiasMatrix = lightDepthBiasMatrix; 
 	}
 
 	inline void ProtoContext::setLightProjectionMatrix(const glm::mat4& lightProjectionMatrix) {
@@ -328,13 +331,19 @@ namespace ijg {
 		lightModelViewMatrix = glm::lookAt(glm::vec3(lights.at(0).getPosition().x, lights.at(0).getPosition().y, lights.at(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 	}
 
+	inline void ProtoContext::concatenateLightModelViewProjectionMatrix() {
+		lightModelViewProjectionMatrix = lightProjectionMatrix * lightModelViewMatrix * modelMatrix;
+	}
+
 	inline void ProtoContext::concatenateDepthBiasProjectionMatrix() {
 		lightDepthBiasProjectionMatrix = lightDepthBiasMatrix * lightProjectionMatrix;
 	}
 
 	inline void ProtoContext::concatenateLightModelViewDepthBiasProjectionMatrix() {
 		//L_MVBP = L_BP*L_MV
-		lightModelViewDepthBiasProjectionMatrix = lightDepthBiasProjectionMatrix*lightModelViewMatrix;
+		//lightModelViewDepthBiasProjectionMatrix = lightDepthBiasProjectionMatrix*lightModelViewMatrix;
+
+		lightModelViewDepthBiasProjectionMatrix = lightDepthBiasMatrix*lightModelViewProjectionMatrix;
 	}
 
 	inline void ProtoContext::concatenateShadowMatrix() {

@@ -89,7 +89,8 @@ void ProtoContext::init(){
 		//L_P = glm::perspective(45.0f, 1.0f, .10f, 1000.0f);
 
 		//L_P = glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f);
-		ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
+		//ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
+		setLightProjectionMatrix(glm::ortho<float>(-10, 10, -10, 10, -10, 20));
 
 
 		//L_P = glm::perspective(50.0f, 1.0f, .10f, 325.0f);

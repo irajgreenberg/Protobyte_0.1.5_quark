@@ -114,12 +114,19 @@ void main(void)
 
 
 		diffuse = mix(diffuse, diffuse*shadow, 0.4); 
+ 
 	}
 
     // Final color is diffuse + specular + ambient with lightRendering Factors enabling/disabling lighting effects for 2D rendering
 
 	color = vertCol*lightRenderingFactors.w + vec4(diffuse*lightRenderingFactors.x + specular*lightRenderingFactors.y + (vec3(ambientMaterial)*globalAmbientLight)*lightRenderingFactors.z, 1.0);
 
+	// remove only for debugging
+	if(!shadowPassFlag) {
+	//	color.r = 1.0;
+	}
+	
+	// uncomment
 	color.a = vertCol.a;
 
 

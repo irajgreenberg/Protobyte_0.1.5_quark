@@ -21,6 +21,7 @@
 #include <thread>
 #include <mutex>
 #include <memory>
+#include <stdexcept>
 
 // include GLM
 #include "glm/gtc/type_ptr.hpp" // matrix copying
@@ -63,6 +64,8 @@
 #include "ProtoTessellator.h"
 #include "ProtoPath2.h"
 #include "ProtoRectangle.h"
+#include "ProtoException.h"
+
 
 
 #include "ProtoJuncusEffusus.h"
@@ -104,13 +107,13 @@
 //struct triangulateio *);
 
 namespace ijg {
-	
-	
-	
+
+
+
 	// non-member functions
 
 	// forward declares
-	class Protoplasm; 
+	class Protoplasm;
 
 	class ProtoBaseApp {
 
@@ -128,11 +131,11 @@ namespace ijg {
 
 		// GLFW Key events
 		void setKeyEvent(int key, int scancode, int action, int mods);
-		
+
 		// GLFW Window events
 		void setWindowFrameSize(const Dim2i& windowFrameSize);
 
-			
+
 		static ProtoBaseApp* baseApp;
 		static ProtoBaseApp* getBaseApp();
 
@@ -179,9 +182,9 @@ namespace ijg {
 
 
 
-		
 
-	//protected:
+
+		//protected:
 	public:
 		void _initUniforms(ProtoShader* shader_ptr); // temporarily here. put back in private eventually
 		//void concat();
@@ -226,9 +229,9 @@ namespace ijg {
 		int key;
 		int scancode;
 		int action;
-			
-			
-			// CAMERAS
+
+
+		// CAMERAS
 		// 5 cameras (for now) accessible in world
 		//ProtoCamera camera0, camera1, camera2, camera3, camera4;
 
@@ -269,7 +272,7 @@ namespace ijg {
 		/*enum Matrix {
 			MODEL_VIEW,
 			PROJECTION
-		};*/
+			};*/
 
 		//float viewAngle, aspect, nearDist, farDist;
 
@@ -297,7 +300,7 @@ namespace ijg {
 		void setProjection(ProjectionType projType, float viewAngle, float aspect, float nearDist, float farDist);
 
 		/***********************************
-		*           path plotting  
+		*           path plotting
 		*beginPath(), endPath(), closePath()
 		***********************************/
 		std::vector<Vec3f> path;
@@ -366,10 +369,10 @@ namespace ijg {
 			GLuint diffuse;
 			GLuint ambient;
 			GLuint specular;;
-		};
-		Light_U lights_U[8];
+			};
+			Light_U lights_U[8];
 
-		GLuint globalAmbient_U;*/
+			GLuint globalAmbient_U;*/
 
 
 
@@ -435,6 +438,9 @@ namespace ijg {
 		void shadowsOn();
 		void shadowOff();
 
+		// maximum 8 lights
+		void setLight(int lightID, const Vec3& Position, const Vec3& intensity);
+
 		// get window properties **READ ONLY**
 		int getWidth()const;
 		int getHeight()const;
@@ -469,9 +475,9 @@ namespace ijg {
 		//implements transform matrix stack
 		void push();
 		void pop();
-		
-		
-		
+
+
+
 
 
 		//void lookAt(const Vec3f& eye, const Vec3f& center, const Vec3f& up);
@@ -532,14 +538,14 @@ namespace ijg {
 		void stroke(float r, float g, float b, float a);
 		void noStroke();
 		void strokeWeight(float lineWidth = 1.0);
-		
+
 		// points around ellipse
 		int ellipseDetail;
 
 		// Primitives API
 		// Precalculating buffers for 2D primitives for efficiency
 		// updated with glBufferSubData and binding vbo/vao
-		
+
 		// rect buffer ids
 		float rectPrims[28];
 		GLuint vaoRectID, vboRectID;
@@ -564,7 +570,7 @@ namespace ijg {
 		// path buffer ids (for begin(), vertex(), end())
 		bool isPathRecording;
 		//ProtoTessellator tess;
-		
+
 		//std::vector<float> pathPrims;
 		// class for pathPrims
 		struct PathPrims {
@@ -584,7 +590,7 @@ namespace ijg {
 		std::vector<GLdouble> tessellatedPrims;
 		std::vector<std::vector<GLdouble>> pathPrimsForTessellator;
 		std::vector<int> pathInds;
-		GLuint vaoPathID, vboPathID, indexVboPathID; 
+		GLuint vaoPathID, vboPathID, indexVboPathID;
 		void _createPath();
 		enum PathRenderMode {
 			POLYGON, TRIANGLES, TRIANGLE_STRIP, TRIANGLE_FAN, LINES, LINE_STRIP, LINE_LOOP
@@ -599,9 +605,9 @@ namespace ijg {
 		// box buffer ids
 		// (x, y, z, nx, ny, nz, r, g, b, a, u, v, tx, ty, tz)
 		Vec2f textureScale;
-		const static int boxPrimCount = 24*15;
+		const static int boxPrimCount = 24 * 15;
 		float boxPrims[boxPrimCount];
-		float boxPrimsOrig[boxPrimCount]; 
+		float boxPrimsOrig[boxPrimCount];
 		int boxInds[24]; // 6 faces
 		GLuint vaoBoxID, vboBoxID, indexVboBoxID;
 		void _createBox();
@@ -622,7 +628,7 @@ namespace ijg {
 		void poly(int sides, float radius1, float radius2);
 		void star(int sides, float innerRadius, float outerRadius);
 		void star(int sides, const Vec2& radiusAndRatio);
-		
+
 		// 3D Primitives
 		void box(float sz, Registration reg = CENTER);
 		void box(float w, float h, float d, Registration reg = CENTER);
@@ -631,10 +637,10 @@ namespace ijg {
 
 
 		// Drawing Methods API
-		
+
 		void beginPath(PathRenderMode pathRenderMode = POLYGON);
 		void endPath(bool isClosed = OPEN);
-		
+
 		// straight path
 		void vertex(const Vec2f& vec);
 		void vertex(const Vec3f& vec);
@@ -676,10 +682,10 @@ namespace ijg {
 
 
 		//ProtoPath2 protoPath2;
-		
+
 		/***********BEGIN************
-		       Save/Thread/Other
-		***************************/
+			   Save/Thread/Other
+			   ***************************/
 		// saving stuff
 		virtual void render(int x = 0, int y = 0, int scaleFactor = 1); // eventually maybe make pure virtual (ehhh, maybe not)
 		void save(std::string name = "img", int scaleFactor = 1);
@@ -765,6 +771,36 @@ namespace ijg {
 		//this->top = top;
 	}
 
+	// SET 8 LEIGHTS
+	inline void ProtoBaseApp::setLight(int lightID, const Vec3& Position, const Vec3& intensity) {
+		
+			/*if (lightID < 0 || lightID > 7)
+				throw std::runtime_error("Maximum light count is 8. Use index values 0-7");*/
+
+			try
+			{
+				if (lightID < 0 || lightID > 7)
+				{
+					lightID = 0; // set to 0
+					throw lightID;
+				}
+				//ctx->setLight(lightID, Position, intensity);
+			}
+			catch (int id)
+			{
+				std::cout << "Exception: Light index value " << id << " is out of range. Value \'0\' will be used. Legal values are 0-7. \n";
+				//std::cout << "ENTER to continue\n";
+				//int opt;
+				//std::cin >> opt;
+				//// add condition a code
+				//if (opt == std::cin.get()){
+				//	return;
+				//}
+				
+			}
+
+	}
+
 	inline void ProtoBaseApp::setShadowsOn(bool areShadowsOn) { //not used I believe
 		this->areShadowsOn = areShadowsOn;
 	}
@@ -778,12 +814,12 @@ namespace ijg {
 	}
 
 
-// Rendering display() switches
+	// Rendering display() switches
 #define POINTS ProtoGeom3::POINTS
 #define WIREFRAME ProtoGeom3::WIREFRAME
 #define SURFACE ProtoGeom3::SURFACE
 
-// make this intuitive
+	// make this intuitive
 #define arcBallBegin arcballBegin
 #define arcBallEnd arcballEnd
 #define beginArcball arcballBegin
@@ -791,7 +827,7 @@ namespace ijg {
 #define beginArcBall arcballBegin
 #define endArcBall arcballEnd
 
-// immediate mode path plotting
+	// immediate mode path plotting
 #define beginShape beginPath // processing style
 #define endShape endPath // processing style
 
@@ -808,14 +844,14 @@ namespace ijg {
 	//#define rotatef glRotatef 
 	//#define scalef glScalef 
 
-//#define light0 lights.at(0)
-//#define light1 lights.at(1)
-//#define light2 lights.at(2)
-//#define light3 lights.at(3)
-//#define light4 lights.at(4)
-//#define light5 lights.at(5)
-//#define light6 lights.at(6)
-//#define light7 lights.at(7)
+	//#define light0 lights.at(0)
+	//#define light1 lights.at(1)
+	//#define light2 lights.at(2)
+	//#define light3 lights.at(3)
+	//#define light4 lights.at(4)
+	//#define light5 lights.at(5)
+	//#define light6 lights.at(6)
+	//#define light7 lights.at(7)
 
 #define background setBackground
 
