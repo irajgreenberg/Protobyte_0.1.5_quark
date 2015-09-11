@@ -1,8 +1,8 @@
 #include "ProtoController.h"
 
 void ProtoController::init() {
-	setLight(0, { 0, 0, 1000 }, { 1, 1, 1 });
-	//shadowsOn();
+	//setLight(0, { 0, 100, 600 }, { 1, 1, 1 });
+	shadowsOn();
 	t = Toroid(36, 36, 125, 45);
 	t.setDiffuseMap("ship_plate_rainbow.jpg");
 	t.setBumpMap("ship_plate_rainbow.jpg");
@@ -57,8 +57,8 @@ void ProtoController::display() {
 	t.display();
 	pop();
 
-	translate(0, 0, -200);
-	pcg->display();
+	//translate(0, 0, -200);
+	//pcg->display();
 	endArcBall();
 
 	//compositeObj.display();  --> push, trans, obj1.display(), pop, push, trans, obj2.display(), pop,

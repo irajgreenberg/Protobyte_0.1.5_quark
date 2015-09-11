@@ -784,7 +784,7 @@ namespace ijg {
 					lightID = 0; // set to 0
 					throw lightID;
 				}
-				//ctx->setLight(lightID, Position, intensity);
+				ctx->setLight(lightID, Position, intensity);
 			}
 			catch (int id)
 			{

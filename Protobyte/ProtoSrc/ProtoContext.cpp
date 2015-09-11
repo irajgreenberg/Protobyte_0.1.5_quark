@@ -53,9 +53,9 @@ void ProtoContext::init(){
 		lights.push_back(ProtoLight());
 		lights.push_back(ProtoLight());
 	
-		ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 1560), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
-		ctx->concatenateModelViewMatrix();
-		ctx->createNormalMatrix();
+	//	ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 1560), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+	//	ctx->concatenateModelViewMatrix();
+	//	ctx->createNormalMatrix();
 
 		for (int i = 0; i < 8; ++i){
 			std::string pos = "lights[" + std::to_string(i) + "].position";
@@ -77,27 +77,27 @@ void ProtoContext::init(){
 
 		// global ambient light
 		globalAmbient_U = glGetUniformLocation(ProtoShader::getID_2(), "globalAmbientLight");
-		aspect = width / height;
-		ctx->setProjectionMatrix(glm::perspective(viewAngle, aspect, nearDist, farDist));
-		ctx->concatenateModelViewProjectionMatrix();
+		//aspect = width / height;
+	//	ctx->setProjectionMatrix(glm::perspective(viewAngle, aspect, nearDist, farDist));
+	//	ctx->concatenateModelViewProjectionMatrix();
 		//MVP = P * MV;
 
 		// START Shadow Map Matrices
 		
 		//L_MV = glm::lookAt(glm::vec3(lights.at(0).getPosition().x, lights.at(0).getPosition().y, lights.at(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-		ctx->setLightViewMatrix(glm::lookAt(glm::vec3(lights.at(0).getPosition().x, lights.at(0).getPosition().y, lights.at(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+		//ctx->setLightViewMatrix(glm::lookAt(glm::vec3(lights.at(0).getPosition().x, lights.at(0).getPosition().y, lights.at(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
 		//L_P = glm::perspective(45.0f, 1.0f, .10f, 1000.0f);
 
 		//L_P = glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f);
 		//ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
-		setLightProjectionMatrix(glm::ortho<float>(-10, 10, -10, 10, -10, 20));
+		//setLightProjectionMatrix(glm::ortho<float>(-10, 10, -10, 10, -10, 20));
 
 
 		//L_P = glm::perspective(50.0f, 1.0f, .10f, 325.0f);
 		//L_B = glm::scale(glm::translate(glm::mat4(1), glm::vec3(.5, .5, .5)), glm::vec3(.5, .5, .5));
 		//L_B = glm::mat4(1.0);
 
-		float ratio{ width / height };
+	//	float ratio{ width / height };
 		//L_B = glm::mat4(
 		//	glm::vec4(.35, 0.0f, 0.0f, 0.0f),
 		//	glm::vec4(0.0f, .35, 0.0f, 0.0f),
@@ -111,17 +111,17 @@ void ProtoContext::init(){
 		//	glm::vec4(0.0f, 0.0f, .5, 0.0f),
 		//	glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
 		//	);
-		ctx->setLightDepthBiasMatrix(glm::mat4(
-			glm::vec4(.5, 0.0f, 0.0f, 0.0f),
-			glm::vec4(0.0f, .5, 0.0f, 0.0f),
-			glm::vec4(0.0f, 0.0f, .5, 0.0f),
-			glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
-			));
+		//ctx->setLightDepthBiasMatrix(glm::mat4(
+		//	glm::vec4(.5, 0.0f, 0.0f, 0.0f),
+		//	glm::vec4(0.0f, .5, 0.0f, 0.0f),
+		//	glm::vec4(0.0f, 0.0f, .5, 0.0f),
+		//	glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
+		//	));
 
 
 		//L_BP = L_B*L_P;
-		ctx->concatenateDepthBiasProjectionMatrix();
-		ctx->concatenateLightModelViewDepthBiasProjectionMatrix();
+	//	ctx->concatenateDepthBiasProjectionMatrix();
+	//	ctx->concatenateLightModelViewDepthBiasProjectionMatrix();
 		//L_MVBP = L_BP*L_MV;
 		// END Shadow Matrices
 

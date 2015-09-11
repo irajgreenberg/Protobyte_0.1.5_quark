@@ -195,10 +195,10 @@ namespace ijg {
 		void setLightProjectionMatrix(const glm::mat4& lightProjectionMatrix);
 		void concatenateLightModelViewMatrix(); //L_MV
 		void concatenateLightModelViewProjectionMatrix(); // L_MVP
-		void concatenateDepthBiasProjectionMatrix();
+		//void concatenateDepthBiasProjectionMatrix();
 		void concatenateLightModelViewDepthBiasProjectionMatrix();
 
-		void concatenateShadowMatrix();
+		//void concatenateShadowMatrix();
 		const glm::mat4& getShadowMatrix();
 
 		const glm::mat4& getLightViewMatrix();
@@ -328,27 +328,25 @@ namespace ijg {
 	// shadow map concatenations functions
 	// MV Mat4
 	inline void ProtoContext::concatenateLightModelViewMatrix() {
-		lightModelViewMatrix = glm::lookAt(glm::vec3(lights.at(0).getPosition().x, lights.at(0).getPosition().y, lights.at(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+		lightModelViewMatrix = lightViewMatrix * glm::mat4(1.0);// modelMatrix;
 	}
 
 	inline void ProtoContext::concatenateLightModelViewProjectionMatrix() {
-		lightModelViewProjectionMatrix = lightProjectionMatrix * lightModelViewMatrix * modelMatrix;
+		lightModelViewProjectionMatrix = lightProjectionMatrix * lightModelViewMatrix;
 	}
 
-	inline void ProtoContext::concatenateDepthBiasProjectionMatrix() {
-		lightDepthBiasProjectionMatrix = lightDepthBiasMatrix * lightProjectionMatrix;
-	}
+	//inline void ProtoContext::concatenateDepthBiasProjectionMatrix() {
+	//	lightDepthBiasProjectionMatrix = lightDepthBiasMatrix * lightProjectionMatrix;
+	//}
 
 	inline void ProtoContext::concatenateLightModelViewDepthBiasProjectionMatrix() {
-		//L_MVBP = L_BP*L_MV
-		//lightModelViewDepthBiasProjectionMatrix = lightDepthBiasProjectionMatrix*lightModelViewMatrix;
-
+		//L_MVBP = L_B*L_MVP
 		lightModelViewDepthBiasProjectionMatrix = lightDepthBiasMatrix*lightModelViewProjectionMatrix;
 	}
 
-	inline void ProtoContext::concatenateShadowMatrix() {
-		lightModelViewDepthBiasProjectionMatrix*modelMatrix;
-	}
+	//inline void ProtoContext::concatenateShadowMatrix() {
+	//	lightModelViewDepthBiasProjectionMatrix*modelMatrix;
+	//}
 
 	// geometry matrices
 	inline const glm::mat4& ProtoContext::getModelMatrix() {

@@ -68,20 +68,17 @@ void ProtoBaseApp::_init(){
 	//shader = ProtoShader("protoShader.vert", "protoShader.frag");
 	//shader2D = ProtoShader("colorOnlyShader.vert.glsl", "colorOnlyShader.frag.glsl");
 	shader3D = ProtoShader("bumpmapping.vs.glsl", "bumpmapping.fs.glsl");
-
-	// create context
+	shader3D.bind();
+	// create context and initialize
 	ctx = ProtoContext::getContext(width, height);
 	ctx->init();
-	//trace("ctx =", ctx);
 
 
 	// default global ambient
-	//globalAmbient = Col3f(.02f, .02f, .02f);
 	ctx->setGlobalAmbient({ .45f, .45f, .45f });
 
-	// camera at 11
 	// default inital light
-	ctx->setLight(0, {0, -100, 200 }, { 1, 1, 1 });
+	ctx->setLight(0, {0, 0, 400 }, { 1, 1, 1 });
 	ctx->setLight(1, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(2, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(3, { 0, 0, 1 }, { 0, 0, 0 });
@@ -90,19 +87,22 @@ void ProtoBaseApp::_init(){
 	ctx->setLight(6, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(7, { 0, 0, 1 }, { 0, 0, 0 });
 
-	// mouse
+	// initialize mouse vars
 	mouseX = mouseY = mouseLastFrameX = mouseLastFrameY = 0;
-	//arcball
+	
+	//  initialize arcball vars
 	arcballRotX = arcballRotY = arcballRotXLast, arcballRotYLast = mouseXIn = mouseYIn = 0;
 	//isArcballOn = false;
 
 	// RECONSIDER THIS
 	// is it cool to set this here, versus in context?
-	glViewport(0, 0, width, height);
+	//trace("width =", width);
+	//trace("height =", height);
+	//glViewport(0, 0, width, height);
 
 	// START standard transformation matrices: ModelView / Projection / Normal
 	ctx->setModelMatrix(glm::mat4(1.0f));
-	ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 60), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+	ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 800), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
 	ctx->concatenateModelViewMatrix();
 	ctx->createNormalMatrix();
 
@@ -122,34 +122,48 @@ void ProtoBaseApp::_init(){
 	// perspective
 	ctx->setProjectionMatrix(glm::perspective(viewAngle, aspect, nearDist, farDist));
 	ctx->concatenateModelViewProjectionMatrix();
+
 	// END Model / View / Projection data
 
 	
 	// START Shadow Map Matrices
 	//L_MV = glm::lookAt(glm::vec3(light0.getPosition().x, light0.getPosition().y, light0.getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+
+	//trace("light0 =", ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z);
 	ctx->setLightViewMatrix(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
 	//L_P = glm::perspective(45.0f, 1.0f, .10f, 1000.0f);
+	ctx->concatenateLightModelViewMatrix();
 	ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
-	//ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
-
-	float ratio = getWidth() / getHeight();
-	//L_B = glm::mat4(
-	//	glm::vec4(.35, 0.0f, 0.0f, 0.0f),
-	//	glm::vec4(0.0f, .35, 0.0f, 0.0f),
-	//	glm::vec4(0.0f, 0.0f, 1, 0.0f),
-	//	glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
-	//);
-
+	//ctx->setLightProjectionMatrix(glm::perspective(45.0f, 1.0f, .10f, 1000.0f));
+	ctx->concatenateLightModelViewProjectionMatrix();
 	ctx->setLightDepthBiasMatrix(glm::mat4(
 		glm::vec4(.5, 0.0f, 0.0f, 0.0f),
 		glm::vec4(0.0f, .5, 0.0f, 0.0f),
 		glm::vec4(0.0f, 0.0f, .5, 0.0f),
 		glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
 		));
-
-	ctx->concatenateDepthBiasProjectionMatrix();
 	ctx->concatenateLightModelViewDepthBiasProjectionMatrix();
-	// END Shadow Matrices
+	//ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
+
+	//float ratio = getWidth() / getHeight();
+	////L_B = glm::mat4(
+	////	glm::vec4(.35, 0.0f, 0.0f, 0.0f),
+	////	glm::vec4(0.0f, .35, 0.0f, 0.0f),
+	////	glm::vec4(0.0f, 0.0f, 1, 0.0f),
+	////	glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
+	////);
+
+	//ctx->setLightDepthBiasMatrix(glm::mat4(
+	//	glm::vec4(.5, 0.0f, 0.0f, 0.0f),
+	//	glm::vec4(0.0f, .5, 0.0f, 0.0f),
+	//	glm::vec4(0.0f, 0.0f, .5, 0.0f),
+	//	glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
+	//	));
+
+	//ctx->concatenateDepthBiasProjectionMatrix();
+	//ctx->concatenateLightModelViewDepthBiasProjectionMatrix();
+	//ctx->concatenateLightModelViewDepthBiasProjectionMatrix();
+	//// END Shadow Matrices
 
 	createShadowMap();
 
@@ -789,24 +803,26 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	// I thought I needed this to reset matrix each frame?
 	ctx->setModelMatrix(glm::mat4(1.0f));
 	// was 18
-	ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 1000.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+	//ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 200.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
 	ctx->concatenateModelViewMatrix();
 	ctx->concatenateModelViewProjectionMatrix();
 
 	// update shadow map texture matrix should light(s) changes position
-	ctx->setLightProjectionMatrix(glm::ortho<float>(-10, 10, -10, 10, -10, 20));
+	//trace(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z);
 	ctx->setLightViewMatrix(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+	ctx->concatenateLightModelViewMatrix();
+	//ctx->setLightProjectionMatrix(glm::perspective(45.0f, 1.0f, .10f, 1000.0f));
 	ctx->concatenateLightModelViewProjectionMatrix();
+	ctx->setLightDepthBiasMatrix(glm::mat4(
+		glm::vec4(.5, 0.0f, 0.0f, 0.0f),
+		glm::vec4(0.0f, .5, 0.0f, 0.0f),
+		glm::vec4(0.0f, 0.0f, .5, 0.0f),
+		glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
+		));
 	ctx->concatenateLightModelViewDepthBiasProjectionMatrix();
 
-	//glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &L_MVBP[0][0]);
-
-	//glm::mat4 shaderMat = L_MVBP*M; // new  // include mult by Model mat
-	//glm::mat4 shaderMat = ctx->getLightModelViewDepthBiasProjectionMatrix()*ctx->getModelMatrix(); // new  // include mult by Model mat
-	ctx->concatenateShadowMatrix();
-	//glUniformMatrix4fv(ctx->getLightModelViewDepthBiasProjection_U(), 1, GL_FALSE, &shaderMat[0][0]);
-	glUniformMatrix4fv(ctx->getLightModelViewDepthBiasProjection_U(), 1, GL_FALSE, &ctx->getShadowMatrix()[0][0]);
-
+	//glUniformMatrix4fv(ctx->getLightModelViewDepthBiasProjection_U(), 1, GL_FALSE, &ctx->getShadowMatrix()[0][0]);
+	glUniformMatrix4fv(ctx->getLightModelViewDepthBiasProjection_U(), 1, GL_FALSE, &ctx->getLightModelViewDepthBiasProjectionMatrix()[0][0]);
 
 	// some help from:http://www.opengl.org/discussion_boards/showthread.php/171184-GLM-to-create-gl_NormalMatrix
 	// update normals
@@ -844,7 +860,7 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 
 	run();
 	push();
-    display(); //Is this necessary??
+  //  display(); //Is this necessary??
 	pop();
 	render();
 
@@ -1015,6 +1031,8 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 		//set viewport to the shadow map view size
 		//glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
 		//glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
+		//trace("SHADOWMAP_WIDTH =", SHADOWMAP_WIDTH);
+		//trace("SHADOWMAP_HEIGHT =", SHADOWMAP_HEIGHT);
 		glViewport(0, 0, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT);
 		//glViewport(x*SHADOWMAP_WIDTH, y*SHADOWMAP_HEIGHT, scaleFactor * SHADOWMAP_WIDTH, scaleFactor *  SHADOWMAP_HEIGHT);
 		//glViewport(-2 * SHADOWMAP_WIDTH, -2 * SHADOWMAP_WIDTH, 6 * SHADOWMAP_WIDTH, 6 * SHADOWMAP_HEIGHT);
@@ -1023,9 +1041,10 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 		glCullFace(GL_FRONT);
 
 		// enables shadow blending in fragment shader
+		//trace("ctx->getShaderPassFlag_U() =", ctx->getShaderPassFlag_U());
 		glUniform1i(ctx->getShaderPassFlag_U(), 1); // controls render pass in shader
 
-		// render shadow in first pass
+		// render shadow in first pass to FBO
 		display();
 
 		// reset backface culling
@@ -1076,9 +1095,9 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 
 		// reset default view
 		////glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
-		//glViewport(0, 0, getWidth(), getHeight());
-		glViewport(x*width, y*height, scaleFactor * width, scaleFactor * height);
-		//glViewport(-2 * width, -2 * height, 6 * width, 6 * height);
+		glViewport(0, 0, getWidth(), getHeight());
+		//glViewport(x*width, y*height, scaleFactor * width, scaleFactor * height);
+		
 
 		// reset backface culling
 		glCullFace(GL_BACK);
@@ -1095,7 +1114,8 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 		display();
 	}
 
-	GLSLInfo(&shader3D);
+	// see locations of attributes and uniforms
+	// GLSLInfo(&shader3D);
 }
 
 // Mouse event behavior
