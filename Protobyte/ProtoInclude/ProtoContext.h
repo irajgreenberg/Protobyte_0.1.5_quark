@@ -328,7 +328,8 @@ namespace ijg {
 	// shadow map concatenations functions
 	// MV Mat4
 	inline void ProtoContext::concatenateLightModelViewMatrix() {
-		lightModelViewMatrix = lightViewMatrix * glm::mat4(1.0);// modelMatrix;
+		//lightModelViewMatrix = lightViewMatrix * glm::mat4(1.0);// modelMatrix;
+		lightModelViewMatrix = lightViewMatrix * modelMatrix;
 	}
 
 	inline void ProtoContext::concatenateLightModelViewProjectionMatrix() {

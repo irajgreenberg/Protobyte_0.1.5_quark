@@ -78,7 +78,7 @@ void ProtoBaseApp::_init(){
 	ctx->setGlobalAmbient({ .45f, .45f, .45f });
 
 	// default inital light
-	ctx->setLight(0, {0, 0, 400 }, { 1, 1, 1 });
+	ctx->setLight(0, {0, 0, 100 }, { 1, 1, 1 });
 	ctx->setLight(1, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(2, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(3, { 0, 0, 1 }, { 0, 0, 0 });
@@ -102,7 +102,7 @@ void ProtoBaseApp::_init(){
 
 	// START standard transformation matrices: ModelView / Projection / Normal
 	ctx->setModelMatrix(glm::mat4(1.0f));
-	ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 800), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+	ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, -600), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
 	ctx->concatenateModelViewMatrix();
 	ctx->createNormalMatrix();
 
@@ -118,7 +118,7 @@ void ProtoBaseApp::_init(){
 	float viewAngle = 75.0f; 
 	float aspect = float(width) / float(height); 
 	float nearDist = .1f; 
-	float farDist = 5500.0f;
+	float farDist = 2000.0f;
 	// perspective
 	ctx->setProjectionMatrix(glm::perspective(viewAngle, aspect, nearDist, farDist));
 	ctx->concatenateModelViewProjectionMatrix();
@@ -133,6 +133,7 @@ void ProtoBaseApp::_init(){
 	ctx->setLightViewMatrix(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
 	//L_P = glm::perspective(45.0f, 1.0f, .10f, 1000.0f);
 	ctx->concatenateLightModelViewMatrix();
+	//ctx->setLightProjectionMatrix(glm::ortho<float>(-300, 300, -300, 300, -.1, 3000));
 	ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
 	//ctx->setLightProjectionMatrix(glm::perspective(45.0f, 1.0f, .10f, 1000.0f));
 	ctx->concatenateLightModelViewProjectionMatrix();
@@ -675,6 +676,7 @@ bool ProtoBaseApp::createShadowMap(){
 	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);
 
 	//trace(SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, 1024, 1024, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, NULL);
 
 	// set up FBO
@@ -860,7 +862,7 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 
 	run();
 	push();
-  //  display(); //Is this necessary??
+   // display(); //Is this necessary??
 	pop();
 	render();
 

@@ -20,12 +20,12 @@ void ProtoController::run() {
 
 void ProtoController::display() {
 	beginArcBall();
-	translate(0, 0, -400);
+	translate(0, 0, -100);
 
 
 	push();
-	translate(0, 0, -700);
-	//rotate(90, 1, 0, 0);
+	translate(0, 0, 300);
+	rotate(180, 0, 1, 0);
 	scale(3000);
 	plane.display();
 	pop();
@@ -57,8 +57,8 @@ void ProtoController::display() {
 	t.display();
 	pop();
 
-	//translate(0, 0, -200);
-	//pcg->display();
+	translate(0, 0, -200);
+	pcg->display();
 	endArcBall();
 
 	//compositeObj.display();  --> push, trans, obj1.display(), pop, push, trans, obj2.display(), pop,
