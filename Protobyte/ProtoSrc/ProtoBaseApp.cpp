@@ -78,7 +78,7 @@ void ProtoBaseApp::_init(){
 	ctx->setGlobalAmbient({ .45f, .45f, .45f });
 
 	// default inital light
-	ctx->setLight(0, {0, 0, 300 }, { 1, 1, 1 });
+	ctx->setLight(0, {0, 0, 600 }, { 1, 1, 1 });
 	ctx->setLight(1, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(2, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(3, { 0, 0, 1 }, { 0, 0, 0 });

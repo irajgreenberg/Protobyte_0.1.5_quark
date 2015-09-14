@@ -32,6 +32,8 @@ ProtoGeomComposite::ProtoGeomComposite() {
 	ctx = ProtoContext::getContext();
 	//trace("ctx =", ctx);
 	t = Toroid(36, 36, 125, 45);
+	t.setDiffuseMap("ship_plate_rainbow.jpg");
+	t.setBumpMap("ship_plate_rainbow.jpg");
 	//ctx->init();
 }
 

@@ -3,7 +3,7 @@
 void ProtoController::init() {
 	//setLight(0, { 0, 100, 600 }, { 1, 1, 1 });
 	shadowsOn();
-	t = Toroid(36, 36, 125, 45);
+	t = Toroid({ 0, 0, 0 }, { 0, 0, 0 }, { 1, 1, 1 }, { 1, 1, 1, 1 }, 36, 36, 125, 45);
 	t.setDiffuseMap("ship_plate_rainbow.jpg");
 	t.setBumpMap("ship_plate_rainbow.jpg");
 	pcg = new ProtoGeomComposite();
