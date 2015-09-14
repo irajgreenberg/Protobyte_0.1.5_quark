@@ -20,44 +20,44 @@ void ProtoController::run() {
 
 void ProtoController::display() {
 	beginArcBall();
-	translate(0, 0, -100);
+	//translate(0, 0, 4100);
 
 
 	push();
-	translate(0, 0, 300);
-	rotate(180, 0, 1, 0);
+	translate(0, 0, -500);
+	//rotate(180, 0, 1, 0);
 	scale(3000);
 	plane.display();
 	pop();
 
 	
 	push();
-	translate(-200, 200, 100);
+	translate(-200, 200, -10);
 	rotate(getFrameCount()*.2, Vec3(1, .2, 0));
 	t.display();
 	pop();
 
 	push();
-	translate(200, 200, 100);
+	translate(200, 200, -10);
 	rotate(-getFrameCount()*.2, Vec3(1, .75, 0));
 	t.display();
 	pop();
 
 	push();
-	translate(-200, -200, 100);
+	translate(-200, -200, -10);
 	rotate(getFrameCount()*1.2, Vec3(1, .05, 0));
 	t.display();
 	pop();
 
 	push();
-	translate(200, -200, 100);
+	translate(200, -200, -10);
 	rotate(-getFrameCount()*.2, Vec3(1, 0, 0));
 	rotate(-getFrameCount()*2.2, Vec3(0, 1, 0));
 	rotate(-getFrameCount()*1.2, Vec3(0, 0, 1));
 	t.display();
 	pop();
 
-	translate(0, 0, -200);
+	translate(0, 0, -300);
 	pcg->display();
 	endArcBall();
 

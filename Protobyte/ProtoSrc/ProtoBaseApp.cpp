@@ -78,7 +78,7 @@ void ProtoBaseApp::_init(){
 	ctx->setGlobalAmbient({ .45f, .45f, .45f });
 
 	// default inital light
-	ctx->setLight(0, {0, 0, 100 }, { 1, 1, 1 });
+	ctx->setLight(0, {0, 0, 300 }, { 1, 1, 1 });
 	ctx->setLight(1, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(2, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(3, { 0, 0, 1 }, { 0, 0, 0 });
@@ -102,7 +102,7 @@ void ProtoBaseApp::_init(){
 
 	// START standard transformation matrices: ModelView / Projection / Normal
 	ctx->setModelMatrix(glm::mat4(1.0f));
-	ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, -600), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+	ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 800), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
 	ctx->concatenateModelViewMatrix();
 	ctx->createNormalMatrix();
 
@@ -127,10 +127,11 @@ void ProtoBaseApp::_init(){
 
 	
 	// START Shadow Map Matrices
-	//L_MV = glm::lookAt(glm::vec3(light0.getPosition().x, light0.getPosition().y, light0.getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	//ctx->setLightViewMatrix(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
 
-	//trace("light0 =", ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z);
-	ctx->setLightViewMatrix(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+	ctx->setLightViewMatrix(glm::lookAt(glm::vec3(0, 0, -300), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+
+
 	//L_P = glm::perspective(45.0f, 1.0f, .10f, 1000.0f);
 	ctx->concatenateLightModelViewMatrix();
 	//ctx->setLightProjectionMatrix(glm::ortho<float>(-300, 300, -300, 300, -.1, 3000));
@@ -808,9 +809,16 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	//ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 200.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
 	ctx->concatenateModelViewMatrix();
 	ctx->concatenateModelViewProjectionMatrix();
+	ctx->createNormalMatrix();
+
+	glUniformMatrix4fv(ctx->getModel_U(), 1, GL_FALSE, &ctx->getModelMatrix()[0][0]);
+	glUniformMatrix4fv(ctx->getModelView_U(), 1, GL_FALSE, &ctx->getModelViewMatrix()[0][0]);
+	glUniformMatrix4fv(ctx->getModelViewProjection_U(), 1, GL_FALSE, &ctx->getModelViewProjectionMatrix()[0][0]);
+	glUniformMatrix3fv(ctx->getNormal_U(), 1, GL_FALSE, &ctx->getNormalMatrix()[0][0]);
+
+
 
 	// update shadow map texture matrix should light(s) changes position
-	//trace(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z);
 	ctx->setLightViewMatrix(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
 	ctx->concatenateLightModelViewMatrix();
 	//ctx->setLightProjectionMatrix(glm::perspective(45.0f, 1.0f, .10f, 1000.0f));
@@ -829,18 +837,7 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	// some help from:http://www.opengl.org/discussion_boards/showthread.php/171184-GLM-to-create-gl_NormalMatrix
 	// update normals
 
-	//N = glm::transpose(glm::inverse(glm::mat3(MV)));
-	ctx->createNormalMatrix();
-
-	// don't think I need these anymore
-	//glUniformMatrix4fv(M_U, 1, GL_FALSE, &ctx->getModelMatrix()[0][0]);
-	glUniformMatrix4fv(ctx->getModel_U(), 1, GL_FALSE, &ctx->getModelMatrix()[0][0]);
-	//glUniformMatrix4fv(MV_U, 1, GL_FALSE, &ctx->getModelViewMatrix()[0][0]);
-	glUniformMatrix4fv(ctx->getModelView_U(), 1, GL_FALSE, &ctx->getModelViewMatrix()[0][0]);
-	//glUniformMatrix4fv(MVP_U, 1, GL_FALSE, &ctx->getModelViewProjectionMatrix()[0][0]);
-	glUniformMatrix4fv(ctx->getModelViewProjection_U(), 1, GL_FALSE, &ctx->getModelViewProjectionMatrix()[0][0]);
-	//glUniformMatrix3fv(N_U, 1, GL_FALSE, &ctx->getNormalMatrix()[0][0]);
-	glUniformMatrix3fv(ctx->getNormal_U(), 1, GL_FALSE, &ctx->getNormalMatrix()[0][0]);
+	
 
 	// enable  /disable lighting effects ofr 2D rendering
 	//ltRenderingFactors = Vec4f(1.0, 1.0, 1.0, 1.0); // default lighting
