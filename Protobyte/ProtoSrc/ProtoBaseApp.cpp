@@ -78,7 +78,7 @@ void ProtoBaseApp::_init(){
 	ctx->setGlobalAmbient({ .45f, .45f, .45f });
 
 	// default inital light
-	ctx->setLight(0, {0, 0, 600 }, { 1, 1, 1 });
+	ctx->setLight(0, {0, 0, 400 }, { 1, 1, 1 });
 	ctx->setLight(1, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(2, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(3, { 0, 0, 1 }, { 0, 0, 0 });
@@ -101,10 +101,10 @@ void ProtoBaseApp::_init(){
 	//glViewport(0, 0, width, height);
 
 	// START standard transformation matrices: ModelView / Projection / Normal
-	ctx->setModelMatrix(glm::mat4(1.0f));
-	ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 800), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
-	ctx->concatenateModelViewMatrix();
-	ctx->createNormalMatrix();
+	ctx->setModel(glm::mat4(1.0f));
+	ctx->setView(glm::lookAt(glm::vec3(0.0, 0.0, 800), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+	ctx->concatModelView();
+	//ctx->createNormalMatrix();
 
 	// projection matrix and MVP Matrix
 	/* ortho
@@ -120,8 +120,8 @@ void ProtoBaseApp::_init(){
 	float nearDist = .1f; 
 	float farDist = 2000.0f;
 	// perspective
-	ctx->setProjectionMatrix(glm::perspective(viewAngle, aspect, nearDist, farDist));
-	ctx->concatenateModelViewProjectionMatrix();
+	ctx->setProjection(glm::perspective(viewAngle, aspect, nearDist, farDist));
+	ctx->concatModelViewProjection();
 
 	// END Model / View / Projection data
 
@@ -129,22 +129,22 @@ void ProtoBaseApp::_init(){
 	// START Shadow Map Matrices
 	//ctx->setLightViewMatrix(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
 
-	ctx->setLightViewMatrix(glm::lookAt(glm::vec3(0, 0, -300), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+	ctx->setLightView(glm::lookAt(glm::vec3(0, 0, 800), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
 
 
 	//L_P = glm::perspective(45.0f, 1.0f, .10f, 1000.0f);
-	ctx->concatenateLightModelViewMatrix();
+	ctx->concatLightModelView();
 	//ctx->setLightProjectionMatrix(glm::ortho<float>(-300, 300, -300, 300, -.1, 3000));
-	ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
-	//ctx->setLightProjectionMatrix(glm::perspective(45.0f, 1.0f, .10f, 1000.0f));
-	ctx->concatenateLightModelViewProjectionMatrix();
-	ctx->setLightDepthBiasMatrix(glm::mat4(
+	//ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
+	ctx->setLightProjection(glm::perspective(45.0f, 1.0f, .10f, 4000.0f));
+	ctx->concatLightModelViewProjection();
+	ctx->setLightBias(glm::mat4(
 		glm::vec4(.5, 0.0f, 0.0f, 0.0f),
 		glm::vec4(0.0f, .5, 0.0f, 0.0f),
 		glm::vec4(0.0f, 0.0f, .5, 0.0f),
 		glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
 		));
-	ctx->concatenateLightModelViewDepthBiasProjectionMatrix();
+	ctx->concatLightModelViewBiasProjection();
 	//ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
 
 	//float ratio = getWidth() / getHeight();
@@ -206,10 +206,10 @@ void ProtoBaseApp::_init(){
 	//path2 = ProtoPath2(this);
 	//protoPath2.setBaseApp(this);
 
-	shader3D.bind();
+	//shader3D.bind();
 
 
-	_initUniforms(&shader3D);
+	//_initUniforms(&shader3D);
 
 
 
@@ -792,11 +792,11 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	glUniform3fv(ctx->getGlobalAmbient_U(), 1, &ctx->getGlobalAmbient().r);
 
 	// update all 8 lights in shaders
-	for (int i = 0; i < 8; ++i){
+	for (int i = 0; i < 1; ++i){
 		glUniform3fv(ctx->getLight_U(i).position, 1, &ctx->getLight(i).getPosition().x);
-		//trace("ctx->getLight(",i,").getPosition().x =", ctx->getLight(i).getPosition().x);
-		//trace("ctx->getLight(", i, ").getPosition().y =", ctx->getLight(i).getPosition().y);
-		//trace("ctx->getLight(", i, ").getPosition().z =", ctx->getLight(i).getPosition().z);
+		/*trace("ctx->getLight(",i,").getPosition().x =", ctx->getLight(i).getPosition().x);
+		trace("ctx->getLight(", i, ").getPosition().y =", ctx->getLight(i).getPosition().y);
+		trace("ctx->getLight(", i, ").getPosition().z =", ctx->getLight(i).getPosition().z);*/
 		glUniform3fv(ctx->getLight_U(i).intensity, 1, &ctx->getLight(i).getIntensity().x);
 		//glUniform4fv(lights_U[i].diffuse, 1, &lights[i].getDiffuse().r);
 		//glUniform4fv(lights_U[i].ambient, 1, &lights[i].getAmbient().r);
@@ -804,35 +804,35 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	}
 
 	// I thought I needed this to reset matrix each frame?
-	ctx->setModelMatrix(glm::mat4(1.0f));
+	ctx->setModel(glm::mat4(1.0f));
 	// was 18
 	//ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 200.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
-	ctx->concatenateModelViewMatrix();
-	ctx->concatenateModelViewProjectionMatrix();
-	ctx->createNormalMatrix();
+	ctx->concatModelView();
+	ctx->concatModelViewProjection();
+	//ctx->createNormalMatrix();
 
-	glUniformMatrix4fv(ctx->getModel_U(), 1, GL_FALSE, &ctx->getModelMatrix()[0][0]);
-	glUniformMatrix4fv(ctx->getModelView_U(), 1, GL_FALSE, &ctx->getModelViewMatrix()[0][0]);
-	glUniformMatrix4fv(ctx->getModelViewProjection_U(), 1, GL_FALSE, &ctx->getModelViewProjectionMatrix()[0][0]);
-	glUniformMatrix3fv(ctx->getNormal_U(), 1, GL_FALSE, &ctx->getNormalMatrix()[0][0]);
+	glUniformMatrix4fv(ctx->getModel_U(), 1, GL_FALSE, &ctx->getModel()[0][0]);
+	glUniformMatrix4fv(ctx->getModelView_U(), 1, GL_FALSE, &ctx->getModelView()[0][0]);
+	glUniformMatrix4fv(ctx->getModelViewProjection_U(), 1, GL_FALSE, &ctx->getModelViewProjection()[0][0]);
+	glUniformMatrix3fv(ctx->getNormal_U(), 1, GL_FALSE, &ctx->getNormal()[0][0]);
 
 
 
 	// update shadow map texture matrix should light(s) changes position
-	ctx->setLightViewMatrix(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
-	ctx->concatenateLightModelViewMatrix();
+	ctx->setLightView(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+	ctx->concatLightModelView();
 	//ctx->setLightProjectionMatrix(glm::perspective(45.0f, 1.0f, .10f, 1000.0f));
-	ctx->concatenateLightModelViewProjectionMatrix();
-	ctx->setLightDepthBiasMatrix(glm::mat4(
+	ctx->concatLightModelViewProjection();
+	ctx->setLightBias(glm::mat4(
 		glm::vec4(.5, 0.0f, 0.0f, 0.0f),
 		glm::vec4(0.0f, .5, 0.0f, 0.0f),
 		glm::vec4(0.0f, 0.0f, .5, 0.0f),
 		glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
 		));
-	ctx->concatenateLightModelViewDepthBiasProjectionMatrix();
+	ctx->concatLightModelViewBiasProjection();
 
 	//glUniformMatrix4fv(ctx->getLightModelViewDepthBiasProjection_U(), 1, GL_FALSE, &ctx->getShadowMatrix()[0][0]);
-	glUniformMatrix4fv(ctx->getLightModelViewDepthBiasProjection_U(), 1, GL_FALSE, &ctx->getLightModelViewDepthBiasProjectionMatrix()[0][0]);
+	glUniformMatrix4fv(ctx->getLightModelViewBiasProjection_U(), 1, GL_FALSE, &ctx->getLightModelViewBiasProjection()[0][0]);
 
 	// some help from:http://www.opengl.org/discussion_boards/showthread.php/171184-GLM-to-create-gl_NormalMatrix
 	// update normals
@@ -862,153 +862,12 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
    // display(); //Is this necessary??
 	pop();
 	render();
-
-	//ltRenderingFactors = Vec4f(1.0, 1.0, 1.0, 0.0);
-	//glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
-
-	//if (isArcballOn){
-	//pop();
-	//}
-
-
-	//// if shadowing is enabled do double pass with shadow map framebuffer
-	//if (areShadowsEnabled){
-	//	//trace("shadows enabled");
-	//	// bind shadow map framebuffer
-	//	glBindFramebuffer(GL_FRAMEBUFFER, shadowBufferID);
-	//	//clear depth buffer
-	//	glClear(GL_DEPTH_BUFFER_BIT);
-	//	//set viewport to the shadow map view size
-	//	//glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
-	//	glViewport(0, 0, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT);
-	//	//glViewport(-2 * SHADOWMAP_WIDTH, -2 * SHADOWMAP_WIDTH, 6 * SHADOWMAP_WIDTH, 6 * SHADOWMAP_HEIGHT);
-
-	//	// enable front face culling for shadowing
-	//	glCullFace(GL_FRONT);
-
-	//	// enables shadow blending in fragment shader
-	//	glUniform1i(shaderPassFlag_U, 1); // controls render pass in shader
-	//	
-	//	// render shadow in firdt pass
-	//	run();
-	//	
-	//	// reset default framebuffer
-	//	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	//	// not sure what this does
-	//	glDrawBuffer(GL_BACK_LEFT);
-	//	
-	//	// reset default view
-	//	////glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
-	//	glViewport(0, 0, getWidth(), getHeight());
-	//	//glViewport(-2 * width, -2 * height, 6 * width, 6 * height);
-
-	//	// rest backface culling
-	//	glCullFace(GL_BACK);
-	//	//glDisable(GL_CULL_FACE);
-
-	//	// disable shadoing blending in fragment shader
-	//	glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
-	//	//glUniform1i(shadowMap_U, 0);
-
-	//	// render scene in second pass
-	//	run();
-	//}
-	//else {
-	//	//trace("shadows not enabled");
-	//	//glClear(GL_DEPTH_BUFFER_BIT); 
-	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//	glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
-	//	
-	//	// no shadowing use default run
-	//	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	//	// not sure what this does
-	//	//glDrawBuffer(GL_BACK_LEFT);
-
-	//	// reset default view
-	//	////glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
-	//	glViewport(0, 0, getWidth(), getHeight());
-	//	//glViewport(-2 * width, -2 * height, 6 * width, 6 * height);
-
-	//	// rest backface culling
-	//	glCullFace(GL_BACK);
-	//	//glDisable(GL_CULL_FACE);
-
-	//	// disable shadoing blending in fragment shader
-	//	//glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
-	//	//glUniform1i(shadowMap_U, 0);
-
-	//	// render scene in second pass
-	//	run();
-	//}
 	mouseLastFrameX = mouseX;
 	mouseLastFrameY = mouseY;
 }
 
 
-//void ProtoBaseApp::render(int x, int y, int scaleFactor) {
-//
-//	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//	// if shadowing is enabled do double pass with shadow map framebuffer
-//	if (areShadowsEnabled){
-//		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//		glBindFramebuffer(GL_FRAMEBUFFER, ctx->getShadowBuffer_U());
-//		//glBindFramebuffer(GL_FRAMEBUFFER, frameBufferName);
-//		glClear(GL_DEPTH_BUFFER_BIT);
-//		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-//		glViewport(0, 0, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT);
-//		glCullFace(GL_FRONT);
-//		glUniform1i(ctx->getShaderPassFlag_U(), 1); // controls render pass in shader
-//		glUniform1i(ctx->getShadowMap_U(), 5);
-//		glUniformMatrix4fv(ctx->getLightModelViewDepthBiasProjection_U(), 1, GL_FALSE, &ctx->getShadowMatrix()[0][0]);
-//		display();
-//
-//
-//		glCullFace(GL_BACK);
-//		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-//		glDrawBuffer(GL_BACK_LEFT);
-//		glViewport(x*windowFrameSize.w, y*windowFrameSize.h, scaleFactor * windowFrameSize.w, scaleFactor * windowFrameSize.h);
-//		glUniform1i(ctx->getShaderPassFlag_U(), 0); // controls render pass in shader
-//		enableLights();
-//		//glUniformMatrix4fv(ctx->getModelViewProjection_U(), 1, GL_FALSE, &ctx->getModelViewProjectionMatrix()[0][0]);
-//		display();
-//	}
-//	else {
-//		//trace("shadows not enabled");
-//		//glClear(GL_DEPTH_BUFFER_BIT); 
-//		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//		//glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
-//		glUniform1i(ctx->getShaderPassFlag_U(), 0); // controls render pass in shader
-//
-//		// no shadowing use default run
-//		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-//
-//		// not sure what this does
-//		//glDrawBuffer(GL_BACK_LEFT);
-//
-//		// reset default view
-//		////glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
-//		//glViewport(0, 0, getWidth(), getHeight());
-//		glViewport(x*width, y*height, scaleFactor * width, scaleFactor * height);
-//		//glViewport(-2 * width, -2 * height, 6 * width, 6 * height);
-//
-//		// reset backface culling
-//		glCullFace(GL_BACK);
-//		//
-//
-//		// disable shadoing blending in fragment shader
-//		//glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
-//		glUniform1i(ctx->getShaderPassFlag_U(), 0);
-//		//glUniform1i(shadowMap_U, 0);
-//
-//		// render scene in single pass
-//
-//
-//		display();
-//	}
-//
-//}
+
 
 
 

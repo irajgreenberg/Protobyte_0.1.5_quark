@@ -57,8 +57,9 @@ void ProtoContext::init(){
 	//	ctx->concatenateModelViewMatrix();
 	//	ctx->createNormalMatrix();
 
-		for (int i = 0; i < 8; ++i){
-			std::string pos = "lights[" + std::to_string(i) + "].position";
+		for (int i = 0; i < 1; ++i){
+			std::string pos = "lights[" + std::to_string(i) + "].position"; 
+			//trace("pos =", pos);
 			lights_U[i].position = glGetUniformLocation(ProtoShader::getID_2(), pos.c_str());
 
 			std::string inten = "lights[" + std::to_string(i) + "].intensity";
@@ -135,7 +136,7 @@ void ProtoContext::init(){
 
 		// shadow map and light transformation matrix for shadowmapping
 		shadowMap_U = glGetUniformLocation(ProtoShader::getID_2(), "shadowMap");
-		lightModelViewDepthBiasProjection_U = glGetUniformLocation(ProtoShader::getID_2(), "shadowModelViewBiasProjectionMatrix");
+		lightModelViewBiasProjection_U = glGetUniformLocation(ProtoShader::getID_2(), "shadowModelViewBiasProjectionMatrix");
 		// L_MVBP_U
 
 		// pass shadow map texture to shader
@@ -161,31 +162,31 @@ void ProtoContext::init(){
 
 // matrix transformation functions, in style of GL 1.0
 void ProtoContext::translate(float tx, float ty, float tz){
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(tx, ty, tz));
+	model = glm::translate(model, glm::vec3(tx, ty, tz));
 	concat();
 }
 void ProtoContext::translate(const Vec3f& tXYZ){
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(tXYZ.x, tXYZ.y, tXYZ.z));
+	model = glm::translate(model, glm::vec3(tXYZ.x, tXYZ.y, tXYZ.z));
 	concat();
 }
 void ProtoContext::rotate(float angle, float axisX, float axisY, float axisZ){
-	modelMatrix = glm::rotate(modelMatrix, angle, glm::vec3(axisX, axisY, axisZ));
+	model = glm::rotate(model, angle, glm::vec3(axisX, axisY, axisZ));
 	concat();
 }
 void ProtoContext::rotate(float angle, const Vec3f& rXYZ){
-	modelMatrix = glm::rotate(modelMatrix, angle, glm::vec3(rXYZ.x, rXYZ.y, rXYZ.z));
+	model = glm::rotate(model, angle, glm::vec3(rXYZ.x, rXYZ.y, rXYZ.z));
 	concat();
 }
 void ProtoContext::scale(float s){
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(s, s, s));
+	model = glm::scale(model, glm::vec3(s, s, s));
 	concat();
 }
 void ProtoContext::scale(float sx, float sy, float sz){
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(sx, sy, sz));
+	model = glm::scale(model, glm::vec3(sx, sy, sz));
 	concat();
 }
 void ProtoContext::scale(const Vec3f& sXYZ){
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(sXYZ.x, sXYZ.y, sXYZ.z));
+	model = glm::scale(model, glm::vec3(sXYZ.x, sXYZ.y, sXYZ.z));
 	concat();
 }
 
@@ -193,15 +194,15 @@ void ProtoContext::concat(){
 	//M = glm::mat4(1.0f);
 	//push();
 	//modelViewMatrix =  viewMatrix*modelMatrix;
-	concatenateModelViewMatrix();
-	createNormalMatrix();
+	concatModelView();
+	//createNormal();
 	//modelViewProjectionMatrix = projectionMatrix * modelViewMatrix;
-	concatenateModelViewProjectionMatrix();
+	concatModelViewProjection();
 	// update in shader
-	glUniformMatrix4fv(model_U, 1, GL_FALSE, &modelMatrix[0][0]);
-	glUniformMatrix4fv(modelView_U, 1, GL_FALSE, &modelViewMatrix[0][0]);
-	glUniformMatrix4fv(modelViewProjection_U, 1, GL_FALSE, &modelViewProjectionMatrix[0][0]);
-	glUniformMatrix3fv(normal_U, 1, GL_FALSE, &normalMatrix[0][0]);
+	glUniformMatrix4fv(model_U, 1, GL_FALSE, &model[0][0]);
+	glUniformMatrix4fv(modelView_U, 1, GL_FALSE, &modelView[0][0]);
+	glUniformMatrix4fv(modelViewProjection_U, 1, GL_FALSE, &modelViewProjection[0][0]);
+	glUniformMatrix3fv(normal_U, 1, GL_FALSE, &getNormal()[0][0]);
 
 	/*glm::vec3 ltPos = glm::vec3(light0.getPosition().x, light0.getPosition().y, light0.getPosition().z);
 
@@ -220,7 +221,7 @@ void ProtoContext::concat(){
 void ProtoContext::push(){
 	// push current transformation matrix onto stack
 	//matrixStack.push(M);
-	matrixStack.push(modelMatrix);
+	matrixStack.push(model);
 
 }
 
@@ -229,7 +230,7 @@ void ProtoContext::pop(){
 
 	// reset current transformation matrix with one on top of stack
 	//M = matrixStack.top();
-	modelMatrix = matrixStack.top();
+	model = matrixStack.top();
 
 	// pop transformation matrix off top of stack
 	matrixStack.pop();
