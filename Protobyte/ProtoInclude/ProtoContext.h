@@ -199,10 +199,10 @@ namespace ijg {
 		void setLightView(const glm::mat4& lightView);
 		void setLightBias(const glm::mat4& lightBias);
 		void setLightProjection(const glm::mat4& lightProjection);
-		void concatLightModelView(); //L_MV
-		void concatLightModelViewProjection(); // L_MVP
+		//void concatLightModelView(); //L_MV
+		//void concatLightModelViewProjection(); // L_MVP
 		//void concatenateDepthBiasProjectionMatrix();
-		void concatLightModelViewBiasProjection();
+		//void concatLightModelViewBiasProjection();
 
 		//void concatenateShadowMatrix();
 		const glm::mat4& getShadow();
@@ -272,24 +272,29 @@ namespace ijg {
 	// Geometry matrix set/get functions
 	inline void ProtoContext::setModel(const glm::mat4& model) {
 		this->model = model;
+		glUniformMatrix4fv(model_U, 1, GL_FALSE, &model[0][0]);
 	}
 
 	inline void ProtoContext::setView(const glm::mat4& view) {
 		this->view = view;
+		glUniformMatrix4fv(view_U, 1, GL_FALSE, &view[0][0]);
 	}
 
 	inline void ProtoContext::setProjection(const glm::mat4& projection) {
 		this->projection = projection;
+		glUniformMatrix4fv(projection_U, 1, GL_FALSE, &projection[0][0]);
 	}
 
 	// Matrix concatenations functions
 	// MV Mat4
 	inline void ProtoContext::concatModelView() {
 		modelView = view * model;
+		glUniformMatrix4fv(modelView_U, 1, GL_FALSE, &modelView[0][0]);
 	}
 	// MVP Mat4
 	inline void ProtoContext::concatModelViewProjection() {
 		modelViewProjection = projection * modelView;
+		glUniformMatrix4fv(modelViewProjection_U, 1, GL_FALSE, &modelViewProjection[0][0]);
 	}
 
 	// matrix locations (don't currently need all these)
@@ -323,35 +328,31 @@ namespace ijg {
 	}
 
 	inline void ProtoContext::setLightBias(const glm::mat4& lightBias) {
-		// Light Bias = depthBiasMatrix;
-		this->lightBias = lightBias; 
+		this->lightBias = lightBias;
 	}
 
 	inline void ProtoContext::setLightProjection(const glm::mat4& lightProjection) {
 		this->lightProjection = lightProjection;
 	}
 
-	// shadow map concatenations functions
-	// MV Mat4
-	// REMOVE ME PLEASE!!
-	inline void ProtoContext::concatLightModelView() {
-		lightModelView = lightView * glm::mat4(1.0);
-		// model;
-		//lightModelView = lightView * model;
-	}
+	//inline void ProtoContext::concatLightModelView() {
+	//	lightModelView = lightView * glm::mat4(1.0);
+	//	// model;
+	//	//lightModelView = lightView * model;
+	//}
 
-	inline void ProtoContext::concatLightModelViewProjection() {
-		lightModelViewProjection = lightProjection * lightModelView;
-	}
+	//inline void ProtoContext::concatLightModelViewProjection() {
+	//	lightModelViewProjection = lightProjection * lightModelView;
+	//}
 
 	//inline void ProtoContext::concatenateDepthBiasProjectionMatrix() {
 	//	lightBiasProjection = lightBias * lightProjection;
 	//}
 
-	inline void ProtoContext::concatLightModelViewBiasProjection() {
-		//L_MVBP = L_B*L_MVP
-		lightModelViewBiasProjection = lightBias*lightModelViewProjection;
-	}
+	//inline void ProtoContext::concatLightModelViewBiasProjection() {
+	//	//L_MVBP = L_B*L_MVP
+	//	lightModelViewBiasProjection = lightBias*lightModelViewProjection;
+	//}
 
 	//inline void ProtoContext::concatenateShadowMatrix() {
 	//	lightModelViewBiasProjection*model;

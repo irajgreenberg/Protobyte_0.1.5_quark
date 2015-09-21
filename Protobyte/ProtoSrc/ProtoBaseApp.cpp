@@ -78,7 +78,7 @@ void ProtoBaseApp::_init(){
 	ctx->setGlobalAmbient({ .45f, .45f, .45f });
 
 	// default inital light
-	ctx->setLight(0, {0, 0, 400 }, { 1, 1, 1 });
+	ctx->setLight(0, {0, 0, 600}, { 1, 1, 1 });
 	ctx->setLight(1, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(2, { 0, 0, 1 }, { 0, 0, 0 });
 	ctx->setLight(3, { 0, 0, 1 }, { 0, 0, 0 });
@@ -118,10 +118,11 @@ void ProtoBaseApp::_init(){
 	float viewAngle = 75.0f; 
 	float aspect = float(width) / float(height); 
 	float nearDist = .1f; 
-	float farDist = 2000.0f;
+	float farDist = 4000.0f;
 	// perspective
 	ctx->setProjection(glm::perspective(viewAngle, aspect, nearDist, farDist));
-	ctx->concatModelViewProjection();
+	//ctx->setProjection(glm::ortho(-float(getWidth() / 2.0), float(getWidth() / 2.0), -float(getWidth() / 2.0) / aspect, float(getWidth() / 2.0) / aspect, .10f, 4000.0f));
+	//ctx->concatModelViewProjection();
 
 	// END Model / View / Projection data
 
@@ -129,22 +130,24 @@ void ProtoBaseApp::_init(){
 	// START Shadow Map Matrices
 	//ctx->setLightViewMatrix(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
 
-	ctx->setLightView(glm::lookAt(glm::vec3(0, 0, 800), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+	ctx->setLightView(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
 
 
 	//L_P = glm::perspective(45.0f, 1.0f, .10f, 1000.0f);
-	ctx->concatLightModelView();
+	//ctx->concatLightModelView();
 	//ctx->setLightProjectionMatrix(glm::ortho<float>(-300, 300, -300, 300, -.1, 3000));
 	//ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
-	ctx->setLightProjection(glm::perspective(45.0f, 1.0f, .10f, 4000.0f));
-	ctx->concatLightModelViewProjection();
+	ctx->setLightProjection(glm::perspective(65.0f, aspect, 0.065f, 6000.0f));
+	//ctx->setLightProjection(glm::ortho(-5000.0f, 5000.0f, -5000.0f, 5000.0f, .1f, 5000.0f));
+	
+	//ctx->concatLightModelViewProjection();
 	ctx->setLightBias(glm::mat4(
-		glm::vec4(.5, 0.0f, 0.0f, 0.0f),
-		glm::vec4(0.0f, .5, 0.0f, 0.0f),
-		glm::vec4(0.0f, 0.0f, .5, 0.0f),
+		glm::vec4(0.5, 0.0f, 0.0f, 0.0f),
+		glm::vec4(0.0f, 0.5, 0.0f, 0.0f),
+		glm::vec4(0.0f, 0.0f, 0.5, 0.0f),
 		glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
 		));
-	ctx->concatLightModelViewBiasProjection();
+	//ctx->concatLightModelViewBiasProjection();
 	//ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
 
 	//float ratio = getWidth() / getHeight();
@@ -664,8 +667,8 @@ bool ProtoBaseApp::createShadowMap(){
 	GLfloat border[] = { 1.0f, .0f, .0f, .0f };
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -678,7 +681,7 @@ bool ProtoBaseApp::createShadowMap(){
 
 	//trace(SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT);
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, 1024, 1024, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 
 	// set up FBO
 	//glGenFramebuffers(1, &shadowBufferID);
@@ -806,7 +809,7 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	// I thought I needed this to reset matrix each frame?
 	ctx->setModel(glm::mat4(1.0f));
 	// was 18
-	//ctx->setViewMatrix(glm::lookAt(glm::vec3(0.0, 0.0, 200.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+	ctx->setView(glm::lookAt(glm::vec3(-50, 0, 1200), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
 	ctx->concatModelView();
 	ctx->concatModelViewProjection();
 	//ctx->createNormalMatrix();
@@ -820,19 +823,19 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 
 	// update shadow map texture matrix should light(s) changes position
 	ctx->setLightView(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
-	ctx->concatLightModelView();
+	//ctx->concatLightModelView();
 	//ctx->setLightProjectionMatrix(glm::perspective(45.0f, 1.0f, .10f, 1000.0f));
-	ctx->concatLightModelViewProjection();
+	//ctx->concatLightModelViewProjection();
 	ctx->setLightBias(glm::mat4(
 		glm::vec4(.5, 0.0f, 0.0f, 0.0f),
 		glm::vec4(0.0f, .5, 0.0f, 0.0f),
 		glm::vec4(0.0f, 0.0f, .5, 0.0f),
 		glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
 		));
-	ctx->concatLightModelViewBiasProjection();
+	//ctx->concatLightModelViewBiasProjection();
 
 	//glUniformMatrix4fv(ctx->getLightModelViewDepthBiasProjection_U(), 1, GL_FALSE, &ctx->getShadowMatrix()[0][0]);
-	glUniformMatrix4fv(ctx->getLightModelViewBiasProjection_U(), 1, GL_FALSE, &ctx->getLightModelViewBiasProjection()[0][0]);
+	//glUniformMatrix4fv(ctx->getLightModelViewBiasProjection_U(), 1, GL_FALSE, &ctx->getLightModelViewBiasProjection()[0][0]);
 
 	// some help from:http://www.opengl.org/discussion_boards/showthread.php/171184-GLM-to-create-gl_NormalMatrix
 	// update normals

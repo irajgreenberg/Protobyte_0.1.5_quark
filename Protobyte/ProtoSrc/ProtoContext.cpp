@@ -204,16 +204,13 @@ void ProtoContext::concat(){
 	glUniformMatrix4fv(modelViewProjection_U, 1, GL_FALSE, &modelViewProjection[0][0]);
 	glUniformMatrix3fv(normal_U, 1, GL_FALSE, &getNormal()[0][0]);
 
-	/*glm::vec3 ltPos = glm::vec3(light0.getPosition().x, light0.getPosition().y, light0.getPosition().z);
-
-	L_MV = glm::lookAt(ltPos, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-	L_MVBP = L_BP*L_MV;
-	//glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &L_MVBP[0][0]);
-
-	//glm::mat4 shaderMat = L_MVBP*M; // new 
-	glm::mat4 shaderMat = L_MVBP*M; // new 
-	glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &shaderMat[0][0]);
-	*/
+	glm::vec3 ltPos = glm::vec3(lights.at(0).getPosition().x, lights.at(0).getPosition().y, lights.at(0).getPosition().z);
+	//L_MV = glm::lookAt(ltPos, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	lightModelView = glm::lookAt(ltPos, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	lightBiasProjection = lightBias * lightProjection;
+	glm::mat4 temp = lightBiasProjection * lightModelView;
+	lightModelViewBiasProjection = temp * model;
+	glUniformMatrix4fv(lightModelViewBiasProjection_U, 1, GL_FALSE, &lightModelViewBiasProjection[0][0]);
 	
 	//pop();
 }
