@@ -10,9 +10,9 @@ void ProtoController::init() {
 	pcg = new ProtoGeomComposite();
 	//pcg->init();
 
-	plane = ProtoPlane(Vec3(), Vec3(), Dim2f(500, 500), Col4(1, 1, 1, 1), 1, 1);
+	plane = ProtoPlane({ 0 }, { 0 }, { 500, 500 }, { 1, 1, 1, 1 }, 1, 1);
 	plane.setDiffuseMap("ship_plate.jpg");
-	plane.setTextureScale({ 0.2f, 0.2f });
+	plane.setTextureScale({ .2f, .2f });
 	plane.setBumpMap("ship_plate.jpg");
 
 }
@@ -32,30 +32,30 @@ void ProtoController::display() {
 	plane.display();
 	pop();
 
-	
+
 	push();
 	translate(-300, 200, 20);
-	rotate(getFrameCount()*.2, Vec3(1, .2, 0));
+	rotate(getFrameCount()*.2, { 1, .2f, 0 });
 	t.display();
 	pop();
 
 	push();
 	translate(300, 200, 20);
-	rotate(-getFrameCount()*.2, Vec3(1, .75, 0));
+	rotate(-getFrameCount()*.2, { 1, .75f, 0 });
 	t.display();
 	pop();
 
 	push();
 	translate(-300, -200, 20);
-	rotate(getFrameCount()*1.2, Vec3(1, .05, 0));
+	rotate(getFrameCount()*1.2, { 1, .05f, 0 });
 	t.display();
 	pop();
 
 	push();
 	translate(300, -200, 20);
-	rotate(-getFrameCount()*.2, Vec3(1, 0, 0));
-	rotate(-getFrameCount()*2.2, Vec3(0, 1, 0));
-	rotate(-getFrameCount()*1.2, Vec3(0, 0, 1));
+	rotate(-getFrameCount()*.2, { 1, 0, 0 });
+	rotate(-getFrameCount()*2.2, { 0, 1, 0 });
+	rotate(-getFrameCount()*1.2, { 0, 0, 1 });
 	t.display();
 	pop();
 

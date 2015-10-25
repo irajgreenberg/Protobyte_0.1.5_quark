@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "ProtoBaseApp.h"
-#include "ProtoGeomComposite.h"
+#include "ProtoGeomComposite.h" // new class to test - integrate in PBA eventually
 
 using namespace ijg;
 
