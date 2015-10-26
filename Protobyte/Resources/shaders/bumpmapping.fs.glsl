@@ -107,7 +107,7 @@ void main(void)
 	
 	
 	// shadow map
-	if(shadowMapCoords.w>1) {
+	if(shadowMapCoords.w > 1) {
 		//check the shadow map texture to see if the fragment is in shadow
 		float shadow = textureProj(shadowMap, shadowMapCoords);
 		//darken the diffuse component apprpriately

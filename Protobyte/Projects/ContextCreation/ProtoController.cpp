@@ -21,45 +21,50 @@ void ProtoController::run() {
 }
 
 void ProtoController::display() {
-	beginArcBall();
-	translate(0, 0, -400);
+	static float theta = 0.0f;
 
+	setLight(0, { sin(theta += PI/540.0f)*200.0f, 100, 200 }, { 1, 1, 1 });
+
+	beginArcBall();
+	//translate(0, 0, -400);
 
 	push();
-	translate(0, 0, -800);
+	translate(0, 0, -300);
 	//rotate(180, 0, 1, 0);
 	scale(3000);
 	plane.display();
 	pop();
 
+	rotate(getFrameCount()*.3, { 0, 0, 1 });
+
 
 	push();
-	translate(-300, 200, 20);
+	translate(-300, 200, 190);
 	rotate(getFrameCount()*.2, { 1, .2f, 0 });
 	t.display();
 	pop();
 
 	push();
-	translate(300, 200, 20);
+	translate(300, 200, 190);
 	rotate(-getFrameCount()*.2, { 1, .75f, 0 });
 	t.display();
 	pop();
 
 	push();
-	translate(-300, -200, 20);
+	translate(-300, -200, 190);
 	rotate(getFrameCount()*1.2, { 1, .05f, 0 });
 	t.display();
 	pop();
 
 	push();
-	translate(300, -200, 20);
+	translate(300, -200, 190);
 	rotate(-getFrameCount()*.2, { 1, 0, 0 });
 	rotate(-getFrameCount()*2.2, { 0, 1, 0 });
 	rotate(-getFrameCount()*1.2, { 0, 0, 1 });
 	t.display();
 	pop();
 
-	translate(0, -100, -300);
+	translate(0, -100, -150);
 	pcg->display();
 	endArcBall();
 

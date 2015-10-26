@@ -356,7 +356,7 @@ namespace ijg {
 		// flag for shadowing
 		bool areShadowsEnabled;
 
-		const int SHADOWMAP_WIDTH = 4096, SHADOWMAP_HEIGHT = 4096;
+		const int SHADOWMAP_WIDTH = 1024, SHADOWMAP_HEIGHT = 1024;
 
 		//std::stack <glm::mat4> matrixStack;
 

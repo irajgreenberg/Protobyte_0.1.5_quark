@@ -102,7 +102,7 @@ void ProtoBaseApp::_init(){
 
 	// START standard transformation matrices: ModelView / Projection / Normal
 	ctx->setModel(glm::mat4(1.0f));
-	ctx->setView(glm::lookAt(glm::vec3(0.0, 0.0, 800), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+	ctx->setView(glm::lookAt(glm::vec3(0.0, 0.0, 5), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
 	ctx->concatModelView();
 	//ctx->createNormalMatrix();
 
@@ -115,12 +115,13 @@ void ProtoBaseApp::_init(){
 	bottom = -height / 2;
 	top = height / 2;*/
 
-	float viewAngle = 75.0f; 
+	float viewAngle = 65.0f; 
 	float aspect = float(width) / float(height); 
-	float nearDist = .1f; 
-	float farDist = 4000.0f;
+	float nearDist = 0.1f; 
+	float farDist = 3000.0f;
 	// perspective
 	ctx->setProjection(glm::perspective(viewAngle, aspect, nearDist, farDist));
+	//ctx->setProjection(glm::ortho(-2000.0f, 2000.0f, -2000.0f, 2000.0f, .1f, 3000.0f));
 	//ctx->setProjection(glm::ortho(-float(getWidth() / 2.0), float(getWidth() / 2.0), -float(getWidth() / 2.0) / aspect, float(getWidth() / 2.0) / aspect, .10f, 4000.0f));
 	//ctx->concatModelViewProjection();
 
@@ -137,8 +138,8 @@ void ProtoBaseApp::_init(){
 	//ctx->concatLightModelView();
 	//ctx->setLightProjectionMatrix(glm::ortho<float>(-300, 300, -300, 300, -.1, 3000));
 	//ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
-	ctx->setLightProjection(glm::perspective(65.0f, aspect, 0.065f, 6000.0f));
-	//ctx->setLightProjection(glm::ortho(-5000.0f, 5000.0f, -5000.0f, 5000.0f, .1f, 5000.0f));
+	ctx->setLightProjection(glm::perspective(viewAngle, aspect, nearDist, 5.0f));
+	//ctx->setLightProjection(glm::ortho(-2000.0f, 2000.0f, -2000.0f, 2000.0f, .1f, 2000.0f));
 	
 	//ctx->concatLightModelViewProjection();
 	ctx->setLightBias(glm::mat4(
@@ -899,6 +900,7 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 		//glViewport(-2 * SHADOWMAP_WIDTH, -2 * SHADOWMAP_WIDTH, 6 * SHADOWMAP_WIDTH, 6 * SHADOWMAP_HEIGHT);
 
 		// enable front face culling for shadowing
+		glEnable(GL_CULL_FACE);
 		glCullFace(GL_FRONT);
 
 		// enables shadow blending in fragment shader
@@ -909,7 +911,6 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 		display();
 
 		// reset backface culling
-		//glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 		//glDisable(GL_CULL_FACE);
 
