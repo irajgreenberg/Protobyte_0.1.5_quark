@@ -3,17 +3,23 @@
 void ProtoController::init() {
 	setLight(0, { -100, 100, 200 }, { 1, 1, 1 });
 	shadowsOn();
-	t = Toroid({ 0, 0, 0 }, { 0, 0, 0 }, { 1, 1, 1 }, { 1, 1, 1, 1 }, 36, 36, 125, 45);
+	t = Toroid({ 0, 0, 0 }, { 0, 0, 0 }, { 1, 1, 1 }, { 1, 1, 1, .75f }, 12, 12, 125, 45);
 	t.setDiffuseMap("ship_plate_rainbow.jpg");
 	t.setBumpMap("ship_plate_rainbow.jpg");
 	t.setTextureScale({ 0.5f, 0.35f });
+	t.setSpecularMaterial({ 1, 1, 1, 1 });
+	t.setShininess(9);
 	pcg = new ProtoGeomComposite();
 	//pcg->init();
 
 	plane = ProtoPlane({ 0 }, { 0 }, { 500, 500 }, { 1, 1, 1, 1 }, 1, 1);
+	t.setSpecularMaterial({ 1, 1, 1, 1 });
+	t.setShininess(9);
 	plane.setDiffuseMap("ship_plate.jpg");
 	plane.setTextureScale({ .2f, .2f });
 	plane.setBumpMap("ship_plate.jpg");
+	plane.setSpecularMaterial({ 1, 1, 1, 1 });
+	plane.setShininess(39);
 
 }
 
@@ -39,25 +45,25 @@ void ProtoController::display() {
 
 
 	push();
-	translate(-300, 200, 190);
+	translate(-300, 200, 290);
 	rotate(getFrameCount()*.2, { 1, .2f, 0 });
 	t.display();
 	pop();
 
 	push();
-	translate(300, 200, 190);
+	translate(300, 200, 290);
 	rotate(-getFrameCount()*.2, { 1, .75f, 0 });
 	t.display();
 	pop();
 
 	push();
-	translate(-300, -200, 190);
+	translate(-300, -200, 290);
 	rotate(getFrameCount()*1.2, { 1, .05f, 0 });
 	t.display();
 	pop();
 
 	push();
-	translate(300, -200, 190);
+	translate(300, -200, 290);
 	rotate(-getFrameCount()*.2, { 1, 0, 0 });
 	rotate(-getFrameCount()*2.2, { 0, 1, 0 });
 	rotate(-getFrameCount()*1.2, { 0, 0, 1 });
