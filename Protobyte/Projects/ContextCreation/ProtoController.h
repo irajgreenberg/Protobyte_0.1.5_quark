@@ -6,6 +6,8 @@
 #include "ProtoBaseApp.h"
 #include "ProtoGeomComposite.h" // new class to test - integrate in PBA eventually
 
+#include "btBulletDynamicsCommon.h"
+
 using namespace ijg;
 
 class ProtoController : public ProtoBaseApp {
@@ -14,6 +16,8 @@ public:
 	void init();
 	void run();
 	void display();
+
+	void testBullet();
 
 	// Key and Mouse Events
 	void keyPressed();

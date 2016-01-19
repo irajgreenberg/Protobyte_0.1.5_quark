@@ -666,8 +666,8 @@ bool ProtoBaseApp::createShadowMap(){
 	glActiveTexture(GL_TEXTURE5);
 	glBindTexture(GL_TEXTURE_2D, ctx->getShadowTexture_U());
 	GLfloat border[] = { 1.0f, .0f, .0f, .0f };
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
@@ -682,7 +682,7 @@ bool ProtoBaseApp::createShadowMap(){
 
 	//trace(SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT);
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, 1024, 1024, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 
 	// set up FBO
 	//glGenFramebuffers(1, &shadowBufferID);
@@ -692,6 +692,7 @@ bool ProtoBaseApp::createShadowMap(){
 	glBindFramebuffer(GL_FRAMEBUFFER, ctx->getShadowBuffer_U());
 	//trace("ctx->getShadowTexture_U() =", ctx->getShadowTexture_U());
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, ctx->getShadowTexture_U(), 0);
+	//glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, ctx->getShadowTexture_U(), 0);
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE){
 		// unbind fbo
@@ -919,6 +920,7 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 
 		// not sure what this does
 		glDrawBuffer(GL_BACK_LEFT);
+		//glDrawBuffer(GL_FRONT_AND_BACK);
 
 		// reset default view
 		////glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
@@ -928,6 +930,8 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 		//trace("y =", y);
 		//trace("scaleFactor =", scaleFactor);
 		glViewport(x*windowFrameSize.w, y*windowFrameSize.h, scaleFactor * windowFrameSize.w, scaleFactor * windowFrameSize.h);
+		//trace(x, y);
+		//trace(x*windowFrameSize.w, y*windowFrameSize.h);
 		//windowFrameSize
 
 
@@ -2142,9 +2146,6 @@ void ProtoBaseApp::box(float w, float h, float d, Registration reg) {
 
 
 //void ProtoBaseApp::render(int scaleFactor){}; // "should be" overridden in derived classes
-
-
-
 void ProtoBaseApp::export(std::vector<Tup4v> vs, Format type){
 #if defined (_WIN32) || defined(_WIN64)
 	time_t now = time(0);
@@ -2228,7 +2229,7 @@ void ProtoBaseApp::export(std::vector<Tup4v> vs, Format type){
 //}
 
 void ProtoBaseApp::save(std::string name, int scaleFactor){
-	trace("ProtoUtility::getPathToOutput() =", ProtoUtility::getPathToOutput());
+	//trace("ProtoUtility::getPathToOutput() =", ProtoUtility::getPathToOutput());
 	//if (getFrameCount() < 1){
 
 	//ProtoBaseApp pba;
@@ -2254,6 +2255,7 @@ void ProtoBaseApp::save(std::string name, int scaleFactor){
 
 	std::string url = ProtoUtility::getPathToOutput();
 	std::string directory = url + name + "_" + stream.str();
+	//trace("directory = ", directory);
 	CreateDirectory(directory.c_str(), 0);
 
 
@@ -2263,7 +2265,7 @@ void ProtoBaseApp::save(std::string name, int scaleFactor){
 		for (int j = 0; j < scaleFactor; ++j){
 			//trace("in drawToFrameBuffer");
 			//glClearColor(0, 0, 0, 1.0f);
-			//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 			//From: http://stackoverflow.com/questions/12157646/how-to-render-offscreen-on-opengl
 
 			//glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
@@ -2450,7 +2452,7 @@ void ProtoBaseApp::save(std::string name, int scaleFactor){
 //}
 
 bool ProtoBaseApp::stitchTiles(std::string url, int tiles){
-	//trace(" url =", url);
+	trace(" url =", url);
 	url += "\\";
 	std::vector<std::string> fileNames = ProtoUtility::getFileNames(url);
 	for (size_t i = 0; i < fileNames.size(); ++i){

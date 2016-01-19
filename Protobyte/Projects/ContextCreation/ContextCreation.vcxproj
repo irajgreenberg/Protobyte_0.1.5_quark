@@ -44,12 +44,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\ProtoInclude;..\..\OtherLib\libtess2\Include;..\..\OtherLib\glew-1.10.0\glew-1.10.0\include;..\..\OtherLib\glfw-3.0.4.bin.WIN32\include;..\..\OtherLib\glm;..\..\OtherLib\FreeImage.WIN32\Dist\x32;..\..\OtherLib\dirent\include;..\..\OtherLib\libTriangle\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\ProtoInclude;..\..\OtherLib\libtess2\Include;..\..\OtherLib\glew-1.10.0\glew-1.10.0\include;..\..\OtherLib\glfw-3.0.4.bin.WIN32\include;..\..\OtherLib\glm;..\..\OtherLib\FreeImage.WIN32\Dist\x32;..\..\OtherLib\dirent\include;..\..\OtherLib\libTriangle\include;C:\Users\Ira\Dev\bullet3-2.83.6\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\ProtoSrc;..\..\OtherLib\glfw-3.0.4.bin.WIN32\lib-msvc110;..\..\OtherLib\glew-1.10.0\glew-1.10.0\lib\Release\Win32;..\..\OtherLib\FreeImage.WIN32\Dist\x32;..\..\OtherLib\libTriangle\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;glu32.lib;glfw3.lib;FreeImaged.lib;ws2_32.lib;Winmm.lib;triangle.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\ProtoSrc;..\..\OtherLib\glfw-3.0.4.bin.WIN32\lib-msvc110;..\..\OtherLib\glew-1.10.0\glew-1.10.0\lib\Release\Win32;..\..\OtherLib\FreeImage.WIN32\Dist\x32;..\..\OtherLib\libTriangle\lib;C:\Users\Ira\Dev\bullet3-2.83.6\bin\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32s.lib;opengl32.lib;glu32.lib;glfw3.lib;FreeImaged.lib;ws2_32.lib;Winmm.lib;triangle.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -60,6 +61,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\..\ProtoInclude;..\..\OtherLib\libtess2\Include;..\..\OtherLib\glew-1.10.0\glew-1.10.0\include;..\..\OtherLib\glfw-3.0.4.bin.WIN32\include;..\..\OtherLib\glm;..\..\OtherLib\FreeImage.WIN32\Dist\x32;..\..\OtherLib\dirent\include;..\..\OtherLib\oscpackLib\include;..\..\OtherLib\libTriangle\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

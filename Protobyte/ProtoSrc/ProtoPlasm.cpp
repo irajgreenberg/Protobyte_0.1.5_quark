@@ -120,7 +120,8 @@ void ProtoPlasm::initGLFW(){
 		glfwSetWindowPos(window, (mode->width - appWidth) / 2, (mode->height - appHeight) / 2);
 		break;
 	case 4:
-		glfwSetWindowPos(window, (mode->width - appWidth) / 2, -mode->height + (mode->height-appHeight) / 2);
+		//glfwSetWindowPos(window, (mode->width - appWidth) / 2, -mode->height + (mode->height-appHeight) / 2);
+		glfwSetWindowPos(window, mode->width+(mode->width - appWidth) / 2, -mode->height + (mode->height - appHeight) / 2);
 		break;
 	case 6:
 		glfwSetWindowPos(window, (mode->width - appWidth) / 2, (mode->height - appHeight) / 2);

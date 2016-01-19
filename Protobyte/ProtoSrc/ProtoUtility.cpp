@@ -60,7 +60,8 @@ std::string ProtoUtility::getPathToOutput() {
 	cp = "../../../../output/" + temp;
 #elif defined(_WIN32) || defined(_WIN64)
 	temp = cCurrentPath;;
-	cp = temp+"\\..\\..\\Protobyte\\output\\";
+	//cp = temp+"\\..\\..\\Protobyte\\output\\";
+	cp = temp+"\\..\\Output\\";
 #endif
 
 	return cp;
