@@ -30,13 +30,31 @@ void ProtoController::init() {
 	A* conversion = testVal.get();
 
 	//stitchTiles("C:\\Users\\Ira\\Dev\\Protobyte_0.1.5_quark\\Protobyte\\Projects\\Output\\TestRender01_2016_1_18_23_3_3", 24);
+
+	//ProtoRootBall::ProtoRootBall(const Vec3f& pos, const Vec3f& rot, const Dim3f& size,
+	//	const std::vector<ProtoColor4f>& col4s, int rootCount, int rootSegments, float turbulence, const Tup2f& rootRadii, const std::vector<std::string>& textureURLs, std::vector<Vec2f> textureScales)
+
+	int roots = 16;
+	std::string urls[] = {"corroded_red.jpg", "gold_foil.jpg", "bronze_fans.jpg", "rust02.jpg", "meat01.jpg"};
+	std::vector<std::string> textureURLs;
+	std::vector<Vec2f> textureScales;
+	std::vector<ProtoColor4f> cols;
+	for (int i = 0; i < roots; i++){
+		textureURLs.push_back(urls[int(random(5))]);
+		textureScales.push_back({ random(1.2, 3), random(3.2, 7) });
+		cols.push_back({ random(1.0), random(1.0), random(1.0) });
+	}
+	pBall = new ProtoRootBall({}, {}, { 1, 1, 1 }, cols, roots, 50, 2.4f, { 10.5f, 160.5f }, textureURLs, textureScales);
+
+
+
 }
 
 void ProtoController::run() {
 	
 	if (getFrameCount() == 32){
 		//trace(getFrameCount());
-		save("TestRender01", 4);
+		//save("TestRender01", 4);
 	}
 }
 
@@ -48,43 +66,45 @@ void ProtoController::display() {
 	beginArcBall();
 	//translate(0, 0, -400);
 
-	push();
-	translate(0, 0, -300);
-	//rotate(180, 0, 1, 0);
-	scale(3000);
-	plane.display();
-	pop();
+	//push();
+	//translate(0, 0, -300);
+	////rotate(180, 0, 1, 0);
+	//scale(3000);
+	//plane.display();
+	//pop();
 
-	rotate(getFrameCount()*.3, { 0, 0, 1 });
+	//rotate(getFrameCount()*.3, { 0, 0, 1 });
 
 
-	push();
-	translate(-300, 200, 290);
-	rotate(getFrameCount()*.2, { 1, .2f, 0 });
-	t.display();
-	pop();
+	//push();
+	//translate(-300, 200, 290);
+	//rotate(getFrameCount()*.2, { 1, .2f, 0 });
+	//t.display();
+	//pop();
 
-	push();
-	translate(300, 200, 290);
-	rotate(-getFrameCount()*.2, { 1, .75f, 0 });
-	t.display();
-	pop();
+	//push();
+	//translate(300, 200, 290);
+	//rotate(-getFrameCount()*.2, { 1, .75f, 0 });
+	//t.display();
+	//pop();
 
-	push();
-	translate(-300, -200, 290);
-	rotate(getFrameCount()*1.2, { 1, .05f, 0 });
-	t.display();
-	pop();
+	//push();
+	//translate(-300, -200, 290);
+	//rotate(getFrameCount()*1.2, { 1, .05f, 0 });
+	//t.display();
+	//pop();
 
-	push();
-	translate(300, -200, 290);
-	rotate(-getFrameCount()*.2, { 1, 0, 0 });
-	rotate(-getFrameCount()*2.2, { 0, 1, 0 });
-	rotate(-getFrameCount()*1.2, { 0, 0, 1 });
-	t.display();
-	pop();
+	//push();
+	//translate(300, -200, 290);
+	//rotate(-getFrameCount()*.2, { 1, 0, 0 });
+	//rotate(-getFrameCount()*2.2, { 0, 1, 0 });
+	//rotate(-getFrameCount()*1.2, { 0, 0, 1 });
+	//t.display();
+	//pop();
+	scale({125, 125, 125});
+	pBall->display();
 
-	translate(0, -100, -150);
+	//translate(0, -100, -150);
 	//pcg->display();
 	endArcBall();
 

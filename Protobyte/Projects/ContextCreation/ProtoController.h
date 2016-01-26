@@ -8,6 +8,8 @@
 
 #include "btBulletDynamicsCommon.h"
 
+#include "ProtoRootBall.h"
+
 using namespace ijg;
 
 class ProtoController : public ProtoBaseApp {
@@ -36,6 +38,7 @@ private:
 	Toroid t;
 	ProtoPlane plane;
 	ProtoGeomComposite* pcg;
+	ProtoRootBall* pBall;
 
 };
 
