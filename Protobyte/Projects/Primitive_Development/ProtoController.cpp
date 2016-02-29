@@ -1,6 +1,7 @@
 #include "ProtoController.h"
 
 void ProtoController::init() {
+	std::cout << "Hello World. My name is Brittni." << std::endl;
 }
 
 void ProtoController::run() {
