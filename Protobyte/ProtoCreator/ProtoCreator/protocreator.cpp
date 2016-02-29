@@ -129,6 +129,8 @@ void ProtoCreator::runScript(const QString& usrProjName){
                 }
                 slnFile.close();
                 currentDir.cd(projectsPath);
+                currentDir.mkdir("Output");
+                currentDir.mkdir("Resources");
                 if (currentDir.exists(newFileName)) {
                     ui->outputText->appendPlainText("Success! " + projectName + " has been created.");
                 } else {
@@ -183,7 +185,7 @@ void ProtoCreator::setPicture() {
 
     QString filename = "ProtoCube_SMU-1.png";
 
-    QString filepath = QDir::home().path() + "/Dev/Protobyte_0.1.5_quark/Protobyte/ProtoCreator/Widget/" + filename;
+    QString filepath = QDir::home().path() + "/Dev/Protobyte_0.1.5_quark/Protobyte/ProtoCreator/ProtoCreator_Widget/" + filename;
 
     cubePicture.load(filepath);
     ui->cubePic->setPixmap(cubePicture);
