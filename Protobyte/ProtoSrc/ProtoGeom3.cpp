@@ -31,18 +31,23 @@ using namespace ijg;
 
 GLuint ProtoGeom3::textureID = 0;
 
-ProtoGeom3::ProtoGeom3() {
+ProtoGeom3::ProtoGeom3() :
+ProtoShape3(Vec3f(), Vec3f(), Dim3f(1, 1, 1), Col4f(.6, 0.0, .65, 1.0)), diffuseMapImage("white_tile.jpg"), textureScale(Vec2f(1, 1)) {
+	diffuseTextureImageURLs.push_back(diffuseMapImage);
 }
 
-
+ProtoGeom3::ProtoGeom3(const Vec3f& pos):
+ProtoShape3(pos, Vec3f(), Dim3f(1, 1, 1), Col4f(.6, 0.0, .65, 1.0)), diffuseMapImage("white_tile.jpg"), textureScale(Vec2f(1, 1)) {
+	diffuseTextureImageURLs.push_back(diffuseMapImage);
+}
 
 ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4) :
-ProtoShape3(pos, rot, size, col4), diffuseMapImage("white_tile.jpg") {
+ProtoShape3(pos, rot, size, col4), diffuseMapImage("white_tile.jpg"), textureScale(Vec2f(1, 1)) {
 	diffuseTextureImageURLs.push_back(diffuseMapImage);
 }
 
 ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const std::vector< ProtoColor4f > col4s) :
-ProtoShape3(pos, rot, size, col4s), diffuseMapImage("white_tile.jpg") {
+ProtoShape3(pos, rot, size, col4s), diffuseMapImage("white_tile.jpg"), textureScale(Vec2f(1, 1)) {
 	diffuseTextureImageURLs.push_back(diffuseMapImage);
 }
 
@@ -122,15 +127,15 @@ void ProtoGeom3::init() {
 	//setTextureUniforms();
     
     // initialize glew for Windows
-#if defined(_WIN32) || defined(__linux__)
-	GLenum err = glewInit();
-	if (GLEW_OK != err)
-	{
-		/* Problem: glewInit failed, something is seriously wrong. */
-		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
-	}
-	//fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
-#endif
+//#if defined(_WIN32) || defined(__linux__)
+//	GLenum err = glewInit();
+//	if (GLEW_OK != err)
+//	{
+//		/* Problem: glewInit failed, something is seriously wrong. */
+//		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+//	}
+//	//fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
+//#endif
 	
 	// Special thanks to:
 	// http://stackoverflow.com/questions/8704801/glvertexattribpointer-clarification
@@ -177,7 +182,6 @@ void ProtoGeom3::init() {
 }
 
 void ProtoGeom3::update() {
-
 	//createDiffuseMapTexture(diffuseMapImage); // set default diffuse color texture
 	int len = verts.size();
 	std::vector<ProtoVertex3> vertsTemp = verts;
@@ -587,6 +591,10 @@ std::vector<Tup4v> ProtoGeom3::getGeomData(){
  world type class, to enable aggregate face sorting and
  and primitive processing*/
 void ProtoGeom3::display(RenderMode render, float pointSize) {
+	// call update to enable real-time changes to geometry.
+	// this will need further refacotring
+	// including potentially a geometry shader implementation
+	//update();
 
 	GLuint d = diffuseMapTexture.getTextureID();
 	glActiveTexture(GL_TEXTURE0);

@@ -52,6 +52,7 @@ namespace ijg {
         ProtoColor4();
 		ProtoColor4(T c);
 		ProtoColor4(T c, T a);
+		ProtoColor4(T r, T g, T b);
         ProtoColor4(T r, T g, T b, T a);
 
         void setR(T r);
@@ -84,7 +85,12 @@ namespace ijg {
 		r(c), g(c), b(c), a(a) {
 	}
 
-    template <class T>
+	template <class T>
+	inline ProtoColor4<T>::ProtoColor4(T r, T g, T b) :
+		r(r), g(g), b(b), a(1.0) {
+	}
+	
+	template <class T>
     inline ProtoColor4<T>::ProtoColor4(T r, T g, T b, T a) :
     r(r), g(g), b(b), a(a) {
     }

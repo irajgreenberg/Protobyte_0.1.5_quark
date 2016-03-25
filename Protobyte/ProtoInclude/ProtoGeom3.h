@@ -74,7 +74,7 @@ namespace ijg {
 		// called from cstr's
 		virtual void init();
 
-		void ProtoGeom3::update();
+		virtual void update();
         
 		// primitive pipeline CPU - > GPU
 		// Utilizes VBO's/VAO
@@ -202,7 +202,9 @@ namespace ijg {
         
         ProtoGeom3();
         
-        ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
+		ProtoGeom3(const Vec3f& pos); 
+		
+		ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
                    const ProtoColor4f col4);
         
         ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,

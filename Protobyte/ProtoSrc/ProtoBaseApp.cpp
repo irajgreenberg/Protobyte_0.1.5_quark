@@ -11,52 +11,33 @@
 
 using namespace ijg;
 
-
+//NOTE - maybe pul all flags in context? and access ctx->
 
 ProtoBaseApp* ProtoBaseApp::baseApp = 0;
 
 
 // for testing only
-GLdouble myStar[5][6] = {
-	0.6f, -0.1f, -2.0f, 1.0f, 1.0f, 1.0f,
-	1.35f, 1.4f, -2.0f, 1.0f, 1.0f, 1.0f,
-	2.1f, -0.1f, -2.0f, 1.0f, 1.0f, 1.0f,
-	0.6f, 0.9f, -2.0f, 1.0f, 1.0f, 1.0f,
-	2.1f, 0.9f, -2.0f, 1.0f, 1.0f, 1.0f };
+//GLdouble myStar[5][6] = {
+//	0.6f, -0.1f, -2.0f, 1.0f, 1.0f, 1.0f,
+//	1.35f, 1.4f, -2.0f, 1.0f, 1.0f, 1.0f,
+//	2.1f, -0.1f, -2.0f, 1.0f, 1.0f, 1.0f,
+//	0.6f, 0.9f, -2.0f, 1.0f, 1.0f, 1.0f,
+//	2.1f, 0.9f, -2.0f, 1.0f, 1.0f, 1.0f };
+//
+//GLdouble quad[4][6] = { 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+//1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+//1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+//0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, };
 
-GLdouble quad[4][6] = { 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
-1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, };
-
+// cstr
 // NOTE: called before GL context created
 ProtoBaseApp::ProtoBaseApp() {
-
-	lights.push_back(ProtoLight());
-	lights.push_back(ProtoLight());
-	lights.push_back(ProtoLight());
-	lights.push_back(ProtoLight());
-	lights.push_back(ProtoLight());
-	lights.push_back(ProtoLight());
-	lights.push_back(ProtoLight());
-	lights.push_back(ProtoLight());
-
 	ProtoBaseApp::baseApp = this;
 }
 
 //ProtoBaseApp::ProtoBaseApp(const ProtoOSC& listener) :
 //listener(listener){
-//
-//	lights.push_back(ProtoLight());
-//	lights.push_back(ProtoLight());
-//	lights.push_back(ProtoLight());
-//	lights.push_back(ProtoLight());
-//	lights.push_back(ProtoLight());
-//	lights.push_back(ProtoLight());
-//	lights.push_back(ProtoLight());
-//	lights.push_back(ProtoLight());
-//
-//	ProtoBaseApp::baseApp = this;
+// ProtoBaseApp::baseApp = this;
 //}
 
 ProtoBaseApp* ProtoBaseApp::getBaseApp() {
@@ -69,135 +50,132 @@ void ProtoBaseApp::setWindowFrameSize(const Dim2i& windowFrameSize) {
 
 
 void ProtoBaseApp::_init(){
+	// get context (shared pointer)
+	
+
 	//GLint range[2];
 	//glGetIntegerv(GL_ALIASED_LINE_WIDTH_RANGE, range);
 	//trace(range[0], ",", range[1]);
 	//trace("GL_TRIANGLES =", GL_TRIANGLES);
 	//trace("GL_TRIANGLE_FAN =", GL_TRIANGLE_FAN);
 	//trace(ProtoBaseApp::baseApp);
+
+
 	//areShadowsEnabled = true;
+
+
 	//shader = ProtoShader("shader1.vert", "shader1.frag");
 	//shader = ProtoShader("protoShader.vert", "protoShader.frag");
 	//shader2D = ProtoShader("colorOnlyShader.vert.glsl", "colorOnlyShader.frag.glsl");
 	shader3D = ProtoShader("bumpmapping.vs.glsl", "bumpmapping.fs.glsl");
-
+	shader3D.bind();
+	// create context and initialize
+	ctx = ProtoContext::getContext(width, height);
+	ctx->init();
 
 
 	// default global ambient
-	globalAmbient = Col3f(.02f, .02f, .02f);
+	ctx->setGlobalAmbient({ .45f, .45f, .45f });
 
-	// camera at 11
 	// default inital light
-	//light0.setPosition(Vec3f(-1.9, .9, 8));
-	light0.setPosition(Vec3f(-90, 200, 40));
-	//light0.setPosition(Vec3f(-14.2, 2.5, 8));
-	light0.setIntensity(Vec3f(1, 1, 1));
+	ctx->setLight(0, {0, 0, 600}, { 1, 1, 1 });
+	ctx->setLight(1, { 0, 0, 1 }, { 0, 0, 0 });
+	ctx->setLight(2, { 0, 0, 1 }, { 0, 0, 0 });
+	ctx->setLight(3, { 0, 0, 1 }, { 0, 0, 0 });
+	ctx->setLight(4, { 0, 0, 1 }, { 0, 0, 0 });
+	ctx->setLight(5, { 0, 0, 1 }, { 0, 0, 0 });
+	ctx->setLight(6, { 0, 0, 1 }, { 0, 0, 0 });
+	ctx->setLight(7, { 0, 0, 1 }, { 0, 0, 0 });
 
-	light1.setPosition(Vec3f(0, 0, 1));
-	light1.setIntensity(Vec3f(0, 0, 0));
-
-	light2.setPosition(Vec3f(0, 0, 1));
-	light2.setIntensity(Vec3f(0, 0, 0));
-
-	light3.setPosition(Vec3f(0, 0, 1));
-	light3.setIntensity(Vec3f(0, 0, 0));
-
-	light4.setPosition(Vec3f(0, 0, 1));
-	light4.setIntensity(Vec3f(0, 0, 0));
-
-	light5.setPosition(Vec3f(0, 0, 1));
-	light6.setIntensity(Vec3f(0, 0, 0));
-
-	light6.setPosition(Vec3f(0, 0, 1));
-	light6.setIntensity(Vec3f(0, 0, 0));
-
-	light7.setPosition(Vec3f(0, 0, 1));
-	light7.setIntensity(Vec3f(0, 0, 0));
-
-	// mouse
+	// initialize mouse vars
 	mouseX = mouseY = mouseLastFrameX = mouseLastFrameY = 0;
-	//arcball
+	
+	//  initialize arcball vars
 	arcballRotX = arcballRotY = arcballRotXLast, arcballRotYLast = mouseXIn = mouseYIn = 0;
 	//isArcballOn = false;
 
-	glViewport(0, 0, width, height);
+	// RECONSIDER THIS
+	// is it cool to set this here, versus in context?
+	//trace("width =", width);
+	//trace("height =", height);
+	//glViewport(0, 0, width, height);
 
 	// START standard transformation matrices: ModelView / Projection / Normal
-	M = glm::mat4(1.0f); // set to identity
-	V = glm::lookAt(glm::vec3(0.0, 0.0, 60), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
-	MV = V * M;
-	N = glm::transpose(glm::inverse(glm::mat3(MV)));
+	ctx->setModel(glm::mat4(1.0f));
+	ctx->setView(glm::lookAt(glm::vec3(0.0, 0.0, 5), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+	ctx->concatModelView();
+	//ctx->createNormalMatrix();
 
 	// projection matrix and MVP Matrix
-	// perspective
-	viewAngle = 75.0f;
-	aspect = float(width) / float(height);
-	// ortho
+	/* ortho
 	//trace("width = ", width);
 	//trace("height =", height);
 	left = -width / 2;
 	right = width / 2;
 	bottom = -height / 2;
-	top = height / 2;
+	top = height / 2;*/
 
-	nearDist = .1f;
-	farDist = 1500.0f;
+	float viewAngle = 65.0f; 
+	float aspect = float(width) / float(height); 
+	float nearDist = 0.1f; 
+	float farDist = 3000.0f;
+	// perspective
+	ctx->setProjection(glm::perspective(viewAngle, aspect, nearDist, farDist));
+	//ctx->setProjection(glm::ortho(-2000.0f, 2000.0f, -2000.0f, 2000.0f, .1f, 3000.0f));
+	//ctx->setProjection(glm::ortho(-float(getWidth() / 2.0), float(getWidth() / 2.0), -float(getWidth() / 2.0) / aspect, float(getWidth() / 2.0) / aspect, .10f, 4000.0f));
+	//ctx->concatModelViewProjection();
 
-	P = glm::perspective(viewAngle, aspect, nearDist, farDist);
-	MVP = P * MV;
 	// END Model / View / Projection data
 
-	// tranformation matricies
-	T = glm::mat4(1.0f);
-	R = glm::mat4(1.0f);
-	S = glm::mat4(1.0f);
-
-	//glm::vec3 lightInvDir = glm::vec3(0.5f, 2, 2);
-
-	//// Compute the MVP matrix from the light's point of view
-	//glm::mat4 depthProjectionMatrix = glm::ortho<float>(-10, 10, -10, 10, -10, 20);
-	//glm::mat4 depthViewMatrix = glm::lookAt(lightInvDir, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-	//glm::mat4 depthModelMatrix = glm::mat4(1.0);
-	//glm::mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * depthModelMatrix;
-
-
-
+	
 	// START Shadow Map Matrices
-	L_MV = glm::lookAt(glm::vec3(light0.getPosition().x, light0.getPosition().y, light0.getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	//ctx->setLightViewMatrix(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+
+	ctx->setLightView(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+
+
 	//L_P = glm::perspective(45.0f, 1.0f, .10f, 1000.0f);
-
-	L_P = glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f);
-
-
-	//L_P = glm::perspective(50.0f, 1.0f, .10f, 325.0f);
-	//L_B = glm::scale(glm::translate(glm::mat4(1), glm::vec3(.5, .5, .5)), glm::vec3(.5, .5, .5));
-
-	//L_B = glm::mat4(1.0);
-
-	float ratio = getWidth() / getHeight();
-	//L_B = glm::mat4(
-	//	glm::vec4(.35, 0.0f, 0.0f, 0.0f),
-	//	glm::vec4(0.0f, .35, 0.0f, 0.0f),
-	//	glm::vec4(0.0f, 0.0f, 1, 0.0f),
-	//	glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
-	//);
-
-	L_B = glm::mat4(
-		glm::vec4(.5, 0.0f, 0.0f, 0.0f),
-		glm::vec4(0.0f, .5, 0.0f, 0.0f),
-		glm::vec4(0.0f, 0.0f, .5, 0.0f),
+	//ctx->concatLightModelView();
+	//ctx->setLightProjectionMatrix(glm::ortho<float>(-300, 300, -300, 300, -.1, 3000));
+	//ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
+	ctx->setLightProjection(glm::perspective(viewAngle, aspect, nearDist, 5.0f));
+	//ctx->setLightProjection(glm::ortho(-2000.0f, 2000.0f, -2000.0f, 2000.0f, .1f, 2000.0f));
+	
+	//ctx->concatLightModelViewProjection();
+	ctx->setLightBias(glm::mat4(
+		glm::vec4(0.5, 0.0f, 0.0f, 0.0f),
+		glm::vec4(0.0f, 0.5, 0.0f, 0.0f),
+		glm::vec4(0.0f, 0.0f, 0.5, 0.0f),
 		glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
-		);
+		));
+	//ctx->concatLightModelViewBiasProjection();
+	//ctx->setLightProjectionMatrix(glm::frustum(-.1f, .1f, -.1f, .1f, .1f, 2000.0f));
 
+	//float ratio = getWidth() / getHeight();
+	////L_B = glm::mat4(
+	////	glm::vec4(.35, 0.0f, 0.0f, 0.0f),
+	////	glm::vec4(0.0f, .35, 0.0f, 0.0f),
+	////	glm::vec4(0.0f, 0.0f, 1, 0.0f),
+	////	glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
+	////);
 
-	L_BP = L_B*L_P;
-	L_MVBP = L_BP*L_MV;
-	// END Shadow Matrices
+	//ctx->setLightDepthBiasMatrix(glm::mat4(
+	//	glm::vec4(.5, 0.0f, 0.0f, 0.0f),
+	//	glm::vec4(0.0f, .5, 0.0f, 0.0f),
+	//	glm::vec4(0.0f, 0.0f, .5, 0.0f),
+	//	glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
+	//	));
+
+	//ctx->concatenateDepthBiasProjectionMatrix();
+	//ctx->concatenateLightModelViewDepthBiasProjectionMatrix();
+	//ctx->concatenateLightModelViewDepthBiasProjectionMatrix();
+	//// END Shadow Matrices
 
 	createShadowMap();
 
 	// for 2D rendering - enables/disables lighting effects
-	ltRenderingFactors = Vec4f(1.0, 1.0, 1.0, 0.0);
+	//ltRenderingFactors = Vec4f(1.0, 1.0, 1.0, 0.0);
+	ctx->setLightRenderingFactors({ 1.0, 1.0, 1.0, 1.0 });
 
 	// default 2D style states
 	fillColor = Col4f(1, 1, 1, 1);
@@ -215,7 +193,6 @@ void ProtoBaseApp::_init(){
 	// create primitives for immediate drawing
 
 	// for primitives
-
 	textureScale.x = textureScale.y = 1.0;
 
 	// default no texture
@@ -233,12 +210,29 @@ void ProtoBaseApp::_init(){
 	//path2 = ProtoPath2(this);
 	//protoPath2.setBaseApp(this);
 
-	shader3D.bind();
-	_initUniforms(&shader3D);
+	//shader3D.bind();
+
+
+	//_initUniforms(&shader3D);
+
+
 
 	init();
 
 }
+
+
+// For view matrix
+void ProtoBaseApp::setSceneCenter(const Vec3& axis) {
+	ctx->setSceneCenter(axis);
+}
+void ProtoBaseApp::setEyePosition(const Vec3& eyePos) {
+	ctx->setEyePosition(eyePos);
+}
+void ProtoBaseApp::setUpAxis(const Vec3& axis) {
+	ctx->setUpAxis(axis);
+}
+
 
 // create default buffers for rect function
 void ProtoBaseApp::_createRect(){
@@ -269,8 +263,8 @@ void ProtoBaseApp::_createRect(){
 	glBufferSubData(GL_ARRAY_BUFFER, 0, vertsDataSize, &rectPrims[0]); // upload the data
 
 	// fill state is true - need to create this
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glPolygonMode(GL_BACK, GL_FILL);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glPolygonMode(GL_BACK, GL_FILL);
 
 	// draw rect
 	glBindBuffer(GL_ARRAY_BUFFER, vboRectID);
@@ -631,17 +625,51 @@ void ProtoBaseApp::setAmbientMaterial(const Col4f& amb) {
 
 }
 
+//bool ProtoBaseApp::createShadowMap(){
+//
+//	// set up FBO
+//	glGenFramebuffers(1, &frameBufferName);
+//	glBindFramebuffer(GL_FRAMEBUFFER, frameBufferName);
+//	
+//	//set up shadow texture object
+//	glGenTextures(1, &depthTexture);
+//	glBindTexture(GL_TEXTURE_2D, depthTexture);
+//	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, 1024, 1024, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+//
+//	//glActiveTexture(GL_TEXTURE5);
+//	GLfloat border[] = { 1.0f, .0f, .0f, .0f };
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+//
+//	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+//	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+//
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+//	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);
+//	
+//	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
+//
+//	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE)
+//		return false;
+//}
+
 bool ProtoBaseApp::createShadowMap(){
 
 	//set up shadow texture object
-	glGenTextures(1, &shadowTextureID);
+	glGenTextures(1, &ctx->getShadowTexture_U());
+	//trace("&ctx->getShadowTexture_U()", &ctx->getShadowTexture_U());
 	glActiveTexture(GL_TEXTURE5);
-	glBindTexture(GL_TEXTURE_2D, shadowTextureID);
+	glBindTexture(GL_TEXTURE_2D, ctx->getShadowTexture_U());
 	GLfloat border[] = { 1.0f, .0f, .0f, .0f };
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -652,12 +680,19 @@ bool ProtoBaseApp::createShadowMap(){
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, NULL);
+	//trace(SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, 1024, 1024, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 
 	// set up FBO
-	glGenFramebuffers(1, &shadowBufferID);
-	glBindFramebuffer(GL_FRAMEBUFFER, shadowBufferID);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowTextureID, 0);
+	//glGenFramebuffers(1, &shadowBufferID);
+	//trace("before ctx->getShadowBuffer_U()=", ctx->getShadowBuffer_U());
+	glGenFramebuffers(1, &ctx->getShadowBuffer_U());
+	//trace("after ctx->getShadowBuffer_U()=", ctx->getShadowBuffer_U());
+	glBindFramebuffer(GL_FRAMEBUFFER, ctx->getShadowBuffer_U());
+	//trace("ctx->getShadowTexture_U() =", ctx->getShadowTexture_U());
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, ctx->getShadowTexture_U(), 0);
+	//glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, ctx->getShadowTexture_U(), 0);
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE){
 		// unbind fbo
@@ -682,45 +717,48 @@ void ProtoBaseApp::_initUniforms(ProtoShader* shader_ptr){
 	//shader_ptr->bind();
 
 	// get shader location for default 8 lights
-	for (int i = 0; i < 8; ++i){
-		std::string pos = "lights[" + std::to_string(i) + "].position";
-		lights_U[i].position = glGetUniformLocation(shader_ptr->getID(), pos.c_str());
+	//for (int i = 0; i < 8; ++i){
+	//	std::string pos = "lights[" + std::to_string(i) + "].position";
+	//	lights_U[i].position = glGetUniformLocation(shader_ptr->getID(), pos.c_str());
 
-		std::string inten = "lights[" + std::to_string(i) + "].intensity";
-		lights_U[i].intensity = glGetUniformLocation(shader_ptr->getID(), inten.c_str());
+	//	std::string inten = "lights[" + std::to_string(i) + "].intensity";
+	//	lights_U[i].intensity = glGetUniformLocation(shader_ptr->getID(), inten.c_str());
 
-		// eventually get rid of these probably
-		std::string diff = "lights[" + std::to_string(i) + "].diffuse";
-		lights_U[i].diffuse = glGetUniformLocation(shader_ptr->getID(), diff.c_str());
+	//	// eventually get rid of these probably
+	//	std::string diff = "lights[" + std::to_string(i) + "].diffuse";
+	//	lights_U[i].diffuse = glGetUniformLocation(shader_ptr->getID(), diff.c_str());
 
-		std::string amb = "lights[" + std::to_string(i) + "].ambient";
-		lights_U[i].ambient = glGetUniformLocation(shader_ptr->getID(), amb.c_str());
+	//	std::string amb = "lights[" + std::to_string(i) + "].ambient";
+	//	lights_U[i].ambient = glGetUniformLocation(shader_ptr->getID(), amb.c_str());
 
-		std::string spec = "lights[" + std::to_string(i) + "].specular";
-		lights_U[i].specular = glGetUniformLocation(shader_ptr->getID(), spec.c_str());
-	}
+	//	std::string spec = "lights[" + std::to_string(i) + "].specular";
+	//	lights_U[i].specular = glGetUniformLocation(shader_ptr->getID(), spec.c_str());
+	//}
 
 	// global ambient light
-	globalAmbient_U = glGetUniformLocation(shader_ptr->getID(), "globalAmbientLight");
+	//globalAmbient_U = glGetUniformLocation(shader_ptr->getID(), "globalAmbientLight");
 
 	// transformation matrices
-	M_U = glGetUniformLocation(shader_ptr->getID(), "modelMatrix");
+	/*M_U = glGetUniformLocation(shader_ptr->getID(), "modelMatrix");
 	MV_U = glGetUniformLocation(shader_ptr->getID(), "modelViewMatrix");
 	MVP_U = glGetUniformLocation(shader_ptr->getID(), "modelViewProjectionMatrix");
-	N_U = glGetUniformLocation(shader_ptr->getID(), "normalMatrix");
+	N_U = glGetUniformLocation(shader_ptr->getID(), "normalMatrix");*/
 
 	// shadow map and light transformation matrix for shadowmapping
-	shadowMap_U = glGetUniformLocation(shader_ptr->getID(), "shadowMap");
-	L_MVBP_U = glGetUniformLocation(shader_ptr->getID(), "shadowModelViewBiasProjectionMatrix");
+	//shadowMap_U = glGetUniformLocation(shader_ptr->getID(), "shadowMap");
+	//ctx->setShadowMap_U(glGetUniformLocation(shader_ptr->getID(), "shadowMap"));
+	//L_MVBP_U = glGetUniformLocation(shader_ptr->getID(), "shadowModelViewBiasProjectionMatrix");
 
-	// pass shadow map texture to shader
-	shaderPassFlag_U = glGetUniformLocation(shader_ptr->getID(), "shadowPassFlag");
-	glUniform1i(shaderPassFlag_U, 1); // controls render pass in shader
-	glUniform1i(shadowMap_U, 5);
+	//// pass shadow map texture to shader
+	//shaderPassFlag_U = glGetUniformLocation(shader_ptr->getID(), "shadowPassFlag");
+	//ctx->setShaderPassFlag_U(glGetUniformLocation(shader_ptr->getID(), "shadowPassFlag"));
+	//glUniform1i(ctx->getShaderPassFlag_U(), 1); // controls render pass in shader
+	//glUniform1i(ctx->getShadowMap_U(), 5);
 
-	// enable/disable lighting factors for 2D rendering
-	// default is all on
-	lightRenderingFactors_U = glGetUniformLocation(shader_ptr->getID(), "lightRenderingFactors");
+	//// enable/disable lighting factors for 2D rendering
+	//// default is all on
+	//lightRenderingFactors_U = glGetUniformLocation(shader_ptr->getID(), "lightRenderingFactors");
+	//ctx->setLightRenderingFactors_U(glGetUniformLocation(shader_ptr->getID(), "lightRenderingFactors"));
 	//glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
 
 
@@ -728,7 +766,8 @@ void ProtoBaseApp::_initUniforms(ProtoShader* shader_ptr){
 }
 
 void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int mouseBtn, int key*/){
-
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
 	// reset state
 	fillColor = Col4f(1, 1, 1, 1); // white fill
 	strokeColor = Col4f(0, 0, 0, 1); // black stroke
@@ -755,47 +794,63 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	}
 
 	//global ambient
-	glUniform3fv(globalAmbient_U, 1, &globalAmbient.r);
+	glUniform3fv(ctx->getGlobalAmbient_U(), 1, &ctx->getGlobalAmbient().r);
 
 	// update all 8 lights in shaders
-	for (int i = 0; i < 8; ++i){
-		glUniform3fv(lights_U[i].position, 1, &lights[i].getPosition().x);
-		glUniform3fv(lights_U[i].intensity, 1, &lights[i].getIntensity().x);
-		glUniform4fv(lights_U[i].diffuse, 1, &lights[i].getDiffuse().r);
-		glUniform4fv(lights_U[i].ambient, 1, &lights[i].getAmbient().r);
-		glUniform4fv(lights_U[i].specular, 1, &lights[i].getSpecular().r);
+	for (int i = 0; i < 1; ++i){
+		glUniform3fv(ctx->getLight_U(i).position, 1, &ctx->getLight(i).getPosition().x);
+		/*trace("ctx->getLight(",i,").getPosition().x =", ctx->getLight(i).getPosition().x);
+		trace("ctx->getLight(", i, ").getPosition().y =", ctx->getLight(i).getPosition().y);
+		trace("ctx->getLight(", i, ").getPosition().z =", ctx->getLight(i).getPosition().z);*/
+		glUniform3fv(ctx->getLight_U(i).intensity, 1, &ctx->getLight(i).getIntensity().x);
+		//glUniform4fv(lights_U[i].diffuse, 1, &lights[i].getDiffuse().r);
+		//glUniform4fv(lights_U[i].ambient, 1, &lights[i].getAmbient().r);
+		//glUniform4fv(lights_U[i].specular, 1, &lights[i].getSpecular().r);
 	}
 
 	// I thought I needed this to reset matrix each frame?
-	M = glm::mat4(1.0f);
+	ctx->setModel(glm::mat4(1.0f));
 	// was 18
-	//2D edge testing fix - bw
-	V = glm::lookAt(glm::vec3(0.0, 0.0, ((height / 1000.0) * 652.0f)), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
-	//M = T * R * S;
-	MV = V * M;
-	MVP = P * MV;
-	//trace("light pos =", light0.getPosition());
+	//fix 2D - pixel to scale rendering - bw
+	ctx->setView(glm::lookAt(glm::vec3(0, 0, ((height / 1000.0) * 785)), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0)));
+	ctx->concatModelView();
+	ctx->concatModelViewProjection();
+	//ctx->createNormalMatrix();
+
+	glUniformMatrix4fv(ctx->getModel_U(), 1, GL_FALSE, &ctx->getModel()[0][0]);
+	glUniformMatrix4fv(ctx->getModelView_U(), 1, GL_FALSE, &ctx->getModelView()[0][0]);
+	glUniformMatrix4fv(ctx->getModelViewProjection_U(), 1, GL_FALSE, &ctx->getModelViewProjection()[0][0]);
+	glUniformMatrix3fv(ctx->getNormal_U(), 1, GL_FALSE, &ctx->getNormal()[0][0]);
+
+
 	// update shadow map texture matrix should light(s) changes position
-	L_MV = glm::lookAt(glm::vec3(light0.getPosition().x, light0.getPosition().y, light0.getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-	L_MVBP = L_BP*L_MV;
-	//glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &L_MVBP[0][0]);
+	ctx->setLightView(glm::lookAt(glm::vec3(ctx->getLight(0).getPosition().x, ctx->getLight(0).getPosition().y, ctx->getLight(0).getPosition().z), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+	//ctx->concatLightModelView();
+	//ctx->setLightProjectionMatrix(glm::perspective(45.0f, 1.0f, .10f, 1000.0f));
+	//ctx->concatLightModelViewProjection();
+	ctx->setLightBias(glm::mat4(
+		glm::vec4(.5, 0.0f, 0.0f, 0.0f),
+		glm::vec4(0.0f, .5, 0.0f, 0.0f),
+		glm::vec4(0.0f, 0.0f, .5, 0.0f),
+		glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)
+		));
+	//ctx->concatLightModelViewBiasProjection();
 
-	glm::mat4 shaderMat = L_MVBP*M; // new  // include mult by Model mat
-	glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &shaderMat[0][0]);
-
+	//glUniformMatrix4fv(ctx->getLightModelViewDepthBiasProjection_U(), 1, GL_FALSE, &ctx->getShadowMatrix()[0][0]);
+	//glUniformMatrix4fv(ctx->getLightModelViewBiasProjection_U(), 1, GL_FALSE, &ctx->getLightModelViewBiasProjection()[0][0]);
 
 	// some help from:http://www.opengl.org/discussion_boards/showthread.php/171184-GLM-to-create-gl_NormalMatrix
 	// update normals
 
-	N = glm::transpose(glm::inverse(glm::mat3(MV)));
-	glUniformMatrix4fv(M_U, 1, GL_FALSE, &M[0][0]);
-	glUniformMatrix4fv(MV_U, 1, GL_FALSE, &MV[0][0]);
-	glUniformMatrix4fv(MVP_U, 1, GL_FALSE, &MVP[0][0]);
-	glUniformMatrix3fv(N_U, 1, GL_FALSE, &N[0][0]);
+	
 
 	// enable  /disable lighting effects ofr 2D rendering
-	ltRenderingFactors = Vec4f(1.0, 1.0, 1.0, 1.0); // default lighting
-	glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+	//ltRenderingFactors = Vec4f(1.0, 1.0, 1.0, 1.0); // default lighting
+	//glUniform4fv(ctx->getLightRenderingFactors_U(), 1, &ltRenderingFactors.x);
+
+	ctx->setLightRenderingFactors({ 1.0, 1.0, 1.0, 1.0 });
+	glUniform4fv(ctx->getLightRenderingFactors_U(), 1, &ctx->getLightRenderingFactors().x);
+
 
 
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -809,92 +864,17 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 
 	run();
 	push();
-	display();
+   // display(); //Is this necessary??
 	pop();
 	render();
-
-	//ltRenderingFactors = Vec4f(1.0, 1.0, 1.0, 0.0);
-	//glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
-
-	//if (isArcballOn){
-	//pop();
-	//}
-
-
-	//// if shadowing is enabled do double pass with shadow map framebuffer
-	//if (areShadowsEnabled){
-	//	//trace("shadows enabled");
-	//	// bind shadow map framebuffer
-	//	glBindFramebuffer(GL_FRAMEBUFFER, shadowBufferID);
-	//	//clear depth buffer
-	//	glClear(GL_DEPTH_BUFFER_BIT);
-	//	//set viewport to the shadow map view size
-	//	//glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
-	//	glViewport(0, 0, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT);
-	//	//glViewport(-2 * SHADOWMAP_WIDTH, -2 * SHADOWMAP_WIDTH, 6 * SHADOWMAP_WIDTH, 6 * SHADOWMAP_HEIGHT);
-
-	//	// enable front face culling for shadowing
-	//	glCullFace(GL_FRONT);
-
-	//	// enables shadow blending in fragment shader
-	//	glUniform1i(shaderPassFlag_U, 1); // controls render pass in shader
-	//	
-	//	// render shadow in firdt pass
-	//	run();
-	//	
-	//	// reset default framebuffer
-	//	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	//	// not sure what this does
-	//	glDrawBuffer(GL_BACK_LEFT);
-	//	
-	//	// reset default view
-	//	////glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
-	//	glViewport(0, 0, getWidth(), getHeight());
-	//	//glViewport(-2 * width, -2 * height, 6 * width, 6 * height);
-
-	//	// rest backface culling
-	//	glCullFace(GL_BACK);
-	//	//glDisable(GL_CULL_FACE);
-
-	//	// disable shadoing blending in fragment shader
-	//	glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
-	//	//glUniform1i(shadowMap_U, 0);
-
-	//	// render scene in second pass
-	//	run();
-	//}
-	//else {
-	//	//trace("shadows not enabled");
-	//	//glClear(GL_DEPTH_BUFFER_BIT); 
-	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//	glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
-	//	
-	//	// no shadowing use default run
-	//	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	//	// not sure what this does
-	//	//glDrawBuffer(GL_BACK_LEFT);
-
-	//	// reset default view
-	//	////glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
-	//	glViewport(0, 0, getWidth(), getHeight());
-	//	//glViewport(-2 * width, -2 * height, 6 * width, 6 * height);
-
-	//	// rest backface culling
-	//	glCullFace(GL_BACK);
-	//	//glDisable(GL_CULL_FACE);
-
-	//	// disable shadoing blending in fragment shader
-	//	//glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
-	//	//glUniform1i(shadowMap_U, 0);
-
-	//	// render scene in second pass
-	//	run();
-	//}
 	mouseLastFrameX = mouseX;
 	mouseLastFrameY = mouseY;
 }
+
+
+
+
+
 
 void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 
@@ -904,7 +884,8 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 		//glEnable(GL_CULL_FACE);
 		//trace("shadows enabled");
 		// bind shadow map framebuffer
-		glBindFramebuffer(GL_FRAMEBUFFER, shadowBufferID);
+		glBindFramebuffer(GL_FRAMEBUFFER, ctx->getShadowBuffer_U());
+		//trace("ctx->getShadowBuffer_U()=", ctx->getShadowBuffer_U());
 		//clear depth buffer
 		glClear(GL_DEPTH_BUFFER_BIT);
 
@@ -913,21 +894,24 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 		//set viewport to the shadow map view size
 		//glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
 		//glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
+		//trace("SHADOWMAP_WIDTH =", SHADOWMAP_WIDTH);
+		//trace("SHADOWMAP_HEIGHT =", SHADOWMAP_HEIGHT);
 		glViewport(0, 0, SHADOWMAP_WIDTH, SHADOWMAP_HEIGHT);
 		//glViewport(x*SHADOWMAP_WIDTH, y*SHADOWMAP_HEIGHT, scaleFactor * SHADOWMAP_WIDTH, scaleFactor *  SHADOWMAP_HEIGHT);
 		//glViewport(-2 * SHADOWMAP_WIDTH, -2 * SHADOWMAP_WIDTH, 6 * SHADOWMAP_WIDTH, 6 * SHADOWMAP_HEIGHT);
 
 		// enable front face culling for shadowing
+		glEnable(GL_CULL_FACE);
 		glCullFace(GL_FRONT);
 
 		// enables shadow blending in fragment shader
-		glUniform1i(shaderPassFlag_U, 1); // controls render pass in shader
+		//trace("ctx->getShaderPassFlag_U() =", ctx->getShaderPassFlag_U());
+		glUniform1i(ctx->getShaderPassFlag_U(), 1); // controls render pass in shader
 
-		// render shadow in first pass
+		// render shadow in first pass to FBO
 		display();
 
 		// reset backface culling
-		//glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 		//glDisable(GL_CULL_FACE);
 
@@ -936,18 +920,24 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 
 		// not sure what this does
 		glDrawBuffer(GL_BACK_LEFT);
+		//glDrawBuffer(GL_FRONT_AND_BACK);
 
 		// reset default view
 		////glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
 		//glViewport(x*width, y*height, scaleFactor * width, scaleFactor * height);
 		//trace("windowFrameSize =", windowFrameSize);
+		//trace("x =",x);
+		//trace("y =", y);
+		//trace("scaleFactor =", scaleFactor);
 		glViewport(x*windowFrameSize.w, y*windowFrameSize.h, scaleFactor * windowFrameSize.w, scaleFactor * windowFrameSize.h);
+		//trace(x, y);
+		//trace(x*windowFrameSize.w, y*windowFrameSize.h);
 		//windowFrameSize
 
 
 
 		// disable shadowing blending in fragment shader
-		glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
+		glUniform1i(ctx->getShaderPassFlag_U(), 0); // controls render pass in shader
 		//glUniform1i(shadowMap_U, 0);
 
 		// enable 3D lighting by default
@@ -959,8 +949,9 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 	else {
 		//trace("shadows not enabled");
 		//glClear(GL_DEPTH_BUFFER_BIT); 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
+	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
+		glUniform1i(ctx->getShaderPassFlag_U(), 0); // controls render pass in shader
 
 		// no shadowing use default run
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -970,16 +961,17 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 
 		// reset default view
 		////glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
-		//glViewport(0, 0, getWidth(), getHeight());
-		glViewport(x*width, y*height, scaleFactor * width, scaleFactor * height);
-		//glViewport(-2 * width, -2 * height, 6 * width, 6 * height);
+		glViewport(0, 0, getWidth(), getHeight());
+		//glViewport(x*width, y*height, scaleFactor * width, scaleFactor * height);
+		
 
 		// reset backface culling
 		glCullFace(GL_BACK);
 		//
 
 		// disable shadoing blending in fragment shader
-		glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
+		//glUniform1i(shaderPassFlag_U, 0); // controls render pass in shader
+		glUniform1i(ctx->getShaderPassFlag_U(), 0);
 		//glUniform1i(shadowMap_U, 0);
 
 		// render scene in single pass
@@ -988,10 +980,12 @@ void ProtoBaseApp::render(int x, int y, int scaleFactor) {
 		display();
 	}
 
+	// see locations of attributes and uniforms
+	// GLSLInfo(&shader3D);
 }
 
-// event behavior
-void ProtoBaseApp::setMouseButton(int mouseAction, int mouseButton, int mouseMods){
+// Mouse event behavior
+void ProtoBaseApp::setMouseButton(int mouseAction, int mouseButton, int mouseMods) {
 	if (mouseAction == 1){
 		isMousePressed = true;
 
@@ -1013,6 +1007,14 @@ void ProtoBaseApp::setMouseButton(int mouseAction, int mouseButton, int mouseMod
 	}
 	/*this->mouseButton = mouseButton;
 	trace("LEFT mouse button pressed");*/
+}
+
+// Key event behavior
+void ProtoBaseApp::setKeyEvent(int key, int scancode, int action, int mods) {
+	this->key = key;
+	this->scancode = scancode;
+	this->action = action;
+	keyPressed();
 }
 
 //arcball
@@ -1188,12 +1190,18 @@ void ProtoBaseApp::GLSLInfo(ProtoShader* shader){
 
 // flag  enable/disable 2D lighting
 void ProtoBaseApp::enable2DRendering() {
-	ltRenderingFactors = Vec4f(0.0, 0.0, 0.0, 1.0);
-	glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+	//ltRenderingFactors = Vec4f(0.0, 0.0, 0.0, 1.0);
+	//glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+
+	ctx->setLightRenderingFactors({ 0.0, 0.0, 0.0, 1.0 });
+	glUniform4fv(ctx->getLightRenderingFactors_U(), 1, &ctx->getLightRenderingFactors().x);
 }
 void ProtoBaseApp::disable2DRendering(){
-	ltRenderingFactors = Vec4f(1.0, 1.0, 1.0, 0.0);
-	glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+	//ltRenderingFactors = Vec4f(1.0, 1.0, 1.0, 0.0);
+	//glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+
+	ctx->setLightRenderingFactors({ 1.0, 1.0, 1.0, 0.0 });
+	glUniform4fv(ctx->getLightRenderingFactors_U(), 1, &ctx->getLightRenderingFactors().x);
 }
 
 
@@ -1201,29 +1209,41 @@ void ProtoBaseApp::disable2DRendering(){
 void ProtoBaseApp::fill(const Col4f& col) {
 	isFill = true;
 	fillColor = col;
-	ltRenderingFactors = Vec4f(0.0, 0.0, 0.0, 1.0);
-	glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+	//ltRenderingFactors = Vec4f(0.0, 0.0, 0.0, 1.0);
+	//glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+
+	ctx->setLightRenderingFactors({ 0.0, 0.0, 0.0, 1.0 });
+	glUniform4fv(ctx->getLightRenderingFactors_U(), 1, &ctx->getLightRenderingFactors().x);
 }
 void ProtoBaseApp::fill(float gray) {
 	isFill = true;
 	fillColor = Col4f(gray, gray, gray, 1);
-	glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+	//glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+
+	glUniform4fv(ctx->getLightRenderingFactors_U(), 1, &ctx->getLightRenderingFactors().x);
 }
 void ProtoBaseApp::fill(float gray, float a) {
 	isFill = true;
 	fillColor = Col4f(gray, gray, gray, a);
-	glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+	//glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+
+	glUniform4fv(ctx->getLightRenderingFactors_U(), 1, &ctx->getLightRenderingFactors().x);
 }
 void ProtoBaseApp::fill(float r, float g, float b) {
 	isFill = true;
 	fillColor = Col4f(r, g, b, 1);
-	ltRenderingFactors = Vec4f(0.0, 0.0, 0.0, 1.0);
-	glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+	//ltRenderingFactors = Vec4f(0.0, 0.0, 0.0, 1.0);
+	//glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+
+	ctx->setLightRenderingFactors({ 0.0, 0.0, 0.0, 1.0 });
+	glUniform4fv(ctx->getLightRenderingFactors_U(), 1, &ctx->getLightRenderingFactors().x);
 }
 void ProtoBaseApp::fill(float r, float g, float b, float a) {
 	isFill = true;
 	fillColor = Col4f(r, g, b, a);
-	glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+	//glUniform4fv(lightRenderingFactors_U, 1, &ltRenderingFactors.x);
+
+	glUniform4fv(ctx->getLightRenderingFactors_U(), 1, &ctx->getLightRenderingFactors().x);
 }
 void ProtoBaseApp::noFill() {
 	isFill = false;
@@ -1369,7 +1389,7 @@ void ProtoBaseApp::rect(float x, float y, float w, float h, Registration reg){
 		glBufferData(GL_ARRAY_BUFFER, vertsDataSize, NULL, GL_STREAM_DRAW);// allocate space
 		glBufferSubData(GL_ARRAY_BUFFER, 0, vertsDataSize, &rectPrims[0]); // upload the data
 
-		glDrawArrays(GL_POLYGON, 0, rectPrimCount / stride);
+		glDrawArrays(GL_TRIANGLE_FAN, 0, rectPrimCount / stride);
 		disable2DRendering();
 
 		// Disable VAO
@@ -1669,16 +1689,16 @@ void ProtoBaseApp::star(int sides, float innerRadius, float outerRadius) {
 void ProtoBaseApp::star(int sides, const Vec2& radiusAndRatio) {
 }
 //possible additional 2D primitives - bw
-void ProtoBaseApp::line(float x0, float y0, float x1, float y1){
-}
+//void ProtoBaseApp::line(float x0, float y0, float x1, float y1){
+//}
 void ProtoBaseApp::line(const Vec2& pt0, const Vec2& pt1){
 }
 void ProtoBaseApp::line(const Vec2& pt0, float l, float rot){
 }
 void ProtoBaseApp::line(float l, float rot){
 }
-void ProtoBaseApp::point(float x, float y){
-}
+//void ProtoBaseApp::point(float x, float y){
+//}
 void ProtoBaseApp::point(const Vec2& pt){
 }
 void ProtoBaseApp::semi(float x, float y, float r, int hemi){
@@ -1691,7 +1711,7 @@ void ProtoBaseApp::pie(const Vec2& pt, float r, int percentage){
 }
 
 // PATH
-void ProtoBaseApp::beginPath(PathRenderMode renderMode) {
+void ProtoBaseApp::beginPath(PathRenderMode pathRenderMode) {
 	this->pathRenderMode = pathRenderMode;
 	isPathRecording = true;
 	pathVerticesAll.size()>0 ? pathVerticesAll.clear() : 0;
@@ -1771,6 +1791,9 @@ void ProtoBaseApp::endPath(bool isClosed) {
 	//float smoothness = .7;
 
 	if (pathVerticesAll.size() > 0){
+		if (pathVerticesAll.size() < 3){
+		//	pathRenderMode = LINE_STRIP;
+		}
 		
 		for (int i = 0; i < pathVerticesAll.size(); ++i) {
 			
@@ -1897,6 +1920,7 @@ void ProtoBaseApp::endPath(bool isClosed) {
 				}
 			}
 			else {
+				
 				// detected linear vertex
 				auto v = pathVerticesAll.at(i); 
 				pathPrimsFill.push_back(PathPrims(std::get<0>(v).x, std::get<0>(v).y, std::get<0>(v).z, 
@@ -1906,7 +1930,6 @@ void ProtoBaseApp::endPath(bool isClosed) {
 			}
 		}
 	}
-
 	switch (pathRenderMode) {
 	case POLYGON:
 		enable2DRendering(); // turn off 3D lighting
@@ -1920,10 +1943,11 @@ void ProtoBaseApp::endPath(bool isClosed) {
 			glBufferSubData(GL_ARRAY_BUFFER, 0, vertsDataSize, &pathPrimsFill[0].x); // upload the data
 
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-			glDrawArrays(GL_POLYGON, 0, pathPrimsFill.size());
+			glDrawArrays(GL_TRIANGLE_FAN, 0, pathPrimsFill.size());
 
 		}
 		if (isStroke){
+	
 			// using struct prims for coding tersity
 			int vertsDataSize = sizeof (PathPrims)* pathPrimsStroke.size();
 			glBufferData(GL_ARRAY_BUFFER, vertsDataSize, NULL, GL_STREAM_DRAW);// allocate space
@@ -1932,13 +1956,13 @@ void ProtoBaseApp::endPath(bool isClosed) {
 			glLineWidth(lineWidth);
 
 			// closed path
-			if (pathRenderMode){
-				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			if (isClosed){
+				//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 				glDrawArrays(GL_LINE_LOOP, 0, pathPrimsStroke.size());
 			}
 			// open path
 			else {
-				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 				glDrawArrays(GL_LINE_STRIP, 0, pathPrimsStroke.size());
 			}
 		}
@@ -1962,7 +1986,7 @@ void ProtoBaseApp::endPath(bool isClosed) {
 		break;
 	default:
 		//glDrawArrays(GL_POLYGON, 0, pathPrims.size() / stride);
-		glDrawArrays(GL_POLYGON, 0, pathPrimsFill.size());
+		glDrawArrays(GL_TRIANGLE_FAN, 0, pathPrimsFill.size());
 
 	}
 
@@ -1974,6 +1998,50 @@ void ProtoBaseApp::endPath(bool isClosed) {
 	pathPrimsFill.clear();
 	pathVerticesAll.clear();
 }
+void ProtoBaseApp::line(float x1, float y1, float x2, float y2) {
+	beginShape();
+	vertex(x1, y1);
+	vertex(x2, y2);
+	endShape();
+}
+void ProtoBaseApp::line(float x1, float y1, float z1, float x2, float y2, float z2) {
+	beginShape();
+	vertex(x1, y1, z1);
+	vertex(x2, y2, z2);
+	endShape();
+}
+
+void ProtoBaseApp::point(float x, float y) {
+	glDisable(GL_DITHER);
+	glDisable(GL_POINT_SMOOTH);
+	glDisable(GL_LINE_SMOOTH);
+	glDisable(GL_POLYGON_SMOOTH);
+	glHint(GL_POINT_SMOOTH, GL_DONT_CARE);
+	glHint(GL_LINE_SMOOTH, GL_DONT_CARE);
+	glHint(GL_POLYGON_SMOOTH_HINT, GL_DONT_CARE);
+#define GL_MULTISAMPLE_ARB 0x809D
+	glDisable(GL_MULTISAMPLE_ARB);
+	noStroke();
+	if (lineWidth < 2){
+		rect(x, y, 1, 1);
+	}
+	else {
+		ellipse(x, y, lineWidth, lineWidth);
+	}
+	stroke(strokeColor);
+	glEnable(GL_DITHER);
+	glEnable(GL_POINT_SMOOTH);
+	glEnable(GL_LINE_SMOOTH);
+	glEnable(GL_POLYGON_SMOOTH);
+	glHint(GL_POINT_SMOOTH, GL_NICEST);
+	glHint(GL_LINE_SMOOTH, GL_NICEST);
+	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+#define GL_MULTISAMPLE_ARB 0x809D
+	glEnable(GL_MULTISAMPLE_ARB);
+
+}
+
+
 /****END 2D API****/
 //3D
 void ProtoBaseApp::box(float sz, Registration reg) {
@@ -2100,9 +2168,6 @@ void ProtoBaseApp::box(float w, float h, float d, Registration reg) {
 
 
 //void ProtoBaseApp::render(int scaleFactor){}; // "should be" overridden in derived classes
-
-
-
 void ProtoBaseApp::export(std::vector<Tup4v> vs, Format type){
 #if defined (_WIN32) || defined(_WIN64)
 	time_t now = time(0);
@@ -2186,7 +2251,7 @@ void ProtoBaseApp::export(std::vector<Tup4v> vs, Format type){
 //}
 
 void ProtoBaseApp::save(std::string name, int scaleFactor){
-	trace("ProtoUtility::getPathToOutput() =", ProtoUtility::getPathToOutput());
+	//trace("ProtoUtility::getPathToOutput() =", ProtoUtility::getPathToOutput());
 	//if (getFrameCount() < 1){
 
 	//ProtoBaseApp pba;
@@ -2212,6 +2277,7 @@ void ProtoBaseApp::save(std::string name, int scaleFactor){
 
 	std::string url = ProtoUtility::getPathToOutput();
 	std::string directory = url + name + "_" + stream.str();
+	//trace("directory = ", directory);
 	CreateDirectory(directory.c_str(), 0);
 
 
@@ -2221,7 +2287,7 @@ void ProtoBaseApp::save(std::string name, int scaleFactor){
 		for (int j = 0; j < scaleFactor; ++j){
 			//trace("in drawToFrameBuffer");
 			//glClearColor(0, 0, 0, 1.0f);
-			//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 			//From: http://stackoverflow.com/questions/12157646/how-to-render-offscreen-on-opengl
 
 			//glViewport(-i*width, -j*height, scaleFactor * width, scaleFactor * height);
@@ -2408,7 +2474,7 @@ void ProtoBaseApp::save(std::string name, int scaleFactor){
 //}
 
 bool ProtoBaseApp::stitchTiles(std::string url, int tiles){
-	//trace(" url =", url);
+	trace(" url =", url);
 	url += "\\";
 	std::vector<std::string> fileNames = ProtoUtility::getFileNames(url);
 	for (size_t i = 0; i < fileNames.size(); ++i){
@@ -2516,76 +2582,39 @@ bool ProtoBaseApp::stitchTiles(std::string url, int tiles){
 
 // matrix transformation functions, in style of GL 1.0
 void ProtoBaseApp::translate(float tx, float ty, float tz){
-	M = glm::translate(M, glm::vec3(tx, ty, tz));
-	concat();
+	ctx->translate(tx, ty, tz);
 }
+
 void ProtoBaseApp::translate(const Vec3f& tXYZ){
-	M = glm::translate(M, glm::vec3(tXYZ.x, tXYZ.y, tXYZ.z));
-	concat();
+	ctx->translate(tXYZ);
 }
+
 void ProtoBaseApp::rotate(float angle, float axisX, float axisY, float axisZ){
-	M = glm::rotate(M, angle, glm::vec3(axisX, axisY, axisZ));
-	concat();
+	ctx->rotate(angle, axisX, axisY, axisZ);
 }
+
 void ProtoBaseApp::rotate(float angle, const Vec3f& rXYZ){
-	M = glm::rotate(M, angle, glm::vec3(rXYZ.x, rXYZ.y, rXYZ.z));
-	concat();
+	ctx->rotate(angle, rXYZ);
 }
+
 void ProtoBaseApp::scale(float s){
-	M = glm::scale(M, glm::vec3(s, s, s));
-	concat();
+	ctx->scale(s);
 }
+
 void ProtoBaseApp::scale(float sx, float sy, float sz){
-	M = glm::scale(M, glm::vec3(sx, sy, sz));
-	concat();
+	ctx->scale(sx, sy, sz);
 }
+
 void ProtoBaseApp::scale(const Vec3f& sXYZ){
-	M = glm::scale(M, glm::vec3(sXYZ.x, sXYZ.y, sXYZ.z));
-	concat();
+	ctx->scale(sXYZ);
 }
 
-// concatenate MV, N, and MVP matrices and update values on GPU
-void ProtoBaseApp::concat(){
-	//M = glm::mat4(1.0f);
-	//push();
-	MV = V * M;
-	N = glm::transpose(glm::inverse(glm::mat3(MV)));
-	MVP = P * MV;
-	// update in shader
-	glUniformMatrix4fv(M_U, 1, GL_FALSE, &M[0][0]);
-	glUniformMatrix4fv(MV_U, 1, GL_FALSE, &MV[0][0]);
-	glUniformMatrix4fv(MVP_U, 1, GL_FALSE, &MVP[0][0]);
-	glUniformMatrix3fv(N_U, 1, GL_FALSE, &N[0][0]);
-
-	glm::vec3 ltPos = glm::vec3(light0.getPosition().x, light0.getPosition().y, light0.getPosition().z);
-
-	L_MV = glm::lookAt(ltPos, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-	L_MVBP = L_BP*L_MV;
-	//glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &L_MVBP[0][0]);
-
-	glm::mat4 shaderMat = L_MVBP*M; // new 
-	glUniformMatrix4fv(L_MVBP_U, 1, GL_FALSE, &shaderMat[0][0]);
-	//pop();
-}
-
-// implements transform matrix stack
 void ProtoBaseApp::push(){
-	// push current transformation matrix onto stack
-	matrixStack.push(M);
-
+	ctx->push();
 }
 
-// reset transformation matrix with stored matrix on stack
 void ProtoBaseApp::pop(){
-
-	// reset current transformation matrix with one on top of stack
-	M = matrixStack.top();
-
-	// pop transformation matrix off top of stack
-	matrixStack.pop();
-
-	// rebuild matrices and update on GPU
-	concat();
+	ctx->pop();
 }
 
 
@@ -2603,7 +2632,4 @@ void ProtoBaseApp::mouseDragged(){}
 // Window Events
 void ProtoBaseApp::onResized(){}
 void ProtoBaseApp::onClosed(){}
-
-
-
 

@@ -26,11 +26,17 @@
 
 using namespace ijg;
 
-ProtoToroid::ProtoToroid() {}
+ProtoToroid::ProtoToroid()
+{
+}
+
+ProtoToroid::ProtoToroid(int ringCount, int ringDetail, float ringRadius, float ringThickness) :
+ProtoGeom3(Vec3f(), Vec3f(), Dim3f(1, 1, 1), Col4f(0, 0, 0, 1)), ringCount(ringCount), ringDetail(ringDetail), ringRadius(ringRadius), ringThickness(ringThickness) {
+	init();
+}
 
 ProtoToroid::ProtoToroid(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3<float>& size, const ProtoColor4<float>& col4, int ringCount, int ringDetail, float ringRadius, float ringThickness):
 ProtoGeom3(pos, rot, size, col4), ringCount(ringCount), ringDetail(ringDetail), ringRadius(ringRadius), ringThickness(ringThickness) {
-    
     init();
 }
 
@@ -50,7 +56,6 @@ ProtoToroid::ProtoToroid(float ringRadius, float ringThickness, const Col4f& col
 ProtoGeom3(col4), ringRadius(ringRadius), ringThickness(ringThickness), ringCount(20), ringDetail(20) {
 	init();
 }
-
 
 
 void ProtoToroid::calcVerts() {
@@ -82,7 +87,6 @@ void ProtoToroid::calcVerts() {
 }
 
 
-
 void ProtoToroid::calcInds() {
     // indices
     for (int i = 0; i < ringCount; i++) {
@@ -97,7 +101,6 @@ void ProtoToroid::calcInds() {
             //int i6 = ringDetail + j + 1; // not used
             int i7 = (i + 1) * ringDetail;
             int i8 = j + 1;
-
 
 			if (i < ringCount - 1) {
 				if (j < ringDetail - 1) {

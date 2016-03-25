@@ -3,6 +3,8 @@
 in vec4 vertCol; // orig attribute color set in v. shader
 out vec4 color;
 
+in vec3 intensity;
+
 // Texture maps
 //layout (binding = 0) uniform sampler2D shadowMap;
 //layout (binding = 0) uniform sampler2D diffuseMap;
@@ -56,9 +58,9 @@ in VS_OUT
     vec2 texcoord;
     vec3 eyeDir;
     vec3 lightDir[8];
+
     vec3 normal;
 } fs_in;
-
 
 
 void main(void)
@@ -105,19 +107,26 @@ void main(void)
 	
 	
 	// shadow map
-	if(shadowMapCoords.w>1) {
+	if(shadowMapCoords.w > 1) {
 		//check the shadow map texture to see if the fragment is in shadow
 		float shadow = textureProj(shadowMap, shadowMapCoords);
 		//darken the diffuse component apprpriately
 
 
-		diffuse = mix(diffuse, diffuse*shadow, 0.4); 
+		diffuse = mix(diffuse, diffuse*shadow, 0.5); 
+ 
 	}
 
     // Final color is diffuse + specular + ambient with lightRendering Factors enabling/disabling lighting effects for 2D rendering
 
 	color = vertCol*lightRenderingFactors.w + vec4(diffuse*lightRenderingFactors.x + specular*lightRenderingFactors.y + (vec3(ambientMaterial)*globalAmbientLight)*lightRenderingFactors.z, 1.0);
 
+	// remove only for debugging
+	if(!shadowPassFlag) {
+	//	color.r = 1.0;
+	}
+	
+	// uncomment
 	color.a = vertCol.a;
 
 

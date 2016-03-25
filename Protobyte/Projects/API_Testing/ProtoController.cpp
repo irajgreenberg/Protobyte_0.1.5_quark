@@ -39,7 +39,8 @@ void ProtoController::run() {
 }
 
 void ProtoController::display() {
-	protoBlockTest();
+	//edgeTesting();
+
 }
 
 void ProtoController::mousePressed() {

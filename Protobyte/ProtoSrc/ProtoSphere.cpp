@@ -45,7 +45,12 @@ ProtoSphere::ProtoSphere(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
 	const ProtoColor4f col4, const std::string& textureImageURL, float textureScale, int spines, int spineNodes, const Vec3f& chaos) :
 ProtoGeom3(pos, rot, size, col4), spines(spines), spineNodes(spineNodes), chaos(chaos), xRadius(1.0), yRadius(1.0) {
 	init();
+}
 
+// new 7/23/15
+ProtoSphere::ProtoSphere(int spines, int spineNodes, const ProtoColor4f col4, const std::string& textureImageURL, float textureScale) :
+ProtoGeom3(Vec3f(), Vec3f(), Dim3f(), col4, textureImageURL, textureScale), spines(spines), spineNodes(spineNodes) {
+	init();
 }
 
 //new constructors - bw

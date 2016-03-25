@@ -1,33 +1,42 @@
-//
-//  ProtoPlasm.cpp
-//  Protobyte_dev_v02
-//
-//  Created by iragreenberg on 9/27/13.
-//  Copyright (c) 2013 Ira Greenberg. All rights reserved.
+/*!  \brief  Protoplasm.cpp: Base class that encapsulates GLFW/GL
+Protoplasm.cpp
+Protobyte Library
+
+
+Copyright (c) 2013 Ira Greenberg. All rights reserved.
+
+Library Usage:
+This work is licensed under the Creative Commons
+Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+To view a copy of this license, visit
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+or send a letter to Creative Commons,
+444 Castro Street, Suite 900,
+Mountain View, California, 94041, USA.
+
+This notice must be retained in any source distribution.
+
+\ingroup common
+This class is part of the group common (update)
+\sa NO LINK
+*/
+
 
 #include "ProtoPlasm.h"
 
-
-
-
-// callbacks
-//static void error_callback(int error, const char* description)
-//{
-//	fputs(description, stderr);
-//}
-//
-
-//static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-//{
-//	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-//		trace("action =", action);
-//	//glfwSetWindowShouldClose(window, GL_TRUE);
-//}
-
 namespace ijg {
 	void mouseBtn_callback(GLFWwindow* window, int button, int action, int mods) {
+
 		ProtoBaseApp* ba = (ProtoBaseApp*)glfwGetWindowUserPointer(window);
 		ba->setMouseButton(action, button, mods);
+	}
+
+	void  key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+			glfwSetWindowShouldClose(window, GL_TRUE);
+
+		ProtoBaseApp* ba = (ProtoBaseApp*)glfwGetWindowUserPointer(window);
+		ba->setKeyEvent(key, scancode, action, mods);
 	}
 
 	void window_size_callback(GLFWwindow* window, int width, int height) {
@@ -38,13 +47,9 @@ namespace ijg {
 
 using namespace ijg;
 
-
 ProtoPlasm::ProtoPlasm(ProtoBaseApp* baseApp) :
 baseApp(baseApp), appWidth(1920), appHeight(1080), appTitle("Protobyte App")
 {
-	// instantiate world
-	//world = std::unique_ptr<ProtoWorld>(new ProtoWorld(appWidth, appHeight));
-
 	// init app and call init() and run() to activate functions in user defined BaseApp derived class
 	initGLFW();
 	runGLFW();
@@ -65,107 +70,93 @@ appWidth(appWidth), appHeight(appHeight), appTitle(appTitle), baseApp(baseApp){
 
 void ProtoPlasm::initGLFW(){
 
-	//#if defined(_WIN32) || defined (_WIN64) 
-	//	glewExperimental = TRUE;
-	//	GLenum err = glewInit();
-	//	if (err != GLEW_OK)
-	//	{
-	//		//Problem: glewInit failed, something is seriously wrong.
-	//		std::cout << "glewInit failed, aborting." << std::endl;
-	//	}
-	//#endif
-
-
-
-
-
-
 	baseApp->setFrameCount(0);
 	baseApp->setFrameRate(60.0f);
 
-	// Start GLFW setup  // NOTE: DO I need this??
-	// for modern context handling
-	//glfwInit();
-
+	// seed random function
 	srand(static_cast <unsigned> (time(0)));
 
+	// catch start-up failures
 	glfwSetErrorCallback(error_callback);
+
 	if (!glfwInit())
 		exit(EXIT_FAILURE);
 
-	// uncomment for 3.2+ context (OS X)
-	// need to check this on WIN
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	// OS X, for modern GL
+#if defined(__APPLE__)
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#endif
 
+	// Don't seem to need to call glewInit() in GLFW 3.1+.
+	//glewExperimental = GL_TRUE; 
+	//glewInit();
 
+	// set anti-aliasing
+	// not sure if this works in Windows
+	glfwWindowHint(GLFW_SAMPLES, 2);
 
-	// anti-aliasing
-	glfwWindowHint(GLFW_SAMPLES, 8);
-
+	// genereate sized GLFW window with title
 	window = glfwCreateWindow(appWidth, appHeight, appTitle.c_str(), NULL, NULL);
-	
-	
-	//figure out window resolution:
-	/*const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	trace(mode->width, ",", mode->height);*/
-	
 
-	//int monitors;
-	//GLFWmonitor** mons = glfwGetMonitors(&monitors);
-	//trace("monitor 02 =", mons[1]);
-	// position for multi-screen setup
-	//glfwSetWindowPos(window, (1920 - appWidth) / 2, -1080 + (1080-appHeight) / 2);
-	//glfwSetWindowPos(window, 1920 + (1920 - appWidth) / 2, -1080 + (1080 - appHeight) / 2);
 
+	// connected monitors
+	int monitors;
+	GLFWmonitor** mons = glfwGetMonitors(&monitors);
+
+	// position window for different montior configurations
+	//  -- primary monitor resolution :
 	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	//trace("screen.width = ", mode->width, ", screen.height = ", mode->height);
-		
-	// position for laptop
-	glfwSetWindowPos(window, (mode->width - appWidth) / 2, (mode->height - appHeight) / 2);
 
-	// position for SMU, C3
-	//glfwSetWindowPos(window, 1920 + (mode->width-appWidth)/2, (mode->height - appHeight) / 2);
+	switch (monitors){
+	case 1:
+		glfwSetWindowPos(window, (mode->width - appWidth) / 2, (mode->height - appHeight) / 2);
+		break;
+	case 2:
+		glfwSetWindowPos(window, (mode->width - appWidth) / 2, (mode->height - appHeight) / 2);
+		break;
+	case 3:
+		glfwSetWindowPos(window, (mode->width - appWidth) / 2, (mode->height - appHeight) / 2);
+		break;
+	case 4:
+		//glfwSetWindowPos(window, (mode->width - appWidth) / 2, -mode->height + (mode->height-appHeight) / 2);
+		glfwSetWindowPos(window, mode->width+(mode->width - appWidth) / 2, -mode->height + (mode->height - appHeight) / 2);
+		break;
+	case 6:
+		glfwSetWindowPos(window, (mode->width - appWidth) / 2, (mode->height - appHeight) / 2);
+		break;
+	default:
+		glfwSetWindowPos(window, (mode->width - appWidth) / 2, (mode->height - appHeight) / 2);
+	}
 
 	glfwSetWindowUserPointer(window, baseApp); // enable callback funcs to speak to baseApp
-	glfwSetWindowSizeCallback(window, window_size_callback); // dynamically change viewport on resize
+	
+	// register callbacks
+	glfwSetWindowSizeCallback(window, window_size_callback); // change viewport on resize
+	glfwSetKeyCallback(window, key_callback);
+	glfwSetMouseButtonCallback(window, mouseBtn_callback);
 
-	if (!window)
-	{
+	if (!window) {
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
+	
 	glfwMakeContextCurrent(window);
-
-	//glfwSetKeyCallback(window, key_callback);
-
-	// mouse press events
-	glfwSetMouseButtonCallback(window, mouseBtn_callback);
 	// end GLFW setup
-
 
 	// set gl states
 	glClearColor(.46f, .485f, .575f, 1.0f);
-	glShadeModel(GL_SMOOTH);
-	// enable specualrity on textures
-	glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL, GL_SEPARATE_SPECULAR_COLOR);
-	glEnable(GL_LIGHTING);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glFrontFace(GL_CCW); // default
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glDisable(GL_CULL_FACE);
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-	//glShadeModel(GL_FLAT); // option
-	glEnable(GL_COLOR_MATERIAL); // incorporates per vertex color with lights
-
-	// global ambient unrelated to lights
-	float globalAmbient[4] = { .3, .3, .3, 1 };
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalAmbient);
-
+	//glEnable(GL_COLOR_MATERIAL); // incorporates per vertex color with lights
 	// let glColor control diffues and ambient material values
-	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	//glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
 	//
 	glEnable(GL_BLEND);
@@ -185,129 +176,29 @@ void ProtoPlasm::initGLFW(){
 	glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-
-
-
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_NORMALIZE); //  good for uniform scaling
-
-
 	glClearStencil(0); // clear stencil buffer
 	glClearDepth(1.0f); // 0 is near, 1 is far
+	glDepthMask(GL_TRUE); 
 	glDepthFunc(GL_LEQUAL);
+	glDepthRange(0.0f, 1.0f);
 
-
-
-	// World manages lighting and views (cameras)
-	// instantiate singleton world
-	// world = std::unique_ptr<ProtoWorld>(new ProtoWorld(appWidth, appHeight));
-
-	// set default single world view
-	//world->setWorldView(ProtoWorld::SINGLE_VIEW);
-
-	//  world->setWorldRotSpeed(Vec3f(1.3, 0, 0));
-
-	std::unique_ptr<ijg::ProtoCamera> camera1(new ijg::ProtoCamera(Vec3f(0, 0, 4.9), Vec3f(0, 0, 0), ProtoBoundsf(0, 0, appWidth, appHeight)));
-	std::unique_ptr<ijg::ProtoCamera> camera2(new ijg::ProtoCamera(Vec3f(0, 0, 4.9), Vec3f(0, 180, 0), ProtoBoundsf(0, 0, appWidth, appHeight)));
-	std::unique_ptr<ijg::ProtoCamera> camera3(new ijg::ProtoCamera(Vec3f(0, 0, 4.9), Vec3f(-50, 30, 30), ProtoBoundsf(0, 0, appWidth, appHeight)));
-	std::unique_ptr<ijg::ProtoCamera> camera4(new ijg::ProtoCamera(Vec3f(0, 0, 4.9), Vec3f(0, 124, 0), ProtoBoundsf(0, 0, appWidth, appHeight)));
-
-	// Camera
-	camera1->setProjection(75.0f, appWidth / appHeight, .1, 1000);
-	camera2->setProjection(60.0f, appWidth / appHeight, .1, 1000);
-	camera3->setProjection(110.0f, appWidth / appHeight, .1, 1000);
-	camera4->setProjection(60.0f, appWidth / appHeight, .1, 1000);
-
-	//camera1->setViewPort(0, 0, window.getSize().x/2, window.getSize().y/2);
-	//    camera2->setViewPort(0, window.getSize().y/2, window.getSize().x/2, window.getSize().y/2);
-	//    camera3->setViewPort(window.getSize().x/2, window.getSize().y/2, window.getSize().x/2, window.getSize().y/2);
-	//    camera4->setViewPort(window.getSize().x/2, 0, window.getSize().x/2, window.getSize().y/2);
-	//
-	// world->add(std::move(camera1));
-	//    world->add(std::move(camera2));
-	//    world->add(std::move(camera3));
-	//    world->add(std::move(camera4));
-
-	// camera1->setViewPort(0, 0, appWidth, appHeight);
-	// world->add(std::move(camera1));
-
-	// Lights
-	// Light 1
-	//    std::unique_ptr<ijg::ProtoLight> lt0_ptr = std::unique_ptr<ijg::ProtoLight>(new ProtoLight());
-	//    lt0_ptr->setShininess(128.0);
-	//    lt0_ptr->setDiffuse(ProtoColor4f(1.0, .5, 0, 1.0));
-	//    lt0_ptr->setSpecular(ProtoColor4f(1.0, 1.0, 1.0, 1.0));
-	//    lt0_ptr->setAmbient(ProtoColor4f(.4, .4, .4, 1.0));
-	//    lt0_ptr->setPosition(Vec3f(0, 0, -2.0));
-	//    world->add(std::move(lt0_ptr));
-	//
-	//    // Light 2
-	//    std::unique_ptr<ijg::ProtoLight> lt1_ptr = std::unique_ptr<ijg::ProtoLight>(new ProtoLight());
-	//    lt1_ptr->setShininess(128.0);
-	//    lt1_ptr->setDiffuse(ProtoColor4f(1.0, .5, 0, 1.0));
-	//    lt1_ptr->setSpecular(ProtoColor4f(1.0, 1.0, 1.0, 1.0));
-	//    lt1_ptr->setAmbient(ProtoColor4f(.4, .4, .4, 1.0));
-	//    lt1_ptr->setPosition(Vec3f(-2, 2, 2.0));
-	//    world->add(std::move(lt1_ptr));
-	//
-	//
-	//    world->setLights();
-
-	// fog starting settings thanks to: http://nehe.gamedev.net/tutorial/cool_looking_fog/19001/, http://user.xmission.com/~nate/tutors/fog.png
-
-	// won't work with shaders
-	GLuint fogMode[] = { GL_EXP, GL_EXP2, GL_LINEAR };   // Storage For Three Types Of Fog
-	GLuint fogfilter = 2;                    // Which Fog To Use
-	GLfloat fogColor[4] = { 0, 0, 0, 1.0f };      // Fog Color
-
-	glFogi(GL_FOG_MODE, fogMode[fogfilter]);        // Fog Mode
-	glFogfv(GL_FOG_COLOR, fogColor);            // Set Fog Color
-	glFogf(GL_FOG_DENSITY, 0.3f);              // How Dense Will The Fog Be
-	glHint(GL_FOG_HINT, GL_DONT_CARE);          // Fog Hint Value
-	glFogf(GL_FOG_START, -20);             // Fog Start Depth
-	// was 70
-	glFogf(GL_FOG_END, 110.0f);               // Fog End Depth
-	glEnable(GL_FOG);                   // Enables GL_FOG
-
-	// map geometry to window size
-	//glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
-	//glViewport(0, 0, appWidth, appHeight);
-	//glMatrixMode(GL_MODELVIEW);
-
-	// pass world to baseApp enabling user defined BaseApp derived class access
-	// setWorld also initializes some baseApp states
-	//std::cout << "world->fovAngle = " << world->fovAngle << std::endl;
 
 	int w = 0;
 	int h = 0;
 	glfwGetFramebufferSize(window, &w, &h);
-	std::cout << "Framewbuffer: w = " << w << std::endl;
-	std::cout << "FrameBuffer h = " << h << std::endl;
-
-
-
-	//baseApp->setWorld(std::move(world));
-	// std::cout << "baseApp->world->fovAngle = " << baseApp->world->fovAngle << std::endl;
 
 	// Activate init function in user derived class.n.
 	baseApp->_init(); // base class
-	//baseApp->init(); // derived class
 
-
-	//baseApp->_resetBuffers();
-
+	// get version of GL and hardware
+	//char *GL_version = (char *)glGetString(GL_VERSION);
+	//char *GL_vendor = (char *)glGetString(GL_VENDOR);
+	//char *GL_renderer = (char *)glGetString(GL_RENDERER);
+	//trace(GL_version);
+	//trace(GL_vendor);
+	//trace(GL_renderer);
 }
-
-
-
-
-//void framebuffer_size_callback(GLFWwindow* window, int width, int height){
-//	//glViewport(0, 0, width, height);
-//	std::cout << "here" << std::endl;
-//	baseApp->_setViewPort(width, height);
-//}
 
 // activate animation thread and run() function in user defined BaseApp derived class
 void ProtoPlasm::runGLFW(){

@@ -30,6 +30,8 @@ uniform mat4 lightModelViewProjectionMatrix;
 // switch with passed in lights
 uniform vec3 light_pos = vec3(-10, -10, 10);
 
+out vec3 intensity;
+
 // Lights
 // max 8 lt srcs (fer now...)
 struct Light {
@@ -42,11 +44,13 @@ struct Light {
 uniform Light lights[8];
 
  // to pass color through, in addition to maps
- out vec4 vertCol;
+out vec4 vertCol;
 
 void main(void)
 {
    
+	intensity = lights[0].intensity;
+	
 	vertCol = vertexColor;
 
 	// Calculate vertex position in view space.
