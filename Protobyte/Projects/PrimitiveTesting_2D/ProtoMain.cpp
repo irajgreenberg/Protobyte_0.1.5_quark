@@ -2,6 +2,6 @@
 #include "ProtoController.h"
 
 int main(int argc, char const** argv) {
-		ijg::ProtoPlasm p(500, 500, "ProtoController", new ProtoController());
+		ijg::ProtoPlasm p(600, 600, "ProtoController", new ProtoController());
 		return EXIT_SUCCESS;
 }

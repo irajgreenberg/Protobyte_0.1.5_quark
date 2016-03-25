@@ -37,3 +37,26 @@ void ProtoController::onResized(){
 
 void ProtoController::onClosed(){
 }
+
+//COLORS
+
+void ProtoController::setColors_4() {
+	red_f = ProtoColor4<float>(1.0, 0.0, 0.0);
+	blue_f = ProtoColor4f(0.0, 0.0, 1.0, 0.5);
+	black_f = Col4f();
+	grey_f = Col4(0.5);
+	white_f = Col4(1.0, 0.5);
+}
+
+//BACKGROUND
+
+//POINTS
+
+//LINES
+
+//ELLIPSES
+
+//RECTANGLES
+
+//QUADRILATTERALS
+
