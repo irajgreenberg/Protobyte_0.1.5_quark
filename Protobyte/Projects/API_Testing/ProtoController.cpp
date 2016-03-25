@@ -39,8 +39,28 @@ void ProtoController::run() {
 }
 
 void ProtoController::display() {
-	//edgeTesting();
+	edgeTesting();
+	//centerShapes();
+	//matrixTesting();
+	//scaleTesting();
+	//viewTest();
+	//pixelTesting();
+	//protoBlockTest();
+	//protoEllipseTest();
+	//spinnySquare();
 
+	//ellipseTestA();
+	//ellipseTestB();
+	//ellipseTestC();
+	//ellipseTestD();
+
+	//quadTestA();
+	//quadTestB();
+
+	//rectTestA();
+	//rectTestB();
+	//rectTestC();
+	//rectTestD();
 }
 
 void ProtoController::mousePressed() {
@@ -124,6 +144,8 @@ void ProtoController::scaleTesting() {
 	fill(red);
 	rect(0, 0, 5, 5, CENTER);
 	pop();
+	fill(blue);
+	rect(0, 0, 5, 5, CENTER);
 }
 
 void ProtoController::spinnySquare() {
@@ -427,7 +449,7 @@ void ProtoController::protoEllipseTest() {
 
 	blue.setA(0.5);
 	fill(blue);
-	ellipseDetail = 5;
+	ellipseDetail = 20;
 	ellipse(400, 0, 300);
 }
 
