@@ -75,6 +75,7 @@
     <ClCompile Include="..\..\ProtoSrc\ProtoCamera.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoCephalopod.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoCilia.cpp" />
+    <ClCompile Include="..\..\ProtoSrc\ProtoContext.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoCurve3.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoCylinder.cpp" />
     <ClCompile Include="..\..\ProtoSrc\ProtoEllipse.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="..\..\ProtoInclude\ProtoCilia.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoColor3.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoColor4.h" />
+    <ClInclude Include="..\..\ProtoInclude\ProtoContext.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoCore.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoCurve3.h" />
     <ClInclude Include="..\..\ProtoInclude\ProtoCylinder.h" />
