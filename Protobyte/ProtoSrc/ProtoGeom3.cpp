@@ -36,15 +36,15 @@ ProtoGeom3::ProtoGeom3() {
 
 
 
-ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4) :
-ProtoShape3(pos, rot, size, col4), diffuseMapImage("white_tile.jpg") {
-	diffuseTextureImageURLs.push_back(diffuseMapImage);
-}
+//ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4) :
+//ProtoShape3(pos, rot, size, col4), diffuseMapImage("white_tile.jpg") {
+//	diffuseTextureImageURLs.push_back(diffuseMapImage);
+//}
 
-ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const std::vector< ProtoColor4f > col4s) :
-ProtoShape3(pos, rot, size, col4s), diffuseMapImage("white_tile.jpg") {
-	diffuseTextureImageURLs.push_back(diffuseMapImage);
-}
+//ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const std::vector< ProtoColor4f > col4s) :
+//ProtoShape3(pos, rot, size, col4s), diffuseMapImage("white_tile.jpg") {
+//	diffuseTextureImageURLs.push_back(diffuseMapImage);
+//}
 
 
 // with textures
@@ -58,24 +58,30 @@ ProtoShape3(pos, rot, size, col4s), diffuseMapImage("white_tile.jpg") {
 //	diffuseTextureImageURLs.push_back(diffuseMapImage);
 //}
 
-ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4, const std::string& diffuseMapImage, const Vec2f& textureScale) :
-ProtoShape3(pos, rot, size, col4), diffuseMapImage(diffuseMapImage), textureScale(textureScale) {
-	diffuseTextureImageURLs.push_back(diffuseMapImage);
-}
+//ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4, const std::string& diffuseMapImage, const Vec2f& textureScale) :
+//ProtoShape3(pos, rot, size, col4), diffuseMapImage(diffuseMapImage), textureScale(textureScale) {
+//	diffuseTextureImageURLs.push_back(diffuseMapImage);
+//}
 
-ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
-	const std::vector< ProtoColor4f > col4s, const std::string& diffuseMapImage, const Vec2f& textureScale) :
-	ProtoShape3(pos, rot, size, col4s), diffuseMapImage(diffuseMapImage), textureScale(textureScale) {
-	diffuseTextureImageURLs.push_back(diffuseMapImage);
-}
+//ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
+//	const std::vector< ProtoColor4f > col4s, const std::string& diffuseMapImage, const Vec2f& textureScale) :
+//	ProtoShape3(pos, rot, size, col4s), diffuseMapImage(diffuseMapImage), textureScale(textureScale) {
+//	diffuseTextureImageURLs.push_back(diffuseMapImage);
+//}
 
 
 // multi-texturing
-ProtoGeom3::ProtoGeom3(const Dim3f& size, const Col4f& col4, const std::vector<std::string>& diffuseTextureImageURLs, const Vec2f& textureScale) :
-ProtoShape3(Vec3f(), Vec3f(), size, col4), diffuseTextureImageURLs(diffuseTextureImageURLs), textureScale(textureScale){
-}
-ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f& size, const Col4f& col4, const std::vector<std::string>& diffuseTextureImageURLs, const Vec2f& textureScale) :
-ProtoShape3(pos, rot, size, col4s), diffuseTextureImageURLs(diffuseTextureImageURLs), textureScale(textureScale){
+//ProtoGeom3::ProtoGeom3(const Dim3f& size, const Col4f& col4, const std::vector<std::string>& diffuseTextureImageURLs, const Vec2f& textureScale) :
+//ProtoShape3(Vec3f(), Vec3f(), size, col4), diffuseTextureImageURLs(diffuseTextureImageURLs), textureScale(textureScale){
+//}
+//ProtoGeom3::ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f& size, const Col4f& col4, const std::vector<std::string>& diffuseTextureImageURLs, const Vec2f& textureScale) :
+//ProtoShape3(pos, rot, size, col4s), diffuseTextureImageURLs(diffuseTextureImageURLs), textureScale(textureScale){
+//}
+
+//new constructors - bw
+ProtoGeom3::ProtoGeom3(const Col4f& col4):
+ProtoShape3(Vec3f(0, 0, 0), Vec3f(0, 0, 0), Dim3f(1, 1, 1), col4), diffuseMapImage("white_tile.jpg"), textureScale(Vec2f(1, 1)) {
+	diffuseTextureImageURLs.push_back(diffuseMapImage);
 }
 
 
@@ -168,6 +174,146 @@ void ProtoGeom3::init() {
     
     // set default texture enabled state
     isTextureEnabled = true;
+}
+
+void ProtoGeom3::update() {
+
+	//createDiffuseMapTexture(diffuseMapImage); // set default diffuse color texture
+	int len = verts.size();
+	std::vector<ProtoVertex3> vertsTemp = verts;
+	verts.clear(); // empty all vectors in case called by setter
+	calcVerts();
+	if (len == verts.size()){
+		verts = vertsTemp;
+		return;
+	}
+	else {
+		if (diffuseTextureImageURLs.size()> 0){
+			diffuseTextureImageURLs.clear();
+		}
+
+		if (inds.size()> 0){
+			inds.clear();
+		}
+
+		if (vertPrims.size()> 0){
+			vertPrims.clear();
+		}
+
+		if (indPrims.size()> 0){
+			indPrims.clear();
+		}
+
+		if (normPrims.size()> 0){
+			normPrims.clear();
+		}
+
+		if (tangentPrims.size()> 0){
+			tangentPrims.clear();
+		}
+
+		if (colorPrims.size()> 0){
+			colorPrims.clear();
+		}
+
+		if (texturePrims.size()> 0){
+			texturePrims.clear();
+		}
+
+		if (interleavedPrims.size()> 0){
+			interleavedPrims.clear();
+		}
+
+		if (geomSets.size()> 0){
+			geomSets.clear();
+		}
+
+		if (packedFaces.size()> 0){
+			packedFaces.clear();
+		}
+
+		if (faces.size()> 0){
+			faces.clear();
+		}
+
+		if (faces2.size()> 0){
+			faces2.clear();
+		}
+	}
+	calcInds();
+	calcFaces();
+	calcVertexNorms();
+	calcPrimitives();
+
+	//// set default material settings
+	//materials = Material(Col4f(.7f, .7f, .7f, 1.0f), Col4f(.125f, .125f, .125f, 1.0f), Col4f(.2, .2, .2, 1.0f), Col4f(.0f, .0f, .0f, 1.0f), 8);
+
+	//// set material memory locations for GPU
+	//diffuse_loc_U = glGetUniformLocation(ProtoShader::getID_2(), "diffuseMaterial");
+	//ambient_loc_U = glGetUniformLocation(ProtoShader::getID_2(), "ambientMaterial");
+	//specular_loc_U = glGetUniformLocation(ProtoShader::getID_2(), "specularMaterial");
+	//emissive_loc_U = glGetUniformLocation(ProtoShader::getID_2(), "emissiveMaterial");
+	//shininess_loc_U = glGetUniformLocation(ProtoShader::getID_2(), "shininess");
+
+	// set lighting on by default for 3D forms
+	//lightRenderingFactors_U = glGetUniformLocation(ProtoShader::getID_2(), "lightRenderingFactors");
+
+	// diffuse, bump, more soon!
+	//setTextureUniforms();
+
+	// initialize glew for Windows
+	//#if defined(_WIN32) || defined(__linux__)
+	//	GLenum err = glewInit();
+	//	if (GLEW_OK != err)
+	//	{
+	//		/* Problem: glewInit failed, something is seriously wrong. */
+	//		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+	//	}
+	//	//fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
+	//#endif
+
+	// Special thanks to:
+	// http://stackoverflow.com/questions/8704801/glvertexattribpointer-clarification
+	// http://www.swiftless.com/tutorials/opengl4/4-opengl-4-vao.html
+	/***************************************/
+	/*       Setup VAO/VBO buffers         */
+	/***************************************/
+	// 1. Create and bind VAO
+	//glGenVertexArrays(1, &vaoID); // Create VAO
+	glBindVertexArray(vaoID); // Bind VAO (making it active)
+	//2. Create and bind VBO
+	// a. Vertex attributes
+	//glGenBuffers(1, &vboID); // Create VBO ID
+	glBindBuffer(GL_ARRAY_BUFFER, vboID); // Bind vertex attributes VBO
+	int vertsDataSize = sizeof (float)* static_cast<int>(interleavedPrims.size());
+	glBufferData(GL_ARRAY_BUFFER, vertsDataSize, NULL, GL_STREAM_DRAW); // allocate space
+	glBufferSubData(GL_ARRAY_BUFFER, 0, vertsDataSize, &interleavedPrims[0]); // upload the data
+
+	// b. Indices  uses ELEMENT_ARRAY_BUFFER
+	//glGenBuffers(1, &indexVboID); // Generate buffer
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexVboID); // Bind indices VBO
+	int indsDataSize = static_cast<int>(inds.size()) * 3 * sizeof (GL_UNSIGNED_INT);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indsDataSize, NULL, GL_STATIC_DRAW); // allocate
+	glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, indsDataSize, &indPrims[0]); // upload the data
+
+	//for (int i = 0; i < 5; i++) {
+	//	glEnableVertexAttribArray(i);
+	//}
+	// STRIDE is 15: pos(3) + norm(3) + col(4) + uv(2) + tang(3)
+	// (x, y, z, nx, ny, nz, r, g, b, a, u, v, tx, ty, tz)
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, STRIDE * sizeof (GLfloat), BUFFER_OFFSET(0)); // pos
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, STRIDE * sizeof (GLfloat), BUFFER_OFFSET(12)); // norm
+	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, STRIDE * sizeof (GLfloat), BUFFER_OFFSET(24)); // col
+	glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, STRIDE * sizeof (GLfloat), BUFFER_OFFSET(40)); // uv
+	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, STRIDE * sizeof (GLfloat), BUFFER_OFFSET(48)); // tangent
+
+	// Disable VAO
+	glEnableVertexAttribArray(0);
+	glBindVertexArray(0);
+
+
+	// set default texture enabled state
+	isTextureEnabled = true;
 }
 
 void ProtoGeom3::clearVectors(){
@@ -504,17 +650,17 @@ void ProtoGeom3::display(RenderMode render, float pointSize) {
     
 }
 
-void ProtoGeom3::move(const Vec3f& v) {
-	pos += v;
-}
+//void ProtoGeom3::move(const Vec3f& v) {
+//	pos += v;
+//}
 
-void ProtoGeom3::rotate(const Vec3f& r) {
-	rot += r;
-}
+//void ProtoGeom3::rotate(const Vec3f& r) {
+//	rot += r;
+//}
 
-void ProtoGeom3::scale(const ProtoDimension3f& s) {
-	size += s;
-}
+//void ProtoGeom3::scale(const ProtoDimension3f& s) {
+//	size += s;
+//}
 
 // transform VBO primitives using glBufferSubData
 void ProtoGeom3::transform(const ProtoMatrix4f& mat4){

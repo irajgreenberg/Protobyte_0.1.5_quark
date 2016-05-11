@@ -29,6 +29,10 @@
 
 namespace ijg {
 
+	//created namespace safe shortname
+	class ProtoSphere;
+	typedef ProtoSphere Sphere;
+
     class ProtoSphere : public ProtoGeom3 {
     public:
         ProtoSphere();
@@ -42,6 +46,11 @@ namespace ijg {
 		ProtoSphere(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
 			const ProtoColor4f col4, const std::string& textureImageURL, float textureScale, int spines, int spineNodes, const Vec3f& chaos);
 
+		//new constructors - bw
+		ProtoSphere(const Col4f& col4);
+		ProtoSphere(float xRadius, float yRadius, const Col4f& col4 = Col4f(0.0, 0.0, 0.0, 1.0));
+		ProtoSphere(const Dim2f& dims, const Col4f& col4 = Col4f(0.0, 0.0, 0.0, 1.0));
+		
 //        void init(); // temp override
         void calcVerts();
         void calcInds();
@@ -54,6 +63,7 @@ namespace ijg {
 		Vec3f chaos{0, 0, 0};
         int spines;
         int spineNodes;
+		float xRadius, yRadius;
 
     };
 }

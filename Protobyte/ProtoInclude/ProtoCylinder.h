@@ -54,6 +54,11 @@ namespace ijg {
 		ProtoCylinder(const Vec3& pos, int detail, const std::string& textureImageURL, Registration reg = CENTER);
 		ProtoCylinder(const Dim3f& size, int detail, const std::string& textureImageURL, Registration reg = CENTER);
 		ProtoCylinder(const Vec3& pos, const Dim3f& size, int detail, const std::string& textureImageURL, Registration reg = CENTER);
+
+		//new constructors - bw
+		ProtoCylinder(const Col4f& col4);
+		ProtoCylinder(float ellipseWidth, float ellipseHeight, float length, const Col4f& col4 = Col4f(0.0, 0.0, 0.0, 1.0));
+		ProtoCylinder(const Dim3f& dims, const Col4f& col4 = Col4f(0.0, 0.0, 0.0, 1.0));
 		
 
 		void setDetail(int sides);
@@ -64,6 +69,9 @@ namespace ijg {
 		int detail;
 		Registration registration;
 
+		//new feilds - bw
+		float ellipseWidth, ellipseHeight, length;
+
 		// methods
 		void calcVerts(); // overrides virtual method in base class
 		void calcInds(); // overrides virtual method in base class
@@ -72,7 +80,7 @@ namespace ijg {
 	//implement getters/setters inline
 	inline void ProtoCylinder::setDetail(int detail){
 		this->detail = detail;
-
+		update();
 		// need to call init or reset here
 	}
 

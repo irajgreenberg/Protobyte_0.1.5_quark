@@ -769,7 +769,8 @@ void ProtoBaseApp::_run(const Vec2f& mousePos, const Vec4i& windowCoords/*, int 
 	// I thought I needed this to reset matrix each frame?
 	M = glm::mat4(1.0f);
 	// was 18
-	V = glm::lookAt(glm::vec3(0.0, 0.0, 652.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+	//2D edge testing fix - bw
+	V = glm::lookAt(glm::vec3(0.0, 0.0, ((height / 1000.0) * 652.0f)), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
 	//M = T * R * S;
 	MV = V * M;
 	MVP = P * MV;
@@ -1402,7 +1403,8 @@ void ProtoBaseApp::rect(float x, float y, float w, float h, Registration reg){
 }
 
 void ProtoBaseApp::rect(const Vec2& pt0, const Vec2& pt1, Registration reg) {
-	rect(pt0.x, pt0.y, pt1.x - pt0.x, pt1.y - pt0.y, reg);
+	//fixed issue with rects not being drawn properly when drawn with vectors - bw
+	rect(pt0.x, pt0.y, pt1.x - pt0.x, abs(pt1.y - pt0.y), reg);
 }
 void ProtoBaseApp::rect(float radius1, float radius2, Registration reg) {
 	rect(0, 0, radius1, radius2, reg);
@@ -1665,6 +1667,27 @@ void ProtoBaseApp::poly(int sides, float radius1, float radius2) {
 void ProtoBaseApp::star(int sides, float innerRadius, float outerRadius) {
 }
 void ProtoBaseApp::star(int sides, const Vec2& radiusAndRatio) {
+}
+//possible additional 2D primitives - bw
+void ProtoBaseApp::line(float x0, float y0, float x1, float y1){
+}
+void ProtoBaseApp::line(const Vec2& pt0, const Vec2& pt1){
+}
+void ProtoBaseApp::line(const Vec2& pt0, float l, float rot){
+}
+void ProtoBaseApp::line(float l, float rot){
+}
+void ProtoBaseApp::point(float x, float y){
+}
+void ProtoBaseApp::point(const Vec2& pt){
+}
+void ProtoBaseApp::semi(float x, float y, float r, int hemi){
+}
+void ProtoBaseApp::semi(const Vec2& pt, float r, int hemi){
+}
+void ProtoBaseApp::pie(float x, float y, float r, int pecentage){
+}
+void ProtoBaseApp::pie(const Vec2& pt, float r, int percentage){
 }
 
 // PATH

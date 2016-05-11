@@ -26,46 +26,109 @@
 using namespace ijg;
 
 // default cstr
-ProtoCylinder::ProtoCylinder() :
-ProtoGeom3(Vec3f(), Vec3f(), Dim3f(1), Col4f(1), "white_tile.jpg", Vec2(1)), detail(12), registration(CENTER) {
+ProtoCylinder::ProtoCylinder() 
+//:ProtoGeom3(Vec3f(), Vec3f(), Dim3f(1), Col4f(1),
+	//"white_tile.jpg", Vec2(1)), detail(12), registration(CENTER),
+	//ellipseWidth(1.0), ellipseHeight(1.0),
+	//length(1.0) 
+{
 	//init();
 }
 
 //overloaded cstr's
-ProtoCylinder::ProtoCylinder(int detail, Registration reg) :
-ProtoGeom3(Vec3f(), Vec3f(), Dim3f(1), Col4f(1), "white_tile.jpg", Vec2(1)), detail(detail), registration(reg) {
+ProtoCylinder::ProtoCylinder(int detail, Registration reg) //:
+//ProtoGeom3(Vec3f(), Vec3f(), Dim3f(1), Col4f(1),
+//	"white_tile.jpg", Vec2(1)), detail(detail), registration(reg),
+//	ellipseWidth(1.0), ellipseHeight(1.0),
+//	length(1.0) 
+{
 	//setBumpMap("white_tile.jpg");
 	init();
 }
-ProtoCylinder::ProtoCylinder(const Vec3& pos, int detail, Registration reg) :
-ProtoGeom3(pos, Vec3f(), Dim3f(1), Col4f(1), "white_tile.jpg", Vec2(1)), detail(detail), registration(reg) {
-	init();
-}
-ProtoCylinder::ProtoCylinder(const Dim3f& size, int detail, Registration reg) :
-ProtoGeom3(Vec3f(), Vec3f(), size, Col4f(1), "white_tile.jpg", Vec2(1)), detail(detail), registration(reg) {
-	init();
-}
-ProtoCylinder::ProtoCylinder(const Vec3& pos, const Dim3f& size, int detail, Registration reg) :
-ProtoGeom3(pos, Vec3f(), size, Col4f(1), "white_tile.jpg", Vec2(1)), detail(detail), registration(reg) {
-	init();
-}
-ProtoCylinder::ProtoCylinder(int detail, const std::string& textureImageURL, Registration reg) :
-ProtoGeom3(Vec3f(), Vec3f(), Dim3f(1), Col4f(1), textureImageURL, Vec2(1)), detail(detail), registration(reg) {
-	init();
-}
-ProtoCylinder::ProtoCylinder(const Vec3& pos, int detail, const std::string& textureImageURL, Registration reg) :
-ProtoGeom3(pos, Vec3f(), Dim3f(1), Col4f(1), textureImageURL, Vec2(1)), detail(detail), registration(reg) {
-	init();
-}
-ProtoCylinder::ProtoCylinder(const Dim3f& size, int detail, const std::string& textureImageURL, Registration reg) :
-ProtoGeom3(Vec3f(), Vec3f(), size, Col4f(1), textureImageURL, Vec2(1)), detail(detail), registration(reg) {
-	init();
-}
-ProtoCylinder::ProtoCylinder(const Vec3& pos, const Dim3f& size, int detail, const std::string& textureImageURL, Registration reg) :
-ProtoGeom3(pos, Vec3f(), size, Col4f(1), textureImageURL, Vec2(1)), detail(detail), registration(reg) {
+
+ProtoCylinder::ProtoCylinder(const Vec3& pos, int detail, Registration reg) 
+//:ProtoGeom3(pos, Vec3f(), Dim3f(1), Col4f(1), "white_tile.jpg",
+//	Vec2(1)), detail(detail), registration(reg), 
+//	ellipseWidth(1.0), ellipseHeight(1.0), 
+//	length(1.0) 
+{
 	init();
 }
 
+ProtoCylinder::ProtoCylinder(const Dim3f& size, int detail, Registration reg) 
+//:ProtoGeom3(Vec3f(), Vec3f(), size, Col4f(1), "white_tile.jpg",
+//	Vec2(1)), detail(detail), registration(reg),
+//	ellipseWidth(1.0), ellipseHeight(1.0),
+//	length(1.0) 
+{
+	init();
+}
+
+ProtoCylinder::ProtoCylinder(const Vec3& pos, const Dim3f& size, int detail, Registration reg) 
+//:ProtoGeom3(pos, Vec3f(), size, Col4f(1), "white_tile.jpg",
+//	Vec2(1)), detail(detail), registration(reg), 
+//	ellipseWidth(1.0), ellipseHeight(1.0), 
+//	length(1.0) 
+{
+	init();
+}
+
+ProtoCylinder::ProtoCylinder(int detail, const std::string& textureImageURL, Registration reg) 
+//:ProtoGeom3(Vec3f(), Vec3f(), Dim3f(1), Col4f(1), textureImageURL,
+//	Vec2(1)), detail(detail), registration(reg), 
+//	ellipseWidth(1.0), ellipseHeight(1.0), 
+//	length(1.0) 
+{
+	init();
+}
+
+ProtoCylinder::ProtoCylinder(const Vec3& pos, int detail, const std::string& textureImageURL, Registration reg) 
+//:ProtoGeom3(pos, Vec3f(), Dim3f(1), Col4f(1), textureImageURL,
+//	Vec2(1)), detail(detail), registration(reg), 
+//	ellipseWidth(1.0), ellipseHeight(1.0), 
+//	length(1.0) 
+{
+	init();
+}
+
+ProtoCylinder::ProtoCylinder(const Dim3f& size, int detail, const std::string& textureImageURL, Registration reg) 
+//:ProtoGeom3(Vec3f(), Vec3f(), size, Col4f(1), textureImageURL,
+//	Vec2(1)), detail(detail), registration(reg), 
+//	ellipseWidth(1.0), ellipseHeight(1.0),
+//	length(1.0) 
+{
+	init();
+}
+
+ProtoCylinder::ProtoCylinder(const Vec3& pos, const Dim3f& size, int detail, const std::string& textureImageURL, Registration reg) 
+//:ProtoGeom3(pos, Vec3f(), size, Col4f(1), textureImageURL,
+//	Vec2(1)), detail(detail), registration(reg),
+//	ellipseWidth(1.0), ellipseHeight(1.0),
+//	length(1.0) 
+{
+	init();
+}
+
+//new constructors - bw
+ProtoCylinder::ProtoCylinder(const Col4f& col4):
+ProtoGeom3(col4), detail(36), registration(CENTER),
+	ellipseWidth(1.0), ellipseHeight(1.0),
+	length(1.0) {
+	init();
+}
+
+ProtoCylinder::ProtoCylinder(float ellipseWidth, float ellipseHeight, float length, const Col4f& col4) :
+ProtoGeom3(col4), registration(CENTER), detail(36),
+ellipseWidth(ellipseWidth), ellipseHeight(ellipseHeight),
+length(length) {
+	init();
+}
+
+ProtoCylinder::ProtoCylinder(const Dim3f& dims, const Col4f& col4) :
+ProtoGeom3(col4), registration(CENTER), detail(36),
+ellipseWidth(dims.w), ellipseHeight(dims.h), length(dims.d) {
+	init();
+}
 
 void ProtoCylinder::calcVerts() {
 	//trace(verts.size());
@@ -98,23 +161,24 @@ void ProtoCylinder::calcVerts() {
 		for (int i = 0; i < 2; ++i){
 			theta = 0;
 			for (int j = 0; j < detail; ++j){
-				y = cos(theta);
-				z = sin(theta);
+				y = cos(theta) * ellipseHeight;
+				z = sin(theta) * ellipseWidth;
 				//verts.push_back(ProtoVertex3(Vec3f(-.5 + (1 * i), y, z),
 				//	ProtoColor4f(col4.getR(), col4.getG(), col4.getB(), col4.getA()), ProtoTuple2f(theta / TWO_PI, (i*detail + j) / (detail * 2.0f))));
-				trace(theta / TWO_PI);
+				//removed trace - bw
+				//trace(theta / TWO_PI);
 			//verts.push_back(ProtoVertex3(Vec3f(-.5 + (1 * i), y, z),
 			//	ProtoColor4f(col4.getR(), col4.getG(), col4.getB(), col4.getA()), ProtoTuple2f(theta / TWO_PI, -.5 + (i*i))));
 			//		theta += TWO_PI / (detail-1);
 
-					verts.push_back(ProtoVertex3(Vec3f(-.5 + (1 * i), y, z),
+					verts.push_back(ProtoVertex3(Vec3f((-.5 * length) + (length * i), y, z),
 						ProtoColor4f(col4.getR(), col4.getG(), col4.getB(), col4.getA()), ProtoTuple2f(theta / TWO_PI, -.5 + (i*i))));
 					theta += TWO_PI / (detail - 1);
 			}
 		}
-		verts.push_back(ProtoVertex3(Vec3f(-.5, 0, 0),
+		verts.push_back(ProtoVertex3(Vec3f(-.5 * length, 0, 0),
 			ProtoColor4f(col4.getR(), col4.getG(), col4.getB(), col4.getA()), ProtoTuple2f(-.5, 0)));
-		verts.push_back(ProtoVertex3(Vec3f(.5, 0, 0),
+		verts.push_back(ProtoVertex3(Vec3f(.5 * length, 0, 0),
 			ProtoColor4f(col4.getR(), col4.getG(), col4.getB(), col4.getA()), ProtoTuple2f(.5, 0)));
 		break;
 	case RIGHT:

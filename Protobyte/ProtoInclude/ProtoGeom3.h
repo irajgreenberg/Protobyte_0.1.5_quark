@@ -73,6 +73,8 @@ namespace ijg {
        
 		// called from cstr's
 		virtual void init();
+
+		void ProtoGeom3::update();
         
 		// primitive pipeline CPU - > GPU
 		// Utilizes VBO's/VAO
@@ -200,11 +202,11 @@ namespace ijg {
         
         ProtoGeom3();
         
-        ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
-                   const ProtoColor4f col4);
+        //ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
+                  // const ProtoColor4f col4);
         
-        ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
-                   const std::vector< ProtoColor4f > col4s);
+        //ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
+                  // const std::vector< ProtoColor4f > col4s);
         
         
         // with textureImageURL
@@ -212,22 +214,25 @@ namespace ijg {
         
 		//ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const std::vector< ProtoColor4f > col4s, const std::string& diffuseTextureImage);
         
-		ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4, const std::string& diffuseTextureImage, const Vec2f& textureScale = Vec2f(1, 1));
+		//ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size, const ProtoColor4f col4, const std::string& diffuseTextureImage, const Vec2f& textureScale = Vec2f(1, 1));
 
-        ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
-			const std::vector< ProtoColor4f > col4s, const std::string& diffuseTextureImage, const Vec2f& textureScale = Vec2f(1, 1));
+        //ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f size,
+			//const std::vector< ProtoColor4f > col4s, const std::string& diffuseTextureImage, const Vec2f& textureScale = Vec2f(1, 1));
 
 		// multi-texturing
-		ProtoGeom3(const Dim3f& size, const Col4f& col4, const std::vector<std::string>& textureImageURLs, const Vec2f& textureScale = Vec2f(1, 1));
-		ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f& size, const Col4f& col4, const std::vector<std::string>& textureImageURLs, const Vec2f& textureScale = Vec2f(1, 1));
+		//ProtoGeom3(const Dim3f& size, const Col4f& col4, const std::vector<std::string>& textureImageURLs, const Vec2f& textureScale = Vec2f(1, 1));
+		//ProtoGeom3(const Vec3f& pos, const Vec3f& rot, const Dim3f& size, const Col4f& col4, const std::vector<std::string>& textureImageURLs, const Vec2f& textureScale = Vec2f(1, 1));
         
+		//new constructors - bw
+		ProtoGeom3(const Col4f& col4);
         
         
         virtual ~ProtoGeom3();
         
-        virtual void move(const Vec3f& v);
-        virtual void rotate(const Vec3f& r);
-        virtual void scale(const ProtoDimension3f& s);
+		//removed translation functions - bw
+        //virtual void move(const Vec3f& v);
+        //virtual void rotate(const Vec3f& r);
+        //virtual void scale(const ProtoDimension3f& s);
         
         virtual void transform(const ProtoMatrix4f& mat4);
         

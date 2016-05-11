@@ -29,6 +29,10 @@
 
 namespace ijg {
 
+	//created namespace safe shortname - bw
+	class ProtoBlock;
+	typedef ProtoBlock Block;
+
     class ProtoBlock : public ProtoGeom3 {
     public:
         friend std::ostream& operator<<(std::ostream& out, const ProtoBlock& block);
@@ -54,6 +58,11 @@ namespace ijg {
 		ProtoBlock(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3f& size,
 			const std::vector<Col4f>& cols4, const std::string& textureImageURL, const Vec2f& textureScale = Vec2f(1, 1));
 
+		//new constuctors - bw
+		ProtoBlock(const Col4f& col4);
+		ProtoBlock(float w, float h, float d, const Col4f& col4 = Col4f(0.0, 0.0, 0.0, 1.0));
+		ProtoBlock(const Dim3f& dims, const Col4f& col4 = Col4f(0.0, 0.0, 0.0, 1.0));
+		
 
 
         /*!
@@ -70,6 +79,9 @@ namespace ijg {
          * 
          * Generates indices to group vertices to triangle faces.*/
         void calcInds();
+
+	private:
+		float w, h, d;
       
 
     };

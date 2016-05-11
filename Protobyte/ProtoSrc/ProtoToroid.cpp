@@ -28,16 +28,28 @@ using namespace ijg;
 
 ProtoToroid::ProtoToroid() {}
 
-ProtoToroid::ProtoToroid(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3<float>& size, const ProtoColor4<float>& col4, int ringCount, int ringDetail, float ringRadius, float ringThickness):
-ProtoGeom3(pos, rot, size, col4), ringCount(ringCount), ringDetail(ringDetail), ringRadius(ringRadius), ringThickness(ringThickness) {
+ProtoToroid::ProtoToroid(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3<float>& size, const ProtoColor4<float>& col4, int ringCount, int ringDetail, float ringRadius, float ringThickness)
+{
+//ProtoGeom3(pos, rot, size, col4), ringCount(ringCount), ringDetail(ringDetail), ringRadius(ringRadius), ringThickness(ringThickness) {
     
     init();
 }
 
 ProtoToroid::ProtoToroid(const Vec3f& pos, const Vec3f& rot, const ProtoDimension3<float>& size, const ProtoColor4<float>& col4,
-	int ringCount, int ringDetail, float ringRadius, float ringThickness, const std::string& textureImageURL, const Vec2f& textureScale) :
-ProtoGeom3(pos, rot, size, col4, textureImageURL, textureScale), ringCount(ringCount), ringDetail(ringDetail), ringRadius(ringRadius), ringThickness(ringThickness) {
+	int ringCount, int ringDetail, float ringRadius, float ringThickness, const std::string& textureImageURL, const Vec2f& textureScale) {
+	//ProtoGeom3(pos, rot, size, col4, textureImageURL, textureScale), ringCount(ringCount), ringDetail(ringDetail), ringRadius(ringRadius), ringThickness(ringThickness) {
     init();
+}
+
+//new constructors - bw
+ProtoToroid::ProtoToroid(const Col4f& col4) :
+ProtoGeom3(col4), ringCount(20), ringDetail(20), ringRadius(1), ringThickness(0.3) {
+	init();
+}
+
+ProtoToroid::ProtoToroid(float ringRadius, float ringThickness, const Col4f& col4):
+ProtoGeom3(col4), ringRadius(ringRadius), ringThickness(ringThickness), ringCount(20), ringDetail(20) {
+	init();
 }
 
 
